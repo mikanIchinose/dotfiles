@@ -1,0 +1,99 @@
+{
+	"name": "vscode-attrs-sorter",
+	"displayName": "Sorting HTML and Jade attributes",
+	"description": "Sorting of the tag attributes in the specified order",
+	"version": "2.1.0",
+	"publisher": "mrmlnc",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.9.0"
+	},
+	"icon": "icon.png",
+	"homepage": "https://github.com/mrmlnc/vscode-attrs-sorter/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mrmlnc/vscode-attrs-sorter"
+	},
+	"keywords": [
+		"html",
+		"jade",
+		"pug",
+		"attributes",
+		"sort"
+	],
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:attrsSorter.execute",
+		"onLanguage:html",
+		"onLanguage:jade"
+	],
+	"main": "./extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "attrsSorter.execute",
+				"title": "Sorting of the tag attributes (attrs-sorter)"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "AttrsSorter configuration",
+			"properties": {
+				"attrsSorter.order": {
+					"type": "array",
+					"default": [],
+					"description": "An array of attributes in the correct order"
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"posthtml": "0.9.2",
+		"posthtml-attrs-sorter": "1.1.0",
+		"pug-lexer": "3.0.0"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.39",
+		"@types/node": "7.0.5",
+		"mocha": "^3.2.0",
+		"vscode": "^1.0.3",
+		"xo": "^0.17.1"
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "xo && mocha"
+	},
+	"xo": {
+		"rules": {
+			"arrow-parens": [
+				2,
+				"always"
+			],
+			"object-curly-spacing": [
+				2,
+				"always"
+			],
+			"babel/object-curly-spacing": 0,
+			"space-before-function-paren": [
+				2,
+				"never"
+			],
+			"generator-star-spacing": [
+				2,
+				"after"
+			],
+			"import/no-unresolved": 0
+		},
+		"envs": [
+			"node",
+			"mocha"
+		]
+	},
+	"__metadata": {
+		"id": "901d9ffe-2718-416c-9edc-2607e7528d1a",
+		"publisherDisplayName": "mrmlnc",
+		"publisherId": "c958976e-9702-4f1a-8bdf-26b7bc012d65"
+	}
+}
