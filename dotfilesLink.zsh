@@ -5,6 +5,6 @@ link .aliases
 link .zshrc
 link .bashrc
 link .gitconfig
-link .vimrc
 link .jupyter
-
+link .vim
+ln -sf ~/dotfiles/.vim/.vimrc ~/.vimrc
