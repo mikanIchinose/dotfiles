@@ -18,10 +18,11 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export DENO_INSTALL="/home/solenoid/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+
 ### powerline-go
 GOPATH=$HOME/go
 function powerline_precmd() {
-  eval "$($GOPATH/bin/powerline-go -eval -shell zsh -cwd-mode plain -modules time,venv,node,hg,dotenv,exit,cwd,gitlite,newline,git)"
+  eval "$($GOPATH/bin/powerline-go -eval -shell zsh -cwd-mode plain -modules time,exit,cwd,newline,venv,node,docker,docker-context,hg,dotenv,git,newline)"
 }
 
 function install_powerline_precmd() {
@@ -35,6 +36,7 @@ function install_powerline_precmd() {
 if [ "$TERM" != "linux" ]; then
   install_powerline_precmd
 fi
+
 
 ### fzf
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
