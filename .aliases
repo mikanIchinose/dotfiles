@@ -36,6 +36,8 @@ alias gt='git tag'
 
 # vim
 alias set-zsh='vim ~/.zshrc'
+alias set-vim='vim ~/.vimrc'
+alias add-vim-plugin='vim ~/.vim/dein.toml'
 
 # apt
 alias agi='sudo apt install'
