@@ -1,0 +1,9 @@
+#!/bin/bash
+# ウィンドウの名称をIDEに変更
+tmux rename-window IDE
+# 画面を4つのペインに分割
+tmux splitw -v -p 30
+tmux splitw -h -p 66
+tmux splitw -h -p 50
+# 0番のペインに戻る
+tmux select-pane -t 0
