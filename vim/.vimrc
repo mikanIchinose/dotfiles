@@ -1,10 +1,10 @@
 set nocompatible
-set runtimepath+=~/dotfiles/.vim/bundle/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/dotfiles/vim/bundle/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('~/dotfiles/.vim/bundle')
-  call dein#begin('~/dotfiles/.vim/bundle')
+if dein#load_state('~/dotfiles/vim/bundle')
+  call dein#begin('~/dotfiles/vim/bundle')
 
-  let s:toml_dir = '~/dotfiles/.vim'
+  let s:toml_dir = '~/dotfiles/vim'
   let s:toml = s:toml_dir . '/dein.toml'
   " let s:lazy_toml = s:toml_dir . '/dein_lazy.toml'
   
@@ -31,10 +31,8 @@ if len(s:removed_plugins)>0
   call dein#recache_runtimepath()
 endif
 
+set runtimepath+=~/dotfiles/vim/
 " editor setting
-source ~/.vim/config/init/editor.vim
+runtime! config/init/*.vim
 " plugin setting
-source ~/.vim/config/plugins/rainbow_parentheses.vim
-source ~/.vim/config/plugins/nerdtree.vim
-source ~/.vim/config/plugins/ale.vim
-source ~/.vim/config/plugins/airline.vim
+runtime! config/plugins/*.vim

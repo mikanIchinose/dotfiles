@@ -1,0 +1,51 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+# super completion using LSP like VSCode
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merge = 0
+rev = 'release'
+# colorful parentheses
+[[plugins]]
+repo = 'kien/rainbow_parentheses.vim'
+# directory tree like an IDE
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+# linting
+[[plugins]]
+repo = 'dense-analysis/ale'
+# powerline for vim
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+# useful commentin/out
+[[plugins]]
+repo = 'preservim/nerdcommenter'
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+# coooool color scheme
+[[plugins]]
+repo = 'morhetz/gruvbox'
+# git in vim
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+# colored indent
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+# cooporation vim & tmux
+[[plugins]]
+repo = 'christoomey/vim-tmux-navigator'
+# toml highlighting
+[[plugins]]
+repo = 'cespare/vim-toml'
+[[plugins]]
+repo = 'posva/vim-vue'
+# elixir highlighting
+[[plugins]]
+repo = 'elixir-lang/vim-elixir'
+# auto switch paste mode
+[[plugins]]
+repo = 'roxma/vim-paste-easy'

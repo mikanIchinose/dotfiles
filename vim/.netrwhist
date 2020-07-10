@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/solenoid/dotfiles/.vim/config'
+let g:netrw_dirhist_4='/home/solenoid/dotfiles/.vim'
 let g:netrw_dirhist_3='/home/solenoid/.zinit/snippets'
 let g:netrw_dirhist_2='/home/solenoid/dotfiles'
 let g:netrw_dirhist_1='/home/solenoid/python_project/pythonで学び直す高校数学'
