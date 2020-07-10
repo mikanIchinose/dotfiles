@@ -2,4 +2,4 @@
 bin
 .vscode-server/data
 .jupyter/lab
-.vim/bundle
+vim/bundle
