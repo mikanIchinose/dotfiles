@@ -1,1 +1,0 @@
-autocmd VimEnter * execute 'NERDTree'
