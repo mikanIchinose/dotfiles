@@ -1,0 +1,92 @@
+# [[plugins]]
+# repo = 'Shougo/dein.vim'
+# super completion using LSP like VSCode
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merge = 0
+rev = 'release'
+hook_add = '''
+  source ~/.config/nvim/plugins/coc.vim
+'''
+# colorful parentheses
+[[plugins]]
+repo = 'kien/rainbow_parentheses.vim'
+hook_add = '''
+  source ~/.config/nvim/plugins/rainbow_parentheses.vim
+'''
+# directory tree
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+  source ~/.config/nvim/plugins/nerdtree.vim
+'''
+# asynchronos linting
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+  source ~/.config/nvim/plugins/ale.vim
+'''
+# useful status line
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  source ~/.config/nvim/plugins/lightline.vim
+'''
+[[plugins]]
+repo = 'mengelbrecht/lightline-bufferline'
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+# useful commentin/out
+[[plugins]]
+repo = 'preservim/nerdcommenter'
+hook_add = '''
+  source ~/.config/nvim/plugins/nerdcommenter.vim
+'''
+# coooool color scheme
+[[plugins]]
+repo = 'morhetz/gruvbox'
+# git in vim
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+# colored indent
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+  source ~/.config/nvim/plugins/vim-indent-guides.vim
+'''
+# cooporation vim & tmux
+# [[plugins]]
+# repo = 'christoomey/vim-tmux-navigator'
+# toml highlighting
+[[plugins]]
+repo = 'cespare/vim-toml'
+# [[plugins]]
+# repo = 'posva/vim-vue'
+# elixir highlighting
+# [[plugins]]
+# repo = 'elixir-lang/vim-elixir'
+# auto switch paste mode
+[[plugins]]
+repo = 'roxma/vim-paste-easy'
+# insert semicolon or comma
+[[plugins]]
+repo = 'lfilho/cosco.vim'
+hook_add = '''
+  source ~/.config/nvim/plugins/cosco.vim
+'''
+[[plugins]]
+repo = 'tpope/vim-repeat'
+# show git diff
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+  source ~/.config/nvim/plugins/gitgutter.vim
+'''
+# fzf
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+[[plugins]]
+repo = 'airblade/vim-rooter'
+# auto close
+[[plugins]]
+repo = 'cohama/lexima.vim'
