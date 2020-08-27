@@ -33,11 +33,15 @@ set report =0
 set synmaxcol =200
 
 set list 
-set number relativenumber
-"set relativenumber
+set relativenumber number
+" set number
 
 " ファイル名補完
 set wildmenu
 set ttimeoutlen=50
 
 set textwidth=80
+
+set updatetime=100
+" lightline#buffers needs showtabline
+set showtabline=2

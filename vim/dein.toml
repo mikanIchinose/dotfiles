@@ -8,17 +8,21 @@ rev = 'release'
 # colorful parentheses
 [[plugins]]
 repo = 'kien/rainbow_parentheses.vim'
-# directory tree like an IDE
+# directory tree
 [[plugins]]
 repo = 'scrooloose/nerdtree'
-# linting
+# asynchronos linting
 [[plugins]]
 repo = 'dense-analysis/ale'
-# powerline for vim
+# useful status line
+#[[plugins]]
+#repo = 'vim-airline/vim-airline'
+#[[plugins]]
+#repo = 'vim-airline/vim-airline-themes'
 [[plugins]]
-repo = 'vim-airline/vim-airline'
+repo = 'itchyny/lightline.vim'
 [[plugins]]
-repo = 'vim-airline/vim-airline-themes'
+repo = 'mengelbrecht/lightline-bufferline'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 # useful commentin/out
@@ -49,3 +53,21 @@ repo = 'elixir-lang/vim-elixir'
 # auto switch paste mode
 [[plugins]]
 repo = 'roxma/vim-paste-easy'
+# insert semicolon or comma
+[[plugins]]
+repo = 'lfilho/cosco.vim'
+[[plugins]]
+repo = 'tpope/vim-repeat'
+# show git diff
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+# fzf
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+[[plugins]]
+repo = 'airblade/vim-rooter'
+# ultimate snippet
+# [[plugins]]
+# repo = 'SirVer/ultisnips'
+# [[plugins]]
+# repo = 'honza/vim-snippets'
