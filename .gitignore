@@ -4,4 +4,4 @@ bin
 .jupyter/lab
 vim/bundle
 .gitconfig
-.spacemacs
+secret.d/
