@@ -1,0 +1,16 @@
+[character]
+symbol = " "
+[username]
+show_always = true
+[python]
+symbol = " "
+style = "blold green"
+[elixir]
+symbol = " "
+style = "blold purple"
+[golang]
+symbol = "ﳑ "
+[docker_context]
+symbol = " "
+[php]
+symbol = " "
