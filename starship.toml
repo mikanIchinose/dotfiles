@@ -1,0 +1,63 @@
+format = """
+$time\
+$username\
+$hostname\
+$shlvl\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$memory_usage\
+$aws\
+$gcloud\
+$env_var\
+$cmd_duration\
+$custom\
+$line_break\
+$jobs\
+$battery\
+$status\
+$character"""
+
+scan_timeout = 10
+
+[character]
+success_symbol = "[]($style)"
+
+[time]
+disabled = false
+format = "🕰  [$time]($style) "
+style = "dimmed gray"
+time_format = "%R"
+time_range = "09:30:00-18:30:00"
+
+# git
+[git_branch]
+symbol = "🌱 "
+
+[docker_context]
+symbol = " "
+
+# programming langages
+[python]
+symbol = " "
+style = "blold green"
+
+[golang]
+symbol = "ﳑ "
+
+[php]
+symbol = " "
+
+[memory_usage]
+disabled = false
+format = "$symbol[$ram]($style) "
+symbol = "[]($style) "
+style = "dimmed"
+show_percentage = true
+show_swap = true
+threshold = 80
