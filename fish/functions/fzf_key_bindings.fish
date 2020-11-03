@@ -1,0 +1,1 @@
+/home/solenoid/.fzf/shell/key-bindings.fish
