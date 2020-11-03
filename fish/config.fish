@@ -1,15 +1,23 @@
-set -U fish_user_paths $fish_user_paths /home/solenoid/.php-school/bin
+# set -U fish_user_paths $fish_user_paths /home/solenoid/.php-school/bin
 
 # VcXsrv
 # set -x DISPLAY '(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')':0
 # set -x LIBGL_ALWAYS_INDIRECT 1
 
 
-# cool prompt setting
+# starship
+# official site: https://starship.rs
 starship init fish | source
 
 # rbenv
-status --is-interactive; and rbenv init - | source
+# status --is-interactive; and rbenv init - | source
+
+# asdf
+source ~/.asdf/asdf.fish
+
+# fzf
+set -U FZF_LEGACY_KEYBINDINGS 0
+set -U FZF_REVERSE_ISEARCH_OPTS "--reverse --height=100%"
 
 # alias setting
 alias reload 'exec fish'
@@ -51,3 +59,7 @@ alias dexec 'docker-compose exec'
 # emacs
 alias e='emacsclient -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
+
+alias bash="bash --norc"
+alias g='cd (ghq root)/(ghq list | fzf)'
+# alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
