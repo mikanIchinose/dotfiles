@@ -10,6 +10,9 @@ let g:ale_fix_on_save = 1
 " LSPの機能はCoc.nvimを使用するためALE側は無効にする
 let g:ale_disable_lsp = 1
 
+
+let g:ale_php_phpcs_executable = '/home/solenoid/.composer/vendor/bin/phpcs'
+let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_linters = {
     \ 'javascript': ['eslint'],
     \ 'vue': ['eslint'],

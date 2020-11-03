@@ -13,4 +13,3 @@ nnoremap <silent><PageDown> :bnext<CR>
 "nnoremap <silent><C-w> :bd<CR>
 
 " Map Ctrl + p to open fuzzy find (FZF)
-nnoremap <c-p> :Files<cr>

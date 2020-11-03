@@ -5,8 +5,8 @@ set smartindent
 set autowrite
 
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set shiftround
 
 set nobackup
@@ -38,7 +38,9 @@ set relativenumber number
 
 " ファイル名補完
 set wildmenu
-set ttimeoutlen=50
+
+" タイムアウトの感覚
+set ttimeoutlen=500
 
 set textwidth=80
 
