@@ -123,4 +123,6 @@ fi
 # official site: https://starship.rs
 # eval "$(starship init bash)"
 
+export DOTFILES_DIR=~/.cache/dein
+
 exec fish
