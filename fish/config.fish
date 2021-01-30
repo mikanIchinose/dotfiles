@@ -4,29 +4,56 @@
 # set -x DISPLAY '(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')':0
 # set -x LIBGL_ALWAYS_INDIRECT 1
 
+# dotfilesのシンボリックリンクを環境変数に設定する
+# 注意: 必ずシンボリックリンクを作っておいてください｡でなければコメントアウトしてください
+set -x DOTFILES_DIR ~/.dotfiles
+set -x XDG_CONFIG_HOME "$HOME/.config"
+
+# appimageをコマンドラインから使えるようにパスを通す
+set -x PATH $HOME/AppImage $PATH
 
 # starship
 # official site: https://starship.rs
 starship init fish | source
 
-# rbenv
-# status --is-interactive; and rbenv init - | source
-
 # asdf
 source ~/.asdf/asdf.fish
+# yarn path
+set -x PATH $PATH (yarn global bin)
 
 # fzf
-set -U FZF_LEGACY_KEYBINDINGS 0
-set -U FZF_REVERSE_ISEARCH_OPTS "--reverse --height=100%"
+set -x FZF_LEGACY_KEYBINDINGS 0
+## 逆順､半分の高さ､ボーダー付き､ANSIカラー付き
+set -x FZF_DEFAULT_OPTS "--layout=reverse --height 50% --border --ansi"
 
-# alias setting
+# alias
+
+## global
+### シェルの再起動
 alias reload 'exec fish'
+### パッケージの更新
 alias update 'sudo apt update && sudo apt upgrade -y'
-# ls
+
+## apt
+alias ainst 'sudo apt install -y'
+alias arm 'sudo apt remove'
+alias auninst 'arm'
+alias aauto 'sudo apt autoremove'
+
+## ls
 alias ls 'ls --color=auto -F'
-alias lh 'clear &&ls -lh'
+alias lh 'clear && ls -lh'
 alias cl 'clear'
-# git
+
+## change owner
+alias change-owner 'sudo chown -R $USER:$USER .'
+
+## git
+### gitリポジトリに移動 
+alias gcd 'cd (ghq root)/(ghq list | fzf )'
+### IMDと名の付くリポジトリに移動
+alias imd 'cd (ghq root)/(ghq list | rg IMD | fzf )'
+alias g 'git'
 alias gbranch 'git branch'
 alias gadd 'git add'
 alias gcommit 'git commit'
@@ -37,29 +64,38 @@ alias gapply 'git stash apply'
 alias gmerge 'git merge'
 alias gpush 'git push'
 alias gpull 'git pull'
-# setting
-alias setzsh 'vim ~/.zshrc'
-alias setfish 'vim ~/.config/fish/config.fish'
-alias setvim 'vim ~/dotfiles/vim'
-alias settmux 'vim ~/.tmux.conf'
-# apt
-alias ainst 'sudo apt install'
-alias arm 'sudo apt remove'
-# tmux
+
+## edit config file
+alias setzsh 'nvim ~/.zshrc'
+alias setfish 'nvim ~/.config/fish/config.fish'
+alias setvim 'nvim (find ~/.config/nvim/ | fzf --reverse)'
+alias settmux 'nvim ~/.tmux.conf'
+
+## tmux
 # alias t 'tmux' # start session
 # alias ta 'tmux attach' # attach session
 # alias tsh 'tmux split-window -h' # split horizontal
 # alias tsv 'tmux split-window -v' # split vertical
 # alias tks 'tmux kill-server' # stop tmux server
-# docker
+
+## docker
+alias d 'docker'
 # docker-compose
+alias dc 'docker-compose'
 alias dup 'docker-compose up -d'
 alias ddown 'docker-compose down'
+alias dreload 'ddown && dup'
 alias dexec 'docker-compose exec'
-# emacs
-alias e='emacsclient -a ""'
-alias ekill='emacsclient -e "(kill-emacs)"'
+alias drun 'docker-compose run'
+alias dbuild 'docker-compose build'
+alias dps 'docker container ls --format "table {{.Names}}\t{{.Ports}}"'
 
-alias bash="bash --norc"
-alias g='cd (ghq root)/(ghq list | fzf)'
-# alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+## emacs
+# alias e='emacsclient -a ""'
+# alias ekill='emacsclient -e "(kill-emacs)"'
+
+## vim
+alias vim='nvim'
+
+## bash
+alias bash "bash --norc"
