@@ -117,12 +117,15 @@ if ! shopt -oq posix; then
 fi
 
 # fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # starship
 # official site: https://starship.rs
-# eval "$(starship init bash)"
+# if command -v starship &> /dev/null; then
+  # eval "$(starship init bash)"
+# fi
 
-export DOTFILES_DIR=~/.cache/dein
-
-exec fish
+# login fish
+if command -v fish &> /dev/null; then
+  exec fish
+fi

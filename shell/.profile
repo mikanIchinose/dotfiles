@@ -26,5 +26,13 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# homebrew
+if [ -d "/home/linuxbrew" ];then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
+# poetry
 export PATH="$HOME/.poetry/bin:$PATH"
+
+# rust
 export PATH="$HOME/.cargo/bin:$PATH"
