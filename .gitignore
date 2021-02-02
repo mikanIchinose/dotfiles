@@ -1,7 +1,4 @@
 *log
 bin
-.vscode-server/data
-.jupyter/lab
 vim/bundle
-.gitconfig
 secret.d/
