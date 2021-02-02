@@ -6,7 +6,7 @@ make_shim()
   target=~/.dotfiles/$1
   link_path=$2
   echo "$targetのシンボリックリンクを作成します"
-  if [ -f "$link_path" ]; then
+  if [ -e "$link_path" ]; then
     rm -f $link_path
   fi
   ln -sf $target $link_path
