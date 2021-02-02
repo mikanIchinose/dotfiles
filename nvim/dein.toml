@@ -10,13 +10,6 @@ rev = 'release'
   # source ~/.config/nvim/plugins/coc.vim
 # '''
 
-# smart completion powered by AI
-[[plugins]]
-repo = 'kiteco/vim-plugin'
-hook_add = '''
-  source ~/.config/nvim/plugins/kite.vim
-'''
-
 # colorful parentheses
 [[plugins]]
 repo = 'kien/rainbow_parentheses.vim'
@@ -35,9 +28,10 @@ repo = 'ryanoasis/vim-devicons'
 # asynchronos linting
 [[plugins]]
 repo = 'dense-analysis/ale'
-# hook_add = '''
-  # source ~/.config/nvim/plugins/ale.vim
-# '''
+hook_add = '''
+  source ~/.config/nvim/plugins/ale.vim
+'''
+
 # useful status line
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -106,9 +100,6 @@ hook_add = '''
 # fzf
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-
-# [[plugins]]
-# repo = 'airblade/vim-rooter'
 
 # auto close
 [[plugins]]

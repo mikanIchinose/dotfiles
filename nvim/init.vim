@@ -22,7 +22,6 @@ filetype plugin indent on
 syntax enable
 syntax on
 " set t_Co=256
-" 
 set autoindent
 set smartindent
 set expandtab
@@ -44,9 +43,7 @@ set backspace=indent,eol,start
 set nobackup
 set nowritebackup
 " set conceallevel=0
-" 
 hi Comment ctermfg=gray
-" 
 " if has('mouse')
   " set mouse=a
 " endif
