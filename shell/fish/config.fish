@@ -36,7 +36,7 @@ set -x FZF_DEFAULT_OPTS "--layout=reverse --height 50% --border --ansi"
 
 ## global
 ### シェルの再起動
-alias reload 'exec fish'
+alias reload 'source ~/.bashrc'
 ### パッケージの更新
 alias update 'sudo apt update && sudo apt upgrade -y && brew upgrade'
 ### サスペンド
