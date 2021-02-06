@@ -1,6 +1,7 @@
 [user]
 	name = mikan.ichinose
 	email = maruisansmai@gmail.com
-	editor = nvim
 [push]
 	default = current
+[core]
+	editor = nvim
