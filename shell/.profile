@@ -36,3 +36,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# fcitx-mozc
+export DefaultImModule=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
