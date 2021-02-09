@@ -1,68 +1,74 @@
-# update package
-alias update='sudo apt update && sudo apt upgrade -y'
+## global
+### シェルの再起動
+alias reload = 'exec fish'
+### パッケージの更新
+alias update = 'sudo apt update && sudo apt upgrade -y && brew upgrade'
+### サスペンド
+alias suspend = 'systemctl suspend'
 
-# ls
-alias ls='ls --color=auto -F'
-alias lh='clear && ls -lh'
+## apt
+alias ainst = 'sudo apt install -y'
+alias arm = 'sudo apt remove'
+alias auninst = 'arm'
+alias aauto = 'sudo apt autoremove'
 
-# cd
-alias ..='cd ..'
-alias ..2='cd ../..'
-alias ..3='cd ../../..'
-alias ~='cd ~'
+## ls
+alias ls = 'ls --color=auto -F'
+alias lh = 'clear && ls -lh'
+alias cl = 'clear'
 
-# clear
-alias cl='clear'
+## change owner to me
+alias change-owner = 'sudo chown -R $USER:$USER .'
 
-# git
-# alias log_in_bbc='ssh -T git@bitbucket.org'
-alias g='git'
-# branch
-alias gb='git branch'
-alias gbv='git branch --verbose'
-alias gbx='git branch -d'
-# index
-alias gia='git add'
-# commit
-alias gc='git commit'
-alias gcm='git commit -m'
-alias gco='git checkout'
-# merge
-alias gm='git merge'
-# push
-alias gp='git push'
-# tag
-alias gt='git tag'
+## git
+### gitリポジトリに移動 
+alias gcd = 'cd (ghq root)/(ghq list | fzf )'
+### IMDと名の付くリポジトリに移動
+alias imd = 'cd (ghq root)/(ghq list | grep IMD | fzf )'
+alias g = 'git'
+alias gbranch = 'git branch'
+alias gadd = 'git add'
+alias gcommit = 'git commit'
+alias gcheck = 'git checkout'
+alias gstash = 'git stash -u'
+alias gpop = 'git stash pop'
+alias gapply = 'git stash apply'
+alias gmerge = 'git merge'
+alias gpush = 'git push'
+alias gpull = 'git pull'
 
-# setting
-alias setzsh='vim ~/.zshrc'
-alias setvim='cd ~/.vim && vim .'
-alias settmux='vim ~/.tmux.conf'
+## edit config file
+alias setzsh = 'nvim ~/.zshrc'
+alias setfish = 'nvim ~/.config/fish/config.fish'
+alias setvim = 'nvim (find ~/.config/nvim/ | fzf --reverse)'
+alias settmux = 'nvim ~/.tmux.conf'
 
-# apt
-alias agi='sudo apt install'
-alias agr='sudo apt remove'
+## tmux
+# alias t = 'tmux' # start session
+# alias ta = 'tmux attach' # attach session
+# alias tsh = 'tmux split-window -h' # split horizontal
+# alias tsv = 'tmux split-window -v' # split vertical
+# alias tks = 'tmux kill-server' # stop tmux server
 
-# cp mv rm for safety
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -i'
+## docker
+alias d = 'docker'
+alias dps = 'docker container ls --format "table {{.Names}}\t{{.Ports}}"'
+# docker-compose
+alias dc = 'docker-compose'
+alias dup = 'docker-compose up -d'
+alias ddown = 'docker-compose down'
+alias dkill = 'docker-compose down --rmi all --volumes --remove-orphans'
+alias dreload = 'ddown && dup'
+alias dexec = 'docker-compose exec'
+alias drun = 'docker-compose run'
+alias dbuild = 'docker-compose build'
 
-# zsh
-alias reload='source ~/.zshrc'
+## emacs
+# alias e = 'emacsclient -a ""'
+# alias ekill = 'emacsclient -e "(kill-emacs)"'
 
-# homebrew
-# alias binst='brew install'
-# alias buninst='brew uninstall'
-# alias bup='brew update && brew upgrade'
+## vim
+alias vim = 'nvim'
 
-# poetry
-alias pydev='poetry add -D flake8 autopep8 pylint mypy'
-
-# tmux
-alias t='tmux' # start session
-alias ta='tmux attach' # attach session
-alias tsh='tmux split-window -h' # split horizontal
-alias tsv='tmux split-window -v' # split vertical
-alias tks='tmux kill-server' # stop tmux server
-alias ide='zsh ~/.tmux/session/ide'
+## bash
+alias bash = 'bash --norc'
