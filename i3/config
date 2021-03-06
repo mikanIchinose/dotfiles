@@ -98,9 +98,10 @@ set $workspace2 "2: "
 set $workspace10 "10: "
 set $right_monitor HDMI-1
 set $left_monitor HDMI-3
+set $third_monitor VGA-1
 
 workspace $workspace1 output $right_monitor
-workspace $workspace3 output $right_monitor
+workspace $workspace2 output $left_monitor
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -200,5 +201,9 @@ bar {
 }
 
 exec --no-startup-id fcitx
-exec_always xrandr --output HDMI-3 --mode 1920x1200 --pos 0x0 --rotate normal --output HDMI-1 --mode 1920x1200 --pos 1920x0 --rotate normal
+exec_always xrandr --output VGA-1 --primary --mode 1920x1200 --pos 3840x0 --rotate left --output HDMI-3 --mode 1920x1200 --pos 0x720 --rotate normal --output HDMI-1 --mode 1920x1200 --pos 1920x720 --rotate normal
 exec gnome-terminal
+# exec_always nitrogen --set-scaled /home/solenoid/ピクチャ/Wallpapers/spiderman.jpeg
+exec_always xset s off
+exec_always xset -dpms
+exec_always --no-startup-id albert
