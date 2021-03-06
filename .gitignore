@@ -3,8 +3,8 @@ bin
 vim/bundle
 secret.d/
 shell/fish/fish_variables
-shell/fish/completions
-shell/fish/conf.d
-shell/fish/functions
+shell/fish/completions/**
+shell/fish/conf.d/**
+shell/fish/functions/**
 !shell/fish/functions/gcheck.fish
 !shell/fish/functions/reset_abbr.fish
