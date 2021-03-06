@@ -17,7 +17,7 @@ node
 php
 
 # install plugins
-cat ~/.tool-versions | awk '{print $1}' | while read plugin
+cat < ~/.tool-versions | awk '{print $1}' | while read -r plugin
 do
-  asdf add $plugin
+  asdf add "$plugin"
 done
