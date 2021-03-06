@@ -115,15 +115,23 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+HOMEBREW_ROOT="/home/linuxbrew/.linuxbrew"
+export PATH="$PATH:${HOMEBREW_ROOT}/bin:${HOMEBREW_ROOT}/sbin"
 
-# fzf
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# .local/bin
+export PATH="$HOME/.local/bin:$PATH"
 
-# starship
-# official site: https://starship.rs
-# if command -v starship &> /dev/null; then
-  # eval "$(starship init bash)"
-# fi
+# poetry
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# fcitx-mozc
+export DefaultImModule=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
 
 # login fish
 if command -v fish &> /dev/null; then

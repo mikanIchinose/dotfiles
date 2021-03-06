@@ -16,6 +16,11 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+# homebrew
+# if [ -d "/home/linuxbrew" ];then
+#   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# fi
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
@@ -26,19 +31,3 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# homebrew
-if [ -d "/home/linuxbrew" ];then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
-
-# poetry
-export PATH="$HOME/.poetry/bin:$PATH"
-
-# rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# fcitx-mozc
-export DefaultImModule=fcitx
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS="@im=fcitx"
