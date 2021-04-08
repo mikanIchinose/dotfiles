@@ -13,8 +13,8 @@ alias auninst "arm"
 abbr aauto "sudo apt autoremove"
 
 ## ls
-alias ls "exa -a"
-alias lh "clear && exa -al"
+alias ls "exa -aF --icons"
+alias ll "exa -alF --time-style=iso --icons"
 abbr cl "clear"
 
 ## change owner to me
@@ -38,8 +38,8 @@ abbr gfo "git fetch origin"
 
 ## edit config file
 alias setzsh "vim ~/.zshrc"
-alias setfish "cd ~/.config/fish; vim config.fish; cd -"
-alias setvim "vim (fd ~/.config/nvim | fzf --reverse)"
+alias setfish "cd ~/.config/fish; vim (fzf); cd -"
+alias setvim "cd ~/.config/nvim; vim (fzf); cd -"
 alias settmux "vim ~/.tmux.conf"
 
 ## tmux

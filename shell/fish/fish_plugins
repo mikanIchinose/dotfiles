@@ -2,9 +2,10 @@ jorgebucaran/fisher
 jethrokuan/z
 jethrokuan/fzf
 decors/fish-colored-man
-joseluisq/gitnow@2.6.0
 franciscolourenco/done
 decors/fish-ghq
 jorgebucaran/autopair.fish
-oakninja/MakeMeFish
 paysonwallach/fish-you-should-use
+laughedelic/brew-completions
+LumaKernel/fish-fd-complete
+joseluisq/gitnow@2.8.0

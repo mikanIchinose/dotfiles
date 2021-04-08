@@ -2,8 +2,12 @@
 bin
 vim/bundle
 secret.d/
+
+# fish
 shell/fish/fish_variables
 shell/fish/completions/**
+!shell/fish/completions/docker.fish
+!shell/fish/completions/docker-compose.fish
 shell/fish/conf.d/**
 shell/fish/functions/**
 !shell/fish/functions/gcheck.fish

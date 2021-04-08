@@ -8,9 +8,6 @@ set -x DOTFILES_DIR ~/.dotfiles
 
 set -x XDG_CONFIG_HOME "$HOME/.config"
 
-# appimageをコマンドラインから使えるようにパスを通す
-set -x PATH $HOME/AppImage $PATH
-
 # starship
 # official site: https://starship.rs
 if type -q starship
@@ -30,4 +27,5 @@ end
 # fzf
 set -x FZF_LEGACY_KEYBINDINGS 0
 ## 逆順､半分の高さ､ボーダー付き､ANSIカラー付き
-set -x FZF_DEFAULT_OPTS "--layout=reverse --height 50% --border --ansi"
+set -x FZF_DEFAULT_OPTS "--layout=reverse --height=50% --border --ansi --multi --preview='(bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300'"
+set -x FZF_DEFAULT_COMMAND "fd -HI --type f -E .git -E node_module -E vendor"
