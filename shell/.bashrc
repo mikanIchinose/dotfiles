@@ -115,6 +115,8 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# homebrew
 HOMEBREW_ROOT="/home/linuxbrew/.linuxbrew"
 export PATH="$PATH:${HOMEBREW_ROOT}/bin:${HOMEBREW_ROOT}/sbin"
 
@@ -126,12 +128,19 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
+source "$HOME/.cargo/env"
 
 # fcitx-mozc
 export DefaultImModule=fcitx
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
+
+# asdf
+. $HOME/.asdf/completions/asdf.bash
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # login fish
 if command -v fish &> /dev/null; then
