@@ -1,3 +1,10 @@
+" extensions
+let g:coc_global_extensions = [
+      \ 'coc-phpls',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp'
+      \ ]
+
 " Conquer of Completion Settings
 
 set encoding=utf-8
