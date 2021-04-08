@@ -6,9 +6,9 @@ repo = 'Shougo/dein.vim'
 repo = 'neoclide/coc.nvim'
 merge = 0
 rev = 'release'
-# hook_add = '''
-  # source ~/.config/nvim/plugins/coc.vim
-# '''
+hook_add = '''
+  source ~/.config/nvim/plugins/coc.vim
+'''
 
 # colorful parentheses
 [[plugins]]
@@ -16,6 +16,7 @@ repo = 'kien/rainbow_parentheses.vim'
 hook_add = '''
   source ~/.config/nvim/plugins/rainbow_parentheses.vim
 '''
+
 # directory tree
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -47,6 +48,13 @@ repo = 'preservim/nerdcommenter'
 hook_add = '''
   source ~/.config/nvim/plugins/nerdcommenter.vim
 '''
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+hook_add = '''
+  source ~/.config/nvim/plugins/caw.vim
+'''
+
 # coooool color scheme
 [[plugins]]
 repo = 'morhetz/gruvbox'
@@ -61,32 +69,33 @@ repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
   source ~/.config/nvim/plugins/vim_indent_guides.vim
 '''
-# cooporation vim & tmux
-# [[plugins]]
-# repo = 'christoomey/vim-tmux-navigator'
 
 # toml highlighting
 [[plugins]]
 repo = 'cespare/vim-toml'
 
-# [[plugins]]
-# repo = 'posva/vim-vue'
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']
 
 # elixir highlighting
-# [[plugins]]
-# repo = 'elixir-lang/vim-elixir'
+[[plugins]]
+repo = 'elixir-lang/vim-elixir'
+on_ft = ['elixir']
 
-# auto switch paste mode
+# ペーストモードを自動で切り替える
 [[plugins]]
 repo = 'roxma/vim-paste-easy'
 
 # insert semicolon or comma
 [[plugins]]
 repo = 'lfilho/cosco.vim'
+on_ft = ['php', 'rust']
 hook_add = '''
   source ~/.config/nvim/plugins/cosco.vim
 '''
 
+# 直前の処理を.で繰り返せる
 [[plugins]]
 repo = 'tpope/vim-repeat'
 
@@ -97,10 +106,26 @@ hook_add = '''
   source ~/.config/nvim/plugins/gitgutter.vim
 '''
 
-# fzf
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-
 # auto close
 [[plugins]]
 repo = 'cohama/lexima.vim'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = 0
+[[plugins]]
+repo = 'yuki-yano/fzf-preview.vim'
+rev = 'release/rpc'
+hook_add = '''
+  source ~/.config/nvim/plugins/fzf.vim
+'''
+
+[[plugins]]
+repo = 'liuchengxu/vim-which-key'
+hook_add = '''
+  source ~/.config/nvim/plugins/vim-which-key.vim
+'''
+
+[[plugins]]
+repo = 'morhetz/gruvbox'

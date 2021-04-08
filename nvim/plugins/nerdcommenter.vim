@@ -36,7 +36,7 @@ function! NERDCommenter_before()
         exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
       endif
     endif
-    endif
+  endif
 endfunction
 function! NERDCommenter_after()
   if g:ft == 'vue'
@@ -44,3 +44,7 @@ function! NERDCommenter_after()
     let g:ft = ''
   endif
 endfunction
+
+" keymaps
+nmap <C-_> <Plug>NERDCommenterToggle
+vmap <C-_> <Plug>NERDCommenterToggle
