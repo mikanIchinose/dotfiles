@@ -6,6 +6,7 @@
 [core]
 	editor = nvim
   pager = delta
+	autocrlf = input
 [credential]
 	helper = store
 [interactive]
