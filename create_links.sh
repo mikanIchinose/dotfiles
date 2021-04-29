@@ -3,13 +3,13 @@
 # シンボリックリンクの作成
 make_shim()
 {
-  target=$1
-  link_path=$2
-  echo "${target}のシンボリックリンクを作成します"
-  if [ -e "$link_path" ]; then
-    rm -f "$link_path"
+  target_name=$1
+  link_name=$2
+  echo "create symbolic link: ${link_name}<-${target_name}"
+  if [ -e "$link_name" ]; then
+    rm -f "$link_name"
   fi
-  ln -sf "$target" "$link_path"
+  ln -sf "$target_name" "$link_name"
 }
 
 make_shim ~/.dotfiles/.gitconfig ~/.gitconfig
@@ -19,10 +19,9 @@ make_shim ~/.dotfiles/starship.toml ~/.config/starship.toml
 make_shim ~/.dotfiles/shell/fish ~/.config/fish
 
 if [ `uname` == 'Darwin' ]; then
-  make_shim ~/.dotfiles/asdf/.tool-versions.darwin ~/.tool-versions
-  exit
+  make_shim ~/.dotfiles/.tool-versions.darwin ~/.tool-versions
 elif [ `uname` == 'Linux' ]; then
-  make_shim ~/.dotfiles/asdf/.tool-versions.linux ~/.tool-versions
+  make_shim ~/.dotfiles/.tool-versions.linux ~/.tool-versions
   make_shim ~/.dotfiles/i3 ~/.config/i3
   make_shim ~/.dotfiles/i3blocks ~/.config/i3blocks
   make_shim ~/.dotfiles/shell/.bashrc ~/.bashrc
