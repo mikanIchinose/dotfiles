@@ -19,9 +19,9 @@ make_shim ~/.dotfiles/starship.toml ~/.config/starship.toml
 make_shim ~/.dotfiles/shell/fish ~/.config/fish
 
 if [ `uname` == 'Darwin' ]; then
-  make_shim ~/.dotfiles/.tool-versions.darwin ~/.tool-versions
+  make_shim ~/.dotfiles/asdf/darwin/.tool-versions ~/.tool-versions
 elif [ `uname` == 'Linux' ]; then
-  make_shim ~/.dotfiles/.tool-versions.linux ~/.tool-versions
+  make_shim ~/.dotfiles/asdf/linux/.tool-versions ~/.tool-versions
   make_shim ~/.dotfiles/i3 ~/.config/i3
   make_shim ~/.dotfiles/i3blocks ~/.config/i3blocks
   make_shim ~/.dotfiles/shell/.bashrc ~/.bashrc
