@@ -15,8 +15,9 @@ make_shim()
 make_shim ~/.dotfiles/.gitconfig ~/.gitconfig
 make_shim ~/.dotfiles/tmux/.tmux.conf ~/.tmux.conf
 make_shim ~/.dotfiles/nvim ~/.config/nvim
-make_shim ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
-make_shim ~/.dotfiles/shell/fish ~/.config/fish
+make_shim ~/.dotfiles/starship.toml ~/.config/starship.toml
+make_shim ~/.dotfilesmake_shim ~/.dotfiles/shell/.profile ~/.profile
+/shell/fish ~/.config/fish
 
 if [ `uname` == 'Darwin' ]; then
   exit
