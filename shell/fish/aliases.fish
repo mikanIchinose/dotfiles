@@ -1,57 +1,47 @@
-## global
-### シェルの再起動
-alias reload "exec fish"
-### パッケージの更新
-abbr update "sudo apt update && sudo apt upgrade -y; brew upgrade; fisher update"
-### サスペンド
-abbr suspend "systemctl suspend"
+# シェルの再起動
+abbr reload "exec fish"
 
-## apt
-abbr ainst "sudo apt install -y"
-abbr arm "sudo apt remove"
-alias auninst "arm"
-abbr aauto "sudo apt autoremove"
-
-## ls
-alias ls "exa -aF --icons"
-alias ll "exa -alF --time-style=iso --icons"
+# exa
+abbr exai "exa -aF --icons"
+abbr exal "exa -alF --time-style=iso --icons"
 abbr cl "clear"
 
-## change owner to me
+# change owner to me
 abbr chown "sudo chown -R $USER:$USER ."
 
-## git
-### gitリポジトリに移動 
+# git
 # alias gcd "cd (ghq root)/(ghq list | fzf)"
-### IMDと名の付くリポジトリに移動
-# alias imd "cd (ghq root)/(ghq list | rg IMD | fzf)"
 abbr g "git"
-# abbr gcheck "git checkout (git branch | fzf | sed 's/^ *\| *\$//')"
+abbr gc "git checkout"
 abbr gb "git branch"
-abbr gad "git add"
+abbr ga "git add"
 abbr gc "git commit"
 abbr gs "git stash -u"
-abbr gpo "git stash pop"
-abbr gap "git stash apply"
+abbr gsp "git stash pop"
+abbr gsa "git stash apply"
+abbr gpush "git push"
+abbr gpull "git pull"
 abbr gm "git merge"
+abbr gmd "git merge develop"
 abbr gfo "git fetch origin"
 
-## edit config file
+# edit config file
 alias setzsh "vim ~/.zshrc"
+alias setbash "vim ~/.bashrc"
 alias setfish "cd ~/.config/fish; vim (fzf); cd -"
 alias setvim "cd ~/.config/nvim; vim (fzf); cd -"
 alias settmux "vim ~/.tmux.conf"
 
-## tmux
+# tmux
 # alias t "tmux" # start session
 # alias ta "tmux attach" # attach session
 # alias tsh "tmux split-window -h" # split horizontal
 # alias tsv "tmux split-window -v" # split vertical
 # alias tks "tmux kill-server" # stop tmux server
 
-## docker
+# docker
 abbr d "docker"
-alias dps "docker container ls --format \"table {{.Names}}\t{{.Ports}}\""
+abbr dps "docker container ls --format \"table {{.Names}}\t{{.Ports}}\""
 # docker-compose
 abbr dc "docker-compose"
 abbr dup "docker-compose up -d"
@@ -59,18 +49,12 @@ abbr dd "docker-compose down"
 abbr dk "docker-compose down --rmi all --volumes --remove-orphans"
 alias dreload "ddown && dup"
 abbr dex "docker-compose exec"
-abbr dr "docker-compose run"
-abbr db "docker-compose build"
+abbr dcr "docker-compose run"
+abbr dcb "docker-compose build"
 
-## emacs
-# alias e="emacsclient -a """
-# alias ekill="emacsclient -e "(kill-emacs)""
-
-## vim
 alias vim "nvim"
 
-## bash
-alias bash "bash --norc"
+abbr bash "bash --norc"
+abbr zsh "zsh --norc"
 
-## tree
-alias tree "tree -N"
+abbr tree "exa --tree"
