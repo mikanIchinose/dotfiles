@@ -2,7 +2,8 @@
 let g:coc_global_extensions = [
       \ 'coc-phpls',
       \ 'coc-tsserver',
-      \ 'coc-vimlsp'
+      \ 'coc-vimlsp',
+      \ 'coc-java'
       \ ]
 
 " Conquer of Completion Settings

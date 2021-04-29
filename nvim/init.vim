@@ -72,6 +72,15 @@ let IM_CtrlMode = 6
 " inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 set timeout timeoutlen=300 ttimeoutlen=100
 
+" mac用のIME無効化
+if has('mac')
+  let g:imeoff = 'osascript -e "tell application \"System Events\" to key code 102"'
+  augroup MyIMEGroup
+    autocmd!
+    autocmd! InsertLeave * :call system(g:imeoff) | exe ":w"
+  augroup END
+endif
+
 set background=dark
 colorscheme gruvbox
 

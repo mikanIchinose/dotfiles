@@ -1,3 +1,6 @@
+" quickrunで開いたバッファをすぐに閉じる
+nnoremap <Space>o :only<CR>
+
 set timeoutlen=500
 let g:mapleader="\<Space>"
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>

@@ -42,13 +42,6 @@ hook_add = '''
 [[plugins]]
 repo = 'mengelbrecht/lightline-bufferline'
 
-# useful commentin/out
-[[plugins]]
-repo = 'preservim/nerdcommenter'
-hook_add = '''
-  source ~/.config/nvim/plugins/nerdcommenter.vim
-'''
-
 [[plugins]]
 repo = 'tyru/caw.vim'
 hook_add = '''
@@ -83,19 +76,19 @@ on_ft = ['vue']
 repo = 'elixir-lang/vim-elixir'
 on_ft = ['elixir']
 
-# $B%Z!<%9%H%b!<%I$r<+F0$G@Z$jBX$($k(B
+# ペーストモードを自動で切り替える
 [[plugins]]
 repo = 'roxma/vim-paste-easy'
 
 # insert semicolon or comma
 [[plugins]]
 repo = 'lfilho/cosco.vim'
-on_ft = ['php', 'rust']
+on_ft = ['php', 'rust', 'java']
 hook_add = '''
   source ~/.config/nvim/plugins/cosco.vim
 '''
 
-# $BD>A0$N=hM}$r(B.$B$G7+$jJV$;$k(B
+# 直前の処理を.で繰り返せる
 [[plugins]]
 repo = 'tpope/vim-repeat'
 
@@ -129,3 +122,18 @@ hook_add = '''
 
 [[plugins]]
 repo = 'morhetz/gruvbox'
+
+[[plugins]]
+repo='editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo='thinca/vim-quickrun'
+hook_add='''
+source ~/.config/nvim/plugins/quickrun.vim
+'''
+
+[[plugins]]
+repo='dag/vim-fish'
+hook_add='''
+source ~/.config/nvim/plugins/fish.vim
+'''
