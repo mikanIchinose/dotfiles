@@ -1,3 +1,4 @@
+# set abbrs
 reset_abbr
 source $HOME/.config/fish/aliases.fish
 
@@ -14,12 +15,14 @@ end
 
 # dotfilesのシンボリックリンクを環境変数に設定する
 # 注意: 必ずシンボリックリンクを作っておいてください｡でなければコメントアウトしてください
-# set -x DOTFILES_DIR ~/.dotfiles
+if test -d ~/.dotfiles
+  set -x DOTFILES_DIR ~/.dotfiles
+end
 
-# set -x XDG_CONFIG_HOME "$HOME/.config"
+# nvimで使ったりする
+set -x XDG_CONFIG_HOME "$HOME/.config"
 
 # starship
-# official site: https://starship.rs
 if type -q starship
   starship init fish | source
 end
@@ -40,17 +43,26 @@ if type -q fzf
   ## 逆順､半分の高さ､ボーダー付き､ANSIカラー付き
   # set -x FZF_DEFAULT_OPTS "--layout=reverse --height=50% --border --ansi --multi --preview='(bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300'"
   set -x FZF_DEFAULT_OPTS "--layout=reverse --height=50% --border --ansi"
-  set -x FZF_DEFAULT_COMMAND "fd -HI --type f -E .git -E node_module -E vendor"
+  # 隠しファイル: 表示
+  # 結果に含めないディレクトリ: .git node_modules vendor
+  set -x FZF_DEFAULT_COMMAND "fd -HI --type f -E .git -E node_modules -E vendor"
 end
 
-# java
-set -x JAVA_HOME (asdf where java)
+set -x JAVA_HOME "/usr/local/android-studio/jre"
+set -x PATH "$JAVA_HOME/bin" "$PATH"
 
 # android studio CLI
-set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
+switch (uname)
+case Linux
+  set -x PATH "$HOME/Android/Sdk/platform-tools" $PATH
+case Darwin
+  set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
+end
 
 # flutter
-set -x PATH $PATH "$HOME/.local/flutter/bin"
+if test (uname -s) = "Darwin"
+  set -x PATH $PATH "$HOME/.local/flutter/bin"
+end
 
 # zoxide
 if type -q zoxide
@@ -60,4 +72,13 @@ end
 # rust
 if test -d $HOME/.cargo
   set -x PATH $HOME/.cargo/bin $PATH
+end
+
+# homebrew
+if test -d (brew --prefix)"/share/fish/completions"
+    set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
+end
+
+if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+    set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
 end

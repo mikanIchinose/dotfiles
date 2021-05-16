@@ -30,3 +30,4 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+if [ -e /home/solenoid/.nix-profile/etc/profile.d/nix.sh ]; then . /home/solenoid/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

@@ -1,6 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -88,9 +86,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+# alias ll='ls -alF'
+# alias la='ls -A'
+# alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -101,9 +99,9 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+# if [ -f ~/.bash_aliases ]; then
+    # . ~/.bash_aliases
+# fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -118,17 +116,17 @@ fi
 
 # homebrew
 HOMEBREW_ROOT="/home/linuxbrew/.linuxbrew"
-export PATH="$PATH:${HOMEBREW_ROOT}/bin:${HOMEBREW_ROOT}/sbin"
+export PATH="${PATH}:${HOMEBREW_ROOT}/bin:${HOMEBREW_ROOT}/sbin"
 
 # .local/bin
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="${HOME}/.local/bin:${PATH}"
 
 # poetry
-export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="${HOME}/.poetry/bin:${PATH}"
 
 # rust
-export PATH="$HOME/.cargo/bin:$PATH"
-source "$HOME/.cargo/env"
+export PATH="${HOME}/.cargo/bin:${HOME}"
+source "${HOME}/.cargo/env"
 
 # fcitx-mozc
 export DefaultImModule=fcitx
@@ -137,10 +135,10 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
 
 # asdf
-. $HOME/.asdf/completions/asdf.bash
+# . $HOME/.asdf/completions/asdf.bash
 
 # fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # login fish
 if command -v fish &> /dev/null; then
