@@ -6,24 +6,6 @@ let g:coc_global_extensions = [
       \ 'coc-java'
       \ ]
 
-" Conquer of Completion Settings
-
-set encoding=utf-8
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" バックアップファイルが原因で問題が発生することがあるので回避する
-set nobackup
-set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 

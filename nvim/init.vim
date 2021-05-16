@@ -37,10 +37,10 @@ set tabstop=2
 " インデント数
 set shiftwidth=2
 " 空白文字の可視化
-set list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%,space:·
+" set list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%,space:·
 set encoding=utf-8
-" set fileencoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+" set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileencodings=utf-8
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
 set cursorline
@@ -49,6 +49,7 @@ set relativenumber
 set showmode
 set showmatch
 set title
+set titlestring=neovim\ %t
 set backspace=indent,eol,start
 " インクリメンタル文字列置換
 set inccommand=split
