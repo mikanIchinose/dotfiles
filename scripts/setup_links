@@ -1,0 +1,33 @@
+#! /usr/bin/env bash
+# シンボリックリンクの作成
+
+set -e
+
+DIR=$(dirname "$0")
+cd "$DIR"
+
+. ./utils/functions.sh
+
+cd "$DIR/../"
+SOURCE="$(realpath -m .)"
+DESTINATION="$(realpath -m ~)"
+info "Make shimlinks"
+
+symlink "$SOURCE/git/.gitconfig"  "$DESTINATION/.gitconfig"
+symlink "$SOURCE/tmux/.tmux.conf" "$DESTINATION/.tmux.conf"
+symlink "$SOURCE/nvim"            "$DESTINATION/.config/nvim"
+symlink "$SOURCE/starship.toml"   "$DESTINATION/.starship/config.toml"
+symlink "$SOURCE/fish"            "$DESTINATION/.config/fish"
+symlink "$SOURCE/.tigrc"          "$DESTINATION/.tigrc"
+
+if [ `uname` == 'Darwin' ]; then
+  symlink "$SOURCE/asdf/darwin/.tool-versions" "$DESTINATION/.tool-versions"
+elif [ `uname` == 'Linux' ]; then
+  symlink "$SOURCE/asdf/linux/.tool-versions"  "$DESTINATION/.tool-versions"
+  symlink "$SOURCE/i3"                         "$DESTINATION/.config/i3"
+  symlink "$SOURCE/i3blocks"                   "$DESTINATION/.config/i3blocks"
+  symlink "$SOURCE/shell/.bashrc"              "$DESTINATION/.bashrc"
+  symlink "$SOURCE/shell/.profile"             "$DESTINATION/.profile"
+fi
+
+success "Finished"

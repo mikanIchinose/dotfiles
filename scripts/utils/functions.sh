@@ -1,9 +1,16 @@
 #! /usr/bin/env bash
 
+########################################
+# シンボリックリンクの作成
+# Arguments:
+#   file_name: String
+#   link_name: String
+########################################
 symlink() {
   ORVERWRITTEN=""
   if [ -e "$2" ] || [ -h "$2" ]; then
     ORVERWRITTEN="(Orverwritten)"
+    # 既存のリンクを削除
     if ! rm -r "$2"; then
       substep_error "Failed to remove existing file(s) at $2."
     fi
@@ -15,6 +22,11 @@ symlink() {
   fi
 }
 
+########################################
+# シンボリックリンクの削除
+# Arguments:
+#   link_name: String
+########################################
 clear_broken_symlinks() {
   find -L "$1" -type l | while read fn; do
     if rm "$fn"; then
@@ -25,10 +37,16 @@ clear_broken_symlinks() {
   done
 }
 
+########################################
+# Arguments:
+#   expression: String
+#   color: String
+#   prefix: String
+########################################
 coloredEcho() {
   local exp="$1"
   local color="$2";
-  local arrow="$3";
+  local prefix="$3";
   if ! [[ $color =~ '^[0-9]$' ]] ; then
      case $(echo $color | tr '[:upper:]' '[:lower:]') in
       black) color=0 ;;
@@ -43,7 +61,7 @@ coloredEcho() {
   fi
   tput bold;
   tput setaf "$color";
-  echo "$arrow $exp";
+  echo "$prefix $exp";
   tput sgr0;
 }
 
