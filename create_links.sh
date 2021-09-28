@@ -1,30 +1,28 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
-# シンボリックリンクの作成
-make_shim()
-{
-  target_name=$1
-  link_name=$2
-  echo "create symbolic link: ${link_name}<-${target_name}"
-  if [ -e "$link_name" ]; then
-    rm -f "$link_name"
-  fi
-  ln -sf "$target_name" "$link_name"
-}
+set -e
 
-make_shim ~/.dotfiles/.gitconfig ~/.gitconfig
-make_shim ~/.dotfiles/tmux/.tmux.conf ~/.tmux.conf
-make_shim ~/.dotfiles/nvim ~/.config/nvim
-make_shim ~/.dotfiles/starship.toml ~/.config/starship.toml
-make_shim ~/.dotfiles/shell/fish ~/.config/fish
-make_shim ~/.dotfiles/.tigrc ~/.tigrc
+DIR=$(dirname "$0")
+cd "$DIR"
+
+. ./utils/functions.sh
+
+info "make shimlinks"
+
+symlink "${HOME}/.dotfiles/tmux/.tmux.conf" "${HOME}/.tmux.conf"
+symlink "${HOME}/.dotfiles/nvim"            "${HOME}/.config/nvim"
+symlink "${HOME}/.dotfiles/starship.toml"   "${HOME}/.starship/config.toml"
+symlink "${HOME}/.dotfiles/fish"            "${HOME}/.config/fish"
+symlink "${HOME}/.dotfiles/.tigrc"          "${HOME}/.tigrc"
 
 if [ `uname` == 'Darwin' ]; then
-  make_shim ~/.dotfiles/asdf/darwin/.tool-versions ~/.tool-versions
+  symlink "${HOME}/.dotfiles/asdf/darwin/.tool-versions" "${HOME}/.tool-versions"
 elif [ `uname` == 'Linux' ]; then
-  make_shim ~/.dotfiles/asdf/linux/.tool-versions ~/.tool-versions
-  make_shim ~/.dotfiles/i3 ~/.config/i3
-  make_shim ~/.dotfiles/i3blocks ~/.config/i3blocks
-  make_shim ~/.dotfiles/shell/.bashrc ~/.bashrc
-  make_shim ~/.dotfiles/shell/.profile ~/.profile
+  symlink "${HOME}/.dotfiles/asdf/linux/.tool-versions"  "${HOME}/.tool-versions"
+  symlink "${HOME}/.dotfiles/i3"                         "${HOME}/.config/i3"
+  symlink "${HOME}/.dotfiles/i3blocks"                   "${HOME}/.config/i3blocks"
+  symlink "${HOME}/.dotfiles/shell/.bashrc"              "${HOME}/.bashrc"
+  symlink "${HOME}/.dotfiles/shell/.profile"             "${HOME}/.profile"
 fi
+
+success "Finished"
