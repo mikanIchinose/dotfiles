@@ -1,24 +1,43 @@
 [user]
-	name = mikan.ichinose
+	# ユーザー名、メアド
+	name = Ichinose Yoshihiro
 	email = maruisansmai@gmail.com
 [push]
 	default = current
 [core]
 	editor = nvim
-  pager = delta
 	autocrlf = input
+	whitespace = trailing-space
+	pager = delta
+  # 日本語文字化けの解消
+  quotepath = false
 [credential]
 	helper = store
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [delta]
-  features = side-by-side line-numbers decorations
-  whitespace-error-style = 22 reverse
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
 [delta "decorations"]
-  commit-decoration-style = bold yellow box ul
-  file-style = bold yellow ul
-  file-decoration-style = none
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
 [init]
+	# デフォルトブランチの名称
 	defaultBranch = main
 [color]
 	ui = true
+[color "status"]
+	added = green
+	changed = red
+	untracked = yellow
+	unmerged = magenta
+[advice]
+	addIgnoreFile = false
+[status]
+	# 未追跡のファイルも表示する
+	showUntrackedFiles = all
+[fetch]
+	prune = true
+[rebase]
+	autosquash = true
