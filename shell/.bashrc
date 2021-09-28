@@ -1,3 +1,4 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 
 # If not running interactively, don't do anything
@@ -82,27 +83,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-# alias ll='ls -alF'
-# alias la='ls -A'
-# alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-# if [ -f ~/.bash_aliases ]; then
-    # . ~/.bash_aliases
-# fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -114,19 +94,21 @@ if ! shopt -oq posix; then
   fi
 fi
 
+## user setting
+
 # homebrew
 HOMEBREW_ROOT="/home/linuxbrew/.linuxbrew"
-export PATH="${PATH}:${HOMEBREW_ROOT}/bin:${HOMEBREW_ROOT}/sbin"
+export PATH="$PATH:$HOMEBREW_ROOT/bin:$HOMEBREW_ROOT/sbin"
 
 # .local/bin
-export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="$HOME/.local/bin:$PATH"
 
 # poetry
-export PATH="${HOME}/.poetry/bin:${PATH}"
+#export PATH="$HOME/.poetry/bin:$PATH"
 
 # rust
-export PATH="${HOME}/.cargo/bin:${HOME}"
-source "${HOME}/.cargo/env"
+export PATH="$HOME/.cargo/bin:$PATH"
+source "$HOME/.cargo/env"
 
 # fcitx-mozc
 export DefaultImModule=fcitx
@@ -135,12 +117,21 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
 
 # asdf
-# . $HOME/.asdf/completions/asdf.bash
+# [ -d ~/.asdf ] && source $HOME/.asdf/completions/asdf.bash
 
 # fzf
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if command -v fzf &> /dev/null; then
+  export FZF_LEGACY_KEYBINDINGS=0 
+  export FZF_DEFAULT_OPTS="--layout=reverse --height=50% --border --ansi"
+  export FZF_DEFAULT_COMMAND="fd -HI --type f -E .git -E node_modules -E vendor"
+fi
 
-# login fish
+# java
+export JAVA_HOME="/usr/local/android-studio/jre"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+# fish
 if command -v fish &> /dev/null; then
-  exec fish
+  [[ $EMACS != "yes" ]] && exec fish
 fi
