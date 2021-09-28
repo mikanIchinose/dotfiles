@@ -1,0 +1,110 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'tyru/eskk.vim'
+
+# super completion using LSP like VSCode
+# [[plugins]]
+# repo = 'neoclide/coc.nvim'
+# merge = 0
+# rev = 'release'
+# hook_add = '''
+  # source ~/.config/nvim/plugins/coc.vim
+# '''
+
+# colorful parentheses
+[[plugins]]
+repo = 'kien/rainbow_parentheses.vim'
+hook_add = '''
+  source ~/.config/nvim/plugins/rainbow_parentheses.vim
+'''
+
+# status line
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  source ~/.config/nvim/plugins/lightline.vim
+'''
+[[plugins]]
+repo = 'mengelbrecht/lightline-bufferline'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+hook_add = '''
+  source ~/.config/nvim/plugins/caw.vim
+'''
+
+[[plugins]]
+repo = 'morhetz/gruvbox'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue', 'js', 'md']
+
+[[plugins]]
+repo = 'elixir-lang/vim-elixir'
+# on_ft = ['elixir']
+
+[[plugins]]
+repo = 'roxma/vim-paste-easy'
+
+# 直前の処理を.で繰り返せる
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+  source ~/.config/nvim/plugins/gitgutter.vim
+'''
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = 0
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+
+[[plugins]]
+repo = 'liuchengxu/vim-which-key'
+hook_add = '''
+  source ~/.config/nvim/plugins/vim-which-key.vim
+'''
+
+[[plugins]]
+repo='editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo='dag/vim-fish'
+hook_add='''
+source ~/.config/nvim/plugins/fish.vim
+'''
+
+# ^vg_や0v$hで指定するテキスト範囲をもっと簡単に選択できるようにする
+# val: 改行を含まずに一行まるごと選択
+# vil: 両端の空白を除いた一行まるごと選択
+[[plugins]]
+repo='kana/vim-textobj-line'
+depends=['vim-textobj-user']
+
+[[plugins]]
+repo='kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'udalov/kotlin-vim'

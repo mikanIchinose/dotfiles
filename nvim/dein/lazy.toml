@@ -1,0 +1,9 @@
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'lfilho/cosco.vim'
+on_ft = ['php', 'rust', 'java']
+hook_add = '''
+  source ~/.config/nvim/plugins/cosco.vim
+'''
