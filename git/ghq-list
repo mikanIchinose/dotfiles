@@ -1,3 +1,5 @@
+github.com/DroidKaigi/conference-app-2021
+github.com/android/compose-samples
 github.com/dracula/gnome-terminal
 github.com/dracula/terminator
 github.com/jarun/nnn
@@ -16,6 +18,6 @@ github.com/raywenderlich/dag-materials
 gitlab.com/mikiikeda/react
 gitlab.digitalatelier.info/FrontG/develop
 gitlab.digitalatelier.info/FrontG/efsConsumerAppAndroidForUA
-gitlab.digitalatelier.info/FrontG/fix/DT5538_webview
-gitlab.digitalatelier.info/FrontG/fix/mikan_userProfile
+gitlab.digitalatelier.info/FrontG/feature/AppsFlyer
+gitlab.digitalatelier.info/FrontG/fix/DT7971_favorite-search-condition
 kara.git.backlog.jp/IMD_ALLIANCE_EC/IMD_ec-cube
