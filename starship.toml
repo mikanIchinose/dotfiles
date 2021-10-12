@@ -1,42 +1,22 @@
 format = """
-$time\
-$jobs\
-$directory\
-$docker_context\
+$time$directory\
+$fill\
 $package\
-$cmake\
-$dart\
-$deno\
-$elixir\
-$elm\
-$erlang\
-$golang\
-$helm\
-$java\
-$kotlin\
-$lua\
-$nodejs\
-$php\
-$python\
-$rust\
-$scala\
-$swift\
+$dart$deno$elixir$elm$golang$java$kotlin$lua$nodejs$php$python$rust$swift\
 $terraform\
 $memory_usage\
-$aws\
-$gcloud\
-$openstach\
-$env_var\
-$custom\
-$cmd_duration\
+$aws$gcloud\
 $git_branch\
 $git_status\
 $git_commit\
+$git_metrics\
 $git_state\
+$custom\
+$cmd_duration\
 $line_break\
-$status\
-$shell\
-$character"""
+$status$shell$character\
+"""
+
 
 scan_timeout = 30
 command_timeout = 1500
@@ -44,6 +24,9 @@ command_timeout = 1500
 [character]
 success_symbol = " "
 error_symbol = "[ ](#ff0000)"
+
+[fill]
+symbol = " "
 
 [time]
 disabled = false
@@ -53,31 +36,13 @@ time_format = "%R"
 
 [memory_usage]
 disabled = false
-format = "[$symbol$ram]($style) "
+format = "use [$symbol$ram]($style) "
 symbol = " "
 style = "dimmed"
 threshold = 50
 
 [status]
-disabled = false
-
-[git_branch]
-always_show_remote = true
-format = "\n[$symbol$branch]($style) "
-symbol = " "
-style = "fg:#b2d500"
-
-[git_status]
-format    = "([\\[ $all_status$ahead_behind\\] ]($style))"
-ahead     = "⇡${count} "
-diverged  = "⇕⇡${ahead_count},⇣${behind_count} "
-behind    = "⇣${count} "
-untracked = " "
-modified  = " "
-staged    = " "
-renamed   = "A"
-deleted   = "﫧"
-stashed   = " "
+disabled = true
 
 [docker_context]
 symbol = " "
@@ -98,3 +63,25 @@ fish_indicator = "[](#3595ff)"
 
 [kotlin]
 kotlin_binary = "kotlin"
+
+[git_branch]
+always_show_remote = true
+format = "on [$symbol$branch]($style) "
+symbol = " "
+style = "fg:#b2d500"
+
+[git_status]
+format    = "([$all_status$ahead_behind ]($style))"
+ahead     = "⇡${count}"
+diverged  = "⇕⇡${ahead_count},⇣${behind_count}"
+behind    = "⇣${count}"
+untracked = '\( $count\)'
+modified  = '\( $count\)'
+staged    = '\( $count\)'
+renamed   = '\(A$count\)'
+deleted   = '\(﫧$count\)'
+stashed   = " "
+style = "fg:#b2d500"
+
+[git_metrics]
+disabled = false
