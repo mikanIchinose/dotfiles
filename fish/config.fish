@@ -5,11 +5,11 @@ source $HOME/.config/fish/aliases.fish
 switch (uname)
 case Linux
   source $HOME/.config/fish/aliases_linux.fish
+  set -x PATH $HOME/script $PATH
 case Darwin
   source $HOME/.config/fish/aliases_mac.fish
   # php
   set -x PATH /opt/homebrew/opt/php@7.4/sbin /opt/homebrew/opt/php@7.4/bin $PATH
-
   set -x PASSWORD /Volumes/TOSHIBA/password.yml
 end
 
@@ -18,9 +18,6 @@ end
 if test -d ~/.dotfiles
   set -x DOTFILES_DIR ~/.dotfiles
 end
-
-# nvimで使ったりする
-set -x XDG_CONFIG_HOME "$HOME/.config"
 
 set -x PATH $PATH "$HOME/.local/bin"
 
@@ -90,3 +87,5 @@ end
 # environment variables
 set -x GREP_TOOL rg
 set -x FIND_TOOL fd
+
+#eval (dircolors "$HOME"/.dir_colors/dircolors | head -n 1 | sed 's/^LS_COLORS=/set -x LS_COLORS /;s/;$//')
