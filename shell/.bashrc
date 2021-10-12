@@ -95,6 +95,14 @@ if ! shopt -oq posix; then
 fi
 
 ## user setting
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_DIRS="$HOME/.config:$XDG_CONFIG_DIRS"
+
+# nix
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  . /home/solenoid/.nix-profile/etc/profile.d/nix.sh
+  export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+fi
 
 # homebrew
 HOMEBREW_ROOT="/home/linuxbrew/.linuxbrew"
@@ -130,6 +138,9 @@ fi
 # java
 export JAVA_HOME="/usr/local/android-studio/jre"
 export PATH="$JAVA_HOME/bin:$PATH"
+
+# rofi起動したらlocaleでエラー吐かれたので
+export LC_ALL="en_US.utf-8"
 
 # fish
 if command -v fish &> /dev/null; then
