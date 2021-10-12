@@ -1,0 +1,21 @@
+name: Main workflow
+
+# on:
+#   pull_request:
+#   schedule:
+#     - cron: 0 0 * * 5
+
+#jobs:
+#  test-script:
+#    strategy:
+#      matrix:
+#        container:
+#          - ubuntu:latest
+#    env:
+#      DEVIAN_FRONTEND: noninteractive
+#    container:
+#      image: ${{ matrix.container }}
+#    runs-os: ubuntu-latest
+#    steps:
+#      - name: setup dotfiles
+#        run:
