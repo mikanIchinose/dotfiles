@@ -6,16 +6,22 @@ DIR=$(dirname "$0")
 cd "$DIR"
 . ../utils/functions.sh
 
+# main
 info "setup docker-compose"
 
-if command -v docker-compose &> /dev/null; then
+version="1.29.2"
+url="https://github.com/docker/compose/releases/download/$version/docker-compose-$(uname -s)-$(uname -m)"
+output="$HOME/.local/bin/docker-compose"
+
+if command -v docker-compose &>/dev/null; then
   info "docker-composeはインストール済み"
-  docker-compose migrate-to-labels
-else
-  curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o ~/.local/bin/docker-compose
-  chmod +x ~/.local/bin/docker-compose
+  rm "$output"
 fi
-success "Finished"
+
+curl \
+  -L "$url" \
+  -o "$output"
+chmod +x "$output"
+
 docker-compose --version
-echo ""
-read -rsp "続けるにはEnterを押してください: "
+success "Finished"
