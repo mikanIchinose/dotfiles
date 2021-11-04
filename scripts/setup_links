@@ -13,15 +13,19 @@ SOURCE="$(realpath -m .)"
 DESTINATION="$(realpath -m ~)"
 info "Make shimlinks"
 
+[ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
+
 symlink "$SOURCE/git/.gitconfig"  "$DESTINATION/.gitconfig"
-symlink "$SOURCE/tmux/.tmux.conf" "$DESTINATION/.tmux.conf"
-symlink "$SOURCE/nvim"            "$DESTINATION/.config/nvim"
-symlink "$SOURCE/starship.toml"   "$DESTINATION/.starship/config.toml"
+# symlink "$SOURCE/tmux/.tmux.conf" "$DESTINATION/.tmux.conf"
 symlink "$SOURCE/fish"            "$DESTINATION/.config/fish"
+symlink "$SOURCE/nvim"            "$DESTINATION/.config/nvim"
+symlink "$SOURCE/starship"   "$DESTINATION/.config/starship"
 symlink "$SOURCE/.tigrc"          "$DESTINATION/.tigrc"
 
 if [ `uname` == 'Darwin' ]; then
   symlink "$SOURCE/asdf/darwin/.tool-versions" "$DESTINATION/.tool-versions"
+  symlink "$SOURCE/shell/.zshrc" "$DESTINATION/.zshrc"
+  symlink "$SOURCE/navi" "$DESTINATION/.config/navi"
 elif [ `uname` == 'Linux' ]; then
   symlink "$SOURCE/asdf/linux/.tool-versions"  "$DESTINATION/.tool-versions"
   symlink "$SOURCE/i3"                         "$DESTINATION/.config/i3"
