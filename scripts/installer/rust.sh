@@ -29,11 +29,11 @@ cargo_tools=(
   "cargo-update" 
   "cargo-edit"
 )
-for tool in ${cargo_tools[@]}; do
+for tool in "${cargo_tools[@]}"; do
   cargo install "$tool"
 done
 cargo install-update -a
-for tool in ${cargo_tools[@]}; do
+for tool in "${cargo_tools[@]}"; do
   $tool --version
 done
 

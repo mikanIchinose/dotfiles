@@ -14,4 +14,5 @@ jobs:
         uses: ludeeus/action-shellcheck@master
         with:
           scandir: './scripts'
+          SHELLCHECK_OPTS: -e SC1091
           # format: gcc

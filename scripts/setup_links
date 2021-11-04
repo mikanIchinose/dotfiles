@@ -22,11 +22,11 @@ symlink "$SOURCE/nvim"            "$DESTINATION/.config/nvim"
 symlink "$SOURCE/starship"   "$DESTINATION/.config/starship"
 symlink "$SOURCE/.tigrc"          "$DESTINATION/.tigrc"
 
-if [ $(uname) == 'Darwin' ]; then
+if [ "$(uname)" == 'Darwin' ]; then
   symlink "$SOURCE/asdf/darwin/.tool-versions" "$DESTINATION/.tool-versions"
   symlink "$SOURCE/shell/.zshrc" "$DESTINATION/.zshrc"
   symlink "$SOURCE/navi" "$DESTINATION/.config/navi"
-elif [ $(uname ) == 'Linux' ]; then
+elif [ "$(uname)" == 'Linux' ]; then
   symlink "$SOURCE/asdf/linux/.tool-versions"  "$DESTINATION/.tool-versions"
   symlink "$SOURCE/i3"                         "$DESTINATION/.config/i3"
   symlink "$SOURCE/i3blocks"                   "$DESTINATION/.config/i3blocks"

@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
 cd ~/AppImage &&
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage &&
 mv nvim.appimage nvim &&
