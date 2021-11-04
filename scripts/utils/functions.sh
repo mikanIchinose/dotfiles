@@ -48,7 +48,7 @@ coloredEcho() {
   local color="$2";
   local prefix="$3";
   if ! [[ $color =~ '^[0-9]$' ]] ; then
-     case $(echo $color | tr '[:upper:]' '[:lower:]') in
+     case $(echo "$color" | tr '[:upper:]' '[:lower:]') in
       black) color=0 ;;
       red) color=1 ;;
       green) color=2 ;;
