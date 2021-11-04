@@ -12,7 +12,8 @@
   # 日本語文字化けの解消
   quotepath = false
 [credential]
-	helper = store
+	helper = store --file /Volumes/TOSHIBA/.secrets/git/credentials
+  helper = cache --timeout 3000
 [interactive]
 	diffFilter = delta --color-only
 [delta]
@@ -41,3 +42,9 @@
 	prune = true
 [rebase]
 	autosquash = true
+[difftool]
+  prompt = false
+[diff]
+  tool = nvimdiff
+[difftool "nvimdiff"]
+  cmd = nvim -d "$LOCAL" "$REMOTE"
