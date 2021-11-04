@@ -28,7 +28,7 @@ symlink() {
 #   link_name: String
 ########################################
 clear_broken_symlinks() {
-  find -L "$1" -type l | while read fn; do
+  find -L "$1" -type l | while read -r fn; do
     if rm "$fn"; then
       substep_success "Removed broken symlink at $fn."
     else
