@@ -1,0 +1,13 @@
+% brew code
+
+# install
+brew bundle --file ~/Brewfile
+
+# edit Brewfile
+nvim ~/Brewfile
+
+# search
+brew search <app>
+
+# search
+mas search <app>

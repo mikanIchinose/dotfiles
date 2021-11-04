@@ -1,0 +1,17 @@
+% git, util
+
+# switch branch
+git switch <branch>
+
+$ branch: command git for-each-ref --format="%(refname:short)" refs/remotes refs/heads | command grep -v $(command git branch --show-current) | command sed "s/grigin\///" | command sort | command uniq
+
+# stash selected files
+git stash push -m "<message>" <stash_files>
+
+$ stash_files: command git status -s | command fzf -m | command awk '{print $2}'
+$ message: echo 'hello world'
+
+# create branch
+git branch <branch_name> <start_point>
+
+$ start_point: command git for-each-ref --format="%(refname:short)" refs/heads

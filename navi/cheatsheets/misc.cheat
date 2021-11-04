@@ -1,0 +1,25 @@
+% shell code
+
+# fuzzy remove file(s)
+rm <files>
+
+# fuzzy remove director(y|ies)
+rm -r <dirs>
+
+% curl
+
+# simple get call
+curl <url>
+
+# send a http request
+curl -X <method> <url>
+
+# send a http request and download output
+curl -X <method> <url> -o <filename>
+
+# make qr code
+echo "<content>" | curl -F-=\<- qrenco.de
+
+$ files: fd . --type f --hidden --max-depth 1 | fzf -m | tr "\n" " "
+$ dirs: fd . --type d --hidden --max-depth 1 | fzf -m | tr "\n" " "
+$ method: echo -e 'GET\nPOST\nPUT\nDELETE\nPATCH'

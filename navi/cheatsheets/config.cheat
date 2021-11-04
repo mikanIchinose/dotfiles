@@ -1,0 +1,19 @@
+% config code
+
+# zsh
+nvim ~/.zshrc
+
+# fish
+nvim ~/.config/fish/config.fish
+
+# starship
+nvim ~/.config/starship/config.toml
+
+# espanso
+nvim ~/.config/espanso/default.yaml
+
+# brew
+nvim ~/Brewfile
+
+# navi
+cd ~/.dotfiles/navi/cheatsheets; nvim $(ls | fzf)

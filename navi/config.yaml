@@ -1,0 +1,24 @@
+style:
+  tag:
+    color: cyan
+    width_percentage: 26
+    min_width: 20
+  comment:
+    color: blue
+    width_percentage: 42
+    min_width: 45
+  snippet:
+    color: white
+
+finder:
+  command: fzf
+
+cheats:
+  paths: 
+    - ~/.config/navi/cheatsheets
+
+# search:
+  # tags: git,!checkout # equivalent to the --tag-rules option
+
+shell:
+  command: bash

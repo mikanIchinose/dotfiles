@@ -1,0 +1,15 @@
+% fd code
+# find file
+fd '<pattern>'
+
+# find file include hidden file
+fd --hidden '<pattern>'
+
+# find file for specified extension
+fd --extension <extension> '<pattern>'
+
+# find file for specified type
+fd --type <type> '<pattern>'
+
+$ extension: echo -e 'html\ncss\njs\njsx\nts\ntsx\njava\nkt\nyml\nyaml\ntoml\njson\nlock\nrs\ndhall\nphp\norg'
+$ type: echo -e 'file\ndirectory\nsymlink'

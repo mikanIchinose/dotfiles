@@ -1,0 +1,5 @@
+% silicon code
+# generate code image
+silicon <file> -o <output>
+
+$ file: fd . --type f --max-depth 1
