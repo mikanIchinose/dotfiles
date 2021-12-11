@@ -1,4 +1,4 @@
-% shell code
+% shell
 
 # fuzzy remove file(s)
 rm <files>
@@ -6,20 +6,44 @@ rm <files>
 # fuzzy remove director(y|ies)
 rm -r <dirs>
 
+$ files: fd . --type f --hidden --max-depth 1 --- --multi --expand
+$ dirs: fd . --type d --hidden --max-depth 1 --- --multi --expand
+
 % curl
 
 # simple get call
 curl <url>
 
 # send a http request
-curl -X <method> <url>
+curl <option> <url>
 
-# send a http request and download output
-curl -X <method> <url> -o <filename>
+# send a http request and download
+curl <url> -o <filename>
 
 # make qr code
 echo "<content>" | curl -F-=\<- qrenco.de
 
-$ files: fd . --type f --hidden --max-depth 1 | fzf -m | tr "\n" " "
-$ dirs: fd . --type d --hidden --max-depth 1 | fzf -m | tr "\n" " "
-$ method: echo -e 'GET\nPOST\nPUT\nDELETE\nPATCH'
+$ option: echo -e "\n-H '<header>'\n-X '<method>'\n-d <data>" --- --multi --expand
+$ method: echo -e '\nGET\nPOST\nPUT\nDELETE\nPATCH'
+$ header: echo -e '\nContent-Type: application/json'
+
+% ffmpeg, gif, video
+
+# convert mov to gif
+ffmpeg -i "<video-file>" -r 24 <git_file>.gif
+
+$ video-file: fd --extension mov
+
+% vim, doc, memo
+
+# create/open memo
+local today=$(date "+%Y%m%d"); nvim "/tmp/memo-${today}.md"
+
+# delete memo
+rm -i <memo>
+
+$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory /tmp "memo"
+
+# delete all memo
+rm "/tmp/memo-*.md"
+

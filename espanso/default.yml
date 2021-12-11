@@ -1,14 +1,21 @@
-# espanso configuration file
+enable_passive: true
+passive_key: SHIFT
+secure_input_notification: false
 
-# This is the default configuration file, change it as you like it
-# You can refer to the official documentation:
-# https://espanso.org/docs/
+global_vars:
+  - name: "first_name"
+    type: "dummy"
+    params:
+      echo: "一瀬"
+  - name: "last_name"
+    type: "dummy"
+    params:
+      echo: "喜弘"
+  - name: "clipboard"
+    type: "clipboard"
 
-# Matches are the substitution rules, when you type the "trigger" string
-# it gets replaced by the "replace" string.
 matches:
-  # Dates
-  - trigger: ":date"
+  - trigger: ";date"
     replace: "{{mydate}}"
     vars:
       - name: mydate
@@ -16,24 +23,28 @@ matches:
         params:
           format: "%m/%d/%Y"
 
-  # Shell commands
-  - trigger: ":shell"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "echo Hello from your shell"
+  - trigger: ";name"
+    replace: "{{first_name}} {{last_name}}"
+  - trigger: ";fname"
+    replace: "{{first_name}}"
+  - trigger: ";lname"
+    replace: "{{last_name}}"
 
-  - trigger: ":name"
-    replace: "一瀬 喜弘"
-  - trigger: ":fname"
-    replace: "一瀬"
-  - trigger: ":lname"
-    replace: "喜弘"
-  - trigger: ":tester_info:"
+  - trigger: ";tester_info"
     replace: |
       端末: Pixel3
       Version: Android11
       AppVersion: 0.6.7
       実施者: 一瀬
+
+  - trigger: ";pmail"
+    replace: "maruisangmai@gmail.com"
+  - trigger: ";cmail"
+    replace: "mikan.ichinose@karabiner.tech"
+
+  # image tag
+  - trigger: ";img"
+    replace: |
+      <img 
+        src="{{clipboard}}"
+        width="500"/>

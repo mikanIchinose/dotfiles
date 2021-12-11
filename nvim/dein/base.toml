@@ -2,37 +2,42 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'tyru/eskk.vim'
+repo = 'vim-denops/denops.vim'
 
-# super completion using LSP like VSCode
-# [[plugins]]
-# repo = 'neoclide/coc.nvim'
-# merge = 0
-# rev = 'release'
-# hook_add = '''
-  # source ~/.config/nvim/plugins/coc.vim
-# '''
-
-# colorful parentheses
 [[plugins]]
-repo = 'kien/rainbow_parentheses.vim'
+repo = 'Shougo/ddc.vim'
 hook_add = '''
-  source ~/.config/nvim/plugins/rainbow_parentheses.vim
+source ~/.config/nvim/plugins/ddc.vim
 '''
 
-# status line
+[[plugins]]
+repo = 'Shougo/ddc-around'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+
+[[plugins]]
+repo = 'skanehira/denops-gh.vim'
+
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
-  source ~/.config/nvim/plugins/lightline.vim
+source ~/.config/nvim/plugins/lightline.vim
 '''
 [[plugins]]
 repo = 'mengelbrecht/lightline-bufferline'
 
+# comment
 [[plugins]]
 repo = 'tyru/caw.vim'
 hook_add = '''
-  source ~/.config/nvim/plugins/caw.vim
+source ~/.config/nvim/plugins/caw.vim
 '''
 
 [[plugins]]
@@ -42,17 +47,8 @@ repo = 'morhetz/gruvbox'
 repo = 'cespare/vim-toml'
 
 [[plugins]]
-repo = 'posva/vim-vue'
-on_ft = ['vue', 'js', 'md']
-
-[[plugins]]
-repo = 'elixir-lang/vim-elixir'
-# on_ft = ['elixir']
-
-[[plugins]]
 repo = 'roxma/vim-paste-easy'
 
-# 直前の処理を.で繰り返せる
 [[plugins]]
 repo = 'tpope/vim-repeat'
 
@@ -62,12 +58,13 @@ repo = 'tpope/vim-fugitive'
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
-  source ~/.config/nvim/plugins/gitgutter.vim
+source ~/.config/nvim/plugins/gitgutter.vim
 '''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
 
+# todo telescopeに変えるかどうか迷う
 [[plugins]]
 repo = 'junegunn/fzf'
 build = './install --all'
@@ -78,7 +75,7 @@ repo = 'junegunn/fzf.vim'
 [[plugins]]
 repo = 'liuchengxu/vim-which-key'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-which-key.vim
+source ~/.config/nvim/plugins/vim-which-key.vim
 '''
 
 [[plugins]]
@@ -89,6 +86,7 @@ repo='dag/vim-fish'
 hook_add='''
 source ~/.config/nvim/plugins/fish.vim
 '''
+on_ft = [ "fish" ]
 
 # ^vg_や0v$hで指定するテキスト範囲をもっと簡単に選択できるようにする
 # val: 改行を含まずに一行まるごと選択
@@ -103,8 +101,35 @@ repo='kana/vim-textobj-user'
 [[plugins]]
 repo = 'tpope/vim-surround'
 
-[[plugins]]
-repo = 'mattn/emmet-vim'
+# [[plugins]]
+# repo = 'mattn/emmet-vim'
+# on_fr = [ "html" ]
 
-[[plugins]]
-repo = 'udalov/kotlin-vim'
+# [[plugins]]
+# repo = 'udalov/kotlin-vim'
+# on_ft = [ "kotlin" ]
+
+# [[plugins]]
+# repo = 'junegunn/vim-emoji'
+# [[plugins]]
+# repo = 'Kachyz/vim-gitmoji'
+# hook_add='''
+# set completefunc=emoji#complete
+# '''
+
+# [[plugins]]
+# repo = 'tyru/eskk.vim'
+
+# [[plugins]]
+# repo = 'kien/rainbow_parentheses.vim'
+# hook_add = '''
+# source ~/.config/nvim/plugins/rainbow_parentheses.vim
+# '''
+
+# [[plugins]]
+# repo = 'elixir-lang/vim-elixir'
+# on_ft = ['elixir']
+
+# [[plugins]]
+# repo = 'posva/vim-vue'
+# on_ft = ['vue', 'js', 'md']

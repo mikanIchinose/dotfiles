@@ -1,6 +1,3 @@
-commitizen
-cz-conventional-changelog-ja
+markdownlint-cli
 npm
 pnpm
-tldr
-yarn

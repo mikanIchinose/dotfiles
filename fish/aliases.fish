@@ -65,6 +65,6 @@ abbr dcb "docker-compose build"
 alias vim "nvim"
 
 abbr bash "bash --norc"
-abbr zsh "zsh --norc"
+abbr zsh "zsh --no-rcs"
 
 abbr tree "exa --tree"

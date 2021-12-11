@@ -1,21 +1,22 @@
-format = """
-$time$directory\
-$fill\
-$package\
-$dart$deno$elixir$elm$golang$java$kotlin$lua$nodejs$php$python$rust$swift\
-$terraform\
-$memory_usage\
-$aws$gcloud\
-$git_branch\
-$git_status\
-$git_commit\
-$git_metrics\
-$git_state\
-$custom\
-$cmd_duration\
-$line_break\
-$status$shell$character\
-"""
+format = "$all"
+# format = """
+# $time$directory\
+# $fill\
+# $package\
+# $dart$deno$elixir$elm$golang$java$kotlin$lua$nodejs$php$python$rust$swift\
+# $terraform\
+# $memory_usage\
+# $aws$gcloud\
+# $git_branch\
+# $git_status\
+# $git_commit\
+# $git_metrics\
+# $git_state\
+# $custom\
+# $cmd_duration\
+# $line_break\
+# $status$shell$character\
+# """
 
 
 scan_timeout = 30
@@ -85,3 +86,4 @@ style = "fg:#b2d500"
 
 [git_metrics]
 disabled = false
+

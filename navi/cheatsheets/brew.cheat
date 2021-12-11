@@ -1,13 +1,20 @@
-% brew code
+% brew
 
-# install
-brew bundle --file ~/Brewfile
+# install packages
+brew bundle --file ~/Brewfile && brew bundle cleanup --file ~/Brewfile && brew update && brew upgrade
+
+# list package
+brew list --file ~/Brewfile
+
+# check package
+brew check --file ~/Brewfile
+
+# search
+brew search <app> && mas search <app>
+
+# cleanup
+brew bundle cleanup --file ~/Brewfile && brew update && brew upgrade
 
 # edit Brewfile
 nvim ~/Brewfile
 
-# search
-brew search <app>
-
-# search
-mas search <app>

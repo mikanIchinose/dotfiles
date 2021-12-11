@@ -1,4 +1,4 @@
-% config code
+% config
 
 # zsh
 nvim ~/.zshrc
@@ -9,11 +9,10 @@ nvim ~/.config/fish/config.fish
 # starship
 nvim ~/.config/starship/config.toml
 
-# espanso
-nvim ~/.config/espanso/default.yaml
-
-# brew
-nvim ~/Brewfile
+# espanso for ubuntu
+nvim ~/.config/espanso/default.yml
+# espanso for mac
+nvim ~/Library/Preferences/espanso/default.yml
 
 # navi
-cd ~/.dotfiles/navi/cheatsheets; nvim $(ls | fzf)
+cd ~/.dotfiles/navi && nvim $(fd --type file | fzf)

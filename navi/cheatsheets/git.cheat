@@ -1,17 +1,82 @@
-% git, util
+% git, branch
 
 # switch branch
-git switch <branch>
-
-$ branch: command git for-each-ref --format="%(refname:short)" refs/remotes refs/heads | command grep -v $(command git branch --show-current) | command sed "s/grigin\///" | command sort | command uniq
+git switch <all_branch>
 
 # stash selected files
 git stash push -m "<message>" <stash_files>
 
 $ stash_files: command git status -s | command fzf -m | command awk '{print $2}'
-$ message: echo 'hello world'
 
 # create branch
 git branch <branch_name> <start_point>
 
 $ start_point: command git for-each-ref --format="%(refname:short)" refs/heads
+
+# create feature branch
+git switch -c "feature/<name>" <start_point>
+
+# create fix branch
+git switch -c "fix/<name>" <start_point>
+
+# create doc branch
+git switch -c "doc/<name>" <start_point>
+
+# create hot-fix branch
+git switch -c "hot-fix/<name>" <start_point>
+
+$ start_point: echo -e "develop\nmain\nmaster"
+
+# rename branch
+git branch -m <old-branch> <new-branch>
+
+# rename current-branch
+git branch -m <current_branch> <new_branch>
+
+# delete branch
+git branch -d <local_branch>
+
+# delete merged-branch
+git branch -d <local_branch>
+
+$ current_branch: command git branch --show-current
+$ local_branch: command git for-each-ref --format="%(refname:short)" refs/heads | command grep -v $(command git branch --show-current) | command sed "s/grigin\///" | command sort | command uniq
+$ remote_branch: command git for-each-ref --format="%(refname:short)" refs/remotes | command grep -v $(command git branch --show-current) | command sed "s/grigin\///" | command sort | command uniq
+$ all_branch: command git for-each-ref --format="%(refname:short)" refs/remotes refs/heads | command grep -v $(command git branch --show-current) | command sed "s/origin\///" | command sort | command uniq
+
+% git, tag
+
+# create tag
+git tag -a <version>
+
+# push tag
+git push origin --tags \
+  && git push origin
+
+# delete tag
+git tag -d <tag> \
+  && git push origin :refs/tags/<tag>
+
+$ tag: git tag -l
+
+# rename tag
+git tag <old_tag> <new_tag> \
+  && git tag -d <old_tag> \
+  && git push origin <new_tag> \
+  && git push origin :refs/tags/<old_tag>
+
+$ old_tag: git tag -l
+
+% git
+
+# cd local repo
+cd <local_repo>
+
+$ local_repo: fd --type directory --absolute-path --exact-depth 1 --base-directory ~/LocalProject/
+
+% git, ghq
+
+# cd ghq repo
+cd <repo>
+
+$ repo: ghq list --full-path

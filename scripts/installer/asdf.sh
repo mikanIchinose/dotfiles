@@ -26,8 +26,8 @@ if [ ! -d ~/.asdf ]; then
 fi
 export PATH="$HOME/.asdf/shims:$HOME/.asdf/bin:$PATH"
 
-node
-php
+# node
+# php
 # install plugins
 if [ -e ~/.tool-versions ]; then
   cat < ~/.tool-versions | awk '{print $1}' | while read -r plugin

@@ -1,6 +1,12 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+
+" ddc-gitmoji
+let g:denops#debug = 1
+set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
+"set runtimepath^=~/LocalProject/ddc-deno-import-map
+
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible
@@ -48,6 +54,12 @@ if len(s:removed_plugins) > 0
   call map(dein#check_clean(), "delete(v:val, 'rf')")
   call dein#recache_runtimepath()
 endif
+
+" auto update
+if $DEIN_GITHUB_TOKEN != ""
+  let g:dein#install_github_api_token = $DEIN_GITHUB_TOKEN
+  call dein#check_update(v:true)
+endif
 "End dein Scripts-------------------------
 
 " ファイル形式検出、形式別プラグイン有効化、形式別インデント有効化
@@ -84,7 +96,7 @@ set inccommand=split
 set hidden
 set nowritebackup
 " クリップボード連携
-" prerequirement: brew install xclip
+" prerequirement: xclip
 set clipboard+=unnamedplus
 " コメントの色をグレーにする
 hi Comment ctermfg=gray
@@ -113,13 +125,15 @@ set background=dark
 colorscheme gruvbox
 
 " eskk.vim
-let g:eskk#directory = "~/.config/eskk"
-let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
-let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
-let g:eskk#enable_completion = 0
-let g:eskk#egg_like_newline = 1
-let g:eskk#marker_henkan = "[変換]"
-let g:eskk#marker_henkan_select = "[選択]"
-let g:eskk#marker_okuri = "[送り]"
-let g:eskk#marker_jisyo_touroku = "[辞書]"
-set imdisable
+" let g:eskk#directory = "~/.config/eskk"
+" let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
+" let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
+" let g:eskk#enable_completion = 0
+" let g:eskk#egg_like_newline = 1
+" let g:eskk#marker_henkan = "[変換]"
+" let g:eskk#marker_henkan_select = "[選択]"
+" let g:eskk#marker_okuri = "[送り]"
+" let g:eskk#marker_jisyo_touroku = "[辞書]"
+" set imdisable
+
+call popup_preview#enable()
