@@ -10,18 +10,14 @@ let s:dein_dir      = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 let s:toml_dir  = '~/.config/nvim/dein'
-let s:base_toml = s:toml_dir . '/base.toml'
-let s:lazy_toml = s:toml_dir . '/lazy.toml'
-let s:ft_toml   = s:toml_dir . '/ftplugin.toml'
+let s:base_toml = s:toml_dir . '/base.mini.toml'
+let s:lazy_toml = s:toml_dir . '/lazy.mini.toml'
 
 " config
-"let g:dein#auto_recache = v:true
-"let g:dein#lazy_rplugins = v:true
-"let g:dein#install_progress_type = 'title'
-"let g:dein#enable_notification = v:true
+let g:dein#auto_recache = v:true
 
 " download dein.vim
-if &runtimepath !~# '/dein.vim'
+if &runtimepath !~# '/dein,vim'
   if !isdirectory(s:dein_repo_dir)
     execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
   endif
@@ -29,25 +25,27 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 " initialize
+" echo '[dein] initialize'
 if dein#min#load_state(s:dein_dir)
   call dein#begin(s:dein_dir, [
-        \ expand('<sfile>'), s:base_toml, s:lazy_toml, s:ft_toml
+        \ expand('<sfile>'), s:base_toml, s:lazy_toml
         \ ])
 
   call dein#load_toml(s:base_toml, {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
-  call dein#load_toml(s:ft_toml)
 
   call dein#end()
   call dein#save_state()
 endif
 
 " auto install
+" echo '[dein] check install'
 if dein#check_install()
   call dein#install()
 endif
 
 " auto remove
+" echo '[dein] check remove'
 let s:removed_plugins = dein#check_clean()
 if len(s:removed_plugins) > 0
   call map(dein#check_clean(), "delete(v:val, 'rf')")
@@ -74,14 +72,7 @@ endfunction
 command! DeinFastUpdate call DeinFastUpdate()
 "End dein Scripts-------------------------
 
-"user settings---------------------------
-let s:base_dir = '~/.config/nvim'
-execute 'source ' . s:base_dir . '/common.vim'
-execute 'source ' . s:base_dir . '/colorscheme.vim'
-lua require('custom')
-
-" ddc-gitmoji
-" let g:denops#debug = 1
-" set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
-" set runtimepath^=~/LocalProject/ddc-deno-import-map
-"End user settings---------------------------
+" ファイル形式検出、形式別プラグイン有効化、形式別インデント有効化
+filetype plugin indent on
+" 構文ハイライト有効化
+syntax enable

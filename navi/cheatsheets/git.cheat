@@ -47,6 +47,9 @@ $ all_branch: command git for-each-ref --format="%(refname:short)" refs/remotes 
 % git, tag
 
 # create tag
+git tag <version>
+
+# create tag with comment
 git tag -a <version>
 
 # push tag

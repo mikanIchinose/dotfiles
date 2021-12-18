@@ -1,135 +1,161 @@
+### 言語や環境に関係なく必要なプラグインを定義する
+##  plugin manager
 [[plugins]]
 repo = 'Shougo/dein.vim'
+hook_add = '''
+function! s:dein_toml_syntax() abort
+  if expand('%:p') =~# '\vdein/[^/]+.toml$'
+    call dein#toml#syntax()
+  endif
+endfunction
+autocmd FileType toml ++nested call timer_start(0, {id->s:dein_toml_syntax()})
+autocmd FileType toml,vim LspStop
+'''
+[[plugins]]
+repo = 'wsdjeg/dein-ui.vim'
+depends = ['dein.vim']
 
+## color scheme
+[[plugins]]
+repo = 'sainnhe/gruvbox-material'
+
+## icon
+[[plugins]]
+repo = 'kyazdani42/nvim-web-devicons'
+
+## general purpose purser
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = 0
+
+## なんか便利な強いやつ
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+## plugin platform
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 
+## git
 [[plugins]]
-repo = 'Shougo/ddc.vim'
-hook_add = '''
-source ~/.config/nvim/plugins/ddc.vim
+repo = 'lambdalisue/gina.vim'
+[[plugins]]
+repo = 'lewis6991/gitsigns.nvim'
+depends = ['plenary.nvim']
+hook_source = '''
+lua << EOF
+require('gitsigns').setup {
+  signs = {
+    -- add = { text = '樂', },
+    -- change = { text = '', },
+    delete       = { text = '', },
+    topdelete    = { text = '', },
+    changedelete = { text = '', },
+  },
+  current_line_blame = true,
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+    delay = 50,
+    ignore_whitespace = false,
+  },
+  current_line_blame_formatter_opts = {
+    relative_time = false
+  },
+}
+EOF
 '''
 
+## fileer
 [[plugins]]
-repo = 'Shougo/ddc-around'
+repo = 'lambdalisue/fern.vim'
 
+## lsp
 [[plugins]]
-repo = 'Shougo/ddc-sorter_rank'
+repo = 'neovim/nvim-lspconfig'
+[[plugins]]
+repo = 'williamboman/nvim-lsp-installer'
+depends = ['nvim-lspconfig']
 
+## fuzzy finder
 [[plugins]]
-repo = 'Shougo/ddc-matcher_head'
-
+repo = 'nvim-telescope/telescope.nvim'
+depends = ['plenary.nvim', 'nvim-lspconfig']
 [[plugins]]
-repo = 'skanehira/denops-gh.vim'
-
+repo = 'nvim-telescope/telescope-fzf-native.nvim'
+depends = ['telescope.nvim']
+build = 'make'
 [[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-
+repo = 'nvim-telescope/telescope-project.nvim'
+depends = ['telescope.nvim']
 [[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_add = '''
-source ~/.config/nvim/plugins/lightline.vim
-'''
-[[plugins]]
-repo = 'mengelbrecht/lightline-bufferline'
-
-# comment
-[[plugins]]
-repo = 'tyru/caw.vim'
-hook_add = '''
-source ~/.config/nvim/plugins/caw.vim
-'''
-
-[[plugins]]
-repo = 'morhetz/gruvbox'
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-
-[[plugins]]
-repo = 'roxma/vim-paste-easy'
-
-[[plugins]]
-repo = 'tpope/vim-repeat'
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
-hook_add = '''
-source ~/.config/nvim/plugins/gitgutter.vim
+repo = 'folke/todo-comments.nvim'
+depends = ['nvim-lua/plenary.nvim']
+hook_source = '''
+lua << EOF
+require('todo-comments').setup {}
+EOF
 '''
 
+## which-key
 [[plugins]]
-repo = 'cohama/lexima.vim'
+repo = 'folke/which-key.nvim'
 
-# todo telescopeに変えるかどうか迷う
-[[plugins]]
-repo = 'junegunn/fzf'
-build = './install --all'
-merged = 0
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-
-[[plugins]]
-repo = 'liuchengxu/vim-which-key'
-hook_add = '''
-source ~/.config/nvim/plugins/vim-which-key.vim
-'''
-
+## editorconfig
 [[plugins]]
 repo='editorconfig/editorconfig-vim'
 
+## textobject
 [[plugins]]
-repo='dag/vim-fish'
-hook_add='''
-source ~/.config/nvim/plugins/fish.vim
-'''
-on_ft = [ "fish" ]
-
-# ^vg_や0v$hで指定するテキスト範囲をもっと簡単に選択できるようにする
-# val: 改行を含まずに一行まるごと選択
-# vil: 両端の空白を除いた一行まるごと選択
+repo = 'kana/vim-textobj-user'
 [[plugins]]
-repo='kana/vim-textobj-line'
-depends=['vim-textobj-user']
+repo = 'kana/vim-textobj-line'
+depends = ['vim-textobj-user']
 
-[[plugins]]
-repo='kana/vim-textobj-user'
-
+## surround
 [[plugins]]
 repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo='thinca/vim-quickrun'
+
+## comment
+[[plugins]]
+repo = 'tyru/caw.vim'
 
 # [[plugins]]
 # repo = 'mattn/emmet-vim'
 # on_fr = [ "html" ]
 
-# [[plugins]]
-# repo = 'udalov/kotlin-vim'
-# on_ft = [ "kotlin" ]
+[[plugins]]
+repo = 'kien/rainbow_parentheses.vim'
+hook_add = '''
+source ~/.config/nvim/plugins/rainbow_parentheses.vim
+'''
 
-# [[plugins]]
-# repo = 'junegunn/vim-emoji'
-# [[plugins]]
-# repo = 'Kachyz/vim-gitmoji'
-# hook_add='''
-# set completefunc=emoji#complete
-# '''
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_source = '''
+source ~/.config/nvim/plugins/lightline.vim
+'''
+[[plugins]]
+repo = 'mengelbrecht/lightline-bufferline'
+depends = ['lightline.vim']
 
-# [[plugins]]
-# repo = 'tyru/eskk.vim'
+## develop init.lua
+[[plugins]]
+repo = 'folke/lua-dev.nvim'
+depends = ['nvim-lspconfig']
 
-# [[plugins]]
-# repo = 'kien/rainbow_parentheses.vim'
-# hook_add = '''
-# source ~/.config/nvim/plugins/rainbow_parentheses.vim
-# '''
+#[[plugins]]
+#repo = 'roxma/vim-paste-easy'
 
-# [[plugins]]
-# repo = 'elixir-lang/vim-elixir'
-# on_ft = ['elixir']
+#[[plugins]]
+#repo = 'tpope/vim-repeat'
 
-# [[plugins]]
-# repo = 'posva/vim-vue'
-# on_ft = ['vue', 'js', 'md']
+#[[plugins]]
+#repo = 'cohama/lexima.vim'
+
+# help
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'

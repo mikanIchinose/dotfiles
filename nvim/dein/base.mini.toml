@@ -1,0 +1,7 @@
+### 言語や環境に関係なく必要なプラグインを定義する
+## plugin manager
+[[plugins]]
+repo = 'Shougo/dein.vim'
+[[plugins]]
+repo = 'wsdjeg/dein-ui.vim'
+depends = ['dein.vim']

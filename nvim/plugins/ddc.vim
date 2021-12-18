@@ -1,7 +1,5 @@
 call ddc#custom#patch_global('sources', ['around', 'gitmoji', 'gh_issues'])
-
 call ddc#custom#patch_global('keywordPattern', '[a-zA-Z_:]\w*')
-
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
         \ 'matchers': ['matcher_head'],
@@ -9,7 +7,7 @@ call ddc#custom#patch_global('sourceOptions', {
         \ },
       \ })
 call ddc#custom#patch_global('sourceOptions', {
-      \ 'around': {'mark': 'Ar'},
+      \ 'around': {'mark': 'A'},
       \ })
 call ddc#custom#patch_global('sourceOptions', {
       \ 'gitmoji': { 
@@ -38,6 +36,7 @@ call ddc#custom#patch_global('sourceParams', {
           \ },
         \ },
       \ })
+
 " experimental interface
 " call ddc#custom#patch_global('sourceParams', {
 "       \ 'gitmoji': {
@@ -56,10 +55,19 @@ call ddc#custom#patch_global('sourceParams', {
 "         \ },
 "       \ })
 
-inoremap <silent><expr> <TAB>
-\ pumvisible() ? '<C-n>' :
-\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-\ '<TAB>' : ddc#map#manual_complete()
-
 call ddc#enable()
-" call ddc#disable()
+
+" keymapping
+set completeopt=menuone,noinsert
+inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? '<C-n>' :
+  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+  \ '<TAB>' : ddc#map#manual_complete()
+
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+
+inoremap <expr><Down> pumvisible() ? "<C-n>" : "<Down>" 
+inoremap <expr><Up> pumvisible() ? "<C-p>" : "<Up>" 
+

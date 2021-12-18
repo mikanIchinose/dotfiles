@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-on_ft = 'toml'
 hook_source = '''
 let g:context_filetype#ignore_patterns = {
     \ 'toml': ['^\s*#\s*'],
@@ -9,7 +8,6 @@ let g:context_filetype#ignore_patterns = {
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
-on_source = 'context_filetype.vim'
 
 [[plugins]]
 repo = 'lfilho/cosco.vim'
@@ -18,24 +16,14 @@ hook_source = '''
 source ~/.config/nvim/plugins/cosco.vim
 '''
 
-## develop init.lua
-[[plugins]]
-repo = 'folke/lua-dev.nvim'
-depends = ['nvim-lspconfig']
-on_ft = 'lua'
-
-[[plugins]]
-repo = 'skanehira/denops-gh.vim'
-depends = ['denops.vim']
-
-## command line completion
+## pum
 [[plugins]]
 repo = 'Shougo/pum.vim'
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
 depends = ['pum.vim']
 
-# ddc
+## ddc
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
@@ -63,7 +51,3 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'tani/ddc-git'
 on_source = 'ddc.vim'
-[[plugins]]
-repo = 'Shougo/ddc-rg'
-on_source = 'ddc.vim'
-
