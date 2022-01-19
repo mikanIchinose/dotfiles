@@ -1,0 +1,743 @@
+;;    _____       __                 _     __   ______                         
+;;   / ___/____  / /__  ____  ____  (_)___/ /  / ____/___ ___  ____ ___________
+;;   \__ \/ __ \/ / _ \/ __ \/ __ \/ / __  /  / __/ / __ `__ \/ __ `/ ___/ ___/
+;;  ___/ / /_/ / /  __/ / / / /_/ / / /_/ /  / /___/ / / / / / /_/ / /__(__  ) 
+;; /____/\____/_/\___/_/ /_/\____/_/\__,_/  /_____/_/ /_/ /_/\__,_/\___/____/
+
+(eval-and-compile
+  (when (or load-file-name byte-compile-current-file)
+    (setq user-emacs-directory
+          (expand-file-name
+           (file-name-directory (or load-file-name byte-compile-current-file))))))
+
+(eval-and-compile
+  (customize-set-variable
+   'package-archives '(("org" . "https://orgmode.org/elpa/")
+                       ("melpa" . "https://melpa.org/packages/")
+                       ("gnu" . "https://elpa.gnu.org/packages/")))
+  (package-initialize)
+
+  ;; install straight.el
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  ;; install leaf
+  (straight-use-package 'leaf)
+
+  (leaf leaf-keywords
+    :ensure t
+    :init
+    (leaf hydra    :ensure t)
+    (leaf blackout :ensure t) 
+    :config 
+    (leaf-keywords-init)))
+
+;;; settings {{{
+
+(leaf global
+  :tag "global"
+  :custom ((tab-width . 2)
+           (indent-tabs-mode . nil) ; tab -> space
+           (inhibit-startup-message . t)
+           )
+  :config
+  (scroll-bar-mode 0) ; スクロールバー非表示
+  (global-auto-revert-mode t) ; 更新されたファイルを自動的に読み込み直す
+  (set-frame-font "FiraCode Nerd Font-14" t t)
+  (blink-cursor-mode 0) ; カーソルの点滅を無効
+  (add-hook 'find-file-hook '(lambda ()
+                             (cond ((string-match "undecided-?.*" (format "%s" buffer-file-coding-system))
+                                    (let ((coding-system-for-read 'utf-8))
+                                      (revert-buffer t t))))))
+  )
+
+(leaf frame
+  :doc "フレームサイズ・位置などの設定"
+  :tag "global"
+  :config
+  (setq initial-frame-alist
+        (append (list '(width . 100)
+                      '(height . 40)
+                      '(top . 50)
+                      '(left . 50))
+                initial-frame-alist))
+  (setq default-frame-alist initial-frame-alist))
+
+(leaf backup
+  :tag "global"
+  :custom `((make-backup-files . nil)
+            (backup-directory-alist . '(("" . "~/.emacs.d/.backup")))
+            (delete-old-versions . t)))
+
+(leaf mode-line
+  :tag "global mode-line"
+  :config
+  (column-number-mode t) ; 列番号を表示
+  (menu-bar-mode -1)     ; メニューバー非表示
+  (tool-bar-mode 0)      ; ツールバー非表示
+  )
+
+(leaf display-line-numbers
+  :tag "global"
+  :require t
+  :if (version<= "27.0.0" emacs-version)
+  :custom `(
+            (display-line-numbers-width-start . t)
+            (display-line-numbers-type . 'visual)
+            )
+  :global-minor-mode global-display-line-numbers-mode
+  )
+
+(leaf evil
+  :straight t
+  :disabled nil
+  :global-minor-mode t
+  :custom ((evil-want-integration . t)
+           (evil-want-keybinding . nil))
+  :config
+  (leaf evil-collection
+    :straight t
+    :defun (evil-collection-init)
+    :custom ((evil-collection-setup-minibuffer . t))
+    ;:blackout evil-collection-unimpaired-mode
+    :config
+    (evil-collection-init)
+    (blackout 'evil-collection-unimpaired-mode)
+    )
+  )
+
+(eval-and-compile
+  (leaf general
+    :straight t
+    :disabled nil
+    :require t
+    :defun (general-evil-setup
+            general-define-key
+            general-create-definer
+            nmap
+            my-leader-def)
+    :defvar (my-leader-key
+             my-leader-def)
+    :custom ((general-override-states '(insert
+                                        emacs
+                                        hybrid
+                                        normal
+                                        visual
+                                        motion
+                                        operator
+                                        replace)))
+    :config
+    (general-evil-setup t)
+
+    (general-define-key
+     "C-m"   'newline-and-indent    ; 改行+インデント挿入
+     "C-c l" 'toggle-truncate-lines ; toggle wrap
+     )
+
+    (defun byte-compile-init.el ()
+      (interactive)
+      (byte-compile-file "/home/solenoid/.emacs.d/init.el"))
+
+    (nmap 'override
+     "SPC r r" 'byte-compile-init.el)
+
+    (general-create-definer my-leader-def
+      :prefix "SPC")
+    )
+  )
+
+(leaf which-key
+  :straight t
+  :blackout t
+  :custom ((which-key-idle-delay . 0))
+  :global-minor-mode t)
+
+(leaf *which-key-global-map
+  :doc "全バッファで利用する汎用的なキーマップ"
+  :defun (which-key-add-key-based-replacements)
+  :config
+  ; window
+  (nmap 'override
+    :prefix "SPC w"
+    ""   '(:ignore t :wk "window")
+    "d"  '(:ignore t :wk "delete")
+    "do" 'delete-other-windows
+    "o"  'delete-other-windows
+    "dw" 'delete-window
+    "s"  '(:ignore t :wk "split")
+    "sj" 'split-window-below
+    "sl" 'split-window-right
+    "j"  'split-window-below
+    "l"  'split-window-right
+    )
+  ; Ex command
+  (nmap 'override
+    :prefix "SPC e"
+    ""  '(:ignore t :wk "Ex")
+    "w" 'evil-write
+    "W" 'evil-write-all
+    "q" 'evil-quit
+    "Q" 'evil-quit-all)
+  (nmap 'override
+    :prefix "SPC f"
+    ""  '(:ignore t :wk "find")
+    "f" 'find-file
+    )
+  ; (general-translate-key nil 'insert
+  ;   "C-n" "C-j"
+  ;   "C-p" "C-k")
+  )
+
+(leaf all-the-icons
+  :straight t
+  :disabled nil
+  :require t
+  :defun (all-the-icons-icon-family-for-buffer)
+  :config
+  (defun custom-modeline-mode-icon ()
+    (format " %s"
+            (propertize icon
+                        'help-echo (format "Major-mode: `%s`" major-mode)
+                        'face `(:height 1.2 :family ,(all-the-icons-icon-family-for-buffer)))))
+  (setq mode-line-format
+        '("%e" (:eval
+                (concat
+                 (custom-modeline-mode-icon)))))
+  )
+
+(leaf mode-icons
+  :straight t
+  :defun (mode-icons-mode)
+  :config
+  (mode-icons-mode))
+
+(leaf disable-mouse
+  :straight t
+  :require t
+  :global-minor-mode global-disable-mouse-mode)
+
+(leaf elisp-mode
+  :tag "language elisp"
+  :config
+  (leaf eldoc
+    :blackout t
+    :hook emmacs-lisp-mode-hook
+    :custom ((eldoc-idle-delay . 0.2)
+              (eldoc-echo-area-use-multiline-p . t))
+    :config
+    (turn-on-eldoc-mode))
+  )
+
+;;; }}}
+
+(leaf leaf
+  :disabled nil
+  :config
+  (leaf leaf-convert
+    :straight t)
+  )
+
+(leaf leaf-manager
+  :straight t
+  :config
+  (leaf auto-package-update
+    :doc "パッケージ更新"
+    :straight t
+    :require t
+    :custom ((auto-package-update-interval . 30))
+    :defun (auto-package-update-maybe)
+    :config
+    (auto-package-update-maybe))
+  )
+
+(leaf macrostep
+  :doc "マクロを順次展開していく"
+  :straight t
+  :defun (macrostep-expand)
+  :bind ((:emacs-lisp-mode-map
+          ("C-c e" . macrostep-expand))))
+
+(leaf doom-themes
+  :doc "beautiful color scheme"
+  :tag "color-theme"
+  :straight t
+  :config
+  (load-theme 'doom-dracula t))
+
+(leaf skk
+  :straight ddskk
+  :custom ((default-input-method . "japanese-skk")) ;;emacs上での日本語入力にskkをつかう
+  :defun (skk-get)
+  :config
+  (leaf ddskk-posframe
+    :straight t
+    :blackout t
+    :global-minor-mode t))
+
+(leaf fira-code-mode
+  :straight t
+  :doc
+  "M-x fira-code-mode-install-fonts RET"
+  "ligatureの経緯"
+  "ligature.elを使ってたけどskkと干渉を起してしまったのでfira-code-modeに移行"
+  :tag "font" "fira-code"
+  :blackout t
+  :hook (prog-mode-hook) ; プログラミング言語のときだけ有効にする
+  )
+
+(leaf exec-path-from-shell
+  :doc "シェルの環境変数を引き継ぐ"
+  :straight t
+  :disabled t
+  :defun (exec-path-from-shell-initialize)
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+  )
+
+(leaf projectile
+  :straight t
+  :disabled nil
+  :global-minor-mode t
+  :blackout t
+  :after general
+  :custom ((projectile-enable-caching . t))
+  :defvar (projectile-globally-ignored-directories)
+  :config
+  (add-to-list 'projectile-globally-ignored-directories ".git")
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
+  (nmap 'override
+    :prefix "SPC p"
+    :keymap 'projectile-command-map
+    ""    '(:ignore t :wk "projectile")
+    "f"   '(:ignore t :wk "find")
+    "f f" 'projectile-find-file
+    "f d" 'projectile-find-dir
+    "d"   'projectile-dired
+    "s"   'projectile-switch-project
+    ))
+
+(leaf undo-fu
+  :doc "simple undo/redo"
+  :straight t
+  :disabled nil
+  :custom ((evil-undo-system . 'undo-fu))
+  :config
+  (nmap 'override
+    "u"    'undo-fu-only-undo
+    "\C-r" 'undo-fu-only-redo))
+
+(leaf rainbow-delimiters
+  :doc "括弧をカラフルにする"
+  :disabled nil
+  :straight t
+  :require t
+  :require cl-lib color
+  :hook prog-mode-hook emacs-lisp-mode-hook
+  :global-minor-mode t
+  :defun (color-saturate-name)
+  :defvar (rainbow-delimiters-max-face-count)
+  :config
+  ;; カラーをましにする
+  (defun change-rainbow-delimiters-scheme ()
+    (interactive)
+    (cl-loop
+     for index from 1 to rainbow-delimiters-max-face-count
+     do
+     (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+       (cl-callf color-saturate-name (face-foreground face) 30))))
+  (add-hook 'prog-mode-hook 'change-rainbow-delimiters-scheme))
+
+(leaf markdown-mode
+  :straight t
+  :disabled nil
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :custom ((markdown-command . "multimarkdown")))
+
+(leaf org
+  :disabled nil
+  :straight t
+  :bind ((:org-mode-map
+          ("RET" . electric-newline-and-maybe-indent) ; 改行でインデントしない
+          ))
+  :blackout (org-mode . "")
+  :custom ((org-startup-indented . t) ; auto start org indent mode
+           (org-src-fontify-natively . t) ; syntax highlinghting
+           (org-edit-src-content-indentation . 0)
+           (org-src-tab-acts-natibely . t)
+           (org-src-preserve-indentation . t)
+           (org-startup-with-inline-images . t))
+  :hook ((org-babel-after-execute-hook . org-redisplay-inline-images))
+  :defvar (evil-auto-indent)
+  :config
+  ;; hook
+  (defun org-mode-hooks nil
+    (setq-local evil-auto-indent nil)) ; o/Oでインデント挿入を無効化する
+  (add-hook 'org-mode-hook 'org-mode-hooks)
+
+  ;; keymap
+  (nmap
+    :keymaps 'org-mode-map
+    :prefix "SPC o"
+    "i s" 'org-insert-structure-template
+    "i h" 'org-insert-heading-respect-content
+    "i t" 'org-insert-todo-respect-content
+    "i l" 'org-insert-link
+    )
+  (nmap
+    :keymaps 'org-mode-map
+    "TAB" 'org-cycle)
+
+  (leaf org-indent
+    :blackout t)
+
+  (leaf org-preview-html
+    :disabled t
+    :straight t)
+
+  (leaf org-bullets
+    :straight t
+    :disabled t
+    :hook org-mode-hook
+    :custom ((org-bullets-bullet-list . '("" "" "" "" "" "" "" "" ""))))
+
+  (leaf org-superstar
+    :straight t
+    :require t
+    :disabled nil
+    :hook org-mode-hook
+    :custom ((org-superstar-headline-bullets-list . '("" "" "" "" "" "" "" "" "")))
+    :config
+    (with-eval-after-load 'org-superstar
+      (set-face-attribute 'org-superstar-item nil :height 1.2)
+      (set-face-attribute 'org-superstar-header-bullet nil :height 1.2)
+      (set-face-attribute 'org-superstar-leading nil :height 1.3))
+    ))
+
+(leaf plantuml-mode
+  :straight t
+  :after org
+  :custom ((org-plantuml-jar-path . "~/.emacs.d/lib/plantuml.jar")
+           (plantuml-jar-path . "~/.emacs.d/lib/plantuml.jar")
+           (plantuml-default-exec-mode . 'jar))
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((plantuml . t))))
+
+
+(leaf hungry-delete
+  :doc "賢くデリートしてくれる"
+  :disabled nil
+  :straight t
+  :require t
+  :blackout t
+  :global-minor-mode global-hungry-delete-mode)
+
+(leaf recentf
+  :doc "最近使ったファイルを参照"
+  :tag "builtin"
+  :disabled nil
+  :custom ((recentf-save-file . "~/.emacs.d/.recentf")
+           (recentf-max-saved-items . 200)
+           (recentf-exclude . '(".recentf"))
+           (recentf-auto-cleanup . 'never))
+  :global-minor-mode t
+  :config 
+  (run-with-idle-timer
+   30 t
+   '(lambda ()
+      (with-temp-message
+          (recentf-save-list)))) ; 30秒おきにrecentfileを更新する
+  )
+
+; (add-to-list 'exec-path (expand-file-name "~/.local/bin")) ; path to rust analyzer
+; (add-to-list 'exec-path (expand-file-name "~/.cargo/bin")) ; path to cargo binaries
+
+(leaf lsp-mode
+  :straight t
+  :disabled nil
+  :hook (rust-mode-hook . lsp)
+  :custom ((lsp-rust-server . 'rust-analyzer))
+  :defvar (lsp-keymap-prefix)
+  :setq ((lsp-keymap-prefix . "C-l")))
+
+(leaf lsp-ui
+  :disabled nil
+  :straight t)
+
+(leaf rust-mode
+  :straight t
+  :disabled nil
+  :custom ((rust-format-on-save . t))
+  :config
+  (leaf cargo
+    :straight t
+    :hook (rust-mode . cargo-minor-mode))
+  (add-to-list 'exec-path (expand-file-name "~/.local/bin")) ; path to rust analyzer
+  (add-to-list 'exec-path (expand-file-name "~/.cargo/bin")) ; path to cargo binaries
+  )
+
+(leaf kotlin-mode
+  :straight t
+  :require t
+  :disabled nil)
+
+(leaf dashboard
+  :doc "起動時の画面を改造できる"
+  :disabled nil
+  :straight t
+  :require t
+  :defvar (dashboard-banner-logo-title
+           dashboard-startup-banner
+           dashboard-center-content
+           dashboard-set-heading-icons
+           dashboard-set-file-icons
+           dashboard-init-info
+           dashboard-set-init-info
+           dashboard-set-navigator
+           dashboard-items)
+  :setq (
+         (dashboard-banner-logo-title . "神は天に在り、世はすべてこともなし")
+         (dashboard-startup-banner    . "~/.emacs.d/dashboard-logo/logo.png")
+         (dashboard-center-content    . t)
+         (dashboard-set-init-info     . t)
+         (dashboard-set-navigator     . t)
+         ;(dashboard-navigator-buttons . `(
+         ;                                 ("" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+         ;                                 ))
+         (dashboard-items             . '((recents . 15)
+                                          (bookmarks . 5)
+                                          (projects . 5)
+                                          ;(agenda . 5)
+                                          ))
+         )
+  :defun (dashboard-setup-startup-hook)
+  :config
+  (dashboard-setup-startup-hook)
+  )
+
+(leaf page-break-lines
+  :url "https://github.com/purcell/page-break-lines"
+  :straight t
+  :disabled nil
+  :require t
+  :defun (turn-on-page-break-lines-mode)
+  :custom
+  (turn-on-page-break-lines-mode)
+  )
+
+(leaf *search
+  :disabled nil
+  :config
+  (leaf vertico
+    :doc "completion framework"
+    :straight t
+    :disabled nil
+    :global-minor-mode t
+    :config
+    ;(leaf vertico-directory
+    ;  :doc "directory navigator"
+    ;  :require t
+    ;  )
+    )
+
+  (leaf orderless
+    :doc "検索キーワードの順番を気にしない"
+    :straight t
+    :custom ((completion-styles . '(orderless))
+             (completion-category-defaults . nil)
+             (completion-category-overrides '((file (styles partial-completion)))))
+    )
+
+  (leaf savehist
+    :doc "コマンド履歴を残す"
+    :straight t
+    :global-minor-mode t)
+
+  (leaf marginalia
+    :doc "ミニバッファに付加情報を付ける"
+    :straight t
+    :global-minor-mode t)
+
+  (leaf consult
+    :straight t
+    :defun (project-roots)
+    :custom ((consult-find-command . "fd --color=always --full-path ARG OPTS")
+             (consult-project-root-function . (lambda ()
+                                                (when-let (project (project-current))
+                                                  (car (project-roots project)))))
+             )
+    :config
+    (nmap 'override
+      :prefix "SPC c"
+      "" '(:ignore t :wk "consult")
+      "l" 'consult-line
+      "o" 'consult-outline
+      "r" 'consult-recent-file
+      "b" 'consult-buffer
+      "i" 'consult-imenu
+      "f" 'consult-find)
+    (leaf consult-ghq
+      :straight t))
+
+  (leaf affe
+    :straight t
+    :custom ((affe-find-command . "fd"))
+    :config
+    (nmap 'override
+      :prefix "SPC f"
+      "" '(:ignore t :wk "find")
+      "g" 'affe-grep
+      "f" 'affe-find))
+
+  (leaf embark
+    :straight t)
+
+  (leaf embark-consult
+    :straight t
+    :after embark consult)
+  )
+
+(leaf *completion
+  :doc "補完系"
+  :disabled nil
+  :config
+  ; (leaf company
+  ;   :doc "text completion framework"
+  ;   :straight t
+  ;   :global-minor-mode global-company-mode
+  ;   :blackout (company-mode . " ")
+  ;   :custom ((company-idle-delay . 0) ; 補完開始を早くする
+  ;            (company-minimum-prefix-length . 2) ; 補完候補の最小幅
+  ;            (company-selection-wrap-around . t) ; 候補を巡回する
+  ;            (completion-ignore-case . t)
+  ;            (company-dabbrev-downcase . nil)
+  ;            (company-require-match . nil) ; どんな文字でも打てるようにする
+  ;            (company-tooltip-align-annotations . t)
+  ;            (company-eclim-auto-save . nil)
+  ;            ;(company-backends . `(company-elisp
+  ;            ;                      company-capf
+  ;            ;                      company-nxml
+  ;            ;                      company-css
+  ;            ;                      company-bbdb company-cmake company-files
+  ;            ;                      company-dabbrev-code company-dabbrev
+  ;            ;                      (company-gtags company-etags company-keywords)
+  ;            ;                      company-oddmuse))
+  ;            )
+  ;   :defvar (company-active-map)
+  ;   :config
+  ;   (general-define-key
+  ;    :states 'motion
+  ;    :keymap company-active-map
+  ;    "M-n" nil
+  ;    "M-p" nil
+  ;    "C-h" nil
+  ;    "C-j" 'company-select-next
+  ;    "C-k" 'company-select-previous)
+  ;   (general-define-key
+  ;    :states 'insert
+  ;    "C-SPC" 'company-complete)
+
+  ;   (leaf company-statistics
+  ;     :doc "候補の並びをよく使う順にする"
+  ;     :straight t
+  ;     :require t
+  ;     :global-minor-mode t)
+
+  ;   (leaf company-math
+  ;     :tag "company-backend"
+  ;     :straight t)
+
+  ;   (leaf company-wordfreq
+  ;     :tag "company-backend"
+  ;     :straight t
+  ;     :defvar (company-transformers)
+  ;     :config
+  ;     (add-hook 'org-mode-hook (lambda ()
+  ;                                 (setq-local company-backends '(company-wordfreq))
+  ;                                 (setq-local company-transformers nil))))
+  ;   )
+
+  ; (custom-set-variables '(company-backends `(company-elisp
+  ;                       company-math-symbols-unicode
+  ;                       company-wordfreq
+  ;                       company-capf
+  ;                       company-nxml
+  ;                       company-css
+  ;                       company-bbdb company-cmake company-files
+  ;                       company-dabbrev-code company-dabbrev
+  ;                       (company-gtags company-etags company-keywords)
+  ;                       company-oddmuse)))
+  )
+(leaf paren
+  :disabled nil
+  :tag "builtin"
+  :doc "対応する括弧をハイライト"
+  :custom ((show-paren-delay . 0)
+           (show-paren-style . 'expression))
+  :global-minor-mode show-paren-mode
+  :config
+  (set-face-attribute 'show-paren-match nil
+                      :background nil
+                      :foreground nil
+                      :underline "medium purple"
+                      :weight 'regular
+                      ))
+
+(leaf helm
+  :straight t
+  :disabled t
+  :require t
+  :blackout ((helm-mode . " H"))
+  :global-minor-mode t
+  :defun (helm-mode)
+  :bind (("C-x C-f" . helm-find-files))
+  :custom ((helm-buffers-fuzzy-matching . t)
+           (helm-recentf-fuzzy-matching . t))
+  :config
+  (nmap 'override
+    :prefix "SPC h"
+    "" '(:ignore t :wk "helm")
+    "b" 'switch-to-buffer 
+    "f" 'helm-find-files
+    "r" 'helm-recentf
+    "m" 'helm-mini
+    ))
+
+(leaf fzf
+  :disabled t
+  :straight t
+  :custom ((fzf/window-height . 30)
+           (fzf/args . "-x --print-query --no-hscroll --tabstop=4 --ansi \
+                        --color='bg:black,fg:white,bg+:white,fg+:black,gutter:black'
+                        --color='prompt:green,query:green' \
+                        --margin=1,2 --padding=0 --height=99% \
+                    "))
+  :config
+  (nmap 'override
+    :prefix "SPC f"
+    "" '(:ignore t :wk "fzf")
+    "f" 'fzf-find-file
+    "d" 'fzf-find-file-in-dir
+    "g" 'fzf-git
+    "r" 'fzf-recentf
+    "b" 'fzf-switch-buffer
+    ))
+
+;; }}}
+
+(provide 'init)

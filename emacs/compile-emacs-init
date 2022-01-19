@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+set -e
+emacs --batch -f batch-byte-compile init.el
