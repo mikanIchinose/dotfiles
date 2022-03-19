@@ -42,7 +42,7 @@ add_library '$HOME/.cache/dein/repos/github.com/*/*'
 local luadev = require('lua-dev').setup({
   lspconfig = {
     cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-    on_attach = lsp.cmmon_on_attach,
+    on_attach = lsp.on_attach,
     settings = {
       Lua = {
         runtime = {

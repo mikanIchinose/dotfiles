@@ -36,14 +36,17 @@ $ video-file: fd --extension mov
 
 % vim, doc, memo
 
-# create/open memo
-local today=$(date "+%Y%m%d"); nvim "/tmp/memo-${today}.md"
+# create/open today memo
+local today=$(date "+%Y%m%d"); nvim ~/Documents/memo/memo-${today}.md
+
+# open memo
+nvim <memo>
 
 # delete memo
 rm -i <memo>
 
-$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory /tmp "memo"
+$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory ~/Documents/memo/ "memo" --- --multi --expand
 
 # delete all memo
-rm "/tmp/memo-*.md"
+rm ~/Documents/memo/memo-*.md
 

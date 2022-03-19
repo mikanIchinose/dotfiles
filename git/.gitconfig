@@ -11,6 +11,11 @@
 	pager = delta
   # 日本語文字化けの解消
   quotepath = false
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
 [credential]
 	helper = store --file /Volumes/TOSHIBA/.secrets/git/credentials
   helper = cache --timeout 3000

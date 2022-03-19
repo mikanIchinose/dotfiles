@@ -6,6 +6,9 @@ wk.setup{
     registers = true,
     spelling = { enabled = false, suggestions = 20, },
   },
+  layout = {
+    align = 'center',
+  },
   ignore_missing = false,
 }
 
@@ -28,16 +31,17 @@ local comment = {
 
 local find = {
   name = '+find',
-  f = {'<cmd>Telescope find_files<cr>','find file'},
-  r = {'<cmd>Telescope live_grep<cr>', 'find code'},
-  b = {'<cmd>Telescope buffers<cr>',   'find buffer'},
-  c = {'<cmd>Telescope commands<cr>',   'find command'},
-  w = {'<cmd>Telescope file_browser<cr>' ,'file browser'},
-  p = {'<cmd>lua require\'telescope\'.extensions.project.project{display_type=\'full\'}<cr>', 'switch project'},
-  lsp = {
-    a = {'<cmd>Telescope lsp_code_actions<cr>', 'code action'},
-    f = {'<cmd>Telescope lsp_reference<cr>', 'reference'},
-  }
+  f = {'<cmd>Ddu file_rec<cr>','file'},
+  b = {'<cmd>Ddu buffer<cr>',   'buffer'},
+  -- r = {'<cmd><cr>', 'code'},
+  -- c = {'<cmd><cr>',   'command'},
+  -- h = {'<cmd><cr>',   'help'},
+  -- w = {'<cmd><cr>' ,'browse directory'},
+  -- p = {'<cmd><cr>', 'switch project'},
+  -- lsp = {
+  --   a = {'<cmd>Telescope lsp_code_actions<cr>', 'code action'},
+  --   f = {'<cmd>Telescope lsp_reference<cr>', 'reference'},
+  -- }
 }
 
 local switch = {
@@ -51,8 +55,8 @@ local switch = {
 -- nomal mode
 wk.register({
   ['<leader>'] = {
-    ['|'] = {':split<CR>',  'split horizontally'},
-    ['-'] = {':vsplit<CR>', 'split vertically'},
+    ['-'] = {':split<CR>',  'split horizontally'},
+    ['|'] = {':vsplit<CR>', 'split vertically'},
     w = {':update<CR>', 'save current buffer'},
     W = {':wall<CR>',   'save all buffers'},
     q = {':quit<CR>', 'close current window'},
@@ -64,11 +68,11 @@ wk.register({
     f = find,
   },
   ['<C-g>'] = find.lsp,
-  gcc = comment.i,
+  gcc = comment.c,
   s = switch,
 },{mode = 'n'})
 
 -- visual mode
 wk.register({
-  gcc = comment.i,
+  gcc = comment.c,
 },{mode = 'v'})

@@ -1,0 +1,56 @@
+## popup completion menu
+[[plugins]]
+repo = 'Shougo/pum.vim'
+# [[plugins]]
+# repo = 'matsui54/denops-popup-preview.vim'
+# depends = ['pum.vim']
+
+# ddc
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
+on_event = 'InsertEnter'
+hook_source = '''
+lua << EOF
+require('custom.ddc')
+EOF
+'''
+# ddc-source
+[[plugins]]
+repo = 'Shougo/ddc-around'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'Shougo/ddc-rg'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+on_source = 'ddc.vim'
+# [[plugins]]
+# repo = 'tani/ddc-git'
+# on_source = 'ddc.vim'
+# [[plugins]]
+# repo = 'delphinus/ddc-treesitter'
+# on_source = 'ddc.vim'
+# ddc-filter
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'Shougo/ddc-matcher_length'
+on_source = 'ddc.vim'
+[[plugins]]
+repo = 'Shougo/ddc-converter_remove_overlap'
+on_source = 'ddc.vim'
+

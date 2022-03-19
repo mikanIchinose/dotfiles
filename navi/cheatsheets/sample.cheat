@@ -3,3 +3,6 @@
 # hello navi!
 echo "Hello navi!!"
 
+# goto HOME
+cd ~/LocalProject
+

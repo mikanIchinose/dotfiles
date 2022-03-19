@@ -37,8 +37,8 @@ abbr gsw "git switch -c "
 # edit config file
 alias setzsh "vim ~/.zshrc"
 alias setbash "vim ~/.bashrc"
-alias setfish "cd ~/.config/fish; vim (fzf); cd -"
-alias setvim "cd ~/.config/nvim; vim (fzf); cd -"
+alias setfish "cd ~/.config/fish; vim (fd --type file | fzf); cd -"
+alias setvim "cd ~/.config/nvim; vim (fd --type file | fzf); cd -"
 alias settmux "vim ~/.tmux.conf"
 alias setstar "vim $STARSHIP_CONFIG"
 
@@ -68,3 +68,5 @@ abbr bash "bash --norc"
 abbr zsh "zsh --no-rcs"
 
 abbr tree "exa --tree"
+
+abbr edit "nvim (fd --type file| fzf)"

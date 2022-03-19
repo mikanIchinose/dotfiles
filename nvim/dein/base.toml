@@ -8,7 +8,7 @@ function! s:dein_toml_syntax() abort
     call dein#toml#syntax()
   endif
 endfunction
-autocmd FileType toml ++nested call timer_start(0, {id->s:dein_toml_syntax()})
+autocmd FileType toml,lua ++nested call timer_start(0, {id->s:dein_toml_syntax()})
 autocmd FileType toml,vim LspStop
 '''
 [[plugins]]
@@ -17,16 +17,30 @@ depends = ['dein.vim']
 
 ## color scheme
 [[plugins]]
-repo = 'sainnhe/gruvbox-material'
-
-## icon
+repo = 'dracula/vim'
 [[plugins]]
-repo = 'kyazdani42/nvim-web-devicons'
+repo = 'sainnhe/gruvbox-material'
+[[plugins]]
+repo = 'folke/twilight.nvim'
 
 ## general purpose purser
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-merged = 0
+# [[plugins]]
+# repo = 'nvim-treesitter/nvim-treesitter'
+# merged = 0
+# hook_post_update = 'TSUpdate'
+# hook_post_source = '''
+# lua require('custom.nvim-treesitter')
+# '''
+# [[plugins]]
+# repo = 'p00f/nvim-ts-rainbow'
+# [[plugins]]
+# repo = 'romgrk/nvim-treesitter-context'
+
+# [[plugins]]
+# repo = 'luochen1990/rainbow'
+# hook_source = '''
+# let g:rainbow_active = 1
+# '''
 
 ## なんか便利な強いやつ
 [[plugins]]
@@ -37,8 +51,8 @@ repo = 'nvim-lua/plenary.nvim'
 repo = 'vim-denops/denops.vim'
 
 ## git
-[[plugins]]
-repo = 'lambdalisue/gina.vim'
+# [[plugins]]
+# repo = 'lambdalisue/gina.vim'
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
 depends = ['plenary.nvim']
@@ -67,85 +81,90 @@ EOF
 '''
 
 ## fileer
-[[plugins]]
-repo = 'lambdalisue/fern.vim'
+# [[plugins]]
+# repo = 'lambdalisue/fern.vim'
 
 ## lsp
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+hook_add = '''
+lua require('custom.lsp')
+'''
 [[plugins]]
 repo = 'williamboman/nvim-lsp-installer'
 depends = ['nvim-lspconfig']
 
 ## fuzzy finder
+# [[plugins]]
+# repo = 'nvim-telescope/telescope.nvim'
+# depends = ['plenary.nvim', 'nvim-lspconfig']
+# hook_add = '''
+# lua require('custom.telescope')
+# '''
+# [[plugins]]
+# repo = 'nvim-telescope/telescope-fzf-native.nvim'
+# on_source = 'telescope.nvim'
+# build = 'make'
+# [[plugins]]
+# repo = 'nvim-telescope/telescope-project.nvim'
+# on_source = 'telescope.nvim'
+# [[plugins]]
+# repo = 'nvim-telescope/telescope-file-browser.nvim'
+# on_source = 'telescope.nvim'
+
+## icon
 [[plugins]]
-repo = 'nvim-telescope/telescope.nvim'
-depends = ['plenary.nvim', 'nvim-lspconfig']
-[[plugins]]
-repo = 'nvim-telescope/telescope-fzf-native.nvim'
-depends = ['telescope.nvim']
-build = 'make'
-[[plugins]]
-repo = 'nvim-telescope/telescope-project.nvim'
-depends = ['telescope.nvim']
-[[plugins]]
-repo = 'folke/todo-comments.nvim'
-depends = ['nvim-lua/plenary.nvim']
-hook_source = '''
-lua << EOF
-require('todo-comments').setup {}
-EOF
-'''
+repo = 'kyazdani42/nvim-web-devicons'
+on_source = 'topdelete.nvim'
 
 ## which-key
+# neovim v.0.7.0ではオリジナルがバグってるのでパッチを当てる
+# link: https://github.com/folke/which-key.nvim/issues/226#issuecomment-1004913010
 [[plugins]]
 repo = 'folke/which-key.nvim'
+hook_add = '''
+lua require('custom.which-key')
+'''
 
 ## editorconfig
-[[plugins]]
-repo='editorconfig/editorconfig-vim'
+# [[plugins]]
+# repo='editorconfig/editorconfig-vim'
 
 ## textobject
-[[plugins]]
-repo = 'kana/vim-textobj-user'
-[[plugins]]
-repo = 'kana/vim-textobj-line'
-depends = ['vim-textobj-user']
+# [[plugins]]
+# repo = 'kana/vim-textobj-user'
+# [[plugins]]
+# repo = 'kana/vim-textobj-line'
+# depends = ['vim-textobj-user']
 
 ## surround
-[[plugins]]
-repo = 'tpope/vim-surround'
+# [[plugins]]
+# repo = 'tpope/vim-surround'
 
-[[plugins]]
-repo='thinca/vim-quickrun'
+# [[plugins]]
+# repo='thinca/vim-quickrun'
 
 ## comment
 [[plugins]]
 repo = 'tyru/caw.vim'
+hook_add = '''
+" let g:caw_hatpos_align = 0
+'''
 
 # [[plugins]]
-# repo = 'mattn/emmet-vim'
-# on_fr = [ "html" ]
+# repo = 'kien/rainbow_parentheses.vim'
+# hook_add = '''
+# source ~/.config/nvim/plugins/rainbow_parentheses.vim
+# '''
 
-[[plugins]]
-repo = 'kien/rainbow_parentheses.vim'
-hook_add = '''
-source ~/.config/nvim/plugins/rainbow_parentheses.vim
-'''
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_source = '''
-source ~/.config/nvim/plugins/lightline.vim
-'''
-[[plugins]]
-repo = 'mengelbrecht/lightline-bufferline'
-depends = ['lightline.vim']
-
-## develop init.lua
-[[plugins]]
-repo = 'folke/lua-dev.nvim'
-depends = ['nvim-lspconfig']
+# [[plugins]]
+# repo = 'itchyny/lightline.vim'
+# hook_source = '''
+# source ~/.config/nvim/plugins/lightline.vim
+# '''
+# [[plugins]]
+# repo = 'mengelbrecht/lightline-bufferline'
+# depends = ['lightline.vim']
 
 #[[plugins]]
 #repo = 'roxma/vim-paste-easy'
@@ -159,3 +178,6 @@ depends = ['nvim-lspconfig']
 # help
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
+
+[[plugins]]
+repo = 'kdheepak/lazygit.nvim'

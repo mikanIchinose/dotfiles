@@ -1,16 +1,16 @@
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/cask-fonts"
-tap "federico-terzi/espanso"
+tap "homebrew/cask-drivers"
+tap "d12frosted/emacs-plus"
+tap "wez/wezterm"
 
-brew "fish"
+# cli
 brew "fzf"
 brew "ghq"
 brew "git-delta"
-brew "tig"
+brew "lazygit"
 brew "mas"
-brew "nvim"
-brew "espanso"
 brew "starship"
 brew "ripgrep"
 brew "fd"
@@ -19,43 +19,66 @@ brew "zoxide"
 brew "xsv"
 brew "bat"
 brew "dasel"
-brew "dhall"
-brew "dhall-lsp-server"
-brew "dhall-yaml"
 brew "navi"
 brew "silicon"
 brew "asdf"
-brew "cocoapods"
-brew "gpg"
 brew "ffmpeg"
 brew "http-server"
 brew "commitizen"
 brew "gh"
-brew "deno"
 brew "firebase-cli"
+brew "tokei"
+brew "mermaid-cli"
+brew "sqlite"
+brew "graphviz"
 
+# language
+brew "deno"
+brew "go"
+brew "rustup-init" # rust
+brew "dhall"
+brew "dhall-lsp-server"
+brew "dhall-yaml"
+
+# neovim
+brew "luajit", args: ["HEAD"]
+brew "neovim", args: ["HEAD"]
+
+# emacs
+brew "emacs-plus@28", args: ["with-xwidgets"]
+
+brew "fish"
+brew "cocoapods"
+brew "gpg"
+
+# font
+cask "font-fira-code-nerd-font"
+
+# gui app
 cask "firefox"
+cask "thunderbird"
 cask "vivaldi"
 cask "google-chrome"
 cask "android-studio"
-cask "android-studio-preview-canary"
 cask "jetbrains-toolbox"
 cask "adobe-creative-cloud"
 cask "flipper"
 cask "visual-studio-code"
-cask "emacs"
 cask "slack"
-cask "font-fira-code-nerd-font"
 cask "docker"
 cask "keycastr"
 cask "alfred"
 cask "amethyst"
 cask "iterm2"
-cask "betterdiscord-installer"
 cask "discord-canary"
 cask "karabiner-elements"
-cask "google-japanese-ime"
-cask "fig"
 cask "notion"
+cask "zoom"
+cask "zsa-wally"
+cask "atok"
+cask "cyberduck"
+cask "keepassxc"
+cask "wezterm-nightly"
+cask "clipy"
 
 mas "Xcode",id: 497799835

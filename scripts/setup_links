@@ -6,11 +6,13 @@ set -e
 DIR=$(dirname "$0")
 cd "$DIR"
 
+# load util function
 . ./utils/functions.sh
 
-cd "$DIR/../"
+cd "../"
 SOURCE="$(realpath -m .)"
 DESTINATION="$(realpath -m ~)"
+
 info "Make shimlinks"
 
 [ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
@@ -20,8 +22,10 @@ symlink "$SOURCE/git/.gitconfig" "$DESTINATION/.gitconfig"
 symlink "$SOURCE/fish" "$DESTINATION/.config/fish"
 symlink "$SOURCE/nvim" "$DESTINATION/.config/nvim"
 symlink "$SOURCE/starship" "$DESTINATION/.config/starship"
-symlink "$SOURCE/.tigrc" "$DESTINATION/.tigrc"
 symlink "$SOURCE/node/.default-npm-packages" "$DESTINATION/.default-npm-packages"
+# wezterm
+symlink "$SOURCE/config/wezterm" "$DESTINATION/.config/wezterm"
+symlink "$SOURCE/config/.ideavimrc" "$DESTINATION/.ideavimrc"
 
 if [ "$(uname)" == 'Darwin' ]; then
   symlink "$SOURCE/asdf/darwin/.tool-versions" "$DESTINATION/.tool-versions"

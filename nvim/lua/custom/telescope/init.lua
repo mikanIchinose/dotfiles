@@ -1,6 +1,7 @@
 local telescope = require 'telescope'
 local builtin = require 'telescope.builtin'
 local themes = require 'telescope.themes'
+local fb = telescope.extensions.file_browser
 
 telescope.setup {
     defaults = {
@@ -27,8 +28,12 @@ telescope.setup {
             prompt_prefix = 'Grep> '
         },
     },
---    extensions = {
---    },
+   extensions = {
+     -- file_browser = {
+     --   theme = 'bottom_pane',
+     -- }
+   },
 }
 
 telescope.load_extension('project')
+telescope.load_extension('file_browser')

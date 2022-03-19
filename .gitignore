@@ -17,15 +17,9 @@ secret.d/
 # !/fish/functions/reset_abbr.fish
 
 # emacs
-/emacs/transient/*
-/emacs/straight/*
-/emacs/auto-save-list/*
-/emacs/elpa/*
-/emacs/magithub/*
-/emacs/.DS_Store
-/emacs/.last-package-update-day
-/emacs/.recentf
-/emacs/projectile-bookmarks.eld
-/emacs/projectile.cache
-/emacs/history
-/emacs/company-statistics-cache.el
+emacs/*
+!emacs/init.el
+!emacs/conf/*
+!emacs/README.md
+!emacs/org-roam.db
+!emacs/history

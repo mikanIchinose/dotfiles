@@ -10,7 +10,9 @@
 #case Darwin
 #  source $HOME/.config/fish/aliases_mac.fish
 #  set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
-#  . ~/.asdf/plugins/java/set-java-home.fish
+# . ~/.asdf/plugins/java/set-java-home.fish
+# Android Studio
+# set -x JAVA_HOME /Applications/"Android Studio.app"/Contents/jre/Contents/Home
 #end
 
 source $HOME/.config/fish/aliases.fish
@@ -73,23 +75,56 @@ if type -q fzf &> /dev/null
   end
 end
 
- if type -q flutter &> /dev/null
-   set -x PATH $PATH "$HOME/.local/flutter/bin"
- end
- 
- if type -q zoxide &> /dev/null
-   zoxide init fish | source
- end
+if type -q flutter &> /dev/null
+  set -x PATH $PATH "$HOME/.local/flutter/bin"
+end
+
+if type -q zoxide &> /dev/null
+  zoxide init fish | source
+end
  
 if test -d "$HOME/.cargo" &> /dev/null
   set -x PATH $HOME/.cargo/bin $PATH
   source "$HOME/.carco/env"
 end
-# 
- if type -q navi &> /dev/null
-   navi widget fish | source
-   set -x NAVI_CONFIG "$HOME/.config/navi/config.yaml"
- end
+
+# navi: An interactive cheatsheet tool for the command-line
+# homepage: https://github.com/denisidoro/navi
+if type -q navi &> /dev/null
+  set -x NAVI_CONFIG "$HOME/.config/navi/config.yaml"
+
+  # NOTE: バグがないかたまに確認しよう
+  # NOTE: https://github.com/denisidoro/navi/issues?q=is%3Aissue+is%3Aopen+shell+widget
+  function _navi_smart_replace
+    set -l current_process (commandline -p | string trim)
+
+    if test -z "$current_process"
+        commandline -i (navi --print)
+    else
+        set -l best_match (navi --print --best-match --query "$current_process")
+
+        if not test "$best_match" >/dev/null
+            return
+        end
+
+        if test -z "$best_match"
+            commandline -p (navi --print --query "$current_process")
+        else if test "$current_process" != "$best_match"
+            commandline -p $best_match
+        else
+            commandline -p (navi --print --query "$current_process")
+        end
+    end
+      commandline -f repaint
+  end
+
+  # C-n: start navi
+  if test $fish_key_bindings = fish_default_key_bindings
+      bind \cn _navi_smart_replace
+  else
+      bind -M insert \cn _navi_smart_replace
+  end
+end
  
 if test -d "$HOME/.deno" &> /dev/null
   set -x DENO_INSTALL "$HOME/.deno"
@@ -101,7 +136,7 @@ end
 # end
 
 set -x PATH "$HOME/.local/bin" $PATH 
-set -x PATH "$HOME/script"     $PATH
+set -x PATH "$HOME/scripts"     $PATH
 set -x GREP_TOOL rg
 set -x FIND_TOOL fd
 set -gx EDITOR nvim

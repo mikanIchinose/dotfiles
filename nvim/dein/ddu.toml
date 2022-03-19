@@ -1,0 +1,288 @@
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = 'denops.vim'
+on_source = 'denops.vim'
+hook_add = '''
+nnoremap <silent> / <Cmd>Ddu
+\ -name=search line
+\ -ui-param-startFilter<CR>
+nnoremap <silent> * <Cmd>Ddu
+\ -name=search line -input=`expand('<cword>')`
+\ -ui-param-startFilter=v:false<CR>
+lua << EOF
+  local wk = require('which-key')
+  wk.register({
+    ['<Leader>'] = {
+      f = {
+        name = '+find',
+        f = {'<cmd>Ddu -name=files file_rec<cr>', 'find file'},
+        b = {'<cmd>Ddu -name=buffers buffer<cr>', 'find buffer'},
+        r = {'<cmd>Ddu -name=search rg -source-param-input=`input(\'Pattern: \')`<cr>', 'find source'},
+        d = {'<cmd>Ddu -name=dein dein<cr>', 'dein'},
+        h = {'<cmd>Ddu -name=help help<cr>', 'find help'},
+      },
+    }
+  })
+EOF
+'''
+hook_source = '''
+  call ddu#custom#patch_global({
+    \   'ui': 'ff',
+    \   'sourceOptions': {
+    \     '_': {
+    \       'ignoreCase': v:true,
+    \       'matchers': ['matcher_substring'],
+    \     },
+    \     'file_old': {
+    \       'matchers': ['matcher_substring', 'matcher_relative', 'matcher_hidden'],
+    \     },
+    \     'rg': {
+    \       'matchers': ['matcher_substring', 'matcher_hidden'],
+    \     },
+    \     'dein': {
+    \       'defaultAction': 'cd',
+    \     },
+    \   },
+    \   'sourceParams': {
+    \     'file_rec': {
+    \       'ignoredDirectories': [
+    \         '.git', 'node_modules'
+    \       ],
+    \     },
+    \     'rg': {
+    \       'args': [
+    \         '--column', '--no-heading', '--color', 'never'
+    \       ],
+    \     },
+    \   },
+    \   'uiParams': {
+    \     'ff': {
+    \       'filterSplitDirection': 'floating',
+    \     }
+    \   },
+    \   'kindOptions': {
+    \     'file': {
+    \       'defaultAction': 'open'
+    \     },
+    \     'word': {
+    \       'defaultAction': 'append'
+    \     },
+    \     'action': {
+    \       'defaultAction': 'do',
+    \     },
+    \     'deol': {
+    \       'defaultAction': 'switch',
+    \     },
+    \     'help': {
+    \       'defaultAction': 'open',
+    \     },
+    \   }
+    \ })
+'''
+[plugins.ftplugin]
+# <CR>: itemAction
+# <Space>: toggleSelectItem
+# i: openFilterWindow
+# C-l: refreshItems
+# p: preview
+# q: quit
+# a: chooseAction
+# c: cd
+# d: delete
+# e: edit
+# v: open vsplit
+# N: new
+# r: quickfix
+# u: updateOptions
+ddu-ff = '''
+  nnoremap <buffer><silent> <CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> <Space>
+  \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer><silent> i
+  \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+  nnoremap <buffer><silent> <C-l>
+  \ <Cmd>call ddu#ui#ff#do_action('refreshItems')<CR>
+  nnoremap <buffer><silent> p
+  \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+  nnoremap <buffer><silent> q
+  \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  nnoremap <buffer><silent> a
+  \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+  nnoremap <buffer><silent> c
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
+  nnoremap <buffer><silent> d
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
+  nnoremap <buffer><silent> e
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'edit'})<CR>
+  nnoremap <buffer><silent> v
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction',
+  \ {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
+  nnoremap <buffer><silent> N
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
+  nnoremap <buffer><silent> r
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'quickfix'})<CR>
+  nnoremap <buffer><silent> u
+  \ <Cmd>call ddu#ui#ff#do_action('updateOptions', {
+  \   'sourceOptions': {
+  \     '_': {
+  \       'matchers': [],
+  \     },
+  \   },
+  \ })<CR>
+'''
+# <CR>: close
+ddu-ff-filter = '''
+  inoremap <buffer><silent> <CR>
+  \ <Esc><Cmd>close<CR>
+  nnoremap <buffer><silent> <CR>
+  \ <Cmd>close<CR>
+'''
+
+# utility
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+doc = '''
+'''
+depends = 'ddu.vim'
+on_cmd = 'Ddu'
+
+# ui
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+doc = '''
+'''
+on_source = 'ddu.vim'
+
+# source
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+doc = '''
+  desc: File source for ddu.vim
+  item: 特定のパス直下のファイルを生成
+  kind: file
+  param: 
+    path: ベースパスまたはgetcwd()
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+doc = '''
+  desc: File recursive source for ddu.vim
+  item: 特定のパス直下のファイルを再帰的に生成
+  kind: file
+  param:
+    ignoredDirectories(string[]): ".git" など無視したいディレクトリのリスト
+    path(string): ベースパスまたはgetcwd()
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-file_old'
+doc = '''
+  desc: Files from v:oldfiles source for ddu.vim
+  item: v:oldfilesからファイルリストを生成
+  kind: file
+  param: なし
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-file_point'
+doc = '''
+  desc: File point source for ddu.vim
+  item:
+  kind: file
+  param: なし
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-line'
+doc = '''
+  desc: File point source for ddu.vim
+  item: 現在のバッファの行を探索
+  kind: file
+  param: なし
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'shun/ddu-source-buffer'
+doc = '''
+  desc:
+  item:
+  kind: file
+  param:
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-action'
+doc = '''
+  desc:
+  item:
+  kind:
+  param:
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'shun/ddu-source-rg'
+doc = '''
+  desc:
+  item:
+  kind:
+  param:
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = '4513ECHO/ddu-source-ghq'
+doc = '''
+  desc:
+  item:
+  kind:
+  param:
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
+doc = '''
+  desc:
+  item:
+  kind:
+  param:
+'''
+on_source = 'ddu.vim'
+
+# filter
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+doc = '''
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_relative'
+doc = '''
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_hidden'
+doc = '''
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+doc = '''
+'''
+on_source = 'ddu.vim'
+
+# kind
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+doc = '''
+  File kind for ddu.vim
+  action => cd, open, quickfix
+'''
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-kind-word'
+doc = '''
+  Word kind for ddu.vim
+  action => append, insert
+'''
+on_source = 'ddu.vim'

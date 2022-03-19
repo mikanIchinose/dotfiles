@@ -1,6 +1,6 @@
-java openjdk-17.0.1
+java zulu-11.54.25
 kotlin 1.5.31
-gradle 6.8.3
+gradle 7.3.3
 deno 1.16.3
 nodejs 16.13.0
 kscript 3.1.0

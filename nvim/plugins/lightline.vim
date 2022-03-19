@@ -5,7 +5,11 @@ let g:lightline#bufferline#enable_devicons = 1
 let g:lightline = {
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'fugitive', 'gitgutter', 'filename' ] ]
+  \             [ 'fugitive', 'gitgutter', 'filename' ] ],
+  \   'right': [ [ 'lineinfo' ],
+  \              [ 'percent' ],
+  \              [ 'fileformat', 'fileencoding', 'filetype' ], 
+  \              [ 'language-server' ] ] 
   \ },
   \ 'mode_map': {
     \ 'n' : 'N',
@@ -22,12 +26,17 @@ let g:lightline = {
     \ },
   \ 'component_function': {
     \ 'fugitive': 'MyFugitive',
-    \ 'gitgutter': 'MyGitgutter'
+    \ 'gitgutter': 'MyGitgutter',
+    \ 'language-server': 'MyLSP'
   \ }
   \ }
-let g:lightline.tabline          = {'left': [['buffers']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
+
+" let s:p.normal.right = [ [ '' ]
+  "\ ]
+
+" let g:lightline.tabline = {'left': [['buffers']]}
+" let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+" let g:lightline.component_type = {'buffers': 'tabsel'}
 
 function! MyFugitive()
   try
@@ -60,3 +69,9 @@ function! MyGitGutter()
   endfor
   return join(ret, ' ')
 endfunction
+
+function! MyLSP()
+  let client = luaeval('#vim.lsp.get_active_clients() > 0 and vim.lsp.get_active_clients()[1].name or ""')
+  return client
+endfunction
+

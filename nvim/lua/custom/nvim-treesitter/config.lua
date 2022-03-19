@@ -3,14 +3,14 @@ require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         disable = {
-          -- 'lua',
+          'lua',
           'vim'
         }
     },
     rainbow = {
-        enable = true,
-        exteded_mode = true,
-        max_file_lines = 1000,
+        -- enable = true,
+        -- exteded_mode = true,
+        -- max_file_lines = 1000,
     },
     -- indent = {
         -- enable = true

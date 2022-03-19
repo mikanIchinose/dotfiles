@@ -1,0 +1,40 @@
+" plugin
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+set which-key
+set easymotion
+
+" setting
+set notimeout timeoutlen=300
+let g:WhichKey_DefaultDelay = 0
+set clipboard=unnamed
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ","
+set ideajoin
+
+" keymap
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gb :action Back<CR>
+nnoremap gf :action Forward<CR>
+" nnoremap <C-Left> :action Back<CR>
+" nnoremap <C-Right> :action Forward<CR>
+nnoremap rn :action RenameElement<CR>
+nnoremap <Leader>- :split<CR>
+nnoremap <Leader>\ :vsplit<CR>
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap <LocalLeader> <Plug>(eazymotion-prefix)
+nnoremap <Leader>1 1gt
+nnoremap <Leader>2 2gt
+nnoremap <Leader>3 3gt
+nnoremap <Leader>4 4gt
+nnoremap <Leader>5 5gt
+nnoremap <Leader>6 6gt
+nnoremap <Leader>7 7gt
+nnoremap <C-h> :bn<CR>
+nnoremap <C-l> :bp<CR>
+nnoremap <Leader><C-r> :action InvalidateCaches<CR>
