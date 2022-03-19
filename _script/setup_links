@@ -17,24 +17,35 @@ info "Make shimlinks"
 
 [ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
 
+# git
 symlink "$SOURCE/git/.gitconfig" "$DESTINATION/.gitconfig"
-# symlink "$SOURCE/tmux/.tmux.conf" "$DESTINATION/.tmux.conf"
+# fish
 symlink "$SOURCE/fish" "$DESTINATION/.config/fish"
+# neovim
 symlink "$SOURCE/nvim" "$DESTINATION/.config/nvim"
+# starship
 symlink "$SOURCE/starship" "$DESTINATION/.config/starship"
+# node
 symlink "$SOURCE/node/.default-npm-packages" "$DESTINATION/.default-npm-packages"
 # wezterm
-symlink "$SOURCE/config/wezterm" "$DESTINATION/.config/wezterm"
-symlink "$SOURCE/config/.ideavimrc" "$DESTINATION/.ideavimrc"
+symlink "$SOURCE/wezterm" "$DESTINATION/.config/wezterm"
+# ideavim
+symlink "$SOURCE/jetbrains/.ideavimrc" "$DESTINATION/.ideavimrc"
 
 if [ "$(uname)" == 'Darwin' ]; then
+  # asdf
   symlink "$SOURCE/asdf/darwin/.tool-versions" "$DESTINATION/.tool-versions"
+  # zsh
   symlink "$SOURCE/shell/.zshrc" "$DESTINATION/.zshrc"
+  # navi
   symlink "$SOURCE/navi" "$DESTINATION/.config/navi"
 elif [ "$(uname)" == 'Linux' ]; then
+  # asdf
   symlink "$SOURCE/asdf/linux/.tool-versions"  "$DESTINATION/.tool-versions"
+  # i3
   symlink "$SOURCE/i3"                         "$DESTINATION/.config/i3"
   symlink "$SOURCE/i3blocks"                   "$DESTINATION/.config/i3blocks"
+  # shell
   symlink "$SOURCE/shell/.bashrc"              "$DESTINATION/.bashrc"
   symlink "$SOURCE/shell/.profile"             "$DESTINATION/.profile"
 fi
