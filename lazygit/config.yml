@@ -1,0 +1,12 @@
+gui:
+  showIcons: true
+  sidePanelWidth: 0.23
+  mouseEvents: false
+git:
+  paging:
+    pager: delta --dark --paging=never
+  branchLogCmd: "git log \
+                 --graph \
+                 --pretty=format:\"%C(white)%s%C(reset)\n%C(#979797)%an %ar%C(reset) %C(yellow)%d\n\" \
+                 {{branchName}} --"
+notARepository: 'skip'

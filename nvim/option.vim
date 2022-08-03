@@ -19,9 +19,12 @@ set tabstop=2
 set shiftwidth=2
 
 " set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set enc=utf-8
+set fenc=utf-8
 set fileencodings=utf-8
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
+lang en_US.UTF-8
 
 " ui
 set cursorline
@@ -43,7 +46,7 @@ try
 catch
   set cmdheight=1
 endtry
-set laststatus=0 " hide statusline
+set laststatus=3
 set nowrap
 " fold
 set foldmethod=syntax
@@ -57,35 +60,30 @@ set clipboard+=unnamedplus
 
 " leaderをspaceに変更
 let g:mapleader = "\<Space>"
-let g:maplocalleader = ","
+let g:maplocalleader = "m"
 
 set timeout timeoutlen=200 ttimeoutlen=100
 
-let g:did_install_default_menus = 0
-let g:did_install_syntax_menu   = 0
-let g:did_indent_on             = 1
-let g:did_load_ftplugin         = 1
-let g:loaded_2html_plugin       = 0
-let g:loaded_gzip               = 1
-let g:loaded_man                = 1
-let g:loaded_matchit            = 1
-let g:loaded_matchparen         = 1
-let g:loaded_netrwPlugin        = 0
-let g:loaded_remote_plugins     = 1
-let g:loaded_shada_plugin       = 0
-let g:loaded_spellfile_plugin   = 1
-let g:loaded_tarPlugin          = 0
-let g:loaded_tutor_mode_plugin  = 0
-let g:loaded_zipPlugin          = 0
-let g:skip_loading_mswin        = 0
+" completion
+set completeopt=menuone
+if exists('+completepopup')
+  set completeopt+=popup
+  set completepopup=height:4,width:60,highlight:InfoPopup
+endif
+" Don't complete from other buffer.
+set complete=.
+" Set popup menu max height.
+set pumheight=10
+if exists('+pumwidth')
+  " Set popup menu min width.
+  set pumwidth=0
+endif
+" Use "/" for path completion
+set completeslash=slash
 
-" https://www.reddit.com/r/neovim/comments/rvwsl3/introducing_filetypelua_and_a_call_for_help/
-let g:did_load_filetypes        = 0
-let g:do_filetype_lua           = 1
+" color
+set termguicolors
+set background=dark
+colorscheme tokyonight
 
-" hungry-delete
-" inoremap <silent><expr><BS> 
-  "\ (&indentexpr isnot '' ? &indentkeys : &cinkeys) =~? '!\^F' &&
-  "\ &backspace =~? '.*eol\&.*start\&.*indent\&' &&
-  "\ !search('\S','nbW',line('.')) ? (col('.') != 1 ? "\<C-U>" : "") .
-  "\ "\<bs>" . (getline(line('.')-1) =~ '\S' ? "" : "\<C-F>") : "\<bs>"
+set mouse=

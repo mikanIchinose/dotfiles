@@ -19,6 +19,7 @@ info "Make shimlinks"
 
 # git
 symlink "$SOURCE/git/.gitconfig" "$DESTINATION/.gitconfig"
+symlink "$SOURCE/git/.gitmessage" "$DESTINATION/.gitmessage"
 # fish
 symlink "$SOURCE/fish" "$DESTINATION/.config/fish"
 # neovim
@@ -29,8 +30,15 @@ symlink "$SOURCE/starship" "$DESTINATION/.config/starship"
 symlink "$SOURCE/node/.default-npm-packages" "$DESTINATION/.default-npm-packages"
 # wezterm
 symlink "$SOURCE/wezterm" "$DESTINATION/.config/wezterm"
+# alactirry
+symlink "$SOURCE/alacritty" "$DESTINATION/.config/alacritty"
 # ideavim
 symlink "$SOURCE/jetbrains/.ideavimrc" "$DESTINATION/.ideavimrc"
+symlink "$SOURCE/gh" "$DESTINATION/.config/gh"
+symlink "$SOURCE/gh-dash" "$DESTINATION/.config/gh-dash"
+symlink "$SOURCE/markdownlint" "$DESTINATION/.config/markdownlint"
+symlink "$SOURCE/lazygit" "$DESTINATION/.config/lazygit"
+symlink "$SOURCE/efm-langserver" "$DESTINATION/.config/efm-langserver"
 
 if [ "$(uname)" == 'Darwin' ]; then
   # asdf

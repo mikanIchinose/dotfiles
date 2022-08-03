@@ -1,48 +1,31 @@
-### 言語や環境に関係なく必要なプラグインを定義する
-##  plugin manager
 [[plugins]]
 repo = 'Shougo/dein.vim'
-hook_add = '''
-function! s:dein_toml_syntax() abort
-  if expand('%:p') =~# '\vdein/[^/]+.toml$'
-    call dein#toml#syntax()
-  endif
-endfunction
-autocmd FileType toml,lua ++nested call timer_start(0, {id->s:dein_toml_syntax()})
-autocmd FileType toml,vim LspStop
-'''
 [[plugins]]
 repo = 'wsdjeg/dein-ui.vim'
-depends = ['dein.vim']
+
+[[plugins]]
+repo = 'lewis6991/impatient.nvim'
 
 ## color scheme
 [[plugins]]
 repo = 'dracula/vim'
 [[plugins]]
+repo = 'pineapplegiant/spaceduck'
+[[plugins]]
+repo = 'folke/tokyonight.nvim'
+[[plugins]]
 repo = 'sainnhe/gruvbox-material'
 [[plugins]]
-repo = 'folke/twilight.nvim'
+repo = 'sainnhe/everforest'
 
-## general purpose purser
-# [[plugins]]
-# repo = 'nvim-treesitter/nvim-treesitter'
-# merged = 0
-# hook_post_update = 'TSUpdate'
-# hook_post_source = '''
-# lua require('custom.nvim-treesitter')
-# '''
-# [[plugins]]
-# repo = 'p00f/nvim-ts-rainbow'
-# [[plugins]]
-# repo = 'romgrk/nvim-treesitter-context'
+## 通知
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+hook_source = '''
+lua require('custom.nvim-notify')
+'''
 
-# [[plugins]]
-# repo = 'luochen1990/rainbow'
-# hook_source = '''
-# let g:rainbow_active = 1
-# '''
-
-## なんか便利な強いやつ
+## なんか便利な強いやつ いろんなプラギンが依存してる
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
@@ -50,106 +33,45 @@ repo = 'nvim-lua/plenary.nvim'
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 
-## git
-# [[plugins]]
-# repo = 'lambdalisue/gina.vim'
-[[plugins]]
-repo = 'lewis6991/gitsigns.nvim'
-depends = ['plenary.nvim']
-hook_source = '''
-lua << EOF
-require('gitsigns').setup {
-  signs = {
-    -- add = { text = '樂', },
-    -- change = { text = '', },
-    delete       = { text = '', },
-    topdelete    = { text = '', },
-    changedelete = { text = '', },
-  },
-  current_line_blame = true,
-  current_line_blame_opts = {
-    virt_text = true,
-    virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
-    delay = 50,
-    ignore_whitespace = false,
-  },
-  current_line_blame_formatter_opts = {
-    relative_time = false
-  },
-}
-EOF
-'''
-
-## fileer
-# [[plugins]]
-# repo = 'lambdalisue/fern.vim'
-
-## lsp
-[[plugins]]
-repo = 'neovim/nvim-lspconfig'
-hook_add = '''
-lua require('custom.lsp')
-'''
-[[plugins]]
-repo = 'williamboman/nvim-lsp-installer'
-depends = ['nvim-lspconfig']
-
-## fuzzy finder
-# [[plugins]]
-# repo = 'nvim-telescope/telescope.nvim'
-# depends = ['plenary.nvim', 'nvim-lspconfig']
-# hook_add = '''
-# lua require('custom.telescope')
-# '''
-# [[plugins]]
-# repo = 'nvim-telescope/telescope-fzf-native.nvim'
-# on_source = 'telescope.nvim'
-# build = 'make'
-# [[plugins]]
-# repo = 'nvim-telescope/telescope-project.nvim'
-# on_source = 'telescope.nvim'
-# [[plugins]]
-# repo = 'nvim-telescope/telescope-file-browser.nvim'
-# on_source = 'telescope.nvim'
-
 ## icon
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
-on_source = 'topdelete.nvim'
 
 ## which-key
-# neovim v.0.7.0ではオリジナルがバグってるのでパッチを当てる
-# link: https://github.com/folke/which-key.nvim/issues/226#issuecomment-1004913010
 [[plugins]]
 repo = 'folke/which-key.nvim'
-hook_add = '''
-lua require('custom.which-key')
-'''
 
 ## editorconfig
-# [[plugins]]
-# repo='editorconfig/editorconfig-vim'
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
 
 ## textobject
 # [[plugins]]
 # repo = 'kana/vim-textobj-user'
 # [[plugins]]
 # repo = 'kana/vim-textobj-line'
-# depends = ['vim-textobj-user']
 
-## surround
+# FIX: ダウンロードがタイムアウトする
+# help
 # [[plugins]]
-# repo = 'tpope/vim-surround'
+# repo = 'vim-jp/vimdoc-ja'
+
+## comment
+# [[plugins]]
+# repo = 'tyru/caw.vim'
+[[plugins]]
+repo = 'tpope/vim-commentary'
+
+[[plugins]]
+repo = 'google/vim-jsonnet'
+# lspの前には有効化されていないといけない
+
+# buffer management
+[[plugins]]
+repo = 'johann2357/nvim-smartbufs'
 
 # [[plugins]]
 # repo='thinca/vim-quickrun'
-
-## comment
-[[plugins]]
-repo = 'tyru/caw.vim'
-hook_add = '''
-" let g:caw_hatpos_align = 0
-'''
 
 # [[plugins]]
 # repo = 'kien/rainbow_parentheses.vim'
@@ -168,16 +90,3 @@ hook_add = '''
 
 #[[plugins]]
 #repo = 'roxma/vim-paste-easy'
-
-#[[plugins]]
-#repo = 'tpope/vim-repeat'
-
-#[[plugins]]
-#repo = 'cohama/lexima.vim'
-
-# help
-[[plugins]]
-repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
-repo = 'kdheepak/lazygit.nvim'

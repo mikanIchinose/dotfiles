@@ -1,37 +1,313 @@
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-on_ft = 'toml'
+on_ft = ['toml', 'markdown']
 hook_source = '''
 let g:context_filetype#ignore_patterns = {
-    \ 'toml': ['^\s*#\s*'],
-    \ }
+   \ 'toml': ['^\s*#\s*'],
+   \ }
+function! s:dein_toml_syntax() abort
+  if expand('%:p') =~# '\vdein/[^/]+.toml$'
+    call dein#toml#syntax()
+  endif
+endfunction
+autocmd FileType toml,lua ++nested call timer_start(10, {id->s:dein_toml_syntax()})
 '''
 # [[plugins]]
 # repo = 'osyo-manga/vim-precious'
 # on_ft = 'toml'
 # depends = ['context_filetype.vim']
-# on_source = 'context_filetype.vim'
+# on_if = 'expand("%:p") =~# "\vdein/[^/]+.toml$"'
+
+# syntax hilight
+# treesitterでは不都合な場合に利用する
+[[plugins]]
+repo  = 'dag/vim-fish'
+on_ft = 'fish'
+[[plugins]]
+repo  = 'cespare/vim-toml' # treesitterを使うとdein系のtomlのハイライトが上手くいかない
+on_ft = 'toml'
 
 [[plugins]]
 repo = 'lfilho/cosco.vim'
 on_ft = ['php', 'rust', 'java', 'dart']
 hook_source = '''
 autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
-" autocmd FileType php,rust,java,dart imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
-" let g:auto_comma_or_semicolon = 1
 let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 '''
 
-## develop init.lua
+## flutter development
 [[plugins]]
-repo = 'folke/lua-dev.nvim'
-depends = ['nvim-lspconfig']
-on_ft = 'lua'
+repo = 'akinsho/flutter-tools.nvim'
+depends = ['plenary.nvim']
+on_ft = 'dart'
 hook_source = '''
 lua << EOF
-require('custom.lsp.lua')
+  require("flutter-tools").setup {
+    dev_tools = {
+      autostart = true
+    },
+    lsp = {
+      on_attach = require("custom.lsp.config").on_attach,
+      autostart = true
+    },
+    widget_guides = {
+      enabled = true
+    }
+  }
+
+  require('which-key').register({
+    ['<Leader>'] = {
+      F = {
+        name = '+flutter',
+        r = {'<cmd>FlutterRun<cr>', 'flutter run'},
+        R = {'<cmd>FlutterRestart<cr>', 'flutter restart'},
+        q = {'<cmd>FlutterQuit<cr>', 'flutter quit'},
+        o = {'<cmd>FlutterOutline<cr>', 'flutter quit'},
+      }
+    }
+  })
 EOF
 '''
+
+## git
+[[plugins]]
+repo    = 'lambdalisue/gin.vim'
+depends = 'denops.vim'
+on_cmd  = 'GinStatus'
+[[plugins]]
+repo = 'lewis6991/gitsigns.nvim'
+on_event = ['BufRead']
+hook_source = '''
+lua << EOF
+require('gitsigns').setup {
+  signs = {
+    add = { text = '樂', },
+    -- change = { text = 'm ', },
+    delete       = { text = '- ', },
+    topdelete    = { text = '- ', },
+    changedelete = { text = '- ', },
+  },
+  -- current_line_blame = true,
+  -- current_line_blame_opts = {
+  --   virt_text = true,
+  --   virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+  --   virt_text_priority = 1,
+  --   delay = 10,
+  --   ignore_whitespace = false,
+  -- },
+  current_line_blame_formatter_opts = {
+    relative_time = false
+  },
+}
+EOF
+'''
+
+# [[plugins]]
+# repo = 'folke/twilight.nvim'
+# on_cmd = 'Twilight'
+# hook_add = '''
+# nnoremap T <Cmd>Twilight<CR>
+# '''
+# hook_source = '''
+# lua << EOF
+#   require("twilight").setup {}
+# EOF
+# '''
+
+## lsp
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+on_event = ['BufRead', 'VimEnter']
+hook_source = '''
+lua require('custom.lsp')
+'''
+[[plugins]]
+repo      = 'williamboman/mason.nvim'
+on_source = ['nvim-lspconfig']
+[[plugins]]
+repo      = 'williamboman/mason-lspconfig.nvim'
+on_source = ['nvim-lspconfig']
+## lua development
+[[plugins]]
+repo      = 'folke/lua-dev.nvim'
+on_source = ['nvim-lspconfig']
+[[plugins]]
+repo      = 'lukas-reineke/lsp-format.nvim'
+on_source = ['nvim-lspconfig']
+## json yaml development
+[[plugins]]
+repo      = 'b0o/SchemaStore.nvim'
+on_source = ['nvim-lspconfig']
+## codeAction UI
+[[plugins]]
+repo = 'weilbith/nvim-code-action-menu'
+on_cmd = 'CodeActionMemu'
+hook_add = '''
+"let g:code_action_menu_show_detail = v:false
+"let g:code_action_menu_show_diff = v:false
+'''
+
+[[plugins]]
+repo = "b0o/incline.nvim"
+depends = ['nvim-web-devicons']
+on_event = ['BufRead']
+hook_source = '''
+lua require("custom.incline")
+'''
+
+## general language server
+[[plugins]]
+repo = 'jose-elias-alvarez/null-ls.nvim'
+depends = 'nvim-lspconfig'
+on_event = ['BufRead']
+hook_source = '''
+lua <<EOF
+local formatting = require("null-ls").builtins.formatting
+local diagnostics = require("null-ls").builtins.diagnostics
+require("null-ls").setup({
+  sources = {
+    formatting.markdownlint,
+    diagnostics.markdownlint.with({
+      args = { "-c", "~/.config/markdownlint/.markdownlintrc", "-s" }
+    }),
+  }
+})
+EOF
+'''
+## use virtual-line
+[[plugins]]
+repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+depends = 'nvim-lspconfig'
+on_event = ['BufRead']
+hook_source = '''
+lua <<EOF
+require('lsp_lines').setup()
+vim.diagnostic.config({
+  virtual_text = false,
+  virt_lines = true,
+})
+
+vim.keymap.set("n", "<Leader>l", require("lsp_lines").toggle)
+
+-- vim.api.nvim_create_autocmd('InsertEnter', {
+--   callback = function()
+--     vim.diagnostic.config({ virtual_lines = false })
+--   end
+-- })
+-- vim.api.nvim_create_autocmd('ModeChanged', {
+--   pattern = 'i:*',
+--   callback = function()
+--     vim.diagnostic.config({ virtual_lines = true })
+--   end
+-- })
+EOF
+'''
+
+## debug adapter protocol
+[[plugins]]
+repo = 'mfussenegger/nvim-dap'
+hook_source = '''
+lua <<EOF
+  local dap = require('dap')
+
+  -- flutter settign
+  dap.adapters.dart = {
+    type = "executable",
+    command = "flutter",
+    args = {"debug_adapter"}
+  }
+  require('dap.ext.vscode').load_launchjs(nil, { dart })
+EOF
+'''
+[[plugins]]
+repo = "rcarriga/nvim-dap-ui"
+depends = "nvim-dap"
+hook_source = '''
+lua require("dapui").setup()
+'''
+
+[[plugins]]
+repo = 'folke/todo-comments.nvim'
+depends = ['plenary.nvim']
+on_event = 'BufReadPre'
+hook_source = '''
+lua << EOF
+require('todo-comments').setup {}
+EOF
+'''
+## リサイズを便利にするやつ
+[[plugins]]
+repo     = 'simeji/winresizer'
+on_event = 'BufRead'
+
+# [[plugins]]
+# repo = 'cohama/lexima.vim'
+# # on_event = "InsertEnter"
+# on_source = 'ddu.vim' # <CR>を上書きしないようにするため
+# hook_add = '''
+# "let g:lexima_accept_pum_with_enter = 1
+# let g:lexima_no_default_rules = 1
+# '''
+# hook_source = '''
+# "call lexima#set_default_rules()
+# '''
+
+## 囲みを付けたり変更したり
+[[plugins]]
+repo     = 'tpope/vim-surround'
+on_event = "BufRead"
+
+
+## color code highlighter
+[[plugins]]
+repo = 'chrisbra/Colorizer'
+on_event = 'VimEnter'
+hook_add = '''
+" let g:colorizer_auto_color = 1
+let g:colorizer_auto_filetype = 'css,toml,bash,sh,zsh,fish'
+let g:colorizer_skip_comments = 1
+'''
+
+## general purpose parser
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = 0
+on_event = 'BufReadPre'
+hook_post_source = 'TSUpdate'
+hook_source = '''
+lua require('custom.nvim-treesitter')
+'''
+# [[plugins]]
+# repo = 'p00f/nvim-ts-rainbow'
+# on_source = 'nvim-treesitter'
+# [[plugins]]
+# repo = 'romgrk/nvim-treesitter-context'
+# on_source = 'nvim-treesitter'
+[[plugins]]
+repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
+on_source = 'nvim-treesitter'
+#depends = ['nvim-treesitter']
+
+[[plugins]]
+repo = 'm-demare/hlargs.nvim'
+depends = 'nvim-treesitter'
+on_event = 'BufEnter'
+hook_source = '''
+lua <<EOF
+require('hlargs').setup()
+--require('hlargs').enable()
+EOF
+'''
+
+[[plugins]]
+repo     = 'tpope/vim-repeat'
+on_event = 'BufReadPost'
+
+# sticky shift
+[[plugins]]
+repo     = 'lambdalisue/pinkyless.vim'
+on_event = 'InsertEnter'
+
 
 # [[plugins]]
 # repo = 'skanehira/denops-gh.vim'
@@ -39,150 +315,84 @@ EOF
 
 # [[plugins]]
 # repo = 'mattn/emmet-vim'
-# on_fr = [ "html" ]
+# on_ft = [ "html" ]
 
+# TODO: ddcと干渉しないように設計したい
+# NOTE: 今のところはfishのときしか有効にしていないので大丈夫だと思われる
 [[plugins]]
-repo = 'dag/vim-fish'
-on_ft = 'fish'
-
-## general purpose purser
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-merged = 0
-if = 'has("nvim")'
-on_event = 'BufRead'
-hook_post_update = 'TSUpdate'
-hook_source = '''
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = {
-      -- shell
-      'bash', 'fish',
-      -- JVM
-      'java', 'kotlin',
-      -- Web
-      'html', 'pug',
-      'javascript', 'jsdoc', 'typescript', 'tsx', 'vue',
-      -- setting files
-      'json', 'json5', 'jsonc', 'yaml', 'toml',
-      -- vim
-      'vim', 'lua',
-      -- other language
-      'commonlisp',
-      'dart',
-      'go',
-      'php',
-      'python',
-      'rust',
-      -- other type
-      'markdown',
-      'comment',
-      'http',
-      'graphql',
-    },
-    highlight = {
-        enable = true,
-        disable = {
-          -- 'lua',
-          'vim',
-          'fish',
-        },
-        additional_vim_regex_highlighting = false,
-    },
-    incremental_selection = {
-      enable = true,
-    },
-    rainbow = {
-      enable = false,
-      exteded_mode = true,
-      max_file_lines = nil,
-    },
-    indent = {
-      enable = false,
-    }
-}
+repo = 'hrsh7th/nvim-cmp'
+on_ft = ['fish']
+on_event = ['InsertEnter']
+hook_source = """
+lua << EOF
+local cmp = require('cmp')
+cmp.setup.filetype('fish', {
+  sources = {
+    { name = 'omni' }
+  }
+})
 EOF
-'''
-# FIX: エラー発生中
+"""
 [[plugins]]
-repo = 'p00f/nvim-ts-rainbow'
-on_source = 'nvim-treesitter'
-# [[plugins]]
-# repo = 'romgrk/nvim-treesitter-context'
-# on_source = 'nvim-treesitter'
-
-## TODO: comment highlight
-## FIX: ddu-ui-ffと競合している。とりあえずは無効化する
-# [[plugins]]
-# repo = 'folke/todo-comments.nvim'
-# depends = ['plenary.nvim']
-# on_event = 'BufRead'
-# hook_source = '''
-# lua << EOF
-# require('todo-comments').setup {}
-# EOF
-# '''
+repo      = 'hrsh7th/cmp-omni'
+on_source = ['nvim-cmp']
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 depends = ['ddu.vim']
 hook_add = '''
-  " basic workflow
-  " 1. C-s: open terminal
-  " 2. open another tab
-  " 3. <C-t>: switch tab
-  nnoremap <silent> <C-s>
-  \ <Cmd>Deol zsh -no-start-insert -toggle -split=farright<CR>
-  nnoremap <silent> sD <Cmd>call deol#kill_editor()<CR>
-  nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
+nnoremap <silent> <C-s>
+  \ <Cmd>Deol fish -no-start-insert -toggle -split=farright<CR>
+nnoremap <silent> sD <Cmd>call deol#kill_editor()<CR>
+nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
   \ -ui-param-split=floating
   \ -ui-param-winRow=1 -ui-param-autoResize
   \ -ui-param-cursorPos=`tabpagenr()-1`
   \ deol<CR>
 '''
 hook_source = '''
-  let g:deol#enable_dir_changed = v:false
-  let g:deol#prompt_pattern = '\w*% \?'
-  let g:deol#shell_history_path = '~/.zsh-history'
-  let g:deol#extra_options = {
-      \ 'term_kill': 'kill',
-      \ }
-  call ddu#custom#patch_global({
-      \   'sourceParams': {
-      \     'deol': {
-      \       'command': ['zsh'],
-      \     },
-      \   }
-      \ })
+let g:deol#enable_dir_changed = v:false
+let g:deol#prompt_pattern = '\w*% \?'
+let g:deol#shell_history_path = '~/.zsh-history'
+let g:deol#extra_options = {
+    \ 'term_kill': 'kill',
+    \ }
+" call ddu#custom#patch_global({
+"    \   'sourceParams': {
+"    \     'deol': {
+"    \       'command': ['fish'],
+"    \     },
+"    \   }
+"    \ })
 
-  tnoremap <ESC> <C-\><C-n>
-  " tnoremap <expr><C-t> ddc#manual_complete()
-  " tnoremap <silent><expr> <Tab> pum#visible() ?
-  "     \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-  "     \ '<Tab>'
-  " tnoremap <silent><expr> <S-Tab> pum#visible() ?
-  "     \ '<Cmd>call pum#map#insert_relative(-1)<CR>' :
-  "     \ '<S-Tab>'
-  " tnoremap <Down>   <Cmd>call pum#map#select_relative(+1)<CR>
-  " tnoremap <Up>     <Cmd>call pum#map#select_relative(-1)<CR>
-  " tnoremap <silent><expr> <C-y>
-  "     \ pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
-  " tnoremap <silent><expr> <C-e>
-  "     \ pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<C-e>'
+tnoremap <ESC> <C-\><C-n>
+" tnoremap <expr><C-t> ddc#manual_complete()
+" tnoremap <silent><expr> <Tab> pum#visible() ?
+"     \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+"     \ '<Tab>'
+" tnoremap <silent><expr> <S-Tab> pum#visible() ?
+"     \ '<Cmd>call pum#map#insert_relative(-1)<CR>' :
+"     \ '<S-Tab>'
+" tnoremap <Down>   <Cmd>call pum#map#select_relative(+1)<CR>
+" tnoremap <Up>     <Cmd>call pum#map#select_relative(-1)<CR>
+" tnoremap <silent><expr> <C-y>
+"     \ pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<C-y>'
+" tnoremap <silent><expr> <C-e>
+"     \ pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<C-e>'
 '''
 [plugins.ftplugin]
 deol = '''
-  nnoremap <buffer><silent> gc
-  \ <Cmd>call deol#send('git commit')<CR>
-  nnoremap <buffer><silent> gs
-  \ <Cmd>call deol#send('git status')<CR>
-  nnoremap <buffer><silent> gA
-  \ <Cmd>call deol#send('git commit --amend')<CR>
-  nmap <buffer> e <Plug>(deol_edit)
-  tmap <buffer> <CR> <Plug>(deol_execute_line)
-  call ddc#custom#patch_buffer('sourceOptions', {
-      \ '_': {
-      \   'converters': [],
-      \ },
-      \ })
+nnoremap <buffer><silent> gc
+\ <Cmd>call deol#send('git commit')<CR>
+nnoremap <buffer><silent> gs
+\ <Cmd>call deol#send('git status')<CR>
+nnoremap <buffer><silent> gA
+\ <Cmd>call deol#send('git commit --amend')<CR>
+nmap <buffer> e <Plug>(deol_edit)
+tmap <buffer> <CR> <Plug>(deol_execute_line)
+call ddc#custom#patch_buffer('sourceOptions', {
+    \ '_': {
+    \   'converters': [],
+    \ },
+    \ })
 '''

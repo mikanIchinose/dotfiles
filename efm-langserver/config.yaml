@@ -1,0 +1,15 @@
+version: 2
+tools:
+  markdown-markdownlint: &markdown-markdownlint
+    lint-command: 'markdownlint -c ~/.config/markdownlint/.markdownlintrc -s'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l %m'
+  markdown-pandoc: &markdown-pandoc
+    format-command: 'pandoc -f markdown -t gfm -sp --tab-stop=2'
+    format-stdin: true
+languages:
+  markdown:
+    - <<: *markdown-markdownlint
+    - <<: *markdown-pandoc
+

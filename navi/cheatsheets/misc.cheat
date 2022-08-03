@@ -30,14 +30,18 @@ $ header: echo -e '\nContent-Type: application/json'
 % ffmpeg, gif, video
 
 # convert mov to gif
-ffmpeg -i "<video-file>" -r 24 <git_file>.gif
+ffmpeg -i "<video-file>" -r 24 "ffmpeg/<git_file>.gif"
 
-$ video-file: fd --extension mov
+# compress video
+for video (<videos>) ffmpeg -i "$video" -crf 20 "ffmpeg/$video"
+
+$ video-file: fd -e mp4 -e mov -E ffmpeg
+$ videos: fd -e mp4 -e mov -E ffmpeg --- --multi --expand
 
 % vim, doc, memo
 
 # create/open today memo
-local today=$(date "+%Y%m%d"); nvim ~/Documents/memo/memo-${today}.md
+local today=$(date "+%Y%m%d"); nvim ~/Documents/memo/${today}.md
 
 # open memo
 nvim <memo>
@@ -45,8 +49,10 @@ nvim <memo>
 # delete memo
 rm -i <memo>
 
-$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory ~/Documents/memo/ "memo" --- --multi --expand
+$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory ~/Documents/memo/ --- --multi --expand
 
 # delete all memo
-rm ~/Documents/memo/memo-*.md
+rm ~/Documents/memo/*.md
 
+# show global installed npm pakcages
+npm list -g --depth 0

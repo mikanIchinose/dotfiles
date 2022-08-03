@@ -23,6 +23,8 @@ let s:lazy_toml = s:toml_dir . '/lazy.toml'
 let s:ft_toml   = s:toml_dir . '/ftplugin.toml'
 let s:ddu_toml  = s:toml_dir . '/ddu.toml'
 let s:ddc_toml  = s:toml_dir . '/ddc.toml'
+let s:fern_toml = s:toml_dir . '/fern.toml'
+let s:telescope_toml = s:toml_dir . '/telescope.toml'
 
 " download dein.vim
 if &runtimepath !~# '/dein.vim'
@@ -35,22 +37,31 @@ endif
 " initialize
 if dein#min#load_state(s:dein_dir)
   let s:base_dir = fnamemodify(expand('<sfile>'), ':h') . '/'
-  let g:dein#inline_vimrcs = ['common.vim', 'colorScheme.vim']
+  let g:dein#inline_vimrcs = ['option.vim', 'neovim.rc.vim']
   call map(g:dein#inline_vimrcs, {_, val -> s:base_dir . val})
-  " , s:ddu_toml, s:ddc_toml
+
   call dein#begin(s:dein_dir, [
-        \ expand('<sfile>'), s:base_toml, s:lazy_toml, s:ft_toml
+        \ expand('<sfile>'), 
+        \ s:base_toml,
+        \ s:lazy_toml,
+        \ s:ft_toml,
+        \ s:fern_toml,
+        \ s:telescope_toml,
         \ ])
 
   call dein#load_toml(s:base_toml, {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
-  call dein#load_toml(s:ddu_toml, {'lazy': 1})
-  call dein#load_toml(s:ddc_toml, {'lazy': 1})
-  call dein#load_toml(s:ft_toml)
+  call dein#load_toml(s:ddu_toml,  {'lazy': 1})
+  call dein#load_toml(s:ddc_toml,  {'lazy': 1})
+  call dein#load_toml(s:fern_toml, {'lazy': 1})
+  call dein#load_toml(s:telescope_toml, {'lazy': 1})
+  " call dein#load_toml(s:ft_toml)
 
   call dein#end()
-  call dein#save_state()
+
   call dein#call_hook('source')
+  call dein#save_state()
+  " call dein#recache_runtimepath()
 endif
 
 " auto install
@@ -66,21 +77,17 @@ if len(s:removed_plugins) > 0
 endif
 
 " fast update command using github graphq api
-function! DeinFastUpdate() abort
-  let g:dein#install_github_api_token = $DEIN_GITHUB_TOKEN
-  call dein#check_update(v:true)
-  " echo 'update done'
-endfunction
-command! DeinFastUpdate call DeinFastUpdate()
+" function! DeinFastUpdate() abort
+"   let g:dein#install_github_api_token = $DEIN_GITHUB_TOKEN
+"   call dein#check_update(v:true)
+"   " echo 'update done'
+" endfunction
+" command! DeinFastUpdate call DeinFastUpdate()
 "End dein Scripts-------------------------
 
 "user settings---------------------------
-" let s:base_dir = expand('~/.config/nvim')
-" execute 'source ' . s:base_dir . '/common.vim'
-" execute 'source ' . s:base_dir . '/colorscheme.vim'
-
+" Brewfile treat as ruby-file
 augroup brewfile
-  " Brewfile treat as ruby-file
   autocmd BufRead Brewfile set filetype=ruby
 augroup END
 
@@ -88,4 +95,13 @@ augroup END
 " let g:denops#debug = 1
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
 " set runtimepath^=~/LocalProject/ddc-deno-import-map
+"
+command! ToggleStatusLine call vimrc#toggle_statusline()
 "End user settings---------------------------
+
+lua << EOF
+require('impatient')
+vim.notify = require("notify")
+require("keymapping")
+require("custom.which-key")
+EOF

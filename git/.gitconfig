@@ -1,5 +1,4 @@
 [user]
-	# ユーザー名、メアド
 	name = Ichinose Yoshihiro
 	email = maruisansmai@gmail.com
 [push]
@@ -22,14 +21,13 @@
 [interactive]
 	diffFilter = delta --color-only
 [delta]
-	features = side-by-side line-numbers decorations
+	features = line-numbers decorations
 	whitespace-error-style = 22 reverse
 [delta "decorations"]
 	commit-decoration-style = bold yellow box ul
 	file-style = bold yellow ul
 	file-decoration-style = none
 [init]
-	# デフォルトブランチの名称
 	defaultBranch = main
 [color]
 	ui = true
@@ -53,3 +51,5 @@
   tool = nvimdiff
 [difftool "nvimdiff"]
   cmd = nvim -d "$LOCAL" "$REMOTE"
+[commit]
+	template = /Users/solenoid/.gitmessage

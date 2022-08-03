@@ -19,11 +19,11 @@ git switch -c "feature/<name>" <start_point>
 # create fix branch
 git switch -c "fix/<name>" <start_point>
 
-# create doc branch
-git switch -c "doc/<name>" <start_point>
-
 # create hot-fix branch
 git switch -c "hot-fix/<name>" <start_point>
+
+# create doc branch
+git switch -c "doc/<name>" <start_point>
 
 $ start_point: echo -e "develop\nmain\nmaster"
 
@@ -53,20 +53,18 @@ git tag <version>
 git tag -a <version>
 
 # push tag
-git push origin --tags \
-  && git push origin
+git push origin --tags && git push origin
 
 # delete tag
-git tag -d <tag> \
-  && git push origin :refs/tags/<tag>
+git tag -d <tag> && git push origin :refs/tags/<tag>
 
 $ tag: git tag -l
 
 # rename tag
 git tag <old_tag> <new_tag> \
-  && git tag -d <old_tag> \
-  && git push origin <new_tag> \
-  && git push origin :refs/tags/<old_tag>
+  && git tag -d <old_tag>
+  # && git push origin <new_tag> \
+  # && git push origin :refs/tags/<old_tag>
 
 $ old_tag: git tag -l
 
@@ -79,7 +77,7 @@ $ local_repo: fd --type directory --absolute-path --exact-depth 1 --base-directo
 
 % git, ghq
 
-# cd ghq repo
-cd <repo>
+# show ghq repo
+echo <ghq-repo>
 
-$ repo: ghq list --full-path
+$ ghq-repo: ghq list --full-path

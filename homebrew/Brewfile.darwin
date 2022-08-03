@@ -1,9 +1,11 @@
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
-tap "homebrew/cask-fonts"
 tap "homebrew/cask-drivers"
-tap "d12frosted/emacs-plus"
-tap "wez/wezterm"
+tap "d12frosted/emacs-plus" # emacs
+tap "wez/wezterm" # wezterm
+tap "koekeishiya/formulae"
+tap "jesseduffield/lazygit"
+# tap "homebrew/cask-fonts"
 
 # cli
 brew "fzf"
@@ -28,49 +30,57 @@ brew "commitizen"
 brew "gh"
 brew "firebase-cli"
 brew "tokei"
-brew "mermaid-cli"
-brew "sqlite"
-brew "graphviz"
-
-# language
-brew "deno"
-brew "go"
-brew "rustup-init" # rust
-brew "dhall"
-brew "dhall-lsp-server"
-brew "dhall-yaml"
-
-# neovim
-brew "luajit", args: ["HEAD"]
-brew "neovim", args: ["HEAD"]
-
-# emacs
-brew "emacs-plus@28", args: ["with-xwidgets"]
-
 brew "fish"
 brew "cocoapods"
 brew "gpg"
+brew "deno"
+brew "go"
+brew "jsonnet"
+brew "kdoctor"
+brew "gum"
+# brew "aria2"
+# brew "youtube-dl"
+# brew "marp-cli"
+# brew "nushell"
+
+# dall
+# brew "dhall"
+# brew "dhall-lsp-server"
+# brew "dhall-yaml"
+
+# neovim
+brew "neovim", args: ["HEAD"]
+
+# emacs
+# brew "emacs-plus@28", args: ["with-xwidgets", "with-imagemagick"]
+brew "sqlite" # used by org-roam
+brew "mermaid-cli"
+brew "graphviz"
 
 # font
-cask "font-fira-code-nerd-font"
+# cask "font-fira-code-nerd-font" # リリースから落とした方がよい
+
+# browser
+cask "vivaldi"
+cask "firefox"
+cask "brave-browser"
+cask "google-chrome"
+cask "biscuit"
+
+# terminal
+cask "iterm2"
+# cask "wezterm-nightly" # 日本語との相性わるすぎ
+# cask "alacritty" # タブがないからなー
 
 # gui app
-cask "firefox"
 cask "thunderbird"
-cask "vivaldi"
-cask "google-chrome"
-cask "android-studio"
 cask "jetbrains-toolbox"
 cask "adobe-creative-cloud"
 cask "flipper"
-cask "visual-studio-code"
 cask "slack"
 cask "docker"
 cask "keycastr"
 cask "alfred"
-cask "amethyst"
-cask "iterm2"
-cask "discord-canary"
 cask "karabiner-elements"
 cask "notion"
 cask "zoom"
@@ -78,7 +88,23 @@ cask "zsa-wally"
 cask "atok"
 cask "cyberduck"
 cask "keepassxc"
-cask "wezterm-nightly"
 cask "clipy"
+cask "box-drive"
+# cask "shottr"
+cask "anki-beta"
+# cask "postman"
+# cask "krisp"
+cask "google-drive"
+cask "aquaskk"
 
-mas "Xcode",id: 497799835
+# Editor/IDE
+cask "visual-studio-code"
+cask "android-studio"
+cask "android-studio-preview-beta"
+
+## beautiful desktop environtment
+brew "yabai"
+brew "koekeishiya/formulae/skhd"
+cask "ubersicht"
+
+# mas "Xcode", id: 497799835
