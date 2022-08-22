@@ -53,7 +53,7 @@ set clipboard+=unnamedplus
 
 " leaderをspaceに変更
 let g:mapleader = "\<Space>"
-let g:maplocalleader = "m"
+let g:maplocalleader = ","
 
 set timeout timeoutlen=100 ttimeoutlen=200
 
