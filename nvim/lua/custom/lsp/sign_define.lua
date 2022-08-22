@@ -1,7 +1,6 @@
--- set sign
-local fn = vim.fn
+local sign_define = vim.fn.sign_define
 
-fn.sign_define(
+sign_define(
   "LspDiagnosticsSignError",
   {
     texthl = "LspDiagnosticsSignError",
@@ -10,7 +9,7 @@ fn.sign_define(
   }
 )
 
-fn.sign_define(
+sign_define(
   "LspDiagnosticsSignWarning",
   {
     texthl = "LspDiagnosticsSignWarning",
@@ -19,7 +18,7 @@ fn.sign_define(
   }
 )
 
-fn.sign_define(
+sign_define(
   "LspDiagnosticsSignHint",
   {
     texthl = "LspDiagnosticsSignHint",
@@ -28,7 +27,7 @@ fn.sign_define(
   }
 )
 
-fn.sign_define(
+sign_define(
   "LspDiagnosticsSignInformation",
   {
     texthl = "LspDiagnosticsSignInformation",

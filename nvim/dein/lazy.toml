@@ -1,4 +1,29 @@
 [[plugins]]
+repo   = 'wsdjeg/dein-ui.vim'
+on_cmd = ['DeinUpdate']
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+on_event = ['VimEnter']
+hook_add = '''
+lua require('custom.lightline')
+'''
+# [[plugins]]
+# repo = 'mengelbrecht/lightline-bufferline'
+# depends = ['lightline.vim']
+
+## なんか便利な強いやつ いろんなプラギンが依存してる
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+## plugin platform
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+hook_source = '''
+" let g:denops_server_addr = '127.0.0.1:32123'
+'''
+
+[[plugins]]
 repo = 'Shougo/context_filetype.vim'
 on_ft = ['toml', 'markdown']
 hook_source = '''
@@ -10,7 +35,7 @@ function! s:dein_toml_syntax() abort
     call dein#toml#syntax()
   endif
 endfunction
-autocmd FileType toml,lua ++nested call timer_start(10, {id->s:dein_toml_syntax()})
+autocmd FileType toml,lua ++nested call timer_start(1000, {id -> s:dein_toml_syntax()})
 '''
 # [[plugins]]
 # repo = 'osyo-manga/vim-precious'
@@ -18,14 +43,35 @@ autocmd FileType toml,lua ++nested call timer_start(10, {id->s:dein_toml_syntax(
 # depends = ['context_filetype.vim']
 # on_if = 'expand("%:p") =~# "\vdein/[^/]+.toml$"'
 
+[[plugins]]
+repo = 'tyru/caw.vim'
+on_event = 'BufRead'
+hook_add = '''
+let g:caw_no_default_keymappings = 1 " disable default keymap
+nmap gcc <Plug>(caw:hatpos:toggle)
+xmap gc <Plug>(caw:hatpos:toggle)
+'''
+
+[[plugins]]
+repo     = 'lambdalisue/guise.vim'
+depends  = ['denops.vim']
+on_event = ['VimEnter']
+
 # syntax hilight
-# treesitterでは不都合な場合に利用する
+# NOTE: treesitterでは不都合な場合に利用する
 [[plugins]]
 repo  = 'dag/vim-fish'
 on_ft = 'fish'
-[[plugins]]
-repo  = 'cespare/vim-toml' # treesitterを使うとdein系のtomlのハイライトが上手くいかない
-on_ft = 'toml'
+[plugins.ftplugin]
+fish = '''
+compiler fish
+setlocal textwidth=79
+setlocal foldmethod=expr
+'''
+# NOTE: treesitterを使うとdein系のtomlのハイライトが上手くいかない
+# [[plugins]]
+# repo  = 'cespare/vim-toml'
+# on_ft = 'toml'
 
 [[plugins]]
 repo = 'lfilho/cosco.vim'
@@ -35,71 +81,65 @@ autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOr
 let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 '''
 
-## flutter development
+## NOTE: git
 [[plugins]]
-repo = 'akinsho/flutter-tools.nvim'
-depends = ['plenary.nvim']
-on_ft = 'dart'
-hook_source = '''
-lua << EOF
-  require("flutter-tools").setup {
-    dev_tools = {
-      autostart = true
-    },
-    lsp = {
-      on_attach = require("custom.lsp.config").on_attach,
-      autostart = true
-    },
-    widget_guides = {
-      enabled = true
-    }
-  }
+repo     = 'lambdalisue/gina.vim'
+on_event = 'VimEnter'
+[[plugins]]
+repo = 'lambdalisue/gin.vim'
+depends = 'denops.vim'
+on_cmd = [
+  'Gin',
+  'GinBranch',
+  'GinBuffer',
+  'GinChaperon',
+  'GinDiff',
+  'GinEdit',
+  'GinStatus',
+]
+hook_add = '''
+let g:gin_branch_disable_default_mappings = 1
+let g:gin_chaperon_disable_default_mappings = 1
+let g:gin_diff_disable_default_mappings = 1
+let g:gin_patch_disable_default_mappings = 1
+let g:gin_status_disable_default_mappings = 1
 
-  require('which-key').register({
-    ['<Leader>'] = {
-      F = {
-        name = '+flutter',
-        r = {'<cmd>FlutterRun<cr>', 'flutter run'},
-        R = {'<cmd>FlutterRestart<cr>', 'flutter restart'},
-        q = {'<cmd>FlutterQuit<cr>', 'flutter quit'},
-        o = {'<cmd>FlutterOutline<cr>', 'flutter quit'},
-      }
-    }
-  })
-EOF
+silent! !git rev-parse --is-inside-work-tree
+if v:shell_error == 0
+  lua require('custom.gin.keymap')
+endif
+'''
+[plugins.ftplugin]
+gin = '''
+'''
+gin-branch = '''
+map <buffer><nowait> a <Plug>(gin-action-choice)
+map <buffer><nowait> . <Plug>(gin-action-repeat)
+nmap <buffer><nowait> ? <Plug>(gin-action-help)
+'''
+gin-diff = '''
+map <buffer><nowait> a <Plug>(gin-action-choice)
+map <buffer><nowait> . <Plug>(gin-action-repeat)
+nmap <buffer><nowait> ? <Plug>(gin-action-help)
+
+nmap <buffer> <CR> <Plug>(gin-diffjump-smart)
+'''
+gin-edit = '''
+map <buffer><nowait> a <Plug>(gin-action-choice)
+map <buffer><nowait> . <Plug>(gin-action-repeat)
+nmap <buffer><nowait> ? <Plug>(gin-action-help)
+'''
+gin-status = '''
+map <buffer><nowait> a <Plug>(gin-action-choice)
+map <buffer><nowait> . <Plug>(gin-action-repeat)
+nmap <buffer><nowait> ? <Plug>(gin-action-help)
 '''
 
-## git
-[[plugins]]
-repo    = 'lambdalisue/gin.vim'
-depends = 'denops.vim'
-on_cmd  = 'GinStatus'
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-on_event = ['BufRead']
+on_event = ['BufReadPost']
 hook_source = '''
-lua << EOF
-require('gitsigns').setup {
-  signs = {
-    add = { text = '樂', },
-    -- change = { text = 'm ', },
-    delete       = { text = '- ', },
-    topdelete    = { text = '- ', },
-    changedelete = { text = '- ', },
-  },
-  -- current_line_blame = true,
-  -- current_line_blame_opts = {
-  --   virt_text = true,
-  --   virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
-  --   virt_text_priority = 1,
-  --   delay = 10,
-  --   ignore_whitespace = false,
-  -- },
-  current_line_blame_formatter_opts = {
-    relative_time = false
-  },
-}
-EOF
+lua require("custom.gitsigns")
 '''
 
 # [[plugins]]
@@ -114,11 +154,12 @@ EOF
 # EOF
 # '''
 
-## lsp
+## NOTE: lsp
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = ['BufRead', 'VimEnter']
+on_event = 'BufRead'
 hook_source = '''
+" lua vim.notify('onSource nvim-lspconfig')
 lua require('custom.lsp')
 '''
 [[plugins]]
@@ -127,24 +168,67 @@ on_source = ['nvim-lspconfig']
 [[plugins]]
 repo      = 'williamboman/mason-lspconfig.nvim'
 on_source = ['nvim-lspconfig']
+depends   = ['mason.nvim']
+[[plugins]]
+repo      = 'WhoIsSethDaniel/mason-tool-installer.nvim'
+on_source = ['nvim-lspconfig']
+depends   = ['mason.nvim']
 ## lua development
 [[plugins]]
 repo      = 'folke/lua-dev.nvim'
 on_source = ['nvim-lspconfig']
 [[plugins]]
 repo      = 'lukas-reineke/lsp-format.nvim'
-on_source = ['nvim-lspconfig']
+on_source = ['nvim-lspconfig', 'null-ls']
 ## json yaml development
 [[plugins]]
 repo      = 'b0o/SchemaStore.nvim'
 on_source = ['nvim-lspconfig']
 ## codeAction UI
 [[plugins]]
-repo = 'weilbith/nvim-code-action-menu'
+repo   = 'weilbith/nvim-code-action-menu'
 on_cmd = 'CodeActionMemu'
-hook_add = '''
-"let g:code_action_menu_show_detail = v:false
-"let g:code_action_menu_show_diff = v:false
+[[plugins]]
+repo = "j-hui/fidget.nvim"
+on_source = ['nvim-lspconfig']
+hook_source = '''
+lua require('fidget').setup()
+'''
+### kind label
+[[plugins]]
+repo      = 'mortepau/codicons.nvim'
+on_source = 'nvim-lspconfig'
+[[plugins]]
+repo = 'onsails/lspkind.nvim'
+on_source = 'nvim-lspconfig'
+hook_source = '''
+lua << EOF
+require('lspkind').init {
+  mode = 'symbol',
+  preset = 'codicons',
+}
+EOF
+'''
+# [[plugins]]
+# repo = 'nvim-lua/lsp-status.nvim'
+# depends = ['nvim-lspconfig']
+# on_event = 'BufRead'
+# hook_source = '''
+# lua << EOF
+# require('lsp-status').register_progress()
+# EOF
+# '''
+# NOTE: lspの前には有効化されていないといけない
+# [[plugins]]
+# repo = 'google/vim-jsonnet'
+
+
+## NOTE: make your own mode
+[[plugins]]
+repo = 'anuvyklack/hydra.nvim'
+on_event = ['VimEnter']
+hook_source = '''
+lua require('custom.hydra')
 '''
 
 [[plugins]]
@@ -155,90 +239,225 @@ hook_source = '''
 lua require("custom.incline")
 '''
 
+## NOTE: null-ls vs efm-langserver vs diagnostic-languageserver vs nvim-lint vs lsp-format.nvim
 ## general language server
 [[plugins]]
 repo = 'jose-elias-alvarez/null-ls.nvim'
 depends = 'nvim-lspconfig'
 on_event = ['BufRead']
 hook_source = '''
-lua <<EOF
-local formatting = require("null-ls").builtins.formatting
-local diagnostics = require("null-ls").builtins.diagnostics
-require("null-ls").setup({
-  sources = {
-    formatting.markdownlint,
-    diagnostics.markdownlint.with({
-      args = { "-c", "~/.config/markdownlint/.markdownlintrc", "-s" }
-    }),
-  }
-})
-EOF
+lua require('custom.null-ls')
 '''
-## use virtual-line
+## virtual-line
 [[plugins]]
 repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 depends = 'nvim-lspconfig'
 on_event = ['BufRead']
 hook_source = '''
-lua <<EOF
-require('lsp_lines').setup()
-vim.diagnostic.config({
-  virtual_text = false,
-  virt_lines = true,
-})
+lua require('custom.lsp_lines')
+'''
 
-vim.keymap.set("n", "<Leader>l", require("lsp_lines").toggle)
-
--- vim.api.nvim_create_autocmd('InsertEnter', {
---   callback = function()
---     vim.diagnostic.config({ virtual_lines = false })
---   end
--- })
--- vim.api.nvim_create_autocmd('ModeChanged', {
---   pattern = 'i:*',
---   callback = function()
---     vim.diagnostic.config({ virtual_lines = true })
---   end
--- })
+[[plugins]]
+repo = 'max397574/better-escape.nvim'
+on_event = 'VimEnter'
+hook_source = '''
+lua << EOF
+require('better_escape').setup {
+  mapping = {'jk', 'jj'},
+  timeout = 200,
+}
 EOF
 '''
 
 ## debug adapter protocol
-[[plugins]]
-repo = 'mfussenegger/nvim-dap'
-hook_source = '''
-lua <<EOF
-  local dap = require('dap')
+# [[plugins]]
+# repo = 'mfussenegger/nvim-dap'
+# hook_source = '''
+# lua <<EOF
+#   local dap = require('dap')
+# 
+#   -- flutter settign
+#   dap.adapters.dart = {
+#     type = "executable",
+#     command = "flutter",
+#     args = {"debug_adapter"}
+#   }
+#   require('dap.ext.vscode').load_launchjs(nil, { dart })
+# EOF
+# '''
+# [[plugins]]
+# repo = "rcarriga/nvim-dap-ui"
+# depends = "nvim-dap"
+# hook_source = '''
+# lua require("dapui").setup()
+# '''
 
-  -- flutter settign
-  dap.adapters.dart = {
-    type = "executable",
-    command = "flutter",
-    args = {"debug_adapter"}
+# NOTE: markdown
+[[plugins]]
+repo = 'SidOfc/mkdx'
+on_ft = 'markdown'
+hook_add = '''
+let g:mkdx#settings = {
+  \ 'map': {
+  \   'enable': 0,
+  \   'prefix': ',',
+  \ },
+  \ 'fold': {'enable': 1},
+  \ }
+'''
+[plugins.ftplugin]
+markdown = '''
+nnoremap <buffer> <A-S-Left>  <Plug>(mkdx-promote-header)
+nnoremap <buffer> <A-S-Right> <Plug>(mkdx-demote-header)
+'''
+# [[plugins]]
+# repo  = 'masukomi/vim-markdown-folding'
+# on_ft = 'markdown'
+# [[plugins]]
+# repo = 'tpope/vim-markdown'
+# on_ft = 'markdown'
+# hook_add = '''
+# let g:markdown_folding = 1
+# '''
+
+## NOTE: sidebar
+[[plugins]]
+repo = 'simrat39/symbols-outline.nvim'
+on_event = 'BufRead'
+depends = 'nvim-lspconfig'
+hook_source = '''
+lua << EOF
+require('symbols-outline').setup {
+  keymaps = {
+    close = 'q'
   }
-  require('dap.ext.vscode').load_launchjs(nil, { dart })
+}
+EOF
+'''
+# [plugins.ftplugin]
+# Outline = '''
+# setlocal wrap
+# '''
+[[plugins]]
+repo = 'stevearc/aerial.nvim'
+on_event = 'BufRead'
+depends = ['nvim-lspconfig', 'nvim-treesitter', 'codicons.nvim']
+hook_source = '''
+lua << EOF
+local codicons = require('codicons')
+require('aerial').setup {
+  backends = {
+    ['_'] = {'lsp', 'treesitter'},
+    -- markdown = {'markdown'},
+    markdown = {'treesitter'},
+  },
+  layout = {
+    width = 0.2,
+    placement = 'edge'
+  },
+  filter_kind = false,
+  close_behavior = 'global',
+  -- default_bindings = false,
+  show_guides = true,
+  icons = {
+    markdown = {
+      Interface = codicons.get('list-flat')
+    },
+    Collapsed = codicons.get('chevron-right'),
+  },
+}
 EOF
 '''
 [[plugins]]
-repo = "rcarriga/nvim-dap-ui"
-depends = "nvim-dap"
+repo = 'stevearc/stickybuf.nvim'
+on_event = 'BufRead'
 hook_source = '''
-lua require("dapui").setup()
+lua << EOF
+require('stickybuf').setup {
+  buftype = {
+    aerial = 'buftype',
+  }
+}
+EOF
 '''
+[[plugins]]
+repo = 'sidebar-nvim/sidebar.nvim'
+on_event = 'BufRead'
+hook_source = '''
+lua << EOF
+require('sidebar-nvim').setup {
+  sections = {'symbols','buffers'},
+}
+EOF
+'''
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+depends = ['nvim-lspconfig']
+on_cmd = ['Vista']
+hook_source = '''
+" lua vim.notify('onSource vista.vim')
+'''
+
+# [[plugins]]
+# repo = 'stevearc/gkeep.nvim'
+# on_cmd = ['GkeepLogin', 'GkeepOpen', 'GkeepNew', 'GkeepToggle']
+# hook_source = '''
+# '''
+
+# [[plugins]]
+# repo = 'lukas-reineke/headlines.nvim'
+# on_ft = 'markdown'
+# hook_source = '''
+# highlight Headline1 guibg=#30365F guifg=#f2ce00
+# highlight Headline2 guibg=#30365F guifg=#C8DB01
+# highlight Headline3 guibg=#30365F guifg=#ce6f8f
+# highlight CodeBlock guibg=#0f111b
+# highlight Quote guifg=#0099EC
+# lua << EOF
+# require('headlines').setup {
+#   markdown = {
+#     headline_highlights = {'Headline1','Headline2','Headline3'},
+#     fat_headlines = true,
+#     fat_headline_upper_string = '▃',
+#     fat_headline_lower_string = '▀',
+#   }
+# }
+# EOF
+# '''
+
+# [[plugins]]
+# repo = 'Decodetalkers/csv-tools.lua'
+# on_ft = 'csv'
 
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 depends = ['plenary.nvim']
 on_event = 'BufReadPre'
 hook_source = '''
-lua << EOF
-require('todo-comments').setup {}
-EOF
+lua require('todo-comments').setup {}
 '''
+
 ## リサイズを便利にするやつ
 [[plugins]]
-repo     = 'simeji/winresizer'
+repo = 'mrjones2014/smart-splits.nvim'
 on_event = 'BufRead'
+hook_source = '''
+lua require('custom.smart-splits')
+'''
+[[plugins]]
+repo = 'johann2357/nvim-smartbufs'
+on_event = 'BufRead'
+hook_source = '''
+lua require('custom.nvim-smartbufs')
+'''
+#[[plugins]]
+#repo = 'akinsho/bufferline.nvim'
+#rev = "v2.*"
+#on_event = ['BufRead']
+#hook_source = '''
+#lua require('custom.bufferline')
+#'''
+
 
 # [[plugins]]
 # repo = 'cohama/lexima.vim'
@@ -260,48 +479,58 @@ on_event = "BufRead"
 
 ## color code highlighter
 [[plugins]]
-repo = 'chrisbra/Colorizer'
-on_event = 'VimEnter'
-hook_add = '''
-" let g:colorizer_auto_color = 1
-let g:colorizer_auto_filetype = 'css,toml,bash,sh,zsh,fish'
-let g:colorizer_skip_comments = 1
+repo = 'norcalli/nvim-colorizer.lua'
+on_ft = ['toml', 'css', 'sh', 'vim', 'lua']
+hook_source = '''
+lua require('colorizer').setup()
 '''
 
-## general purpose parser
+# NOTE: treesitter
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 merged = 0
-on_event = 'BufReadPre'
+on_event = 'BufRead'
 hook_post_source = 'TSUpdate'
 hook_source = '''
+" lua vim.notify('onSource nvim-treesitter')
 lua require('custom.nvim-treesitter')
 '''
-# [[plugins]]
-# repo = 'p00f/nvim-ts-rainbow'
-# on_source = 'nvim-treesitter'
+[[plugins]]
+repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
+on_source = 'nvim-treesitter'
+hook_add = '''
+highlight rainbowcol1 guifg=#B2C224
+highlight rainbowcol2 guifg=#FECC31
+highlight rainbowcol3 guifg=#F9A327
+highlight rainbowcol4 guifg=#F6621E
+highlight rainbowcol5 guifg=#EE647A
+highlight rainbowcol6 guifg=#A463D8
+highlight rainbowcol7 guifg=#3FA4D9
+'''
+#[[plugins]]
+#repo     = 'haringsrob/nvim_context_vt'
+#depends  = 'nvim-treesitter'
+#on_event = 'BufReadPost'
 # [[plugins]]
 # repo = 'romgrk/nvim-treesitter-context'
 # on_source = 'nvim-treesitter'
-[[plugins]]
-repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
-on_source = 'nvim-treesitter'
+# [[plugins]]
+# repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
+# on_source = 'nvim-treesitter'
 #depends = ['nvim-treesitter']
-
 [[plugins]]
 repo = 'm-demare/hlargs.nvim'
-depends = 'nvim-treesitter'
-on_event = 'BufEnter'
+depends = ['nvim-treesitter']
+on_event = 'BufRead'
 hook_source = '''
 lua <<EOF
 require('hlargs').setup()
---require('hlargs').enable()
 EOF
 '''
 
 [[plugins]]
 repo     = 'tpope/vim-repeat'
-on_event = 'BufReadPost'
+on_event = 'BufRead'
 
 # sticky shift
 [[plugins]]
@@ -309,9 +538,50 @@ repo     = 'lambdalisue/pinkyless.vim'
 on_event = 'InsertEnter'
 
 
-# [[plugins]]
-# repo = 'skanehira/denops-gh.vim'
-# depends = ['denops.vim']
+#[[plugins]]
+#repo = 'skanehira/denops-gh.vim'
+#depends = ['denops.vim', 'ddc.vim']
+#on_event=['VimEnter']
+#hook_source = '''
+#augroup gh_ddc
+#  au!
+#  au User gh_open_issue call <SID>enableAutoCompletionForGh('gh_issues')
+#  au User gh_open_issue_assignees call <SID>enableAutoCompletionForGh('gh_issues_assginees')
+#augroup END
+#
+#function! s:enableAutoCompletionForGh(kind) abort
+#  call ddc#custom#patch_buffer('sources', [a:kind])
+#  call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
+#  " If you want to complements with japanese, you should add keywordPattern
+#  call ddc#custom#patch_buffer({'keywordPattern':
+#        \ "[a-zA-Z0-9_À-ÿ\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]*"})
+#  let option = {}
+#  if a:kind ==# 'gh_issues'
+#    let option = {'gh_issues': {
+#          \  'matcherKey': 'menu',
+#          \  'minAutoCompleteLength': 1,
+#          \ }}
+#  elseif a:kind ==# 'gh_issues_assginees'
+#    let option = {'gh_issues_assginees': {
+#          \  'minAutoCompleteLength': 1,
+#          \ }}
+#  endif
+#  call ddc#custom#patch_buffer('sourceOptions', option)
+#endfunction
+#'''
+
+[[plugins]]
+repo = 'gamoutatsumi/dps-ghosttext.vim'
+depends = ['denops.vim', 'ddc.vim']
+on_cmd = 'GhostStart'
+hook_source = '''
+let g:dps_ghosttext#ftmap = {
+  \ "github.com": "markdown",
+  \ "ghosttext.fregante.com": "markdown",
+  \ "redmine.digitalatelier.jp": "markdown",
+  \ "notion.so": "markdown",
+  \ }
+'''
 
 # [[plugins]]
 # repo = 'mattn/emmet-vim'
@@ -319,36 +589,55 @@ on_event = 'InsertEnter'
 
 # TODO: ddcと干渉しないように設計したい
 # NOTE: 今のところはfishのときしか有効にしていないので大丈夫だと思われる
-[[plugins]]
-repo = 'hrsh7th/nvim-cmp'
-on_ft = ['fish']
-on_event = ['InsertEnter']
-hook_source = """
-lua << EOF
-local cmp = require('cmp')
-cmp.setup.filetype('fish', {
-  sources = {
-    { name = 'omni' }
-  }
-})
-EOF
-"""
-[[plugins]]
-repo      = 'hrsh7th/cmp-omni'
-on_source = ['nvim-cmp']
+# [[plugins]]
+# repo = 'hrsh7th/nvim-cmp'
+# on_ft = ['fish']
+# hook_source = """
+# lua << EOF
+# local cmp = require('cmp')
+# cmp.setup.filetype('fish', {
+#   sources = {
+#     { name = 'omni' }
+#   },
+#   mapping = cmp.mapping.preset.insert({
+#     ['<C-Space>'] = cmp.mapping.complete(),
+#     ['<C-e>'] = cmp.mapping.abort(),
+#     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+#     ['<Tab>'] = function(fallback)
+#       if cmp.visible() then
+#         cmp.select_next_item()
+#       else
+#         fallback()
+#       end
+#     end,
+#     ['<S-Tab>'] = function(fallback)
+#       if cmp.visible() then
+#         cmp.select_prev_item()
+#       else
+#         fallback()
+#       end
+#     end,
+#   }),
+# })
+# EOF
+# """
+# [[plugins]]
+# repo      = 'hrsh7th/cmp-omni'
+# depends   = 'nvim-cmp'
+# on_source = ['nvim-cmp']
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 depends = ['ddu.vim']
 hook_add = '''
-nnoremap <silent> <C-s>
+nnoremap <silent><C-s>
   \ <Cmd>Deol fish -no-start-insert -toggle -split=farright<CR>
 nnoremap <silent> sD <Cmd>call deol#kill_editor()<CR>
-nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
-  \ -ui-param-split=floating
-  \ -ui-param-winRow=1 -ui-param-autoResize
-  \ -ui-param-cursorPos=`tabpagenr()-1`
-  \ deol<CR>
+" nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
+"   \ -ui-param-split=floating
+"   \ -ui-param-winRow=1 -ui-param-autoResize
+"   \ -ui-param-cursorPos=`tabpagenr()-1`
+"   \ deol<CR>
 '''
 hook_source = '''
 let g:deol#enable_dir_changed = v:false
@@ -396,3 +685,52 @@ call ddc#custom#patch_buffer('sourceOptions', {
     \ },
     \ })
 '''
+
+## flutter development
+# [[plugins]]
+# repo = 'akinsho/flutter-tools.nvim'
+# depends = ['plenary.nvim']
+# on_ft = 'dart'
+# hook_source = '''
+# lua << EOF
+#   require("flutter-tools").setup {
+#     dev_tools = {
+#       autostart = true
+#     },
+#     lsp = {
+#       on_attach = require("custom.lsp.config").on_attach,
+#       autostart = true
+#     },
+#     widget_guides = {
+#       enabled = true
+#     }
+#   }
+
+#   require('which-key').register({
+#     ['<Leader>'] = {
+#       F = {
+#         name = '+flutter',
+#         r = {'<cmd>FlutterRun<cr>', 'flutter run'},
+#         R = {'<cmd>FlutterRestart<cr>', 'flutter restart'},
+#         q = {'<cmd>FlutterQuit<cr>', 'flutter quit'},
+#         o = {'<cmd>FlutterOutline<cr>', 'flutter quit'},
+#       }
+#     }
+#   })
+# EOF
+# '''
+
+## editorconfig
+# [[plugins]]
+# repo = 'editorconfig/editorconfig-vim'
+
+## textobject
+# [[plugins]]
+# repo = 'kana/vim-textobj-user'
+# [[plugins]]
+# repo = 'kana/vim-textobj-line'
+
+# FIX: ダウンロードがタイムアウトする
+# help
+# [[plugins]]
+# repo = 'vim-jp/vimdoc-ja'

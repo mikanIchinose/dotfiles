@@ -63,6 +63,7 @@ abbr dcr "docker-compose run"
 abbr dcb "docker-compose build"
 
 alias vim "nvim"
+abbr novim "nvim -u NONE"
 
 abbr bash "bash --norc"
 abbr zsh "zsh --no-rcs"
@@ -70,3 +71,5 @@ abbr zsh "zsh --no-rcs"
 abbr tree "exa --tree"
 
 abbr edit "nvim (fd --type file| fzf)"
+
+abbr denops 'deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'

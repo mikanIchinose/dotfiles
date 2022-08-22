@@ -1,62 +1,30 @@
-local call = vim.call
-local codicon = require('codicons')
-
+---@param option_name string
 local function patch_global(option_name, value)
-  call('ddc#custom#patch_global', option_name, value)
+  vim.call('ddc#custom#patch_global', option_name, value)
 end
 
+---@param filetypes string[]
+---@param option_name string
 local function patch_filetype(filetypes, option_name, value)
-  call('ddc#custom#patch_filetype', filetypes, option_name, value)
+  vim.call('ddc#custom#patch_filetype', filetypes, option_name, value)
 end
-
-local geticon = function(identifier)
-  return codicon.get(identifier, 'icon')
-end
-
-local labels = {
-  Text = "",
-  Method = geticon('symbol-method'),
-  Function = "",
-  Constructor = "",
-  Field = "ﰠ",
-  Variable = geticon('symbol-variable'),
-  Class = geticon('symbol-class'),
-  Interface = "",
-  Module = "",
-  Property = geticon('symbol-property'),
-  Unit = "塞",
-  Value = "",
-  Enum = geticon('symbol-enum'),
-  Keyword = geticon('symbol-keyword'),
-  Snippet = geticon('symbol-snippet'),
-  Color = geticon('symbol-color'),
-  File = "",
-  Reference = "",
-  Folder = "",
-  EnumMember = geticon('symbol-enum-member'),
-  Constant = geticon('symbol-constant'),
-  Struct = geticon('symbol-structure'),
-  Event = geticon('symbol-event'),
-  Operator = geticon('symbol-operator'),
-  TypeParameter = "",
-}
-
-for k, v in pairs(labels) do
-  labels[k] = string.format("%s ", v)
-end
-
--- patch_global('sources', { 'nvim-lsp', 'around', 'rg', 'file' })
-patch_global('sources', { 'skkeleton' })
 
 patch_global('sourceOptions', {
   ['_'] = {
-    matchers = { 'matcher_fuzzy', 'matcher_length' },
-    sorters = { 'sorter_fuzzy' },
+    -- matchers = { 'matcher_fuzzy', 'matcher_length' },
+    --matchers = { 'matcher_head' },
+    matchers = { 'matcher_fuzzy' },
+    --sorters = { 'sorter_fuzzy' },
+    sorters = { 'sorter_rank' },
+    --converters = { 'converter_remove_overlap' },
     converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   ['nvim-lsp'] = {
     mark = 'LSP',
     forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+    matchers = { 'matcher_fuzzy' },
+    sorters = { 'sorter_rank' },
+    converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   necovim = {
     mark = 'vim'
@@ -71,7 +39,7 @@ patch_global('sourceOptions', {
   file = {
     mark = '',
     isVolatile = true,
-    forceCompletionPattern = '\\S/\\S*',
+    forceCompletionPattern = [[\S/\S*]],
   },
   skkeleton = {
     mark = 'skk',
@@ -82,7 +50,7 @@ patch_global('sourceOptions', {
 })
 patch_global('sourceParams', {
   ['nvim-lsp'] = {
-    kindLabels = labels,
+    kindLabels = require('lspkind').symbol_map,
   },
 })
 
@@ -93,29 +61,31 @@ patch_global('autoCompleteEvents', {
 })
 patch_global('completionMenu', 'pum.vim')
 
-patch_global('sources', { 'nvim-lsp', 'around', 'rg', 'file' })
-
-patch_filetype(
-  { 'javascript', 'typescript', 'dart', 'rust', 'zsh', 'lua' },
-  'sources',
-  { 'nvim-lsp', 'around', 'rg', 'file' }
-)
-patch_filetype(
-  { 'yaml', 'json', 'jsonc' },
-  'sources',
-  { 'nvim-lsp', 'around' }
-)
+-- sources
+patch_global('sources', { 'nvim-lsp', 'vsnip', 'around', 'rg', 'file' })
 patch_filetype(
   { 'toml' },
   'sources',
-  { 'nvim-lsp' }
+  { 'nvim-lsp', 'necovim', 'around' }
 )
 patch_filetype(
   { 'vim' },
   'sources',
-  { 'necovim', 'nvim-lsp' }
+  { 'vsnip', 'necovim', 'nvim-lsp', 'around' }
 )
 
+-- NOTE: ghost-textで補完するときに必要
+patch_filetype(
+  { 'markdown' },
+  'specialBufferCompletion',
+  'v:true'
+)
+-- patch_global(
+--   'specialBufferCompletion',
+--   'v:true'
+-- )
+
+-- keymap
 vim.cmd [[
 inoremap <silent><expr> <TAB>
       \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
@@ -126,6 +96,7 @@ inoremap <C-j> <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-k> <Cmd>call pum#map#select_relative(-1)<CR>
 inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+inoremap <silent><expr> <C-Space> ddc#map#manual_complete()
 
 " inoremap <silent><expr> <Tab> 
 "   \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : 
@@ -147,11 +118,44 @@ smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 " snippetの展開を行う
 autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
 ]]
-vim.keymap.set(
-  "i",
-  [[<C-Space>]],
-  [[ddc#map#manual_complete()]],
-  { expr = true }
-)
 
-call('ddc#enable')
+vim.call('ddc#enable')
+
+-- NOTE: lspkindを使うので不要、また必要になったらまた使う
+-- local codicon = require('codicons')
+-- ---@param identifier string
+-- local geticon = function(identifier)
+--   return codicon.get(identifier, 'icon')
+-- end
+--
+-- local labels = {
+--   Text = "",
+--   Method = geticon('symbol-method'),
+--   Function = "",
+--   Constructor = "",
+--   Field = "ﰠ",
+--   Variable = geticon('symbol-variable'),
+--   Class = geticon('symbol-class'),
+--   Interface = "",
+--   Module = "",
+--   Property = geticon('symbol-property'),
+--   Unit = "塞",
+--   Value = "",
+--   Enum = geticon('symbol-enum'),
+--   Keyword = geticon('symbol-keyword'),
+--   Snippet = geticon('symbol-snippet'),
+--   Color = geticon('symbol-color'),
+--   File = "",
+--   Reference = "",
+--   Folder = "",
+--   EnumMember = geticon('symbol-enum-member'),
+--   Constant = geticon('symbol-constant'),
+--   Struct = geticon('symbol-structure'),
+--   Event = geticon('symbol-event'),
+--   Operator = geticon('symbol-operator'),
+--   TypeParameter = "",
+-- }
+--
+-- for k, v in pairs(labels) do
+--   labels[k] = string.format("%s ", v)
+-- end

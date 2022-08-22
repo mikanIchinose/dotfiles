@@ -1,51 +1,28 @@
-local smartbuf = require("nvim-smartbufs")
-local mapping = {
-  i = {
-    { 'jj', '<ESC>', 'easy escape' },
-    { 'j<Space>', 'j', 'insert j' },
-  },
-  n = {
-    -- switch buffer
-    { 'sh', '<C-w>h', 'left buffer' },
-    { 'sj', '<C-w>j', 'down buffer' },
-    { 'sk', '<C-w>k', 'up buffer' },
-    { 'sl', '<C-w>l', 'right buffer' },
-    -- tree viewer
-    { '<Leader>/', '<Cmd>Fern . <CR>', 'file tree' },
-    -- indent
-    { '>', '>>', '' },
-    { '<', '<<', '' },
-    -- better x
-    { 'x', '_x', 'better x' },
-    -- buffer
-    { '<M-Right>', function() smartbuf.goto_next_buffer() end, '' },
-    { '<M-Left>', function() smartbuf.goto_prev_buffer() end, '' },
-    { '<Leader>qq', function() smartbuf.close_current_buffer() end, '' },
-    { '<Leader>qa', function() smartbuf.close_all() end, '' },
-    -- toggle statusline
-    { '<Leader>m', '<Cmd>call vimrc#toggle_statusline()<CR>', '' }
-  },
-  v = {
-  },
-  x = {
-    { 'r', '<C-v>', 'select rectangle' },
-  },
-}
+local map = vim.keymap.set
 
--- nomal-mode
-for _, table in pairs(mapping.n) do
-  vim.keymap.set("n", table[1], table[2], { desc = table[3] })
-end
+-- mouse wheel
+map('n', '<ScrollWheelUp>', 'j')
+map('n', '<ScrollWheelDown>', 'k')
 
--- visual-mode
-for _, table in pairs(mapping.v) do
-  vim.keymap.set("v", table[1], table[2], { desc = table[3] })
-end
+-- split window
+map('n', '<Leader>-', '<Cmd>split<CR>')
+map('n', '<Leader>\\', '<Cmd>vsplit<CR>')
 
-for _, table in pairs(mapping.i) do
-  vim.keymap.set("i", table[1], table[2], { desc = table[3] })
-end
+map('n', '<Leader>n', '<Cmd>nohlsearch<CR>')
 
-for _, table in pairs(mapping.x) do
-  vim.keymap.set("x", table[1], table[2], { desc = table[3] })
-end
+-- better indent
+map('n', '<', '<<')
+map('n', '>', '>>')
+
+-- better ;
+map('n', ';', ':')
+
+map('n', '<Leader>m', '<Cmd>call vimrc#toggle_statusline()<CR>')
+
+map('n', '<Leader>/', '<Cmd>Fern . -reveal=%<CR>', { desc = 'file tree' })
+
+-- map('i', 'jj', '<ESC>')
+-- map('i', 'j<Space>', 'j')
+
+map('x', 'r', '<C-v>') -- select rectangle
+map('x', 'v', 'V') -- select line

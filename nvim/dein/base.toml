@@ -1,22 +1,20 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
-[[plugins]]
-repo = 'wsdjeg/dein-ui.vim'
 
-[[plugins]]
-repo = 'lewis6991/impatient.nvim'
+# [[plugins]]
+# repo = 'lewis6991/impatient.nvim'
 
 ## color scheme
-[[plugins]]
-repo = 'dracula/vim'
-[[plugins]]
-repo = 'pineapplegiant/spaceduck'
+# [[plugins]]
+# repo = 'dracula/vim'
+# [[plugins]]
+# repo = 'pineapplegiant/spaceduck'
 [[plugins]]
 repo = 'folke/tokyonight.nvim'
-[[plugins]]
-repo = 'sainnhe/gruvbox-material'
-[[plugins]]
-repo = 'sainnhe/everforest'
+# [[plugins]]
+# repo = 'sainnhe/gruvbox-material'
+# [[plugins]]
+# repo = 'sainnhe/everforest'
 
 ## 通知
 [[plugins]]
@@ -24,14 +22,6 @@ repo = 'rcarriga/nvim-notify'
 hook_source = '''
 lua require('custom.nvim-notify')
 '''
-
-## なんか便利な強いやつ いろんなプラギンが依存してる
-[[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-
-## plugin platform
-[[plugins]]
-repo = 'vim-denops/denops.vim'
 
 ## icon
 [[plugins]]
@@ -41,35 +31,6 @@ repo = 'kyazdani42/nvim-web-devicons'
 [[plugins]]
 repo = 'folke/which-key.nvim'
 
-## editorconfig
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-## textobject
-# [[plugins]]
-# repo = 'kana/vim-textobj-user'
-# [[plugins]]
-# repo = 'kana/vim-textobj-line'
-
-# FIX: ダウンロードがタイムアウトする
-# help
-# [[plugins]]
-# repo = 'vim-jp/vimdoc-ja'
-
-## comment
-# [[plugins]]
-# repo = 'tyru/caw.vim'
-[[plugins]]
-repo = 'tpope/vim-commentary'
-
-[[plugins]]
-repo = 'google/vim-jsonnet'
-# lspの前には有効化されていないといけない
-
-# buffer management
-[[plugins]]
-repo = 'johann2357/nvim-smartbufs'
-
 # [[plugins]]
 # repo='thinca/vim-quickrun'
 
@@ -78,15 +39,6 @@ repo = 'johann2357/nvim-smartbufs'
 # hook_add = '''
 # source ~/.config/nvim/plugins/rainbow_parentheses.vim
 # '''
-
-# [[plugins]]
-# repo = 'itchyny/lightline.vim'
-# hook_source = '''
-# source ~/.config/nvim/plugins/lightline.vim
-# '''
-# [[plugins]]
-# repo = 'mengelbrecht/lightline-bufferline'
-# depends = ['lightline.vim']
 
 #[[plugins]]
 #repo = 'roxma/vim-paste-easy'

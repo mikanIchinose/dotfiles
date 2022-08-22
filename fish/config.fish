@@ -8,7 +8,7 @@
 #  set -x JAVA_HOME "/usr/local/android-studio/jre"
 #  set -x PATH "$JAVA_HOME/bin" "$PATH"
 #case Darwin
-#  source $HOME/.config/fish/aliases_mac.fish
+ source $HOME/.config/fish/aliases_mac.fish
 #  set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
 # . ~/.asdf/plugins/java/set-java-home.fish
 #end

@@ -5,8 +5,8 @@ require 'nvim-treesitter.configs'.setup {
     enable = true,
     disable = {
       'lua',
-      'vim',
-      'toml',
+      -- 'vim',
+      -- 'toml',
       -- 'fish',
     },
     additional_vim_regex_highlighting = false,
@@ -18,14 +18,13 @@ require 'nvim-treesitter.configs'.setup {
     enable = false,
   },
   -- JoosepAlviste/nvim-ts-context-commentstring
-  context_commentstring = {
-    enable = true,
-    -- enable_autocmd = false,
-  },
-  -- p00f/nvim-ts-rainbow
-  -- rainbow = {
-  --   enable = false,
-  --   exteded_mode = true,
-  --   max_file_lines = nil,
+  -- context_commentstring = {
+  --   enable = true,
   -- },
+  -- p00f/nvim-ts-rainbow
+  rainbow = {
+    enable = true,
+    exteded_mode = true,
+    max_file_lines = 1000,
+  },
 }

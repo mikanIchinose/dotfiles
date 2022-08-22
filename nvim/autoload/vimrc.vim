@@ -11,4 +11,3 @@ function! vimrc#toggle_statusline() abort
     setlocal cmdheight=1
   endif
 endfunction
-

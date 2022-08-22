@@ -6,9 +6,6 @@ brew bundle --file ~/Brewfile && brew bundle cleanup --force --file ~/Brewfile
 # update packages
 brew update && brew upgrade
 
-# reinstall emacs
-echo "reinstall emacs"
-
 # reinstall neovim
 brew reinstall neovim
 

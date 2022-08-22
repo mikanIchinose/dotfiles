@@ -1,122 +1,60 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
-on_event = 'VimEnter'
+# on_event = 'BufRead'
+depends = ['denops.vim']
 hook_add = '''
-" nnoremap <silent> / <Cmd>Ddu
-"\ -name=search line
-"\ -ui-param-startFilter<CR>
-nnoremap <silent> * <Cmd>Ddu
-\ -name=search line 
-\ -input=`expand('<cword>')`
-\ -ui-param-startFilter=v:false<CR>
-lua << EOF
-  local wk = require('which-key')
-  wk.register({
-    ['<Leader>'] = {
-      f = {
-        name = '+find',
-        f = {'<cmd>Ddu -name=files file_rec<cr>', 'find file'},
-        b = {'<cmd>Ddu -name=buffers buffer<cr>', 'find buffer'},
-        r = {'<cmd>Ddu -name=search rg -source-param-input=`input(\'Pattern: \')`<cr>', 'find source'},
-        d = {'<cmd>Ddu -name=dein dein<cr>', 'dein'},
-        h = {'<cmd>Ddu -name=help help<cr>', 'find help'},
-        m = {'<cmd>Ddu -name=mr mr<cr>', 'find mr'},
-        c = {'<cmd>Ddu -name=commands command_history -ui-param-startFilter<cr>', 'find command'},
-        C = {'<cmd>Ddu -name=color colorscheme<cr>', 'find color'},
-      },
-    }
-  })
-EOF
+lua require('custom.ddu.keymap')
 '''
 hook_source = '''
-call ddu#custom#patch_global({
-  \   'ui': 'ff',
-  \   'sourceOptions': {
-  \     '_': {
-  \       'ignoreCase': v:true,
-  \       'matchers': ['matcher_fzy'],
-  \     },
-  \     'rg': {
-  \       'matchers': ['matcher_fzy', 'matcher_hidden'],
-  \     },
-  \     'dein': {
-  \       'defaultAction': 'cd',
-  \     },
-  \   },
-  \   'sourceParams': {
-  \     'file_rec': {
-  \       'ignoredDirectories': [
-  \         '.git', 'node_modules'
-  \       ],
-  \     },
-  \     'rg': {
-  \       'args': [
-  \         '--column', '--no-heading', '--color', 'never'
-  \       ],
-  \     },
-  \   },
-  \   'filterParams': {
-  \     'matcher_fzf': {
-  \       'highlightMatched': 'Search'
-  \     },
-  \   },
-  \   'uiParams': {
-  \     'ff': {
-  \       'filterSplitDirection': 'floating',
-  \       'autoResize': v:false,
-  \       'split': 'horizontal',
-  \       'previewFloating': v:true,
-  \       'previewVertical': v:false,
-  \       'previewHeight': 20,
-  \       'previewWidth': &columns / 2,
-  \       'previewCol': &columns,
-  \       'previewRow': &lines,
-  \       'winCol': &columns,
-  \       'winRow': &lines,
-  \       'winHeight': 20,
-  \       'winWidth': &columns,
-  \     }
-  \   },
-  \   'kindOptions': {
-  \     'file': {
-  \       'defaultAction': 'open',
-  \     },
-  \     'word': {
-  \       'defaultAction': 'append'
-  \     },
-  \     'action': {
-  \       'defaultAction': 'do',
-  \     },
-  \     'deol': {
-  \       'defaultAction': 'switch',
-  \     },
-  \     'help': {
-  \       'defaultAction': 'open',
-  \     },
-  \     'command_history': {
-  \       'defaultAction': 'execute',
-  \     },
-  \     'colorscheme': {
-  \       'defaultAction': 'set',
-  \     },
-  \     'source': {
-  \       'defaultAction': 'execute',
-  \     },
-  \   }
-  \ })
-call ddu#custom#patch_local('files', {
-   \   'uiParams': {
-   \     'ff': {
-   \       'autoAction': { 
-   \         'name': 'preview', 
-   \         'params': {
-   \            'previewCmds': ['bat', '-n', '%s', '-r', '%b:%e', '--highlight-line', '%l'],
-   \         },
-   \       },
-   \     }
-   \   },
-   \ })
+lua require('custom.ddu')
+
+" call ddu#custom#action('kind', 'file', 'getPath', 'GetFilePaths')
+" call ddu#custom#action('source', 'buffer', 'getBufNr', 'GetBufferBufNrs')
+call ddu#custom#action('source', 'buffer', 'bdelete', 'DeleteBuffers')
+call ddu#custom#action('kind', '_', 'echoItems', 'EchoItems')
+call ddu#custom#action('kind', '_', 'getSourceName', 
+\ { args -> execute('let b:ddu_source_name = args.items[0].__sourceName') })
+
+" function! GetFilePaths(args)
+"   let g:ddu#file_paths = []
+"   for item in a:args.items
+"     call add(g:ddu#file_paths, item.action.path)
+"   endfor
+" endfunction
+
+" function! GetBufferBufNrs(args)
+"   let g:ddu#buffer_bufNr = []
+"   for item in a:args.items
+"     call add(g:ddu#buffer_bufNr, item.action.bufNr)
+"   endfor
+" endfunction
+
+function! EchoItems(args)
+  let b:ddu_items = a:args.items
+  lua vim.notify(vim.inspect(vim.b.ddu_items))
+endfunction
+
+" function! GetSourceName(args)
+"   let b:ddu_source_name = a:args.items[0].__sourceName
+" endfunction
+
+function! DeleteBuffers(args)
+  for item in a:args.items
+    execute 'bdelete ' . item.action.bufNr
+  endfor
+endfunction
 '''
+
+# utility
+[[plugins]]
+repo    = 'Shougo/ddu-commands.vim'
+depends = 'ddu.vim'
+on_cmd  = 'Ddu'
+
+# NOTE: ui
+[[plugins]]
+repo      = 'Shougo/ddu-ui-ff'
+on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-ff = '''
 nnoremap <buffer><silent> <CR>
@@ -135,8 +73,13 @@ nnoremap <buffer><silent> a
   \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
 nnoremap <buffer><silent> c
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
+" nnoremap <buffer><silent> d
+"  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
 nnoremap <buffer><silent> d
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
+  \ <Cmd>call ddu#ui#ff#multi_actions([
+  \   ['itemAction', {'name': 'bdelete'}],
+  \   ['refreshItems'],
+  \ ])<CR>
 nnoremap <buffer><silent> e
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'edit'})<CR>
 nnoremap <buffer><silent> v
@@ -160,20 +103,67 @@ inoremap <buffer><silent> <CR>
   \ <Esc><Cmd>close<CR>
 nnoremap <buffer><silent> <CR>
   \ <Cmd>close<CR>
+nnoremap <buffer><silent> q
+  \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+'''
+[[plugins]]
+repo      = 'Shougo/ddu-ui-filer'
+on_source = 'ddu.vim'
+[plugins.ftplugin]
+ddu-filer = '''
+" auto update
+autocmd TabEnter,CursorHold,FocusGained <buffer>
+\ call ddu#ui#filer#do_action('checkItems')
+
+lua require('custom.ddu.keymap-filer')
+
+" keymap
+" nnoremap <buffer><silent> a
+"  \ <Cmd>call ddu#ui#filer#do_action('chooseAction')<CR>
+" nnoremap <buffer><silent> q
+"  \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+" nnoremap <buffer><silent> o
+"  \ <Cmd>call ddu#ui#filer#do_action('expandItem', {
+"  \   'mode': 'toggle'
+"  \ })<CR>
+" nnoremap <buffer><silent> d <Cmd>call DeleteItem()<CR>
+" nmap <buffer><silent> d <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
+" nnoremap <buffer> !
+"\ <Cmd>call ddu#ui#filer#do_action('updateOptions', {
+"\   'sourceOptions': {
+"\     '_': {
+"\       'matchers': ToggleHidden(),
+"\     },
+"\   },
+"\ })<CR>
+" nnoremap <buffer><silent> <CR>
+"  \ <Cmd>call ddu#ui#filer#do_action('itemAction',
+"  \ {'name': 'open'})<CR>
+" 
+" function! ToggleHidden()
+"   let current = ddu#custom#get_current(b:ddu_ui_name)
+"   let source_options = get(current, 'sourceOptions', {})
+"   let source_options_all = get(source_options, '_', {})
+"   let matchers = get(source_options_all, 'matchers', [])
+"   return empty(matchers) ? ['matcher_hidden'] : []
+" endfunction
+
+" function! DeleteItem() abort
+"   call ddu#ui#filer#do_action('itemAction', {'name': 'getSourceName'})
+"   let action = ''
+"   if b:ddu_source_name == 'file'
+"     let action = 'delete'
+"   elseif b:ddu_source_name == 'buffer'
+"     let action = 'bdelete'
+"   else
+"     call ddu#ui#filer#do_action('chooseAction')
+"     return
+"   endif
+"   call ddu#ui#filer#do_action('itemAction', {'name': action})
+" endfunction
 '''
 
-# utility
-[[plugins]]
-repo    = 'Shougo/ddu-commands.vim'
-depends = 'ddu.vim'
-on_cmd  = 'Ddu'
-
-# ui
-[[plugins]]
-repo      = 'Shougo/ddu-ui-ff'
-on_source = 'ddu.vim'
-
-# source
+# NOTE: source
 [[plugins]]
 repo      = 'Shougo/ddu-source-file'
 on_source = 'ddu.vim'
@@ -217,11 +207,32 @@ depends   = 'mr.vim'
 [[plugins]]
 repo      = 'lambdalisue/mr.vim'
 on_source = 'ddu.vim'
+[[plugins]]
+repo      = '4513ECHO/ddu-source-source'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'gamoutatsumi/ddu-source-nvim-lsp'
+on_source = 'ddu.vim'
+depends   = ['nvim-lspconfig']
+[[plugins]]
+repo      = 'liquidz/ddu-source-custom-list'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = '4513ECHO/ddu-source-emoji'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = '4513ECHO/vim-readme-viewer'
+on_source = 'ddu.vim'
+on_cmd = ['DeinReadme']
+hook_add = '''
+let g:readme_viewer#plugin_manager = 'dein.vim'
+'''
 
-# filter
+# NOTE: filter
 [[plugins]]
 repo      = 'Shougo/ddu-filter-matcher_substring'
 on_source = 'ddu.vim'
+## path情報を見て相対パスに該当するもので絞る
 [[plugins]]
 repo      = 'Shougo/ddu-filter-matcher_relative'
 on_source = 'ddu.vim'
@@ -229,19 +240,24 @@ on_source = 'ddu.vim'
 repo      = 'Shougo/ddu-filter-matcher_hidden'
 on_source = 'ddu.vim'
 [[plugins]]
+repo      = 'Shougo/ddu-filter-converter_display_word'
+on_source = 'ddu.vim'
+[[plugins]]
 repo      = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
-[[plugins]]
-repo      = 'kuuote/ddu-filter-fuse'
-on_source = 'ddu.vim'
-[[plugins]]
-repo      = 'matsui54/ddu-filter-fzy'
-on_source = 'ddu.vim'
 
-# kind
+# NOTE: kind
 [[plugins]]
 repo      = 'Shougo/ddu-kind-file'
 on_source = 'ddu.vim'
 [[plugins]]
 repo      = 'Shougo/ddu-kind-word'
+on_source = 'ddu.vim'
+
+# NOTE: column
+[[plugins]]
+repo      = 'Shougo/ddu-column-filename'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'ryota2357/ddu-column-icon_filename'
 on_source = 'ddu.vim'

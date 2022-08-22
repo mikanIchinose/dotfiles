@@ -41,18 +41,23 @@ $ videos: fd -e mp4 -e mov -E ffmpeg --- --multi --expand
 % vim, doc, memo
 
 # create/open today memo
-local today=$(date "+%Y%m%d"); nvim ~/Documents/memo/${today}.md
+# cd ~/Documents/memo; local today=$(date "+%Y%m%d"); nvim ~/Documents/memo/${today}.md; cd -
 
 # open memo
-nvim <memo>
+cd ~/Documents/memo; nvim memo.md; cd -
+# cd ~/Documents/memo; nvim <memo>; cd -
 
 # delete memo
-rm -i <memo>
+# rm -i <memo>
 
-$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory ~/Documents/memo/ --- --multi --expand
+$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory ~/Documents/memo/ --- --multi --expand --preview 'bat --style=numbers --color=always {}'
 
-# delete all memo
-rm ~/Documents/memo/*.md
+% npm
 
 # show global installed npm pakcages
 npm list -g --depth 0
+
+% app
+
+# create slack reminder
+slack-reminder; open -a "Slack"

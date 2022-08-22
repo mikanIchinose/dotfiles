@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'nvim-telescope/telescope.nvim'
-on_event = 'BufRead'
+on_event = 'VimEnter'
 depends = ['plenary.nvim', 'nvim-lspconfig']
 hook_source = '''
 lua <<EOF
@@ -24,12 +24,12 @@ wk.register({
 EOF
 '''
 [[plugins]]
-repo = 'nvim-telescope/telescope-fzf-native.nvim'
+repo      = 'nvim-telescope/telescope-fzf-native.nvim'
 on_source = 'telescope.nvim'
-build = 'make'
+build     = 'make'
 [[plugins]]
-repo = 'nvim-telescope/telescope-project.nvim'
+repo      = 'nvim-telescope/telescope-project.nvim'
 on_source = 'telescope.nvim'
 [[plugins]]
-repo = 'nvim-telescope/telescope-file-browser.nvim'
+repo      = 'nvim-telescope/telescope-file-browser.nvim'
 on_source = 'telescope.nvim'

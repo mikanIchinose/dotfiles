@@ -1,6 +1,3 @@
-" syntax highlight
-" ファイル形式検出、形式別プラグイン有効化、形式別インデント有効化
-" 構文ハイライト有効化
 filetype plugin indent on
 syntax enable
 
@@ -15,6 +12,7 @@ set smarttab
 set expandtab
 " タブ幅
 set tabstop=2
+set softtabstop=2
 " インデント数
 set shiftwidth=2
 
@@ -28,19 +26,14 @@ lang en_US.UTF-8
 
 " ui
 set cursorline
-" set number
-" set relativenumber
+" set cursorcolumn
 set signcolumn=yes
-" set signcolumn=no
-set showmode
+" set showmode
 set showmatch
 set title
 set titlestring=%t
 set backspace=indent,eol,start
 set inccommand=split
-" コメントの色をグレーにする
-hi Comment ctermfg=gray
-" height command line
 try
   set cmdheight=0
 catch
@@ -49,27 +42,27 @@ endtry
 set laststatus=3
 set nowrap
 " fold
-set foldmethod=syntax
+set foldmethod=marker
 
 " ファイル未保存状態でも別のファイルを開けるようにする
 set hidden
 set nowritebackup
 " クリップボード連携
-" prerequirement: xclip
+" NOTE: prerequirement: xclip
 set clipboard+=unnamedplus
 
 " leaderをspaceに変更
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "m"
 
-set timeout timeoutlen=200 ttimeoutlen=100
+set timeout timeoutlen=100 ttimeoutlen=200
 
 " completion
 set completeopt=menuone
-if exists('+completepopup')
-  set completeopt+=popup
-  set completepopup=height:4,width:60,highlight:InfoPopup
-endif
+" if exists('+completepopup')
+"   set completeopt+=popup
+"   set completepopup=height:4,width:60,highlight:InfoPopup
+" endif
 " Don't complete from other buffer.
 set complete=.
 " Set popup menu max height.
@@ -84,6 +77,11 @@ set completeslash=slash
 " color
 set termguicolors
 set background=dark
-colorscheme tokyonight
+execute 'colorscheme ' .. g:colorscheme
 
+" neovimからデフォルトでマウスモードがONになったので落す
 set mouse=
+
+set guifont=FiraCode\ Nerd\ Font:h12
+
+set winblend=0 " floating window の透明度を無くす

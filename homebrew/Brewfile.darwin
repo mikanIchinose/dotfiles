@@ -5,7 +5,6 @@ tap "d12frosted/emacs-plus" # emacs
 tap "wez/wezterm" # wezterm
 tap "koekeishiya/formulae"
 tap "jesseduffield/lazygit"
-# tap "homebrew/cask-fonts"
 
 # cli
 brew "fzf"
@@ -40,8 +39,6 @@ brew "kdoctor"
 brew "gum"
 # brew "aria2"
 # brew "youtube-dl"
-# brew "marp-cli"
-# brew "nushell"
 
 # dall
 # brew "dhall"
@@ -49,13 +46,14 @@ brew "gum"
 # brew "dhall-yaml"
 
 # neovim
-brew "neovim", args: ["HEAD"]
+# brew "neovim", args: ["HEAD"]
 
 # emacs
-# brew "emacs-plus@28", args: ["with-xwidgets", "with-imagemagick"]
+# brew "emacs-plus@28", args: ["with-xwidgets", "with-imagemagick", "with-native-comp"]
+cask "emacs"
 brew "sqlite" # used by org-roam
 brew "mermaid-cli"
-brew "graphviz"
+# brew "graphviz"
 
 # font
 # cask "font-fira-code-nerd-font" # リリースから落とした方がよい
@@ -90,21 +88,18 @@ cask "cyberduck"
 cask "keepassxc"
 cask "clipy"
 cask "box-drive"
-# cask "shottr"
+# cask "shottr" # もうちょいマシなスクショアプリを探す
 cask "anki-beta"
 # cask "postman"
-# cask "krisp"
 cask "google-drive"
 cask "aquaskk"
+cask "ngrok"
 
 # Editor/IDE
 cask "visual-studio-code"
 cask "android-studio"
-cask "android-studio-preview-beta"
 
 ## beautiful desktop environtment
 brew "yabai"
-brew "koekeishiya/formulae/skhd"
+# brew "koekeishiya/formulae/skhd"
 cask "ubersicht"
-
-# mas "Xcode", id: 497799835
