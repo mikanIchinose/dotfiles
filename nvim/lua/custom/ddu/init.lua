@@ -42,8 +42,7 @@ local sourceOptions = {
     --   'icon_filename'
     -- },
   },
-  line = {
-  },
+  line = {},
   rg = {
     matchers = {
       -- 'converter_display_word',
@@ -54,11 +53,15 @@ local sourceOptions = {
     --   'converter_display_word',
     -- 'matcher_substring',
     -- },
-    sorters = {
-    },
+    sorters = {},
   },
   dein = {
-    defaultAction = 'cd'
+    defaultAction = 'cd',
+  },
+  dein_update = {
+    matchers = {
+      'matcher_dein_update',
+    },
   },
 }
 
@@ -66,7 +69,7 @@ local sourceParams = {
   file_rec = {
     ignoredDirectories = {
       '.git',
-      'node_modules'
+      'node_modules',
     },
   },
   rg = {
@@ -74,8 +77,12 @@ local sourceParams = {
       '--json',
       '--column',
       '--no-heading',
-      '--color', 'never',
+      '--color',
+      'never',
     },
+  },
+  dein_update = {
+    useGraphQL = true,
   },
   -- ['custom-list'] = {
   --   texts = { 'a', 'b', 'c' }
@@ -140,6 +147,7 @@ local kindOptions = {
   colorscheme = { defaultAction = 'set' },
   source = { defaultAction = 'execute' },
   readme_viewer = { defaultAction = 'open' },
+  dein_update = { defaultAction = 'viewDiff' },
 }
 
 local actionOptions = {
@@ -147,6 +155,8 @@ local actionOptions = {
   delete = { quit = false },
   getSourceName = { quit = false },
   set = { quit = false },
+  echo = { quit = false },
+  echoDiff = { quit = false },
 }
 
 local columnOptions = {}
@@ -154,9 +164,9 @@ local columnOptions = {}
 local columnParams = {
   icon_filename = {
     defaultIcon = {
-      icon = ''
-    }
-  }
+      icon = '',
+    },
+  },
 }
 
 patch_global.ui = 'ff'

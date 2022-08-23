@@ -3,6 +3,9 @@ repo = 'Shougo/ddu.vim'
 # on_event = 'BufRead'
 depends = ['denops.vim']
 hook_add = '''
+command! DeinUpdate :Ddu dein_update -name=dein_update 
+\ -ui-param-winHeight=20 -ui-param-winWidth=60 
+\ -ui-param-winRow=2 -ui-param-winCol=10
 lua require('custom.ddu.keymap')
 '''
 hook_source = '''
@@ -219,6 +222,9 @@ repo      = 'liquidz/ddu-source-custom-list'
 on_source = 'ddu.vim'
 [[plugins]]
 repo      = '4513ECHO/ddu-source-emoji'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'matsui54/ddu-source-dein_update'
 on_source = 'ddu.vim'
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'

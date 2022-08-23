@@ -85,3 +85,4 @@ set mouse=
 set guifont=FiraCode\ Nerd\ Font:h12
 
 set winblend=0 " floating window の透明度を無くす
+set helplang=ja

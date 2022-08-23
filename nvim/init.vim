@@ -1,9 +1,5 @@
-if &compatible
-  set nocompatible
-endif
-
 " improve start up time
-set rtp^=~/ghq/github.com/lewis6991/impatient.nvim
+set runtimepath^=~/ghq/github.com/lewis6991/impatient.nvim
 lua require('impatient')
 
 let g:loaded_node_provider       = v:false
@@ -29,7 +25,7 @@ let g:did_load_ftplugin          = 1
 set encoding=utf-8
 scriptencoding utf-8
 
-let g:colorscheme="tokyonight"
+let g:colorscheme='tokyonight'
 
 " dein Scripts {{{
 let s:dein_dir = expand('~/.cache/dein')
@@ -95,7 +91,7 @@ endif
 
 function! DeinClean()
   if len(dein#check_clean()) > 0
-    lua vim.notify('remove these plugins\n' .. vim.inspect(vim.call('dein#check_clean')))
+    lua vim.notify('remove these plugins\n' .. table.concat(vim.call('dein#check_clean'),'\n'))
     call map(dein#check_clean(), "delete(v:val, 'rf')")
     call dein#recache_runtimepath()
   else

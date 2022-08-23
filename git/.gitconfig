@@ -16,7 +16,7 @@
   reflog = delta
   show = delta
 [credential]
-	helper = store --file /Volumes/TOSHIBA/.secrets/git/credentials
+	helper = store --file ~/.secrets/git/credentials
   helper = cache --timeout 3000
 [interactive]
 	diffFilter = delta --color-only

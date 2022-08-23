@@ -1,6 +1,6 @@
-[[plugins]]
-repo   = 'wsdjeg/dein-ui.vim'
-on_cmd = ['DeinUpdate']
+# [[plugins]]
+# repo   = 'wsdjeg/dein-ui.vim'
+# on_cmd = ['DeinUpdate']
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -218,6 +218,23 @@ EOF
 # require('lsp-status').register_progress()
 # EOF
 # '''
+## NOTE: null-ls vs efm-langserver vs diagnostic-languageserver vs nvim-lint vs lsp-format.nvim
+## general language server
+[[plugins]]
+repo = 'jose-elias-alvarez/null-ls.nvim'
+depends = ['nvim-lspconfig']
+on_event = ['BufRead']
+hook_source = '''
+lua require('custom.null-ls')
+'''
+## virtual-line
+[[plugins]]
+repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+on_source = 'nvim-lspconfig'
+hook_source = '''
+lua require('custom.lsp_lines')
+'''
+
 # NOTE: lspの前には有効化されていないといけない
 # [[plugins]]
 # repo = 'google/vim-jsonnet'
@@ -237,24 +254,6 @@ depends = ['nvim-web-devicons']
 on_event = ['BufRead']
 hook_source = '''
 lua require("custom.incline")
-'''
-
-## NOTE: null-ls vs efm-langserver vs diagnostic-languageserver vs nvim-lint vs lsp-format.nvim
-## general language server
-[[plugins]]
-repo = 'jose-elias-alvarez/null-ls.nvim'
-depends = 'nvim-lspconfig'
-on_event = ['BufRead']
-hook_source = '''
-lua require('custom.null-ls')
-'''
-## virtual-line
-[[plugins]]
-repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
-depends = 'nvim-lspconfig'
-on_event = ['BufRead']
-hook_source = '''
-lua require('custom.lsp_lines')
 '''
 
 [[plugins]]
