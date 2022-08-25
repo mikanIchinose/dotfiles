@@ -96,6 +96,7 @@ cask "anki-beta"
 cask "google-drive"
 cask "aquaskk"
 cask "ngrok"
+cask "raycast"
 
 # Editor/IDE
 cask "visual-studio-code"

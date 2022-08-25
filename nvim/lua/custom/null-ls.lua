@@ -7,11 +7,14 @@ require('null-ls').setup({
   end,
   sources = {
     -- formatting.deno_fmt.with({ filetypes = {''} }),
+    formatting.prettierd.with({
+      filetypes = { 'graphql' },
+    }),
     -- text
     -- diagnostics.cspell,
-    diagnostics.textlint.with({
-      filetypes = { 'markdown' },
-    }),
+    -- diagnostics.textlint.with({
+    --   filetypes = { 'markdown' },
+    -- }),
     -- editorconfig
     -- diagnostics.editorconfig_checker,
     -- fish
@@ -19,12 +22,12 @@ require('null-ls').setup({
     -- zsh
     diagnostics.zsh,
     -- markdown
-    formatting.markdownlint,
+    -- formatting.markdownlint,
     formatting.cbfmt,
-    diagnostics.markdownlint.with({
-      args = { '-c', '~/.config/markdownlint/.markdownlintrc', '--stdin' },
-    }),
-    diagnostics.vale,
+    -- diagnostics.markdownlint.with({
+    --   args = { '-c', '~/.config/markdownlint/.markdownlintrc', '--stdin' },
+    -- }),
+    -- diagnostics.vale,
     -- shell
     formatting.shfmt.with({
       args = { '-i', '2', '-filename', '$FILENAME' },

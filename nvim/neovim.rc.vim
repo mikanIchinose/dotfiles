@@ -28,29 +28,33 @@ require("keymapping")
 require("custom.which-key")
 EOF
 
+augroup ftplugin
+  autocmd FileType null-ls-info nnoremap q <CMD>quit<CR>
+augroup END
+
 function! InsertTodo() abort
-  let comment = ""
-  if exists("b:caw_oneline_comment")
-    let comment =  printf("%s %s:  ", b:caw_oneline_comment, "TODO")
-    exe "normal! a" . comment . "\<Esc>"
+  let comment = ''
+  if exists('b:caw_oneline_comment')
+    let comment =  printf('%s %s:  ', b:caw_oneline_comment, 'TODO')
+    exe 'normal! a' . comment . '\<Esc>'
   else
     " let comment =  printf("%s %s:  %s", b:caw_wrap_oneline_comment[0], "TODO", b:caw_wrap_oneline_comment[1])
     " exe "normal! a" . comment . "\<Esc>"
     " exe "normal! T:"
     " exe "normal! l"
-    let comment =  printf("%s\n%s: \n%s", b:caw_wrap_oneline_comment[0], "TODO", b:caw_wrap_oneline_comment[1])
-    exe "normal! a" . comment . "\<Esc>"
-    exe "normal! k"
-    exe "normal! $"
+    let comment =  printf('%s\n%s: \n%s', b:caw_wrap_oneline_comment[0], 'TODO', b:caw_wrap_oneline_comment[1])
+    exe 'normal! a' . comment . "\<Esc>"
+    exe 'normal! k'
+    exe 'normal! $'
   endif
   :startinsert
 endfunction
 command! InsertTodo call InsertTodo()
 
-if exists("g:neovide")
+if exists('g:neovide')
   let g:neovide_transparency = 0.8
   let g:neovide_remember_window_size = v:true
-  if has("mac")
+  if has('mac')
     let g:neovide_input_macos_alt_is_meta = v:true
   endif
 endif

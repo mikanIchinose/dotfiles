@@ -2,27 +2,21 @@ vim.g.lightline = {
   colorscheme = vim.g.colorscheme,
   active = {
     left = {
-      { 'mode', 'paste', 'ddu', },
-      { 'lsp_clients', 'hydra', 'skkeleton', },
-      { 'modified', },
+      { 'mode', 'paste', 'ddu' },
+      { 'lsp_clients', 'hydra', 'skkeleton' },
+      { 'modified' },
     },
     right = {
       { 'lineinfo' },
       { 'gin' },
-      { 'readonly', 'relativepath' },
-      -- {
-      --   'fileformat',
-      --   'filetype'
-      -- },
+      {
+        'readonly',
+        -- 'relativepath',
+        --   'fileformat',
+        --   'filetype',
+      },
     },
   },
-  -- inactive = {
-  --   left = {
-  --     { 'filename' },
-  --   },
-  --   right = {
-  --   },
-  -- },
   separator = { left = '', right = '' },
   subseparator = { left = '', right = '' },
   mode_map = {
@@ -30,11 +24,11 @@ vim.g.lightline = {
     i = 'Insert',
     v = 'Visual',
     V = 'VLine',
-    ["\\<C-v>"] = 'VBlock',
+    ['\\<C-v>'] = 'VBlock',
     c = 'Command',
     s = 'Select',
     S = 'SLine',
-    ["\\<C-s>"] = 'SBlock',
+    ['\\<C-s>'] = 'SBlock',
     t = 'Terminal',
   },
   component_function = {
@@ -44,7 +38,7 @@ vim.g.lightline = {
     lsp_clients = 'g:LightlineLspClients',
     ddu = 'g:LightlineDdu',
     gin = 'g:LightlineGin',
-  }
+  },
 }
 
 -- skkeletonの状態を表示
@@ -70,16 +64,18 @@ _G.lightline_skkeleton = function()
   end
   return ''
 end
-vim.cmd [[
+vim.cmd([[
 function! g:LightlineSkkeleton() abort
   return v:lua.lightline_skkeleton()
 endfunction
-]]
+]])
 
 -- hydraを起動したときにサブモードを表示
 _G.lightline_hydra = function()
   local has_hydra, hydra = pcall(require, 'hydra.statusline')
-  if not has_hydra then return '' end
+  if not has_hydra then
+    return ''
+  end
   if hydra.is_active then
     if hydra.get_name() ~= nil then
       return hydra.get_name() .. '-mode'
@@ -87,24 +83,26 @@ _G.lightline_hydra = function()
     return ''
   end
 end
-vim.cmd [[
+vim.cmd([[
 function! g:LightlineHydra() abort
   return v:lua.lightline_hydra()
 endfunction
-]]
+]])
 
 _G.lightline_lsp_status = function()
   local has_lsp_status, lsp_status = pcall(require, 'lsp-status')
-  if not has_lsp_status then return '' end
+  if not has_lsp_status then
+    return ''
+  end
   if #vim.lsp.buf_get_clients() > 0 then
     return lsp_status.status()
   end
 end
-vim.cmd [[
+vim.cmd([[
 function! g:LightlineLspStatus() abort
   return v:lua.lightline_lsp_status()
 endfunction
-]]
+]])
 
 -- 現在アクティブなLS名を列挙
 _G.lightline_lsp_clients = function()
@@ -117,25 +115,24 @@ _G.lightline_lsp_clients = function()
   end
   return ''
 end
-vim.cmd [[
+vim.cmd([[
 function! g:LightlineLspClients() abort
   return v:lua.lightline_lsp_clients()
 endfunction
-]]
+]])
 
 _G.lightline_ddu = function()
   if vim.w.ddu_ui_ff_status then
     local status = vim.w.ddu_ui_ff_status
-    local message = string.format('ddu:%s/%d', status.name, status.maxItems)
-    return message
+    return string.format('ddu:%s', status.name)
   end
   return ''
 end
-vim.cmd [[
+vim.cmd([[
 function! g:LightlineDdu() abort
   return v:lua.lightline_ddu()
 endfunction
-]]
+]])
 
 _G.lightline_gin = function()
   if vim.g.loaded_gina == 1 then
@@ -163,8 +160,8 @@ _G.lightline_gin = function()
   -- end
   return ''
 end
-vim.cmd [[
+vim.cmd([[
 function! g:LightlineGin() abort
   return v:lua.lightline_gin()
 endfunction
-]]
+]])

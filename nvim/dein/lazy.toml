@@ -12,6 +12,25 @@ lua require('custom.lightline')
 # repo = 'mengelbrecht/lightline-bufferline'
 # depends = ['lightline.vim']
 
+[[plugins]]
+repo = 'folke/trouble.nvim'
+on_cmd = ['Trouble', 'TroubleToggle']
+hook_source = '''
+lua << EOF
+require('trouble').setup()
+EOF
+'''
+
+[[plugins]]
+repo = 'vim-scripts/vim-auto-save'
+on_event = 'BufRead'
+hook_add = '''
+let g:auto_save = 1
+let g:auto_save_no_updatetime = 1
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent = 1
+'''
+
 ## なんか便利な強いやつ いろんなプラギンが依存してる
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
@@ -233,6 +252,12 @@ repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 on_source = 'nvim-lspconfig'
 hook_source = '''
 lua require('custom.lsp_lines')
+'''
+[[plugins]]
+repo = 'folke/lsp-colors.nvim'
+on_source = 'nvim-lspconfig'
+hook_source = '''
+lua require("lsp-colors").setup()
 '''
 
 # NOTE: lspの前には有効化されていないといけない

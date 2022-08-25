@@ -10,14 +10,15 @@ local language_servers = {
   'emmet-ls', -- html
   -- "eslint-lsp",
   -- "golangci-lint-langserver",
+  'graphql-language-service-cli',
   -- "haskell-language-server",
   -- "html-language-server",
   'json-lsp',
   'jsonnet-language-server',
   'ltex-ls', -- md
   'lua-language-server',
-  -- "marksman",
-  -- "remark-language-server",
+  -- "marksman", -- md
+  -- "remark-language-server", -- md
   -- "rust-analyzer",
   'taplo', -- toml
   'typescript-language-server',
@@ -37,6 +38,7 @@ local formatters = {
   'shfmt',
   'stylua', -- lua
   'yamlfmt',
+  'prettierd',
 }
 local linters = {
   'actionlint', -- github action workflow

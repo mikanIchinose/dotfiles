@@ -17,90 +17,91 @@ require('which-key').register({
         --     'custom-list',
         --   },
         --   'custom list'
-        Ddu {
+        Ddu({
           '-name=readme',
           '-ui-param-startFilter',
           'readme_viewer',
-        },
-        'readme'
+        }),
+        'readme',
       },
       f = {
-        Ddu {
+        Ddu({
           '-name=files',
           '-ui-param-startFilter',
           'file_rec',
-        },
-        'find file'
+        }),
+        'find file',
       },
       F = {
-        Ddu {
+        Ddu({
           '-name=filer',
+          '-resume',
           '-ui=filer',
           'file',
           '-source-option-columns=icon_filename',
           '-source-option-path=`getcwd()`',
           'buffer',
-        },
-        'filer'
+        }),
+        'filer',
       },
       b = {
-        Ddu {
+        Ddu({
           '-name=buffers',
           'buffer',
-        },
-        'find buffer'
+        }),
+        'find buffer',
       },
       r = {
-        Ddu {
+        Ddu({
           '-name=search_source',
           [[-source-param-input=`input('Pattern: ')`]],
           'rg',
-        },
-        'find source'
+        }),
+        'find source',
       },
       d = {
-        Ddu {
+        Ddu({
           '-name=dein',
           '-ui-param-startFilter',
           'dein',
-        },
-        'dein'
+        }),
+        'dein',
       },
       h = {
-        Ddu {
+        Ddu({
           '-name=help',
           '-ui-param-startFilter',
           'help',
-        },
-        'find help'
+        }),
+        'find help',
       },
       m = {
-        Ddu {
+        Ddu({
           '-name=mr',
           'mr',
-        },
-        'find mr'
+        }),
+        'find mr',
       },
       c = {
-        Ddu {
+        Ddu({
           '-name=commands',
           '-ui-param-startFilter',
           'command_history',
-        },
-        'find command'
+        }),
+        'find command',
       },
       C = {
-        Ddu {
+        Ddu({
           '-name=color',
           'colorscheme',
-        },
-        'find color'
+        }),
+        'find color',
       },
     },
-  }
+  },
 })
 
-vim.cmd [[
+vim.cmd([[
 " nnoremap <silent> / <Cmd>Ddu
 "\ -name=search line
 "\ -ui-param-startFilter<CR>
@@ -108,13 +109,22 @@ vim.cmd [[
 "\ -name=search line 
 "\ -input=`expand('<cword>')`
 "\ -ui-param-startFilter=v:false<CR>
-]]
-map('n', '/', Ddu {
-  '-name=search_line',
-  '-ui-param-startFilter',
-  'line',
-}, { silent = true })
-map('i', '<C-x><C-e>', Ddu {
-  '-name=emoji',
-  'emoji',
-})
+]])
+map(
+  'n',
+  '/',
+  Ddu({
+    '-name=search_line',
+    '-ui-param-startFilter',
+    'line',
+  }),
+  { silent = true }
+)
+map(
+  'i',
+  '<C-x><C-e>',
+  Ddu({
+    '-name=emoji',
+    'emoji',
+  })
+)

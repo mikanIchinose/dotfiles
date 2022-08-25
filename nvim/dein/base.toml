@@ -4,8 +4,6 @@ repo = 'Shougo/dein.vim'
 # help
 [[plugins]]
 repo = 'nanotee/nvim-lua-guide'
-# [[plugins]]
-# repo = 'willelz/nvim-lua-guide-ja'
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 

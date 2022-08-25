@@ -2,7 +2,6 @@
 [[plugins]]
 repo = 'Shougo/pum.vim'
 hook_source = '''
-" lua vim.notify('onSource pum.vim')
 highlight Pabbr       guibg=#1f2335
 highlight Pkind       guibg=#1f2335
 highlight Pmenu       guibg=#1f2335
@@ -19,11 +18,11 @@ call pum#set_option('border', 'rounded') " none, single, double, rounded, solid,
 call pum#set_option('scrollbar_char', '')
 " call pum#set_option('padding',v:true)
 call pum#set_option('use_complete',v:true)
-" call popup_preview#enable()
+call popup_preview#enable()
 '''
-# [[plugins]]
-# repo      = 'matsui54/denops-popup-preview.vim'
-# on_source = 'pum.vim'
+[[plugins]]
+repo      = 'matsui54/denops-popup-preview.vim'
+on_source = 'pum.vim'
 
 [[plugins]]
 repo    = 'Shougo/ddc.vim'
