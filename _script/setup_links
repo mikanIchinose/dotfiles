@@ -26,8 +26,6 @@ symlink "$SOURCE/fish" "$DESTINATION/.config/fish"
 symlink "$SOURCE/nvim" "$DESTINATION/.config/nvim"
 # starship
 symlink "$SOURCE/starship" "$DESTINATION/.config/starship"
-# node
-symlink "$SOURCE/node/.default-npm-packages" "$DESTINATION/.default-npm-packages"
 # wezterm
 symlink "$SOURCE/wezterm" "$DESTINATION/.config/wezterm"
 # alactirry
@@ -47,15 +45,19 @@ if [ "$(uname)" == 'Darwin' ]; then
   symlink "$SOURCE/shell/.zshrc" "$DESTINATION/.zshrc"
   # navi
   symlink "$SOURCE/navi" "$DESTINATION/.config/navi"
+  # node
+  symlink "$SOURCE/node/npmfile.darwin" "$DESTINATION/.default-npm-packages"
 elif [ "$(uname)" == 'Linux' ]; then
   # asdf
-  symlink "$SOURCE/asdf/linux/.tool-versions"  "$DESTINATION/.tool-versions"
+  symlink "$SOURCE/asdf/linux/.tool-versions" "$DESTINATION/.tool-versions"
   # i3
-  symlink "$SOURCE/i3"                         "$DESTINATION/.config/i3"
-  symlink "$SOURCE/i3blocks"                   "$DESTINATION/.config/i3blocks"
+  symlink "$SOURCE/i3" "$DESTINATION/.config/i3"
+  symlink "$SOURCE/i3blocks" "$DESTINATION/.config/i3blocks"
   # shell
-  symlink "$SOURCE/shell/.bashrc"              "$DESTINATION/.bashrc"
-  symlink "$SOURCE/shell/.profile"             "$DESTINATION/.profile"
+  symlink "$SOURCE/shell/.bashrc" "$DESTINATION/.bashrc"
+  symlink "$SOURCE/shell/.profile" "$DESTINATION/.profile"
+  # node
+  symlink "$SOURCE/node/npmfile.linux" "$DESTINATION/.default-npm-packages"
 fi
 
 success "Finished"

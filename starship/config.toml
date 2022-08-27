@@ -1,4 +1,15 @@
-format = "$all"
+add_newline = false
+
+format = """
+$hostname\
+$username\
+$directory\
+$git_branch\
+$git_state\
+$git_metrics
+$character
+"""
+# format = "$all"
 # format = "$java"
 # format = "$git_commit"
 
@@ -8,24 +19,42 @@ format = "$all"
 [cmd_duration]
 disabled = true
 
+[hostname]
+ssh_only = false
+style    = "bold fg:16 bg:196"
+format   = "[💻 $hostname ]($style)"
+trim_at  = ".local"
+
+[username]
+style_user  = "bold fg:16 bg:70"
+format      = "[👤 $user ]($style)"
+show_always = true
+
+[directory]
+style             = "bold fg:16 bg:45"
+format            = "[📂 $path ]($style)[$read_only]($read_only_style)"
+truncation_length = 2
+truncation_symbol = "…/"
+truncate_to_repo  = false
+
 [character]
-success_symbol = " "
-error_symbol = "[ ](#ff0000)"
+success_symbol = "[ ](bold green)"
+error_symbol   = "[ ](#ff0000)"
 
 [fill]
 symbol = " "
 
 [time]
-disabled = true
-format = "[$time]($style) "
-style = "dimmed gray"
+disabled    = true
+format      = "[$time]($style) "
+style       = "dimmed gray"
 time_format = "%R"
 
 [memory_usage]
-disabled = true
-format = "use [$symbol$ram]($style) "
-symbol = " "
-style = "dimmed"
+disabled  = true
+format    = "use [$symbol$ram]($style) "
+symbol    = " "
+style     = "dimmed"
 threshold = 50
 
 [status]
@@ -33,44 +62,47 @@ disabled = true
 
 [python]
 version_format = ""
-symbol = " "
-style = "blold green"
+symbol         = " "
+style          = "blold green"
 [golang]
 version_format = ""
-symbol = "ﳑ "
+symbol         = "ﳑ "
 [kotlin]
 version_format = ""
-kotlin_binary = "kotlin"
+kotlin_binary  = "kotlin"
 [java]
 version_format = ""
 [php]
 version_format = ""
-symbol = " "
+symbol         = " "
 
 [shell]
-disabled = true
+disabled       = true
 fish_indicator = "[](#3595ff)"
 
 [git_branch]
-always_show_remote = true
-format = "on [$symbol$branch]($style) "
-symbol = " "
-style = "fg:#b2d500"
+style  = "bold fg:16 bg:183"
+symbol = " "
+format = "[$symbol$branch(:$remote_branch) ]($style)"
+# always_show_remote = true
+# format             = "on [$symbol$branch]($style) "
+# symbol             = " "
+# style              = "fg:#b2d500"
 
 [git_status]
-format = "([$all_status$ahead_behind ]($style))"
-ahead = "⇡${count}"
-diverged = "⇕⇡${ahead_count},⇣${behind_count}"
-behind = "⇣${count}"
+format    = "([$all_status$ahead_behind ]($style))"
+ahead     = "⇡${count}"
+diverged  = "⇕⇡${ahead_count},⇣${behind_count}"
+behind    = "⇣${count}"
 untracked = '\( $count\)'
-modified = '\( $count\)'
-staged = '\( $count\)'
-renamed = '\(A$count\)'
-deleted = '\(﫧$count\)'
-stashed = " "
-style = "fg:#b2d500"
+modified  = '\( $count\)'
+staged    = '\( $count\)'
+renamed   = '\(A$count\)'
+deleted   = '\(﫧$count\)'
+stashed   = " "
+style     = "fg:#b2d500"
 
 [git_commit]
 commit_hash_length = 8
-tag_symbol = "🔖 "
-style = "bold yellow"
+tag_symbol         = "🔖 "
+style              = "bold yellow"

@@ -1,8 +1,8 @@
-vim.lsp.set_log_level('debug')
+-- vim.lsp.set_log_level('debug')
 
 local language_servers = {
   'bash-language-server',
-  -- "css-lsp",
+  -- 'css-lsp',
   -- "cssmodules-language-server",
   'deno',
   'dockerfile-language-server',

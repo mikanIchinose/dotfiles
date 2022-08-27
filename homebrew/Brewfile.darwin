@@ -97,6 +97,7 @@ cask "google-drive"
 cask "aquaskk"
 cask "ngrok"
 cask "raycast"
+cask "gather"
 
 # Editor/IDE
 cask "visual-studio-code"
