@@ -85,22 +85,30 @@ on_source = 'ddc.vim'
 
 # NOTE: skk
 [[plugins]]
-repo   = 'vim-skk/skkeleton'
-on_map = { ic = '<Plug>(skkeleton-toggle)' }
-# on_event = ['BufRead']
+repo = 'vim-skk/skkeleton'
+# on_map = { ic = '<Plug>(skkeleton-toggle)' }
+on_event = ['VimEnter']
 depends = ['ddc.vim']
 hook_add = '''
-imap <C-h> <Plug>(skkeleton-toggle)
-cmap <C-h> <Plug>(skkeleton-toggle)
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
 '''
 hook_source = '''
 "lua vim.notify("onSource skkeleton")
-autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup skkeleton
+  autocmd!
+  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+  autocmd User skkeleton-enable-pre call s:skkeleton_pre()
+  autocmd User skkeleton-disable-pre call s:skkeleton_post()
+  " autocmd User skkeleton-mode-changed call lightline#update()
+augroup END
+
 function! s:skkeleton_init() abort
   call skkeleton#config({
     \ 'globalJisyo': '~/.config/SKK-JISYO.L',
     \ 'eggLikeNewline': v:true,
     \ 'registerConvertResult': v:true,
+    \ 'keepState': v:true,
     \ })
   call skkeleton#config({
     \   'markerHenkan': '<>',
@@ -109,22 +117,22 @@ function! s:skkeleton_init() abort
   call skkeleton#register_kanatable('rom', {
     \ 'jj': 'escape',
     \ '~': ['〜', ''],
+    \ 'z-': ['-', '']
     \ "z\<Space>": ["\u3000", ''],
     \ })
+  call skkeleton#register_keymap('henkan', "\<BS>", 'henkanBackward')
+  call skkeleton#register_keymap('henkan', 'x', '')
 endfunction
 
-autocmd User skkeleton-enable-pre call s:skkeleton_pre()
 function! s:skkeleton_pre() abort
   let s:prev_buffer_config = ddc#custom#get_buffer()
   call ddc#custom#patch_buffer('sources', ['skkeleton'])
   iunmap <Esc>
 endfunction
 
-autocmd User skkeleton-disable-pre call s:skkeleton_post()
 function! s:skkeleton_post() abort
   " Restore sources
   call ddc#custom#set_buffer(s:prev_buffer_config)
-  inoremap <silent><expr> <Esc>  ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
-  "inoremap <silent><expr> <CR> ddc#map#pum_visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
+  inoremap <silent><expr> <Esc> ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
 endfunction
 '''

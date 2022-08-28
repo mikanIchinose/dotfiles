@@ -39,13 +39,13 @@ repo = 'nvim-lua/plenary.nvim'
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 hook_add = '''
-let g:denops_server_addr = '127.0.0.1:32123'
+" let g:denops_server_addr = '127.0.0.1:32123'
 " let g:denops#debug = 1
 '''
 
-[[plugins]]
-repo      = 'vim-denops/denops-shared-server.vim'
-on_source = 'denops.vim'
+# [[plugins]]
+# repo      = 'vim-denops/denops-shared-server.vim'
+# on_source = 'denops.vim'
 # on_event  = 'VimEnter'
 
 [[plugins]]
@@ -351,19 +351,19 @@ nnoremap <buffer> <A-S-Right> <Plug>(mkdx-demote-header)
 # '''
 
 ## NOTE: sidebar
-[[plugins]]
-repo = 'simrat39/symbols-outline.nvim'
-on_event = 'BufRead'
-depends = 'nvim-lspconfig'
-hook_source = '''
-lua << EOF
-require('symbols-outline').setup {
-  keymaps = {
-    close = 'q'
-  }
-}
-EOF
-'''
+#[[plugins]]
+#repo = 'simrat39/symbols-outline.nvim'
+#on_event = 'BufRead'
+#depends = 'nvim-lspconfig'
+#hook_source = '''
+#lua << EOF
+#require('symbols-outline').setup {
+#  keymaps = {
+#    close = 'q'
+#  }
+#}
+#EOF
+#'''
 # [plugins.ftplugin]
 # Outline = '''
 # setlocal wrap
@@ -410,23 +410,23 @@ require('stickybuf').setup {
 }
 EOF
 '''
-[[plugins]]
-repo = 'sidebar-nvim/sidebar.nvim'
-on_event = 'BufRead'
-hook_source = '''
-lua << EOF
-require('sidebar-nvim').setup {
-  sections = {'symbols','buffers'},
-}
-EOF
-'''
-[[plugins]]
-repo = 'liuchengxu/vista.vim'
-depends = ['nvim-lspconfig']
-on_cmd = ['Vista']
-hook_source = '''
-" lua vim.notify('onSource vista.vim')
-'''
+#[[plugins]]
+#repo = 'sidebar-nvim/sidebar.nvim'
+#on_event = 'BufRead'
+#hook_source = '''
+#lua << EOF
+#require('sidebar-nvim').setup {
+#  sections = {'symbols','buffers'},
+#}
+#EOF
+#'''
+#[[plugins]]
+#repo = 'liuchengxu/vista.vim'
+#depends = ['nvim-lspconfig']
+#on_cmd = ['Vista']
+#hook_source = '''
+#" lua vim.notify('onSource vista.vim')
+#'''
 
 # [[plugins]]
 # repo = 'stevearc/gkeep.nvim'

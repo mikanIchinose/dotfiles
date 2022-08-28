@@ -27,7 +27,7 @@ patch_global('sourceOptions', {
     converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   necovim = {
-    mark = 'vim'
+    mark = 'vim',
   },
   around = {
     mark = 'Around',
@@ -56,68 +56,62 @@ patch_global('sourceParams', {
 
 -- use pum.vim
 patch_global('autoCompleteEvents', {
-  'InsertEnter', 'TextChangedI', 'TextChangedP',
-  'CmdlineEnter', 'CmdlineChanged',
+  'InsertEnter',
+  'TextChangedI',
+  'TextChangedP',
+  'CmdlineEnter',
+  'CmdlineChanged',
 })
 patch_global('completionMenu', 'pum.vim')
 
 -- sources
 patch_global('sources', { 'nvim-lsp', 'vsnip', 'around', 'rg', 'file' })
-patch_filetype(
-  { 'toml' },
-  'sources',
-  { 'nvim-lsp', 'necovim', 'around' }
-)
-patch_filetype(
-  { 'vim' },
-  'sources',
-  { 'vsnip', 'necovim', 'nvim-lsp', 'around' }
-)
+patch_filetype({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around' })
+patch_filetype({ 'vim' }, 'sources', { 'vsnip', 'necovim', 'nvim-lsp', 'around' })
 
 -- NOTE: ghost-textで補完するときに必要
-patch_filetype(
-  { 'markdown' },
-  'specialBufferCompletion',
-  'v:true'
-)
+patch_filetype({ 'markdown' }, 'specialBufferCompletion', 'v:true')
 -- patch_global(
 --   'specialBufferCompletion',
 --   'v:true'
 -- )
 
 -- keymap
-vim.cmd [[
-inoremap <silent><expr> <TAB>
-      \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-      \ '<TAB>' : ddc#manual_complete()
-inoremap <silent><expr> <S-Tab> ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' : '<S-Tab>'
-inoremap <C-j> <Cmd>call pum#map#select_relative(+1)<CR>
-inoremap <C-k> <Cmd>call pum#map#select_relative(-1)<CR>
-inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
-inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
-inoremap <silent><expr> <C-Space> ddc#map#manual_complete()
-
-" inoremap <silent><expr> <Tab> 
-"   \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : 
-"   \ vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-" inoremap <silent><expr> <S-Tab> 
-"   \ pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : 
-"   \ vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-" inoremap <silent><expr> <C-l> ddc#map#extend()
-" inoremap <silent> <C-Space> ddc#manual_complete('nvim-lsp')
-
-"inoremap <silent><expr> <CR>   ddc#map#pum_visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
-"inoremap <silent><expr> <Esc>  ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
-" inoremap <silent><expr> <Down> pum#visible() ? "<Cmd>call pum#map#select_relative(+1)<CR>" : "<Down>"
-" inoremap <silent><expr> <Up>   pum#visible() ? "<Cmd>call pum#map#select_relative(-1)<CR>" : "<Up>"
-
-smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-
-" snippetの展開を行う
-autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
-]]
+require('custom.ddc.keymap')
+-- vim.cmd([[
+-- inoremap <silent><expr> <TAB>
+--  \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+--  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+--  \ '<TAB>' : ddc#manual_complete()
+-- inoremap <silent><expr> <S-Tab>
+--  \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' :
+--  \ '<S-Tab>'
+-- " inoremap <C-j> <Cmd>call pum#map#select_relative(+1)<CR>
+-- " inoremap <C-k> <Cmd>call pum#map#select_relative(-1)<CR>
+-- inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+-- inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+-- inoremap <silent><expr> <C-Space> ddc#map#manual_complete()
+-- 
+-- " inoremap <silent><expr> <Tab>
+-- "   \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' :
+-- "   \ vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+-- " inoremap <silent><expr> <S-Tab>
+-- "   \ pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' :
+-- "   \ vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+-- " inoremap <silent><expr> <C-l> ddc#map#extend()
+-- " inoremap <silent> <C-Space> ddc#manual_complete('nvim-lsp')
+-- 
+-- " inoremap <silent><expr> <CR> ddc#map#pum_visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
+-- " inoremap <silent><expr> <Esc> ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
+-- " inoremap <silent><expr> <Down> pum#visible() ? "<Cmd>call pum#map#select_relative(+1)<CR>" : "<Down>"
+-- " inoremap <silent><expr> <Up>   pum#visible() ? "<Cmd>call pum#map#select_relative(-1)<CR>" : "<Up>"
+-- 
+-- " smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+-- " smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+-- 
+-- " snippetの展開を行う
+-- " autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+-- ]])
 
 vim.call('ddc#enable')
 

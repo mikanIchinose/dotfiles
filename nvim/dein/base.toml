@@ -8,6 +8,13 @@ repo = 'nanotee/nvim-lua-guide'
 repo = 'vim-jp/vimdoc-ja'
 
 # [[plugins]]
+# repo = 'vim-denops/denops-shared-server.vim'
+# hook_add = '''
+# command! DenopsSharedServerInstall call denops_shared_server#install()
+# command! DenopsSharedServerUninstall call denops_shared_server#uninstall()
+# '''
+
+# [[plugins]]
 # repo = 'lewis6991/impatient.nvim'
 
 ## color scheme

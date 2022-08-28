@@ -39,7 +39,7 @@ end
 
 local opts = { buffer = true, silent = true }
 
-map('n', '<C-l>', do_action('checkItems'), opts)
+map('n', '<C-c>', do_action('checkItems'), opts)
 map('n', 'a', do_action('chooseAction'), opts)
 map('n', 'q', do_action('quit'), opts)
 map('n', 'o', do_action('expandItem', { mode = 'toggle' }), opts)
