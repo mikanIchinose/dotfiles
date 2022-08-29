@@ -39,6 +39,7 @@ brew "jsonnet"
 brew "kdoctor"
 brew "gum"
 brew "luarocks"
+brew "llvm"
 # brew "aria2"
 # brew "youtube-dl"
 

@@ -45,10 +45,8 @@ autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_i
 map('i', '<C-j>', function()
   if vim.call('vsnip#jumpable', 1) ~= 0 then
     return '<Plug>(vsnip-jump-next)'
-  elseif vim.g.loaded_skkeleton then
-    return '<Plug>(skkeleton-toggle)'
   else
-    return '<C-j>'
+    return '<Plug>(skkeleton-toggle)'
   end
 end, { expr = true })
 map('i', '<C-k>', function()

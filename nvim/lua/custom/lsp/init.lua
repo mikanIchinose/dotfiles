@@ -11,13 +11,13 @@ local language_servers = {
   -- "eslint-lsp",
   -- "golangci-lint-langserver",
   'graphql-language-service-cli',
-  -- "haskell-language-server",
+  'haskell-language-server',
   -- "html-language-server",
   'json-lsp',
   'jsonnet-language-server',
   'ltex-ls', -- md
   'lua-language-server',
-  -- "marksman", -- md
+  "marksman", -- md
   -- "remark-language-server", -- md
   -- "rust-analyzer",
   'taplo', -- toml
@@ -80,7 +80,7 @@ table.merge(ensure_installed, linters)
 table.merge(ensure_installed, dap_servers)
 require('mason-tool-installer').setup({
   ensure_installed = ensure_installed,
-  auto_update = true,
+  -- auto_update = true,
 })
 
 require('custom.lsp.sign_define')

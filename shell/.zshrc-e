@@ -16,8 +16,6 @@
   # $HOME/.local/flutter/bin
 # )
 
-[ -f "/Users/solenoid/.ghcup/env" ] && source "/Users/solenoid/.ghcup/env" # ghcup-env
-
 if type starship &> /dev/null; then
   export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
   export STARSHIP_CACHE="$HOME/.config/starship/cache"

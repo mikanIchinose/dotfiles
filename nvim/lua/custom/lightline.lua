@@ -58,6 +58,8 @@ _G.lightline_skkeleton = function()
       return 'ｱ'
     elseif skkeleton_mode == 'zenkaku' then
       return 'Ａ'
+    elseif skkeleton_mode == 'abbrev' then
+      return 'abbrev'
     else
       return 'A'
     end

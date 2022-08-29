@@ -80,6 +80,8 @@ set termguicolors
 set background=dark
 execute 'colorscheme ' .. g:colorscheme
 
+set noequalalways
+
 " neovimからデフォルトでマウスモードがONになったので落す
 set mouse=
 

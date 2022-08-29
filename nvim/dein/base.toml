@@ -7,12 +7,19 @@ repo = 'nanotee/nvim-lua-guide'
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
-# [[plugins]]
-# repo = 'vim-denops/denops-shared-server.vim'
-# hook_add = '''
-# command! DenopsSharedServerInstall call denops_shared_server#install()
-# command! DenopsSharedServerUninstall call denops_shared_server#uninstall()
-# '''
+## plugin platform
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+hook_add = '''
+"let g:denops_server_addr = '127.0.0.1:32123'
+"let g:denops#debug = 1
+'''
+[[plugins]]
+repo = 'vim-denops/denops-shared-server.vim'
+hook_add = '''
+command! DenopsSharedServerInstall call denops_shared_server#install()
+command! DenopsSharedServerUninstall call denops_shared_server#uninstall()
+'''
 
 # [[plugins]]
 # repo = 'lewis6991/impatient.nvim'

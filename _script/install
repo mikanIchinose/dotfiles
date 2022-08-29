@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -e
+set -u
+
+# install hogebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# install rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# install ghcup
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
