@@ -2,7 +2,7 @@
 ---@field buf number
 ---@field win number
 
-require('incline').setup {
+require('incline').setup({
   -- highlight = {
   --   groups = {
   --     InclineNormal = {
@@ -19,14 +19,14 @@ require('incline').setup {
       local filename_and_path = vim.fn.fnamemodify(bufname, ':.')
       local filename = vim.fn.fnamemodify(bufname, ':t')
       local extention = vim.fn.fnamemodify(bufname, ':e')
-      local icon, color = require("nvim-web-devicons").get_icon_color(filename, extention, { default = true })
+      local icon, color = require('nvim-web-devicons').get_icon_color(filename, extention, { default = true })
       return {
         {
           icon,
           guifg = color,
         },
         { ' ' },
-        { filename_and_path }
+        { filename_and_path },
       }
     end
   end,
@@ -41,11 +41,11 @@ require('incline').setup {
     --   Normal = 'Cursor'
     -- }
   },
-  -- ignore = {
-  --   floating_wins = true,
-  --   unlisted_buffers = true,
-  --   filetypes = {},
-  --   buftypes = 'special',
-  --   wintypes = 'special',
-  -- },
-}
+  ignore = {
+    filetypes = { 'gitcommit' },
+    -- floating_wins = true,
+    -- unlisted_buffers = true,
+    -- buftypes = 'special',
+    -- wintypes = 'special',
+  },
+})

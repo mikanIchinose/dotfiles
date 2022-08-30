@@ -1,18 +1,19 @@
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/cask-drivers"
+tap "homebrew/services"
 tap "d12frosted/emacs-plus" # emacs
 tap "wez/wezterm" # wezterm
 tap "koekeishiya/formulae"
 tap "jesseduffield/lazygit"
 
 # cli
+brew "mas"
 brew "wget"
 brew "fzf"
 brew "ghq"
 brew "git-delta"
 brew "lazygit"
-brew "mas"
 brew "starship"
 brew "ripgrep"
 brew "fd"
@@ -40,6 +41,7 @@ brew "kdoctor"
 brew "gum"
 brew "luarocks"
 brew "llvm"
+brew "gitlint"
 # brew "aria2"
 # brew "youtube-dl"
 
@@ -70,7 +72,7 @@ cask "biscuit"
 
 # terminal
 cask "iterm2"
-# cask "wezterm-nightly" # 日本語との相性わるすぎ
+cask "wezterm" # 日本語との相性わるすぎ
 # cask "alacritty" # タブがないからなー
 
 # gui app
@@ -106,5 +108,5 @@ cask "android-studio"
 
 ## beautiful desktop environtment
 brew "yabai"
-# brew "koekeishiya/formulae/skhd"
+brew "koekeishiya/formulae/skhd"
 cask "ubersicht"

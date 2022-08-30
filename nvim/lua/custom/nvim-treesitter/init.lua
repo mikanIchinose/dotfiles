@@ -1,4 +1,4 @@
-require 'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup({
   ensure_installed = 'all',
   ignore_install = { 'rnoweb', 'phpdoc' },
   highlight = {
@@ -17,6 +17,9 @@ require 'nvim-treesitter.configs'.setup {
   indent = {
     enable = false,
   },
+  -- tree_setter = {
+  --   enable = true,
+  -- },
   -- JoosepAlviste/nvim-ts-context-commentstring
   -- context_commentstring = {
   --   enable = true,
@@ -25,6 +28,6 @@ require 'nvim-treesitter.configs'.setup {
   rainbow = {
     enable = true,
     exteded_mode = true,
-    max_file_lines = 1000,
+    max_file_lines = 10000,
   },
-}
+})

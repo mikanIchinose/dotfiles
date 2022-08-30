@@ -544,6 +544,9 @@ highlight rainbowcol5 guifg=#EE647A
 highlight rainbowcol6 guifg=#A463D8
 highlight rainbowcol7 guifg=#3FA4D9
 '''
+# [[plugins]]
+# repo      = 'TornaxO7/tree-setter'
+# on_source = 'nvim-treesitter'
 #[[plugins]]
 #repo     = 'haringsrob/nvim_context_vt'
 #depends  = 'nvim-treesitter'
