@@ -82,7 +82,7 @@ local sourceParams = {
     },
   },
   dein_update = {
-    useGraphQL = true,
+    -- useGraphQL = true,
   },
   -- ['custom-list'] = {
   --   texts = { 'a', 'b', 'c' }

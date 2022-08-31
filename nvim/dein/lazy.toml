@@ -104,7 +104,7 @@ setlocal foldmethod=expr
 repo = 'lfilho/cosco.vim'
 on_ft = ['php', 'rust', 'java', 'dart']
 hook_source = '''
-autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+" autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 '''
 
@@ -115,8 +115,8 @@ on_event = 'VimEnter'
 [plugins.ftplugin]
 gina-status = '''
 nmap <buffer> < <Plug>(gina-index-stage)
-nmap <buffer> > <Plug>(gina-index-unstage)
 xmap <buffer> < <Plug>(gina-index-stage)
+nmap <buffer> > <Plug>(gina-index-unstage)
 xmap <buffer> > <Plug>(gina-index-unstage)
 '''
 [[plugins]]

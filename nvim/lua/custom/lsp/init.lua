@@ -17,7 +17,7 @@ local language_servers = {
   'jsonnet-language-server',
   'ltex-ls', -- md
   'lua-language-server',
-  "marksman", -- md
+  'marksman', -- md
   -- "remark-language-server", -- md
   -- "rust-analyzer",
   'taplo', -- toml
