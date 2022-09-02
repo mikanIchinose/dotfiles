@@ -1,3 +1,4 @@
+# statusline
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 on_event = ['VimEnter']
@@ -7,6 +8,12 @@ lua require('custom.lightline')
 # [[plugins]]
 # repo = 'mengelbrecht/lightline-bufferline'
 # depends = ['lightline.vim']
+[[plugins]]
+repo = 'rebelot/heirline.nvim'
+# on_event = ['VimEnter']
+hook_source = '''
+lua require('custom.heirline')
+'''
 
 [[plugins]]
 repo = 'folke/trouble.nvim'
@@ -272,6 +279,9 @@ on_source = 'nvim-lspconfig'
 hook_source = '''
 lua require("lsp-colors").setup()
 '''
+[[plugins]]
+repo      = 'SmiteshP/nvim-navic'
+on_source = 'nvim-lspconfig'
 
 # NOTE: lspの前には有効化されていないといけない
 # [[plugins]]
@@ -287,9 +297,9 @@ lua require('custom.hydra')
 '''
 
 [[plugins]]
-repo = "b0o/incline.nvim"
+repo    = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
-on_event = ['BufRead']
+# on_event = ['BufRead']
 hook_source = '''
 lua require("custom.incline")
 '''
@@ -496,17 +506,17 @@ lua require('custom.nvim-smartbufs')
 #'''
 
 
-# [[plugins]]
-# repo = 'cohama/lexima.vim'
-# # on_event = "InsertEnter"
-# on_source = 'ddu.vim' # <CR>を上書きしないようにするため
-# hook_add = '''
-# "let g:lexima_accept_pum_with_enter = 1
-# let g:lexima_no_default_rules = 1
-# '''
-# hook_source = '''
-# "call lexima#set_default_rules()
-# '''
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_event = "InsertEnter"
+hook_add = '''
+"let g:lexima_accept_pum_with_enter = 1
+" let g:lexima_no_default_rules = 1
+autocmd FileType ddu-ff,ddu-filer let b:lexima_disabled = 1
+'''
+hook_source = '''
+call lexima#set_default_rules()
+'''
 
 ## 囲みを付けたり変更したり
 [[plugins]]

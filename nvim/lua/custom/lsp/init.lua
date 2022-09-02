@@ -149,6 +149,7 @@ local function handler(server_name)
   local on_attach = function(client, bufnr)
     -- format on save
     require('lsp-format').on_attach(client)
+    require('nvim-navic').attach(client, bufnr)
 
     -- keymap
     local code_action = {

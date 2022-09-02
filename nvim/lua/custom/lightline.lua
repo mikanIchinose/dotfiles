@@ -4,7 +4,7 @@ vim.g.lightline = {
     left = {
       { 'mode', 'paste', 'ddu' },
       { 'lsp_clients', 'hydra', 'skkeleton' },
-      { 'modified' },
+      { 'modified', 'navic' },
     },
     right = {
       { 'lineinfo' },
@@ -38,6 +38,7 @@ vim.g.lightline = {
     lsp_clients = 'g:LightlineLspClients',
     ddu = 'g:LightlineDdu',
     gin = 'g:LightlineGin',
+    navic = 'g:LightlineNvimNavic',
   },
 }
 
@@ -113,7 +114,7 @@ _G.lightline_lsp_clients = function()
     for _, value in pairs(vim.lsp.buf_get_clients()) do
       table.insert(active_clients, value.name)
     end
-    return table.concat(active_clients, '/')
+    return string.format('%s %s', require('codicons').get('server', 'icon'), table.concat(active_clients, ' '))
   end
   return ''
 end
@@ -165,5 +166,18 @@ end
 vim.cmd([[
 function! g:LightlineGin() abort
   return v:lua.lightline_gin()
+endfunction
+]])
+
+_G.lightline_nvim_navic = function()
+  local ok, navic = pcall(require, 'nvim-navic')
+  if not ok then
+    return ''
+  end
+  return navic.get_location()
+end
+vim.cmd([[
+function! g:LightlineNvimNavic() abort
+  return v:lua.lightline_nvim_navic()
 endfunction
 ]])
