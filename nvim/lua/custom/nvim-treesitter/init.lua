@@ -21,9 +21,9 @@ require('nvim-treesitter.configs').setup({
   --   enable = true,
   -- },
   -- JoosepAlviste/nvim-ts-context-commentstring
-  -- context_commentstring = {
-  --   enable = true,
-  -- },
+  context_commentstring = {
+    enable = true,
+  },
   -- p00f/nvim-ts-rainbow
   rainbow = {
     enable = true,
