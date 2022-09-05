@@ -36,8 +36,21 @@ require('null-ls').setup({
     diagnostics.shellcheck,
     code_actions.shellcheck,
     -- lua
-    diagnostics.luacheck,
-    diagnostics.selene,
+    diagnostics.luacheck.with({
+      args = {
+        '--globals',
+        'vim',
+        'table',
+        '--formatter',
+        'plain',
+        '--codes',
+        '--ranges',
+        '--filename',
+        '$FILENAME',
+        '-',
+      },
+    }),
+    -- diagnostics.selene,
     formatting.stylua,
     -- vimscript
     diagnostics.vint,

@@ -183,6 +183,11 @@ local function handler(server_name)
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
+  -- nvim-ufo
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
 
   local opts = {
     on_attach = on_attach,

@@ -43,7 +43,8 @@ endtry
 set laststatus=3
 set nowrap
 " fold
-set foldmethod=marker
+" set foldmethod=marker
+" set foldmethod=manual
 
 " ファイル未保存状態でも別のファイルを開けるようにする
 set hidden

@@ -1,4 +1,4 @@
-# statusline
+# NOTE: statusline
 # [[plugins]]
 # repo = 'itchyny/lightline.vim'
 # on_event = ['VimEnter']
@@ -13,6 +13,17 @@ repo = 'rebelot/heirline.nvim'
 on_event = ['VimEnter']
 hook_source = '''
 lua require('custom.heirline')
+'''
+
+[[plugins]]
+repo = 'kevinhwang91/promise-async'
+[[plugins]]
+repo = 'kevinhwang91/nvim-ufo'
+depends = ['promise-async', 'nvim-lspconfig']
+on_event = ['BufRead']
+hook_source = '''
+lua require('custom.nvim-ufo')
+lua vim.notify('onSouce nvim-ufo')
 '''
 
 [[plugins]]
@@ -200,8 +211,8 @@ lua require("custom.gitsigns")
 repo = 'neovim/nvim-lspconfig'
 on_event = 'BufRead'
 hook_source = '''
-" lua vim.notify('onSource nvim-lspconfig')
 lua require('custom.lsp')
+lua vim.notify('onSource nvim-lspconfig')
 '''
 [[plugins]]
 repo      = 'williamboman/mason.nvim'
@@ -311,9 +322,9 @@ EOF
 '''
 
 [[plugins]]
-repo    = "b0o/incline.nvim"
+repo = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
-# on_event = ['BufRead']
+on_event = ['BufRead']
 hook_source = '''
 lua require("custom.incline")
 '''
