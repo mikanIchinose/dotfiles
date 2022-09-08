@@ -34,12 +34,12 @@ set title
 set titlestring=%t
 set backspace=indent,eol,start
 set inccommand=split
-try
-  set cmdheight=0
-catch
-  set cmdheight=1
-endtry
-" set cmdheight=1
+" try
+"   set cmdheight=0
+" catch
+"   set cmdheight=1
+" endtry
+set cmdheight=1
 set laststatus=3
 set nowrap
 " fold

@@ -183,20 +183,64 @@ local Git = {
   end,
   hl = { fg = '#ce6f8f' },
 }
+local Skk = {
+  condition = vim.g.loaded_skkeleton == 0,
+  provider = function(self)
+    local mode = vim.fn.mode(1)
+    if mode == 'i' or mode == 'c' then
+      local skkeleton_mode = vim.call('skkeleton#mode')
+      if self.mode_names[skkeleton_mode] then
+        return self.mode_names[skkeleton_mode]
+      else
+        return 'A'
+      end
+      -- if skkeleton_mode == 'hira' then
+      --   return 'あ'
+      -- elseif skkeleton_mode == 'kata' then
+      --   return 'ア'
+      -- elseif skkeleton_mode == 'hankata' then
+      --   return 'ｱ'
+      -- elseif skkeleton_mode == 'zenkaku' then
+      --   return 'Ａ'
+      -- elseif skkeleton_mode == 'abbrev' then
+      --   return 'abbrev'
+      -- else
+      --   return 'A'
+      -- end
+    end
+    return ''
+  end,
+  static = {
+    mode_names = {
+      hira = 'あ',
+      kata = 'ア',
+      hankata = 'ｱ',
+      zenkaku = 'Ａ',
+      abbrev = 'abbr',
+    },
+    mode_colors = {
+      hira = 'red',
+      kata = 'blue',
+      hankata = 'blue',
+      zenkaku = 'purple',
+      abbrev = 'gray',
+    },
+  },
+  -- hl = function(self)
+  --   local mode = vim.call('skkeleton#mode')
+  --   return { fg = self.mode_colors[mode], bold = true }
+  -- end,
+}
 local LineInfo = {
   provider = '%7(%l/%3L%):%2c',
   hl = { fg = '#00a3cc' },
 }
 local Align = { provider = '%=' }
 local Space = { provider = ' ' }
-ViMode = utils.surround({ '', '' }, '#30365F', { ViMode })
-LSPServers = utils.surround({ '', '' }, '#5ccc96', { LSPServers })
--- LineInfo = utils.surround({ '', '' }, '#5ccc96', { LineInfo })
--- Git = utils.surround({ '', '' }, '#30365F', { Git })
 local statusline = {
-  ViMode,
+  utils.surround({ '', '' }, '#30365F', { ViMode, Space, Skk }),
   Space,
-  LSPServers,
+  utils.surround({ '', '' }, '#5ccc96', { LSPServers }),
   Space,
   Navic,
   Align,
