@@ -1,8 +1,5 @@
+---@diagnostic disable: missing-parameter
 local map = vim.keymap.set
-
--- mouse wheel
-map('n', '<ScrollWheelUp>', 'j')
-map('n', '<ScrollWheelDown>', 'k')
 
 -- split window
 map('n', '<Leader>-', '<Cmd>split<CR>')
@@ -17,9 +14,7 @@ map('n', '>', '>>')
 -- better ;
 map('n', ';', ':')
 
-map('n', '<Leader>m', '<Cmd>call vimrc#toggle_statusline()<CR>')
-
-map('n', '<Leader>/', '<Cmd>Fern . -reveal=%<CR>', { desc = 'file tree' })
+-- map('n', '<Leader>F', '<Cmd>Fern . -reveal=%<CR>', { desc = 'file tree' })
 
 -- map('i', 'jj', '<ESC>')
 -- map('i', 'j<Space>', 'j')

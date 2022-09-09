@@ -2,6 +2,7 @@
 repo = 'lambdalisue/fern.vim'
 on_cmd = 'Fern'
 hook_add = '''
+command! FilerFern :Fern . -reveal=%
 let g:fern#disable_default_mappings = 1
 let g:fern#default_exclude = '\.git'
 '''
@@ -36,16 +37,16 @@ nmap <buffer> r <Plug>(fern-action-rename)
 " nmap <buffer>  <Plug>(fern-action-focus:parent)
 '''
 [[plugins]]
-repo = 'antoinemadec/FixCursorHold.nvim'
+repo      = 'antoinemadec/FixCursorHold.nvim'
 on_source = 'fern.vim'
 [[plugins]]
-repo = 'lambdalisue/fern-git-status.vim'
+repo      = 'lambdalisue/fern-git-status.vim'
 on_source = 'fern.vim'
 [[plugins]]
-repo = 'yuki-yano/fern-preview.vim'
+repo      = 'yuki-yano/fern-preview.vim'
 on_source = 'fern.vim'
 [[plugins]]
-repo = 'lambdalisue/glyph-palette.vim'
+repo      = 'lambdalisue/glyph-palette.vim'
 on_source = 'fern.vim'
 [[plugins]]
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
@@ -54,5 +55,5 @@ hook_source = '''
 let g:fern#renderer = "nerdfont"
 '''
 [[plugins]]
-repo = 'lambdalisue/nerdfont.vim'
+repo      = 'lambdalisue/nerdfont.vim'
 on_source = 'fern.vim'

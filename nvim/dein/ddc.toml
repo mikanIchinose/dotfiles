@@ -101,14 +101,13 @@ hook_source = '''
 autocmd User skkeleton-initialize-pre call s:skkeleton_init()
 autocmd User skkeleton-enable-pre     call s:skkeleton_pre()
 autocmd User skkeleton-disable-pre    call s:skkeleton_post()
-autocmd User skkeleton-mode-changed call lightline#update()
+" autocmd User skkeleton-mode-changed call lightline#update()
 
 function! s:skkeleton_init() abort
   call skkeleton#config({
     \ 'globalJisyo': '~/.config/SKK-JISYO.L',
     \ 'eggLikeNewline': v:true,
     \ 'registerConvertResult': v:true,
-    \ 'keepState': v:true,
     \ })
   call skkeleton#config({
     \   'markerHenkan': '<>',
@@ -129,6 +128,15 @@ function! s:skkeleton_init() abort
 endfunction
 
 function! s:skkeleton_pre() abort
+  if &filetype == 'markdown'
+    call skkeleton#config({
+      \ 'keepState': v:true,
+      \ })
+  else
+    call skkeleton#config({
+      \ 'keepState': v:false,
+      \ })
+  endif
   let s:prev_buffer_config = ddc#custom#get_buffer()
   call ddc#custom#patch_buffer('sources', ['skkeleton'])
   iunmap <Esc>

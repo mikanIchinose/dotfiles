@@ -1,6 +1,18 @@
 [user]
 	name = Ichinose Yoshihiro
 	email = maruisansmai@gmail.com
+[ghq]
+	root = ~/ghq
+[ghq "https://github.com/karabiner-inc"]
+	root = ~/ghq-karabiner
+[ghq "https://kara.git.backlog.jp"]
+	root = ~/ghq-karabiner
+[ghq "https://gitbal.digitalatelier.info"]
+	root = ~/ghq-karabiner
+[includeIf "gitdir:~/ghq-karabiner/"]
+	path = ~/.dotfiles/git/.gitconfig_karabiner
+[includeIf "gitdir:~/ghq/"]
+	path = ~/.dotfiles/git/.gitconfig_private
 [push]
 	default = current
 [core]

@@ -40,7 +40,7 @@ require('which-key').register({
           'file',
           '-source-option-columns=icon_filename',
           '-source-option-path=`getcwd()`',
-          'buffer',
+          -- 'buffer',
         }),
         'filer',
       },

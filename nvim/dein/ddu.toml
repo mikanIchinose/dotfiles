@@ -6,6 +6,11 @@ hook_add = '''
 command! DeinUpdate :Ddu dein_update -name=dein_update 
 \ -ui-param-winHeight=20 -ui-param-winWidth=60 
 \ -ui-param-winRow=2 -ui-param-winCol=10
+command! DduFiler :Ddu 
+\ -name=filer -ui=filer -resume
+\ file
+\ -source-option-columns=icon_filename
+\ -source-option-path=`getcwd()`
 lua require('custom.ddu.keymap')
 '''
 hook_source = '''

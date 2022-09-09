@@ -88,7 +88,16 @@ on_event = ['VimEnter']
 hook_add = '''
 let g:caw_no_default_keymappings = 1 " disable default keymap
 let g:caw_integrated_plugin = "context_filetype"
+
 nmap gcc <Plug>(caw:hatpos:toggle)
+nmap gci <Plug>(caw:hatpos:comment)
+nmap gcI <Plug>(caw:zeropos:comment)
+nmap gca <Plug>(caw:dollarpos:comment)
+nmap gcw <Plug>(caw:wrap:comment)
+nmap gcb <Plug>(caw:box:comment)
+nmap gco <Plug>(caw:jump:comment-next)
+nmap gcO <Plug>(caw:jump:comment-prev)
+
 xmap gc <Plug>(caw:hatpos:toggle)
 '''
 # [[plugins]]
@@ -209,7 +218,7 @@ lua require("custom.gitsigns")
 ## NOTE: lsp
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = 'BufRead'
+on_event = ['BufRead']
 hook_source = '''
 lua require('custom.lsp')
 lua vim.notify('onSource nvim-lspconfig')
@@ -235,7 +244,6 @@ on_source = ['nvim-lspconfig', 'null-ls']
 [[plugins]]
 repo      = 'b0o/SchemaStore.nvim'
 on_source = ['nvim-lspconfig']
-## codeAction UI
 [[plugins]]
 repo   = 'weilbith/nvim-code-action-menu'
 on_cmd = 'CodeActionMemu'
@@ -245,7 +253,6 @@ on_source = ['nvim-lspconfig']
 hook_source = '''
 lua require('fidget').setup()
 '''
-### kind label
 [[plugins]]
 repo      = 'mortepau/codicons.nvim'
 on_source = 'nvim-lspconfig'
@@ -269,7 +276,6 @@ EOF
 # require('lsp-status').register_progress()
 # EOF
 # '''
-## NOTE: null-ls vs efm-langserver vs diagnostic-languageserver vs nvim-lint vs lsp-format.nvim
 ## general language server
 [[plugins]]
 repo = 'jose-elias-alvarez/null-ls.nvim'
@@ -428,7 +434,7 @@ require('aerial').setup {
     placement = 'edge'
   },
   filter_kind = false,
-  close_behavior = 'global',
+  attach_mode = 'global',
   -- default_bindings = false,
   show_guides = true,
   icons = {
