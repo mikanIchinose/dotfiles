@@ -10,16 +10,16 @@ brew update && brew upgrade
 brew reinstall neovim
 
 # list package
-brew list --file ~/Brewfile
+# brew list --file ~/Brewfile
 
 # check package
-brew check --file ~/Brewfile
+# brew check --file ~/Brewfile
 
 # search
-brew search <app> && mas search <app>
+# brew search <app> && mas search <app>
 
 # cleanup
-brew bundle cleanup --force --file ~/Brewfile
+# brew bundle cleanup --force --file ~/Brewfile
 
 # edit Brewfile
 nvim ~/Brewfile

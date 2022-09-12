@@ -42,6 +42,7 @@ brew "gum"
 brew "luarocks"
 brew "llvm"
 brew "gitlint"
+brew "topgrade"
 # brew "aria2"
 # brew "youtube-dl"
 
@@ -101,6 +102,7 @@ cask "aquaskk"
 cask "ngrok"
 cask "raycast"
 cask "gather"
+# cask "smlnj"
 
 # Editor/IDE
 cask "visual-studio-code"

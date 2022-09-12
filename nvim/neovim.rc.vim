@@ -15,6 +15,20 @@ augroup brewfile
   autocmd BufRead Brewfile set filetype=ruby
 augroup END
 
+" augroup TransparentBG
+"   autocmd!
+"   autocmd ColorScheme * call TransparentBG()
+" augroup END
+function! TransparentBG() abort
+  highlight Normal      guibg=NONE ctermbg=NONE
+  highlight NonText     guibg=none ctermbg=none
+  highlight LineNr      guibg=none ctermbg=none
+  highlight SignColumn  guibg=none ctermbg=none
+  highlight Folded      guibg=none ctermbg=none
+  highlight EndOfBuffer guibg=none ctermbg=none
+endfunction
+" call TransparentBG()
+
 command! ToggleStatusLine call vimrc#toggle_statusline()
 
 " ddc-gitmoji
