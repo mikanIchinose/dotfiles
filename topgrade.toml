@@ -1,8 +1,8 @@
 # Don't ask for confirmations
-#assume_yes = true
+assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["git_repos", "mas", "emacs", "vim", "system"]
+disable = ["git_repos", "mas", "emacs", "vim", "system", "containers"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -23,7 +23,7 @@ disable = ["git_repos", "mas", "emacs", "vim", "system"]
 #set_title = false
 
 # Display the time in step titles
-# display_time = true
+display_time = true
 
 # Cleanup temporary or old files
 cleanup = true
@@ -54,7 +54,7 @@ arguments = "--rebase --autostash"
 #"Python Environment" = "~/dev/.env/bin/pip install -i https://pypi.python.org/simple -U --upgrade-strategy eager jupyter"
 
 [brew]
-#greedy_cask = true
+greedy_cask = true
 
 [linux]
 # Arch Package Manager to use. Allowed values: autodetect, trizen, paru, yay, pikaur, pacman, pamac.

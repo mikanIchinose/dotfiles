@@ -121,7 +121,13 @@ local FileName = {
   hl = { fg = utils.get_highlight('Directory').fg },
 }
 local LSPServers = {
-  condition = conditions.lsp_attached,
+  condition = function()
+    if #vim.lsp.buf_get_clients() > 0 then
+      return true
+    else
+      return false
+    end
+  end,
   update = { 'LspAttach', 'LspDetach' },
   provider = function(self)
     if #vim.lsp.buf_get_clients() > 0 then
@@ -135,6 +141,10 @@ local LSPServers = {
   end,
   hl = { fg = '#0f111b', bold = true },
 }
+LSPServers = utils.surround({ '', '' }, '#5ccc96', { LSPServers })
+LSPServers[1].condition = conditions.lsp_attached
+LSPServers[3].condition = conditions.lsp_attached
+
 local is_ready_navic, navic = pcall(require, 'nvim-navic')
 local Navic = {
   condition = function()
@@ -240,10 +250,10 @@ local Space = { provider = ' ' }
 local statusline = {
   utils.surround({ '', '' }, '#30365F', { ViMode, Space, Skk }),
   Space,
-  utils.surround({ '', '' }, '#5ccc96', { LSPServers }),
   Space,
   Navic,
   Align,
+  LSPServers,
   WorkDir,
   Space,
   Git,

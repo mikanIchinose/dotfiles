@@ -103,6 +103,49 @@ local uiOptions = {
     toggle = false,
   },
 }
+
+---@class DduUiFiler_UiParam
+---@field split 'horizontal'|'vertical'|'floating'|'no'
+---@field focus boolean
+---@field sort 'extention'|'filename'|'size'|'time'
+---@field sortDirectoriesFirs boolean
+
+---@type DduUiFiler_UiParam
+local filerVertical = {
+  toggle = false,
+  split = 'vertical',
+  splitDirection = 'topleft',
+  winWidth = 30,
+}
+---@type DduUiFiler_UiParam
+local filerNoSplit = {
+  toggle = true,
+  split = 'no',
+}
+local ffHorizontal = {
+  filterSplitDirection = 'floating',
+  filterFloatingPosition = 'top',
+  split = 'horizontal',
+  statusline = false,
+}
+local ffFloatingBottom = {
+  statusline = false,
+  filterSplitDirection = 'floating',
+  filterFloatingPosition = 'top',
+  split = 'floating',
+  splitDirection = 'botright',
+  winHeight = 30,
+  winWidth = vim.o.columns,
+  winCol = 10,
+  winRow = vim.o.lines - 30,
+  previewFloating = true,
+  previewVertical = false,
+  previewHeight = 20,
+  previewWidth = vim.o.columns / 2,
+  previewCol = vim.o.columns,
+  previewRow = vim.o.lines,
+}
+local ffFloatingFloat = {}
 local uiParams = {
   ff = {
     -- autoResize = true,
@@ -126,15 +169,7 @@ local uiParams = {
     -- previewRow = vim.o.lines,
     statusline = false,
   },
-  filer = {
-    toggle = false,
-    split = 'vertical',
-    splitDirection = 'topleft',
-    -- winHeight = 30,
-    winWidth = 30,
-    -- winCol = 10,
-    -- winRow = vim.o.lines - 30,
-  },
+  filer = filerNoSplit,
 }
 
 local kindOptions = {

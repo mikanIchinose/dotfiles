@@ -39,8 +39,8 @@ repo = 'folke/tokyonight.nvim'
 ## 通知
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-hook_source = '''
-lua require('custom.nvim-notify')
+lua_source = '''
+require('custom.nvim-notify')
 '''
 
 ## icon

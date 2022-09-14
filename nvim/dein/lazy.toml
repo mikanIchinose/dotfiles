@@ -1,3 +1,13 @@
+[[plugins]]
+repo = 'xiyaowong/nvim-transparent'
+# on_event = ['VimEnter']
+lua_source = '''
+require("transparent").setup({
+  enable = false, -- boolean: enable transparent
+  exclude = {}, -- table: groups you don't want to clear
+})
+'''
+
 # NOTE: statusline
 # [[plugins]]
 # repo = 'itchyny/lightline.vim'
@@ -11,8 +21,8 @@
 [[plugins]]
 repo = 'rebelot/heirline.nvim'
 on_event = ['VimEnter']
-hook_source = '''
-lua require('custom.heirline')
+lua_source = '''
+require('custom.heirline')
 '''
 
 [[plugins]]
@@ -21,18 +31,15 @@ repo = 'kevinhwang91/promise-async'
 repo = 'kevinhwang91/nvim-ufo'
 depends = ['promise-async', 'nvim-lspconfig']
 on_event = ['BufRead']
-hook_source = '''
-lua require('custom.nvim-ufo')
-lua vim.notify('onSouce nvim-ufo')
+lua_source = '''
+require('custom.nvim-ufo')
 '''
 
 [[plugins]]
 repo = 'folke/trouble.nvim'
 on_cmd = ['Trouble', 'TroubleToggle']
-hook_source = '''
-lua << EOF
+lua_source = '''
 require('trouble').setup()
-EOF
 '''
 
 [[plugins]]
@@ -84,7 +91,7 @@ autocmd FileType toml,lua ++nested call timer_start(1000, {id -> s:dein_toml_syn
 # NOTE: comment
 [[plugins]]
 repo = 'tyru/caw.vim'
-on_event = ['VimEnter']
+on_event = ['BufRead']
 hook_add = '''
 let g:caw_no_default_keymappings = 1 " disable default keymap
 let g:caw_integrated_plugin = "context_filetype"
@@ -199,8 +206,8 @@ nmap <buffer><nowait> ? <Plug>(gin-action-help)
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
 on_event = ['BufReadPost']
-hook_source = '''
-lua require("custom.gitsigns")
+lua_source = '''
+require("custom.gitsigns")
 '''
 
 # [[plugins]]
@@ -219,9 +226,8 @@ lua require("custom.gitsigns")
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 on_event = ['BufRead']
-hook_source = '''
-lua require('custom.lsp')
-lua vim.notify('onSource nvim-lspconfig')
+lua_source = '''
+require('custom.lsp')
 '''
 [[plugins]]
 repo      = 'williamboman/mason.nvim'
@@ -317,34 +323,30 @@ lua require('custom.hydra')
 [[plugins]]
 repo = 'kwkarlwang/bufresize.nvim'
 on_event = ['BufRead']
-hook_source = '''
-lua << EOF
+lua_source = '''
 require('bufresize').setup({
   --resize = {
   --  increment = 5,
   --},
 })
-EOF
 '''
 
 [[plugins]]
 repo = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
 on_event = ['BufRead']
-hook_source = '''
-lua require("custom.incline")
+lua_source = '''
+require("custom.incline")
 '''
 
 [[plugins]]
 repo = 'max397574/better-escape.nvim'
-on_event = 'VimEnter'
-hook_source = '''
-lua << EOF
+on_event = 'BufRead'
+lua_source = '''
 require('better_escape').setup {
   mapping = {'jk', 'jj'},
   timeout = 200,
 }
-EOF
 '''
 
 ## debug adapter protocol
@@ -510,23 +512,23 @@ EOF
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 depends = ['plenary.nvim']
-on_event = 'BufReadPre'
-hook_source = '''
-lua require('todo-comments').setup {}
+on_event = 'BufRead'
+lua_source = '''
+require('todo-comments').setup {}
 '''
 
 ## リサイズを便利にするやつ
 [[plugins]]
 repo = 'mrjones2014/smart-splits.nvim'
 on_event = 'BufRead'
-hook_source = '''
-lua require('custom.smart-splits')
+lua_source = '''
+require('custom.smart-splits')
 '''
 [[plugins]]
 repo = 'johann2357/nvim-smartbufs'
 on_event = 'BufRead'
-hook_source = '''
-lua require('custom.nvim-smartbufs')
+lua_source = '''
+require('custom.nvim-smartbufs')
 '''
 #[[plugins]]
 #repo = 'akinsho/bufferline.nvim'
@@ -559,8 +561,8 @@ on_event = "BufRead"
 [[plugins]]
 repo = 'norcalli/nvim-colorizer.lua'
 on_ft = ['toml', 'css', 'sh', 'vim', 'lua']
-hook_source = '''
-lua require('colorizer').setup()
+lua_source = '''
+require('colorizer').setup()
 '''
 
 # NOTE: treesitter
@@ -595,10 +597,10 @@ highlight rainbowcol7 guifg=#3FA4D9
 # [[plugins]]
 # repo = 'romgrk/nvim-treesitter-context'
 # on_source = 'nvim-treesitter'
-[[plugins]]
-repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
-on_source = 'nvim-treesitter'
-#depends = ['nvim-treesitter']
+# [[plugins]]
+# repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
+# on_source = 'nvim-treesitter'
+# depends = ['nvim-treesitter']
 [[plugins]]
 repo = 'm-demare/hlargs.nvim'
 depends = ['nvim-treesitter']
@@ -651,18 +653,18 @@ on_event = 'InsertEnter'
 #endfunction
 #'''
 
-[[plugins]]
-repo = 'gamoutatsumi/dps-ghosttext.vim'
-depends = ['denops.vim', 'ddc.vim']
-on_cmd = 'GhostStart'
-hook_source = '''
-let g:dps_ghosttext#ftmap = {
-  \ "github.com": "markdown",
-  \ "ghosttext.fregante.com": "markdown",
-  \ "redmine.digitalatelier.jp": "markdown",
-  \ "notion.so": "markdown",
-  \ }
-'''
+# [[plugins]]
+# repo = 'gamoutatsumi/dps-ghosttext.vim'
+# depends = ['denops.vim', 'ddc.vim']
+# on_cmd = 'GhostStart'
+# hook_source = '''
+# let g:dps_ghosttext#ftmap = {
+#  \ "github.com": "markdown",
+#  \ "ghosttext.fregante.com": "markdown",
+#  \ "redmine.digitalatelier.jp": "markdown",
+#  \ "notion.so": "markdown",
+#  \ }
+# '''
 
 # [[plugins]]
 # repo = 'mattn/emmet-vim'

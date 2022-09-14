@@ -1,5 +1,10 @@
 # reset abbrs
 # __mikan_reset_abbr
+# fish_vi_key_bindings
+# set fish_cusor_default block
+# set fish_cusor_insert line
+# set fish_cusor_replace_one underscore
+# set fish_cusor_visual block
 
 #switch (uname)
 #case Linux

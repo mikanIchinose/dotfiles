@@ -28,6 +28,7 @@ function! TransparentBG() abort
   highlight EndOfBuffer guibg=none ctermbg=none
 endfunction
 " call TransparentBG()
+highlight Comment gui=italic guibg=#565f89 guifg=#B79175
 
 command! ToggleStatusLine call vimrc#toggle_statusline()
 
@@ -37,6 +38,9 @@ command! ToggleStatusLine call vimrc#toggle_statusline()
 " set runtimepath^=~/LocalProject/ddc-deno-import-map
 
 lua << EOF
+require("notify").setup({
+  background_colour = "#000000",
+})
 vim.notify = require("notify")
 require("keymapping")
 require("custom.which-key")
