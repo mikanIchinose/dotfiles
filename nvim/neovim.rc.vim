@@ -28,7 +28,7 @@ function! TransparentBG() abort
   highlight EndOfBuffer guibg=none ctermbg=none
 endfunction
 " call TransparentBG()
-highlight Comment gui=italic guibg=#565f89 guifg=#B79175
+highlight Comment gui=italic guifg=#B79175
 
 command! ToggleStatusLine call vimrc#toggle_statusline()
 

@@ -23,7 +23,7 @@ require('null-ls').setup({
     diagnostics.zsh,
     -- markdown
     -- formatting.markdownlint,
-    -- formatting.cbfmt,
+    formatting.cbfmt,
     -- diagnostics.markdownlint.with({
     --   args = { '-c', '~/.config/markdownlint/.markdownlintrc', '--stdin' },
     -- }),
