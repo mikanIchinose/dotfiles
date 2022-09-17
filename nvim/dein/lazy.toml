@@ -234,12 +234,15 @@ repo      = 'williamboman/mason.nvim'
 on_source = ['nvim-lspconfig']
 [[plugins]]
 repo      = 'williamboman/mason-lspconfig.nvim'
-on_source = ['nvim-lspconfig']
 depends   = ['mason.nvim']
+on_source = ['nvim-lspconfig']
+[[plugins]]
+repo    = 'williamboman/mason-null-ls.nvim'
+depends = ['mason.nvim', 'null-ls.nvim']
 [[plugins]]
 repo      = 'WhoIsSethDaniel/mason-tool-installer.nvim'
-on_source = ['nvim-lspconfig']
 depends   = ['mason.nvim']
+on_source = ['nvim-lspconfig']
 ## lua development
 [[plugins]]
 repo      = 'folke/lua-dev.nvim'
