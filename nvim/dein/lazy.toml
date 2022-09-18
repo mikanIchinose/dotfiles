@@ -237,7 +237,7 @@ repo      = 'williamboman/mason-lspconfig.nvim'
 depends   = ['mason.nvim']
 on_source = ['nvim-lspconfig']
 [[plugins]]
-repo    = 'williamboman/mason-null-ls.nvim'
+repo    = 'jayp0521/mason-null-ls.nvim'
 depends = ['mason.nvim', 'null-ls.nvim']
 [[plugins]]
 repo      = 'WhoIsSethDaniel/mason-tool-installer.nvim'

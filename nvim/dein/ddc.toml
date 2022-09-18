@@ -139,12 +139,12 @@ function! s:skkeleton_pre() abort
   endif
   let s:prev_buffer_config = ddc#custom#get_buffer()
   call ddc#custom#patch_buffer('sources', ['skkeleton'])
-  iunmap <Esc>
+  " iunmap <Esc>
 endfunction
 
 function! s:skkeleton_post() abort
   " Restore sources
   call ddc#custom#set_buffer(s:prev_buffer_config)
-  inoremap <silent><expr> <Esc> ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
+  " inoremap <silent><expr> <Esc> ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
 endfunction
 '''
