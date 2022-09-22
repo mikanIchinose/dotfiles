@@ -37,15 +37,6 @@ command! ToggleStatusLine call vimrc#toggle_statusline()
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
 " set runtimepath^=~/LocalProject/ddc-deno-import-map
 
-lua << EOF
-require("notify").setup({
-  background_colour = "#000000",
-})
-vim.notify = require("notify")
-require("keymapping")
-require("custom.which-key")
-EOF
-
 augroup ftplugin
   autocmd FileType null-ls-info nnoremap q <CMD>quit<CR>
 augroup END

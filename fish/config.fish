@@ -136,9 +136,9 @@ set -x PATH "$HOME/scripts"     $PATH
 set -x GREP_TOOL rg
 set -x FIND_TOOL fd
 set -gx EDITOR nvim
-#TODO: トークンの位置を変える このままでは全世界に晒してしまう
-set -x DEIN_GITHUB_TOKEN "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"
 
 set -x LG_CONFIG_FILE "$HOME/.config/lazygit/config.yml"
+
+source $HOME/.config/fish/secrets.fish
 
 set fish_greeting

@@ -78,7 +78,7 @@ local ViMode = {
 }
 local WorkDir = {
   provider = function(self)
-    self.icon = (vim.fn.haslocaldir(0) == 1 and 'l' or 'g') .. ' ' .. ' '
+    self.icon = ' '
     local cwd = vim.fn.getcwd(0)
     self.cwd = vim.fn.fnamemodify(cwd, ':~')
   end,
@@ -120,6 +120,32 @@ local FileName = {
   end,
   hl = { fg = utils.get_highlight('Directory').fg },
 }
+
+local Modified = {
+  condition = function()
+    return vim.bo.modified
+  end,
+  provider = '[+]',
+  hl = { fg = 'green' },
+}
+local ReadOnly = {
+  condition = function()
+    return not vim.bo.modifiable or vim.bo.readonly
+  end,
+  provider = '',
+  hl = { fg = 'orange' },
+}
+local FileInfo = {
+  {
+    condition = function()
+      return Modified.condition() or ReadOnly.condition()
+    end,
+    provider = ' ',
+  },
+  Modified,
+  ReadOnly,
+}
+
 local LSPServers = {
   condition = function()
     if #vim.lsp.buf_get_clients() > 0 then
@@ -129,7 +155,7 @@ local LSPServers = {
     end
   end,
   update = { 'LspAttach', 'LspDetach' },
-  provider = function(self)
+  provider = function()
     if #vim.lsp.buf_get_clients() > 0 then
       local active_clients = {}
       for _, value in pairs(vim.lsp.buf_get_clients()) do
@@ -153,7 +179,7 @@ local Navic = {
     end
     return false
   end,
-  provider = function(self)
+  provider = function()
     if is_ready_navic then
       return navic.get_location()
     end
@@ -165,7 +191,7 @@ local Git = {
   condition = function()
     return vim.g.loaded_gina == 1
   end,
-  provider = function(self)
+  provider = function()
     if vim.g.loaded_gina == 1 then
       local status = ''
       local branch = vim.call('gina#component#repo#branch')
@@ -200,23 +226,10 @@ local Skk = {
     if mode == 'i' or mode == 'c' then
       local skkeleton_mode = vim.call('skkeleton#mode')
       if self.mode_names[skkeleton_mode] then
-        return self.mode_names[skkeleton_mode]
+        return ' ' .. self.mode_names[skkeleton_mode]
       else
-        return 'A'
+        return ' A'
       end
-      -- if skkeleton_mode == 'hira' then
-      --   return 'あ'
-      -- elseif skkeleton_mode == 'kata' then
-      --   return 'ア'
-      -- elseif skkeleton_mode == 'hankata' then
-      --   return 'ｱ'
-      -- elseif skkeleton_mode == 'zenkaku' then
-      --   return 'Ａ'
-      -- elseif skkeleton_mode == 'abbrev' then
-      --   return 'abbrev'
-      -- else
-      --   return 'A'
-      -- end
     end
     return ''
   end,
@@ -228,13 +241,13 @@ local Skk = {
       zenkaku = 'Ａ',
       abbrev = 'abbr',
     },
-    mode_colors = {
-      hira = 'red',
-      kata = 'blue',
-      hankata = 'blue',
-      zenkaku = 'purple',
-      abbrev = 'gray',
-    },
+    -- mode_colors = {
+    --   hira = 'red',
+    --   kata = 'blue',
+    --   hankata = 'blue',
+    --   zenkaku = 'purple',
+    --   abbrev = 'gray',
+    -- },
   },
   -- hl = function(self)
   --   local mode = vim.call('skkeleton#mode')
@@ -245,17 +258,46 @@ local LineInfo = {
   provider = '%7(%l/%3L%):%2c',
   hl = { fg = '#00a3cc' },
 }
+-- local DeinPluginStatus = {
+--   provider = function()
+--     local message = 'nvim-lspconfig is'
+--     local available = vim.fn['dein#is_available']('nvim-lspconfig') ~= 0
+--     if available then
+--       message = message .. ' available'
+--     else
+--       message = message .. ' disablable'
+--     end
+--     local sourced = vim.fn['dein#is_sourced']('nvim-lspconfig') ~= 0
+--     if sourced then
+--       message = message .. ' sourced'
+--     else
+--       message = message .. ' not-sourced'
+--     end
+--     local tap = vim.fn['dein#tap']('nvim-lspconfig') ~= 0
+--     if tap then
+--       message = message .. ' tap'
+--     else
+--       message = message .. ' not-tap'
+--     end
+--     return message
+--   end,
+-- }
 local Align = { provider = '%=' }
 local Space = { provider = ' ' }
 local statusline = {
-  utils.surround({ '', '' }, '#30365F', { ViMode, Space, Skk }),
-  Space,
+  utils.surround({ '', '' }, '#30365F', {
+    ViMode,
+    Skk,
+    FileInfo,
+  }),
   Space,
   Navic,
+  Space,
   Align,
   LSPServers,
-  WorkDir,
   Space,
+  -- WorkDir,
+  -- Space,
   Git,
   Space,
   LineInfo,

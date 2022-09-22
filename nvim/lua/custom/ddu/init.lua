@@ -82,7 +82,7 @@ local sourceParams = {
     },
   },
   dein_update = {
-    -- useGraphQL = true,
+    useGraphQL = true,
   },
   -- ['custom-list'] = {
   --   texts = { 'a', 'b', 'c' }
@@ -186,12 +186,14 @@ local kindOptions = {
 }
 
 local actionOptions = {
+  -- _ = { quit = false },
   bdelete = { quit = false },
   delete = { quit = false },
   getSourceName = { quit = false },
   set = { quit = false },
   echo = { quit = false },
   echoDiff = { quit = false },
+  viewDiff = { quit = false },
 }
 
 local columnOptions = {}

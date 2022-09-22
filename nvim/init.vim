@@ -46,6 +46,7 @@ let g:dein#lazy_rplugins = v:true
 let g:dein#enable_notification = v:true
 let g:dein#install_check_diff = v:true
 let g:dein#install_progress_type = 'floating'
+let g:dein#install_message_type = 'echo'
 let g:dein#install_check_remote_threshold = 24 * 60 * 60
 let g:dein#install_github_api_token = $DEIN_GITHUB_TOKEN
 " let g:dein#install_message_type = 'echo'
@@ -65,6 +66,7 @@ if dein#min#load_state(s:dein_dir)
   let s:telescope_toml = s:toml_dir . 'telescope.toml'
   let s:ft_toml   = s:toml_dir . 'ftplugin.toml'
 
+  " dein block {{{
   call dein#begin(s:dein_dir, [
        \ expand('<sfile>'), 
        \ s:base_toml,
@@ -76,13 +78,15 @@ if dein#min#load_state(s:dein_dir)
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
   call dein#load_toml(s:ddu_toml,  {'lazy': 1})
   call dein#load_toml(s:ddc_toml,  {'lazy': 1})
-  call dein#load_toml(s:fern_toml, {'lazy': 1})
+  " call dein#load_toml(s:fern_toml, {'lazy': 1})
   " call dein#load_toml(s:telescope_toml, {'lazy': 1})
-  "call dein#load_toml(s:ft_toml)
+  " call dein#load_toml(s:ft_toml)
 
   call dein#end()
-  call dein#call_hook('source')
+  " dein block end }}}
+
   call dein#save_state()
+  call dein#call_hook('source')
 endif
 
 " auto install
@@ -107,4 +111,14 @@ command! DeinClean call DeinClean()
 "   " echo 'update done'
 " endfunction
 " command! DeinFastUpdate call DeinFastUpdate()
+
+lua << EOF
+require("notify").setup({
+  background_colour = "#000000",
+})
+vim.notify = require("notify")
+require("keymapping")
+require("custom.which-key")
+EOF
+
 " }}} End dein Scripts
