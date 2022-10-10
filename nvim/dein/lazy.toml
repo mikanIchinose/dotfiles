@@ -8,6 +8,37 @@ require("transparent").setup({
 })
 '''
 
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
+[[plugins]]
+repo = 'folke/noice.nvim'
+depends = ['nui.nvim', 'nvim-notify']
+on_event = ['VimEnter']
+lua_source = '''
+require('noice').setup {
+  cmdline = {
+    enabled = true,
+    icons = {
+      ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
+      ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
+      [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
+    },
+  },
+  popupmenu = {
+    enabled = false,
+  },
+  messages = {
+    enabled = true,
+  },
+  routes = {
+    {
+      view = "split",
+      filter = { min_width = 500 },
+    },
+  },
+}
+'''
+
 # NOTE: statusline
 # [[plugins]]
 # repo = 'itchyny/lightline.vim'
@@ -385,17 +416,27 @@ let g:mkdx#settings = {
   \   'enable': 0,
   \   'prefix': ',',
   \ },
-  \ 'fold': {'enable': 1},
+  \ 'fold': {'enable': 0},
   \ }
 '''
 [plugins.ftplugin]
 markdown = '''
-nnoremap <buffer> <A-S-Left>  <Plug>(mkdx-promote-header)
-nnoremap <buffer> <A-S-Right> <Plug>(mkdx-demote-header)
+" mapping
+nnoremap <buffer> <C-_>  <Plug>(mkdx-promote-header)
+nnoremap <buffer> <C-=> <Plug>(mkdx-demote-header)
+set foldmethod=expr
 '''
 # [[plugins]]
-# repo  = 'masukomi/vim-markdown-folding'
+# repo  = 'thinca/vim-ft-markdown_fold'
 # on_ft = 'markdown'
+[[plugins]]
+repo  = 'masukomi/vim-markdown-folding'
+on_ft = 'markdown'
+[plugins.ftplugin]
+markdown = '''
+"set foldmethod=expr
+"set foldexpr=NestedMarkdownFolds()
+'''
 # [[plugins]]
 # repo = 'tpope/vim-markdown'
 # on_ft = 'markdown'
