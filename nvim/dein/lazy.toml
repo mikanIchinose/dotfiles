@@ -424,7 +424,6 @@ markdown = '''
 " mapping
 nnoremap <buffer> <C-_>  <Plug>(mkdx-promote-header)
 nnoremap <buffer> <C-=> <Plug>(mkdx-demote-header)
-set foldmethod=expr
 '''
 # [[plugins]]
 # repo  = 'thinca/vim-ft-markdown_fold'
@@ -443,6 +442,25 @@ markdown = '''
 # hook_add = '''
 # let g:markdown_folding = 1
 # '''
+
+# NOTE: Neorg
+[[plugins]]
+repo = 'nvim-neorg/neorg'
+depends = ['plenary.nvim', 'nvim-treesitter']
+on_path = '.norg'
+lua_source = '''
+require('neorg').setup {
+  load = {
+    ["core.defaults"] = {},
+    ["core.norg.concealer"] = {},
+    ["core.norg.completion"] = {
+      config = {
+        engine = 'nvim-cmp',
+      },
+    },
+  }
+}
+'''
 
 ## NOTE: sidebar
 #[[plugins]]
@@ -528,26 +546,63 @@ EOF
 # hook_source = '''
 # '''
 
-# [[plugins]]
-# repo = 'lukas-reineke/headlines.nvim'
-# on_ft = 'markdown'
-# hook_source = '''
-# highlight Headline1 guibg=#30365F guifg=#f2ce00
-# highlight Headline2 guibg=#30365F guifg=#C8DB01
-# highlight Headline3 guibg=#30365F guifg=#ce6f8f
-# highlight CodeBlock guibg=#0f111b
-# highlight Quote guifg=#0099EC
-# lua << EOF
-# require('headlines').setup {
-#   markdown = {
-#     headline_highlights = {'Headline1','Headline2','Headline3'},
-#     fat_headlines = true,
-#     fat_headline_upper_string = '▃',
-#     fat_headline_lower_string = '▀',
-#   }
-# }
-# EOF
-# '''
+[[plugins]]
+repo = 'lukas-reineke/headlines.nvim'
+# on_ft = ['markdown', 'norg']
+hook_source = '''
+highlight Headline1 guibg=#30365F guifg=#f2ce00
+highlight Headline2 guibg=#30365F guifg=#C8DB01
+highlight Headline3 guibg=#30365F guifg=#ce6f8f
+highlight Dash      guibg=#D19A66 gui=bold
+" highlight CodeBlock guibg=#0f111b
+" highlight Quote guifg=#0099EC
+lua << EOF
+require('headlines').setup {
+  -- markdown = {
+  --   headline_highlights = {'Headline1','Headline2','Headline3'},
+  --   fat_headlines = true,
+  --   fat_headline_upper_string = '▃',
+  --   fat_headline_lower_string = '▀',
+  -- },
+  norg = {
+    query = vim.treesitter.parse_query(
+      "norg",
+      [[
+        [
+          (heading1_prefix)
+          (heading2_prefix)
+          (heading3_prefix)
+          (heading4_prefix)
+          (heading5_prefix)
+          (heading6_prefix)
+        ] @headline
+
+        (weak_paragraph_delimiter) @dash
+        (strong_paragraph_delimiter) @doubledash
+
+        ((ranged_tag
+          name: (tag_name) @_name
+          (#eq? @_name "code")
+        ) @codeblock (#offset! @codeblock 0 0 1 0))
+
+        (quote1_prefix) @quote
+      ]]
+    ),
+    headline_highlights = { "Headline1","Headline2","Headline3" },
+    codeblock_highlight = "CodeBlock",
+    dash_highlight = "Dash",
+    dash_string = "-",
+    doubledash_highlight = "DoubleDash",
+    doubledash_string = "=",
+    quote_highlight = "Quote",
+    -- quote_string = "┃",
+    fat_headlines = false,
+    fat_headline_upper_string = "▃",
+    fat_headline_lower_string = '▀',
+  },
+}
+EOF
+'''
 
 # [[plugins]]
 # repo = 'Decodetalkers/csv-tools.lua'
@@ -716,38 +771,44 @@ on_event = 'InsertEnter'
 
 # TODO: ddcと干渉しないように設計したい
 # NOTE: 今のところはfishのときしか有効にしていないので大丈夫だと思われる
-# [[plugins]]
-# repo = 'hrsh7th/nvim-cmp'
-# on_ft = ['fish']
-# hook_source = """
-# lua << EOF
-# local cmp = require('cmp')
-# cmp.setup.filetype('fish', {
-#   sources = {
-#     { name = 'omni' }
-#   },
-#   mapping = cmp.mapping.preset.insert({
-#     ['<C-Space>'] = cmp.mapping.complete(),
-#     ['<C-e>'] = cmp.mapping.abort(),
-#     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-#     ['<Tab>'] = function(fallback)
-#       if cmp.visible() then
-#         cmp.select_next_item()
-#       else
-#         fallback()
-#       end
-#     end,
-#     ['<S-Tab>'] = function(fallback)
-#       if cmp.visible() then
-#         cmp.select_prev_item()
-#       else
-#         fallback()
-#       end
-#     end,
-#   }),
-# })
-# EOF
-# """
+[[plugins]]
+repo = 'hrsh7th/nvim-cmp'
+# on_ft = ['fish', 'norg']
+on_event = 'BufReadPre'
+lua_source = """
+local cmp = require('cmp')
+local mapping = cmp.mapping.preset.insert({
+  ['<C-Space>'] = cmp.mapping.complete(),
+  ['<C-e>'] = cmp.mapping.abort(),
+  ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  ['<Tab>'] = function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+    else
+      fallback()
+    end
+  end,
+  ['<S-Tab>'] = function(fallback)
+    if cmp.visible() then
+      cmp.select_prev_item()
+    else
+      fallback()
+    end
+  end,
+})
+cmp.setup.filetype('norg', {
+  sources = {
+    { name = 'neorg' }
+  },
+  mapping = mapping,
+})
+-- cmp.setup.filetype('fish', {
+--   sources = {
+--     { name = 'omni' }
+--   },
+--   mapping = mapping,
+-- })
+"""
 # [[plugins]]
 # repo      = 'hrsh7th/cmp-omni'
 # depends   = 'nvim-cmp'
