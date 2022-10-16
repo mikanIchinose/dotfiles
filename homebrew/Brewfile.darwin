@@ -9,46 +9,47 @@ tap "jesseduffield/lazygit"
 tap "mobile-dev-inc/tap"
 
 # cli
-brew "mas"
-brew "wget"
-brew "fzf"
+brew "git"
 brew "ghq"
 brew "git-delta"
 brew "lazygit"
+brew "commitizen"
+brew "gh"
+brew "gitlint"
+brew "mas"
+brew "wget"
+brew "fzf"
 brew "starship"
 brew "ripgrep"
 brew "fd"
 brew "exa"
 brew "zoxide"
 brew "xsv"
-brew "bat"
 brew "dasel"
+brew "bat"
 brew "navi"
-brew "silicon"
 brew "asdf"
 brew "ffmpeg"
 brew "http-server"
-brew "commitizen"
-brew "gh"
 brew "firebase-cli"
 brew "tokei"
 brew "fish"
 brew "cocoapods"
 brew "gpg"
-brew "deno"
-brew "go"
-brew "jsonnet"
 brew "kdoctor"
 brew "gum"
 brew "luarocks"
 brew "llvm"
-brew "gitlint"
 brew "topgrade"
 brew "maestro"
 # brew "aria2"
 # brew "youtube-dl"
+# brew "silicon"
 
-# dall
+# lang
+brew "deno"
+brew "go"
+brew "jsonnet"
 # brew "dhall"
 # brew "dhall-lsp-server"
 # brew "dhall-yaml"
@@ -58,9 +59,9 @@ brew "maestro"
 
 # emacs
 # brew "emacs-plus@28", args: ["with-xwidgets", "with-imagemagick", "with-native-comp"]
-cask "emacs"
-brew "sqlite" # used by org-roam
-brew "mermaid-cli"
+# cask "emacs"
+# brew "sqlite" # used by org-roam
+# brew "mermaid-cli"
 # brew "graphviz"
 
 # font
@@ -68,17 +69,17 @@ brew "mermaid-cli"
 
 # browser
 cask "vivaldi"
-cask "firefox"
-cask "brave-browser"
 cask "google-chrome"
 cask "biscuit"
+#cask "firefox"
+#cask "brave-browser"
 
 # terminal
 cask "iterm2"
 cask "wezterm" # 日本語との相性わるすぎ
 # cask "alacritty" # タブがないからなー
 
-# gui app
+# gui
 cask "thunderbird"
 cask "jetbrains-toolbox"
 cask "adobe-creative-cloud"
@@ -86,7 +87,6 @@ cask "flipper"
 cask "slack"
 cask "docker"
 cask "keycastr"
-cask "alfred"
 cask "karabiner-elements"
 cask "notion"
 cask "zoom"
@@ -96,14 +96,15 @@ cask "cyberduck"
 cask "keepassxc"
 cask "clipy"
 cask "box-drive"
-# cask "shottr" # もうちょいマシなスクショアプリを探す
 cask "anki-beta"
-# cask "postman"
 cask "google-drive"
 cask "aquaskk"
 cask "ngrok"
 cask "raycast"
 cask "gather"
+cask "remnote"
+# cask "alfred"
+# cask "postman"
 # cask "smlnj"
 
 # Editor/IDE

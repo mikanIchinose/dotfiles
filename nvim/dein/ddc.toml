@@ -34,7 +34,7 @@ hook_source = '''
 lua require('custom.ddc')
 '''
 
-## NOTE: ddc-source
+## NOTE: source
 [[plugins]]
 repo      = 'Shougo/ddc-around'
 on_source = 'ddc.vim'
@@ -58,7 +58,7 @@ on_source = 'ddc.vim'
 # repo      = 'Shougo/ddc-omni'
 # on_source = 'ddc.vim'
 
-# NOTE: ddc-filter
+# NOTE: filter
 [[plugins]]
 repo      = 'tani/ddc-fuzzy'
 on_source = 'ddc.vim'
@@ -84,6 +84,9 @@ repo      = 'hrsh7th/vim-vsnip-integ'
 on_source = 'ddc.vim'
 
 # NOTE: skk
+[[plugins]]
+repo = 'Matts966/skk-vconv.vim'
+on_source = ['skkeleton']
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 on_map = { ic = '<Plug>(skkeleton-toggle)' }

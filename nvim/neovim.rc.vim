@@ -67,3 +67,8 @@ if exists('g:neovide')
     let g:neovide_input_macos_alt_is_meta = v:true
   endif
 endif
+
+lua << EOF
+require("keymapping")
+require("custom.which-key")
+EOF

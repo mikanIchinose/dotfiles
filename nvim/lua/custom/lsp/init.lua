@@ -207,7 +207,7 @@ local function handler(server_name)
   end
 
   if server_name == 'sumneko_lua' then
-    lspconfig[server_name].setup(require('lua-dev').setup({ lspconfig = opts }))
+    lspconfig[server_name].setup(require('neodev').setup({ lspconfig = opts }))
   else
     lspconfig[server_name].setup(opts)
   end

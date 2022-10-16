@@ -11,13 +11,14 @@ end
 
 patch_global('sourceOptions', {
   ['_'] = {
-    -- matchers = { 'matcher_fuzzy', 'matcher_length' },
-    --matchers = { 'matcher_head' },
-    matchers = { 'matcher_fuzzy' },
-    --sorters = { 'sorter_fuzzy' },
+    matchers = { 'matcher_head', 'matcher_length' },
     sorters = { 'sorter_rank' },
-    --converters = { 'converter_remove_overlap' },
-    converters = { 'converter_fuzzy', 'converter_remove_overlap' },
+    converters = { 'converter_remove_overlap' },
+    --matchers = { 'matcher_head' },
+    -- fuzzy maching
+    --matchers = { 'matcher_fuzzy' },
+    --sorters = { 'sorter_rank' },
+    --converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   ['nvim-lsp'] = {
     mark = 'LSP',
@@ -46,6 +47,7 @@ patch_global('sourceOptions', {
     matchers = { 'skkeleton' },
     sorters = {},
     minAutoCompleteLength = 2,
+    isVolatile = true,
   },
 })
 patch_global('sourceParams', {

@@ -78,7 +78,7 @@ if dein#min#load_state(s:dein_dir)
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
   call dein#load_toml(s:ddu_toml,  {'lazy': 1})
   call dein#load_toml(s:ddc_toml,  {'lazy': 1})
-  " call dein#load_toml(s:fern_toml, {'lazy': 1})
+  call dein#load_toml(s:fern_toml, {'lazy': 1})
   " call dein#load_toml(s:telescope_toml, {'lazy': 1})
   " call dein#load_toml(s:ft_toml)
 
@@ -113,12 +113,12 @@ command! DeinClean call DeinClean()
 " command! DeinFastUpdate call DeinFastUpdate()
 
 lua << EOF
-require("notify").setup({
-  background_colour = "#000000",
-})
-vim.notify = require("notify")
-require("keymapping")
-require("custom.which-key")
+--require("notify").setup({
+--  background_colour = "#000000",
+--})
+--vim.notify = require("notify")
+--require("keymapping")
+--require("custom.which-key")
 EOF
 
 " }}} End dein Scripts

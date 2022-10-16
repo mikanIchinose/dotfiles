@@ -1,11 +1,14 @@
+# [[plugins]]
+# repo = 'lewis6991/impatient.nvim'
+
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
 # help
-[[plugins]]
-repo = 'nanotee/nvim-lua-guide'
-[[plugins]]
-repo = 'vim-jp/vimdoc-ja'
+# [[plugins]]
+# repo = 'nanotee/nvim-lua-guide'
+# [[plugins]]
+# repo = 'vim-jp/vimdoc-ja'
 
 ## plugin platform
 [[plugins]]
@@ -21,8 +24,6 @@ command! DenopsSharedServerInstall call denops_shared_server#install()
 command! DenopsSharedServerUninstall call denops_shared_server#uninstall()
 '''
 
-# [[plugins]]
-# repo = 'lewis6991/impatient.nvim'
 
 ## color scheme
 # [[plugins]]
@@ -40,7 +41,11 @@ repo = 'folke/tokyonight.nvim'
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 lua_source = '''
-require('custom.nvim-notify')
+require("notify").setup({
+  background_colour = "#000000",
+})
+vim.notify = require("notify")
+--require('custom.nvim-notify')
 '''
 
 ## icon
