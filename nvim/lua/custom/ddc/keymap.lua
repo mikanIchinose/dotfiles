@@ -7,6 +7,16 @@ inoremap <silent><expr> <TAB>
  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
  \ '<TAB>' : ddc#manual_complete()
 ]])
+vim.cmd([[
+cnoremap <expr> <Tab>
+\ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+\ exists('b:ddc_cmdline_completion') ?
+\ ddc#manual_complete() : nr2char(&wildcharm)
+cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+cnoremap <C-c>   <Cmd>call pum#map#cancel()<CR>
+cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+
+]])
 map('i', '<S-TAB>', function()
   if vim.call('ddc#map#pum_visible') ~= 0 then
     return [[<Cmd>call pum#map#insert_relative(-1)<CR>]]

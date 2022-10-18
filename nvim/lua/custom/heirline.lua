@@ -146,16 +146,14 @@ local FileInfo = {
   ReadOnly,
 }
 
-local LSPServers = {
-  condition = function()
+local isLspAttached = function ()
     if #vim.lsp.buf_get_clients() > 0 then
       return true
     else
       return false
     end
-  end,
-  update = { 'LspAttach', 'LspDetach' },
-  provider = function()
+end
+local getLspAttachedCurrentBuffer = function ()
     if #vim.lsp.buf_get_clients() > 0 then
       local active_clients = {}
       for _, value in pairs(vim.lsp.buf_get_clients()) do
@@ -164,12 +162,16 @@ local LSPServers = {
       return string.format('%s %s', require('codicons').get('server', 'icon'), table.concat(active_clients, ' '))
     end
     return ''
-  end,
+end
+local LSPServers = {
+  condition = isLspAttached,
+  update = { 'LspAttach', 'LspDetach','BufEnter' },
+  provider = getLspAttachedCurrentBuffer,
   hl = { fg = '#0f111b', bold = true },
 }
 LSPServers = utils.surround({ '', '' }, '#5ccc96', { LSPServers })
-LSPServers[1].condition = conditions.lsp_attached
-LSPServers[3].condition = conditions.lsp_attached
+LSPServers[1].condition = isLspAttached
+LSPServers[3].condition = isLspAttached
 
 local is_ready_navic, navic = pcall(require, 'nvim-navic')
 local Navic = {

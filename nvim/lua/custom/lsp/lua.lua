@@ -1,8 +1,8 @@
-M = {}
+local M = {}
 
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
+local runtimePath = vim.split(package.path, ';')
+table.insert(runtimePath, 'lua/?.lua')
+table.insert(runtimePath, 'lua/?/init.lua')
 
 local library = vim.api.nvim__get_runtime({ '' }, true, { is_lua = true })
 for i = 1, #library do
@@ -21,7 +21,7 @@ M.sumneko_lua = function(opts)
       },
       runtime = {
         version = 'LuaJIT',
-        path = runtime_path,
+        path = runtimePath,
       },
       diagnostics = {
         globals = { 'vim' },

@@ -94,31 +94,14 @@ if dein#check_install()
   call dein#install()
 endif
 
-function! DeinClean()
-  if len(dein#check_clean()) > 0
-    lua vim.notify('remove these plugins\n' .. table.concat(vim.call('dein#check_clean'),'\n'))
-    call map(dein#check_clean(), "delete(v:val, 'rf')")
-    call dein#recache_runtimepath()
-  else
-    lua vim.notify('No disabled plugins', vim.log.levels.ERROR)
+function! s:dein_toml_syntax() abort
+  if expand('%:p') =~# '\vdein/[^/]+.toml$'
+    call dein#toml#syntax()
   endif
 endfunction
-command! DeinClean call DeinClean()
+autocmd FileType toml ++nested call timer_start(1000, {id -> s:dein_toml_syntax()})
 
-" fast update command using github graphq api
-" function! DeinFastUpdate() abort
-"   call dein#check_update(v:true)
-"   " echo 'update done'
-" endfunction
-" command! DeinFastUpdate call DeinFastUpdate()
-
-lua << EOF
---require("notify").setup({
---  background_colour = "#000000",
---})
---vim.notify = require("notify")
---require("keymapping")
---require("custom.which-key")
-EOF
+filetype plugin indent on
+syntax enable
 
 " }}} End dein Scripts

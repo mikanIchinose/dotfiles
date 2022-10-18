@@ -49,6 +49,15 @@ patch_global('sourceOptions', {
     minAutoCompleteLength = 2,
     isVolatile = true,
   },
+  cmdline={
+    mark='cmdline',
+    forceCompletionPatter=[[\S/\S*]],
+    dup=true,
+  },
+  ['cmdline-history']={
+    mark='history',
+    sorters={},
+  },
 })
 patch_global('sourceParams', {
   ['nvim-lsp'] = {
@@ -68,8 +77,10 @@ patch_global('completionMenu', 'pum.vim')
 
 -- sources
 patch_global('sources', { 'nvim-lsp', 'vsnip', 'around', 'rg', 'file' })
+patch_global('cmdlinesSources', { 'cmdline-history','file','around' })
 patch_filetype({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around' })
 patch_filetype({ 'vim' }, 'sources', { 'vsnip', 'necovim', 'nvim-lsp', 'around' })
+-- patch_filetype({ 'FineCmdlinePrompt' }, {keywordPattern='[0-9a-zA-Z_:#-]',sources={'cmdline-history','around'},specialBufferCompletion=true,})
 
 -- NOTE: ghost-textで補完するときに必要
 -- patch_filetype({ 'markdown' }, 'specialBufferCompletion', 'v:true')

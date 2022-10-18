@@ -1,7 +1,3 @@
-set inccommand=nosplit
-" set pumblend=20
-" set winblend=20
-
 " NOTE: event notifier
 " autocmd BufRead * lua vim.notify('BufRead ' .. vim.fn.expand('%'))
 " autocmd BufReadPre * lua vim.notify('BufReadPre ' .. vim.fn.expand('%'))
@@ -9,6 +5,10 @@ set inccommand=nosplit
 " autocmd BufEnter * lua vim.notify('BufEnter ' .. vim.fn.expand('%'))
 " autocmd VimEnter * lua vim.notify('VimEnter')
 " autocmd WinEnter * lua vim.notify('WinEnter ' .. vim.fn.winnr())
+" autocmd LspAttach * lua vim.notify('LspAttach')
+" autocmd LspDetach * lua vim.notify('LspDetach')
+" autocmd BufRead * lua vim.notify('BufRead')
+" autocmd BufReadPost * lua vim.notify('BufReadPost')
 
 " NOTE: Brewfile treat as ruby-file
 augroup brewfile
@@ -32,14 +32,22 @@ highlight Comment gui=italic guifg=#B79175
 
 command! ToggleStatusLine call vimrc#toggle_statusline()
 
+function! DeinClean()
+  if len(dein#check_clean()) > 0
+    lua vim.notify('remove these plugins\n' .. table.concat(vim.call('dein#check_clean'),'\n'))
+    call map(dein#check_clean(), "delete(v:val, 'rf')")
+    call dein#recache_runtimepath()
+  else
+    lua vim.notify('No disabled plugins', vim.log.levels.ERROR)
+  endif
+endfunction
+command! DeinClean call DeinClean()
+
 " ddc-gitmoji
 " let g:denops#debug = 1
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
 " set runtimepath^=~/LocalProject/ddc-deno-import-map
 
-augroup ftplugin
-  autocmd FileType null-ls-info nnoremap q <CMD>quit<CR>
-augroup END
 
 function! InsertTodo() abort
   let comment = ''
@@ -47,10 +55,6 @@ function! InsertTodo() abort
     let comment =  printf('%s %s:  ', b:caw_oneline_comment, 'TODO')
     exe 'normal! a' . comment . '\<Esc>'
   else
-    " let comment =  printf("%s %s:  %s", b:caw_wrap_oneline_comment[0], "TODO", b:caw_wrap_oneline_comment[1])
-    " exe "normal! a" . comment . "\<Esc>"
-    " exe "normal! T:"
-    " exe "normal! l"
     let comment =  printf('%s\n%s: \n%s', b:caw_wrap_oneline_comment[0], 'TODO', b:caw_wrap_oneline_comment[1])
     exe 'normal! a' . comment . "\<Esc>"
     exe 'normal! k'

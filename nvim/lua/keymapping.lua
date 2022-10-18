@@ -1,4 +1,3 @@
----@diagnostic disable: missing-parameter
 local map = vim.keymap.set
 
 -- split window
@@ -11,13 +10,11 @@ map('n', '<Leader>n', '<Cmd>nohlsearch<CR>')
 map('n', '<', '<<')
 map('n', '>', '>>')
 
--- better ;
-map('n', ';', ':')
-
--- map('n', '<Leader>F', '<Cmd>Fern . -reveal=%<CR>', { desc = 'file tree' })
-
--- map('i', 'jj', '<ESC>')
--- map('i', 'j<Space>', 'j')
-
 map('x', 'r', '<C-v>') -- select rectangle
 map('x', 'v', 'V') -- select line
+
+vim.cmd[[
+augroup ftplugin
+  autocmd FileType null-ls-info,help nnoremap <buffer> q <Cmd>quit<CR>
+augroup END
+]]

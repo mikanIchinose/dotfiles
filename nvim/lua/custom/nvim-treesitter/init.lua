@@ -6,7 +6,7 @@ require('nvim-treesitter.configs').setup({
     disable = {
       'lua',
       -- 'vim',
-      -- 'toml',
+      'toml',
       -- 'fish',
     },
     additional_vim_regex_highlighting = false,
@@ -21,9 +21,9 @@ require('nvim-treesitter.configs').setup({
   --   enable = true,
   -- },
   -- JoosepAlviste/nvim-ts-context-commentstring
-  context_commentstring = {
-    enable = true,
-  },
+  -- context_commentstring = {
+  --   enable = true,
+  -- },
   -- p00f/nvim-ts-rainbow
   rainbow = {
     enable = true,

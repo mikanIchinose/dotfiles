@@ -1,5 +1,3 @@
-filetype plugin indent on
-syntax enable
 
 " indent & tab/space
 " 直前の行と同じインデントを挿入する
@@ -24,7 +22,7 @@ set fileencodings=utf-8
 set fileformats=unix,dos,mac
 lang en_US.UTF-8
 
-" ui
+"NOTE: buffer
 set cursorline
 " set cursorcolumn
 set signcolumn=yes
@@ -34,6 +32,7 @@ set title
 set titlestring=%t
 set backspace=indent,eol,start
 set inccommand=split
+"NOTE: statusline
 try
   set cmdheight=0
 catch
@@ -49,7 +48,6 @@ set foldmethod=expr
 set hidden
 set nowritebackup
 " クリップボード連携
-" NOTE: prerequirement: xclip
 set clipboard+=unnamedplus
 
 " leaderをspaceに変更
@@ -58,16 +56,12 @@ let g:maplocalleader = ","
 
 set timeout timeoutlen=100 ttimeoutlen=200
 
-" completion
+"NOTE: completion
 set completeopt=menuone
-" if exists('+completepopup')
-"   set completeopt+=popup
-"   set completepopup=height:4,width:60,highlight:InfoPopup
-" endif
 " Don't complete from other buffer.
 set complete=.
 " Set popup menu max height.
-set pumheight=30
+set pumheight=10
 if exists('+pumwidth')
   " Set popup menu min width.
   set pumwidth=0
@@ -82,10 +76,14 @@ execute 'colorscheme ' .. g:colorscheme
 
 set noequalalways
 
-" neovimからデフォルトでマウスモードがONになったので落す
+" disable mouse
 set mouse=
 
 set guifont=FiraCode\ Nerd\ Font:h12
 
 set winblend=0 " floating window の透明度を無くす
 " set helplang=ja
+
+set inccommand=nosplit
+" set pumblend=20
+" set winblend=20

@@ -1,6 +1,8 @@
 ## なんか便利な強いやつ いろんなプラギンが依存してる
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
 
 #[[plugins]]
 #repo = 'xiyaowong/nvim-transparent'
@@ -13,11 +15,9 @@ repo = 'nvim-lua/plenary.nvim'
 #'''
 
 [[plugins]]
-repo = 'MunifTanjim/nui.nvim'
-[[plugins]]
-repo    = 'folke/noice.nvim'
+repo = 'folke/noice.nvim'
 depends = ['nui.nvim', 'nvim-notify']
-#on_event = ['VimEnter']
+on_event = ['VimEnter']
 lua_source = '''
 require('noice').setup {
   cmdline = {
@@ -44,16 +44,6 @@ require('noice').setup {
 '''
 
 # NOTE: statusline
-# [[plugins]]
-# repo = 'itchyny/lightline.vim'
-# on_event = ['VimEnter']
-# hook_add = '''
-# lua_source = '''
-# lua require('custom.lightline')
-# '''
-# [[plugins]]
-# repo = 'mengelbrecht/lightline-bufferline'
-# depends = ['lightline.vim']
 [[plugins]]
 repo = 'rebelot/heirline.nvim'
 on_event = ['VimEnter']
@@ -61,10 +51,11 @@ lua_source = '''
 require('custom.heirline')
 '''
 
+# NOTE: 正直そんなに使わない
 [[plugins]]
-repo = 'kevinhwang91/nvim-ufo'
-depends = ['promise-async', 'nvim-lspconfig']
-on_event = ['BufRead']
+repo    = 'kevinhwang91/nvim-ufo'
+depends = ['promise-async']
+# on_event = ['BufRead']
 lua_source = '''
 require('custom.nvim-ufo')
 '''
@@ -103,16 +94,10 @@ let g:auto_save_silent = 1
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 on_ft = ['toml', 'markdown', 'lua', 'vim']
-hook_source = '''
+hook_add = '''
 let g:context_filetype#ignore_patterns = {
    \ 'toml': ['^\s*#\s*'],
    \ }
-function! s:dein_toml_syntax() abort
-  if expand('%:p') =~# '\vdein/[^/]+.toml$'
-    call dein#toml#syntax()
-  endif
-endfunction
-autocmd FileType toml,lua ++nested call timer_start(1000, {id -> s:dein_toml_syntax()})
 '''
 # [[plugins]]
 # repo = 'osyo-manga/vim-precious'
@@ -125,7 +110,8 @@ autocmd FileType toml,lua ++nested call timer_start(1000, {id -> s:dein_toml_syn
 repo = 'tyru/caw.vim'
 on_event = ['BufRead']
 hook_add = '''
-let g:caw_no_default_keymappings = 1 " disable default keymap
+" disable default keymap
+let g:caw_no_default_keymappings = 1
 let g:caw_integrated_plugin = "context_filetype"
 
 nmap gcc <Plug>(caw:hatpos:toggle)
@@ -237,7 +223,7 @@ nmap <buffer><nowait> ? <Plug>(gin-action-help)
 '''
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-on_event = ['BufRead']
+on_event = ['VimEnter']
 lua_source = '''
 require("custom.gitsigns")
 '''
@@ -257,7 +243,7 @@ require("custom.gitsigns")
 ## NOTE: lsp
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = ['BufRead']
+on_event = ['BufReadPre']
 lua_source = '''
 require('custom.lsp')
 '''
@@ -300,32 +286,19 @@ on_source = 'nvim-lspconfig'
 [[plugins]]
 repo = 'onsails/lspkind.nvim'
 on_source = 'nvim-lspconfig'
-hook_source = '''
-lua << EOF
+lua_source = '''
 require('lspkind').init {
   mode = 'symbol',
   preset = 'codicons',
 }
-EOF
 '''
-# [[plugins]]
-# repo = 'nvim-lua/lsp-status.nvim'
-# depends = ['nvim-lspconfig']
-# on_event = 'BufRead'
-# hook_source = '''
-# lua << EOF
-# require('lsp-status').register_progress()
-# EOF
-# '''
-## general language server
 [[plugins]]
-repo    = 'jose-elias-alvarez/null-ls.nvim'
+repo = 'jose-elias-alvarez/null-ls.nvim'
 depends = ['nvim-lspconfig']
-# on_event = ['BufRead']
+on_event = ['BufReadPre']
 hook_source = '''
 lua require('custom.null-ls')
 '''
-## virtual-line
 [[plugins]]
 repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 on_source = 'nvim-lspconfig'
@@ -341,6 +314,13 @@ lua require("lsp-colors").setup()
 [[plugins]]
 repo      = 'SmiteshP/nvim-navic'
 on_source = 'nvim-lspconfig'
+# [[plugins]]
+# repo = 'nvim-lua/lsp-status.nvim'
+# depends = ['nvim-lspconfig']
+# on_event = 'BufRead'
+# lua_source = '''
+# require('lsp-status').register_progress()
+# '''
 
 # NOTE: lspの前には有効化されていないといけない
 # [[plugins]]
@@ -367,16 +347,16 @@ require('bufresize').setup({
 '''
 
 [[plugins]]
-repo    = "b0o/incline.nvim"
+repo = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
-# on_event = ['BufRead']
+on_event = ['BufReadPre']
 lua_source = '''
 require("custom.incline")
 '''
 
 [[plugins]]
 repo = 'max397574/better-escape.nvim'
-# on_event = 'BufRead'
+on_event = 'InsertEnter'
 lua_source = '''
 require('better_escape').setup {
   mapping = {'jk', 'jj'},
@@ -390,7 +370,7 @@ require('better_escape').setup {
 # hook_source = '''
 # lua <<EOF
 #   local dap = require('dap')
-# 
+#
 #   -- flutter settign
 #   dap.adapters.dart = {
 #     type = "executable",
@@ -426,23 +406,6 @@ markdown = '''
 nnoremap <buffer> <C-_>  <Plug>(mkdx-promote-header)
 nnoremap <buffer> <C-=> <Plug>(mkdx-demote-header)
 '''
-# [[plugins]]
-# repo  = 'thinca/vim-ft-markdown_fold'
-# on_ft = 'markdown'
-[[plugins]]
-repo  = 'masukomi/vim-markdown-folding'
-on_ft = 'markdown'
-[plugins.ftplugin]
-markdown = '''
-"set foldmethod=expr
-"set foldexpr=NestedMarkdownFolds()
-'''
-# [[plugins]]
-# repo = 'tpope/vim-markdown'
-# on_ft = 'markdown'
-# hook_add = '''
-# let g:markdown_folding = 1
-# '''
 
 # NOTE: Neorg
 [[plugins]]
@@ -483,16 +446,16 @@ require('neorg').setup {
 # '''
 [[plugins]]
 repo = 'stevearc/aerial.nvim'
-# on_event = 'BufRead'
-depends = ['nvim-lspconfig', 'nvim-treesitter', 'codicons.nvim']
-hook_source = '''
-lua << EOF
+on_event = 'BufRead'
+depends = ['codicons.nvim', 'stickybuf.nvim']
+lua_source = '''
 local codicons = require('codicons')
 require('aerial').setup {
   backends = {
     ['_'] = {'lsp', 'treesitter'},
     -- markdown = {'markdown'},
     markdown = {'treesitter'},
+    lua = {'treesitter'},
   },
   layout = {
     width = 0.2,
@@ -509,43 +472,28 @@ require('aerial').setup {
     Collapsed = codicons.get('chevron-right'),
   },
 }
-EOF
 '''
 [[plugins]]
 repo = 'stevearc/stickybuf.nvim'
-# on_event = 'BufRead'
-hook_source = '''
-lua << EOF
+lua_source = '''
 require('stickybuf').setup {
   buftype = {
     aerial = 'buftype',
   }
 }
-EOF
 '''
 # [[plugins]]
 # repo = 'sidebar-nvim/sidebar.nvim'
 # on_event = 'BufRead'
-# hook_source = '''
-# lua << EOF
+# lua_source = '''
 # require('sidebar-nvim').setup {
 #  sections = {'symbols','buffers'},
 # }
-# EOF
 # '''
-#[[plugins]]
-#repo = 'liuchengxu/vista.vim'
-#depends = ['nvim-lspconfig']
-#on_cmd = ['Vista']
-#hook_source = '''
-#" lua vim.notify('onSource vista.vim')
-#'''
-
 # [[plugins]]
-# repo = 'stevearc/gkeep.nvim'
-# on_cmd = ['GkeepLogin', 'GkeepOpen', 'GkeepNew', 'GkeepToggle']
-# hook_source = '''
-# '''
+# repo    = 'liuchengxu/vista.vim'
+# depends = ['nvim-lspconfig']
+# on_cmd  = ['Vista']
 
 [[plugins]]
 repo = 'lukas-reineke/headlines.nvim'
@@ -610,9 +558,9 @@ EOF
 # on_ft = 'csv'
 
 [[plugins]]
-repo    = 'folke/todo-comments.nvim'
+repo = 'folke/todo-comments.nvim'
 depends = ['plenary.nvim']
-# on_event = 'BufRead'
+on_event = 'BufRead'
 lua_source = '''
 require('todo-comments').setup {}
 '''
@@ -620,13 +568,13 @@ require('todo-comments').setup {}
 ## リサイズを便利にするやつ
 [[plugins]]
 repo = 'mrjones2014/smart-splits.nvim'
-# on_event = 'BufRead'
+on_event = 'BufRead'
 lua_source = '''
 require('custom.smart-splits')
 '''
 [[plugins]]
 repo = 'johann2357/nvim-smartbufs'
-# on_event = 'BufRead'
+on_event = 'BufRead'
 lua_source = '''
 require('custom.nvim-smartbufs')
 '''
@@ -641,10 +589,8 @@ require('custom.nvim-smartbufs')
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
-# on_event = "InsertEnter"
+on_event = "InsertEnter"
 hook_add = '''
-"let g:lexima_accept_pum_with_enter = 1
-" let g:lexima_no_default_rules = 1
 autocmd FileType ddu-ff,ddu-filer let b:lexima_disabled = 1
 '''
 hook_source = '''
@@ -653,8 +599,8 @@ call lexima#set_default_rules()
 
 ## 囲みを付けたり変更したり
 [[plugins]]
-repo = 'tpope/vim-surround'
-# on_event = "BufRead"
+repo     = 'tpope/vim-surround'
+on_event = "InsertEnter"
 
 
 ## color code highlighter
@@ -671,9 +617,8 @@ repo = 'nvim-treesitter/nvim-treesitter'
 merged = 0
 on_event = 'BufRead'
 hook_post_source = 'TSUpdate'
-hook_source = '''
-" lua vim.notify('onSource nvim-treesitter')
-lua require('custom.nvim-treesitter')
+lua_source = '''
+require('custom.nvim-treesitter')
 '''
 [[plugins]]
 repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
@@ -702,9 +647,9 @@ highlight rainbowcol7 guifg=#3FA4D9
 # on_source = 'nvim-treesitter'
 # depends = ['nvim-treesitter']
 [[plugins]]
-repo    = 'm-demare/hlargs.nvim'
+repo = 'm-demare/hlargs.nvim'
 depends = ['nvim-treesitter']
-# on_event = 'BufRead'
+on_event = 'BufRead'
 hook_source = '''
 lua <<EOF
 require('hlargs').setup()
@@ -712,13 +657,13 @@ EOF
 '''
 
 [[plugins]]
-repo = 'tpope/vim-repeat'
-# on_event = 'BufRead'
+repo     = 'tpope/vim-repeat'
+on_event = 'BufRead'
 
 # sticky shift
 [[plugins]]
-repo = 'lambdalisue/pinkyless.vim'
-# on_event = 'InsertEnter'
+repo     = 'lambdalisue/pinkyless.vim'
+on_event = 'InsertEnter'
 
 
 #[[plugins]]
@@ -918,3 +863,14 @@ call ddc#custom#patch_buffer('sourceOptions', {
 # repo = 'kana/vim-textobj-user'
 # [[plugins]]
 # repo = 'kana/vim-textobj-line'
+
+# [[plugins]]
+# repo = 'itchyny/lightline.vim'
+# on_event = ['VimEnter']
+# hook_add = '''
+# lua_source = '''
+# lua require('custom.lightline')
+# '''
+# [[plugins]]
+# repo = 'mengelbrecht/lightline-bufferline'
+# depends = ['lightline.vim']
