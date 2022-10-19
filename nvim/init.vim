@@ -99,7 +99,7 @@ function! s:dein_toml_syntax() abort
     call dein#toml#syntax()
   endif
 endfunction
-autocmd FileType toml ++nested call timer_start(1000, {id -> s:dein_toml_syntax()})
+autocmd FileType toml ++nested call timer_start(500, {id -> s:dein_toml_syntax()})
 
 filetype plugin indent on
 syntax enable

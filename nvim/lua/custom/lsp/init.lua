@@ -160,7 +160,6 @@ local on_attach = function(client, bufnr)
       t = { vim.lsp.buf.type_definition, 'go type definition' },
     },
     K = { vim.lsp.buf.hover, 'Hover' },
-    ['<C-k>'] = { vim.lsp.buf.signature_help, 'signature help' },
     ['[d'] = { vim.diagnostic.goto_prev, 'go previous diagnostic' },
     [']d'] = { vim.diagnostic.goto_next, 'go next diagnostic' },
     ['<M-Enter>'] = {

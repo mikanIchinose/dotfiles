@@ -169,9 +169,9 @@ function! s:skkeleton_init() abort
     \ 'registerConvertResult': v:true,
     \ })
   call skkeleton#config({
-    \   'markerHenkan': '<>',
-    \   'markerHenkanSelect': '>>',
-    \ })
+   \   'markerHenkan': '<>',
+   \   'markerHenkanSelect': '>>',
+   \ })
   call skkeleton#register_kanatable('rom', {
     \ 'jj': 'escape',
     \ '~': ['〜'],
@@ -184,6 +184,8 @@ function! s:skkeleton_init() abort
     \ })
   call skkeleton#register_keymap('henkan', "\<BS>", 'henkanBackward')
   call skkeleton#register_keymap('henkan', 'x', '')
+  call skkeleton#register_keymap('henkan', "\<C-e>", 'escape')
+  call skkeleton#register_keymap('input', "\<C-e>", 'escape')
 endfunction
 
 function! s:skkeleton_pre() abort
@@ -198,12 +200,10 @@ function! s:skkeleton_pre() abort
   endif
   let s:prev_buffer_config = ddc#custom#get_buffer()
   call ddc#custom#patch_buffer('sources', ['skkeleton'])
-  " iunmap <Esc>
 endfunction
 
 function! s:skkeleton_post() abort
   " Restore sources
   call ddc#custom#set_buffer(s:prev_buffer_config)
-  " inoremap <silent><expr> <Esc> ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
 endfunction
 '''
