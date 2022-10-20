@@ -43,10 +43,10 @@ function! DeinClean()
 endfunction
 command! DeinClean call DeinClean()
 
-" ddc-gitmoji
+" local plugin
 " let g:denops#debug = 1
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
-" set runtimepath^=~/LocalProject/ddc-deno-import-map
+" set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-zenn_article
 
 
 function! InsertTodo() abort

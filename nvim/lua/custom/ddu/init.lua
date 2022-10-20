@@ -9,9 +9,9 @@ local sourceOptions = {
       -- 'matcher_fzf',
       'matcher_substring',
     },
-    converters = {
-      -- 'converter_display_word',
-    },
+    -- converters = {
+    --   -- 'converter_display_word',
+    -- },
   },
   buffer = {
     -- converters = {
@@ -24,9 +24,6 @@ local sourceOptions = {
     -- },
     matchers = {
       'matcher_hidden', -- ignore hidden file
-    },
-    converters = {
-      -- 'matcher_relative',
     },
   },
   file_rec = {

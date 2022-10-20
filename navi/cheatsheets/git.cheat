@@ -1,17 +1,24 @@
-% git, branch
+% git
+
+# cd local repo
+cd <local_repo>
+
+$ local_repo: fd --type directory --absolute-path --exact-depth 1 --base-directory ~/LocalProject/
+
+% git-branch
 
 # switch branch
-git switch <all_branch>
+git switch <switchable_branch>
 
 # stash selected files
 git stash push -m "<message>" <stash_files>
 
-$ stash_files: command git status -s | command fzf -m | command awk '{print $2}'
+$ stash_files: git status -s | fzf -m | awk '{print $2}'
 
 # create branch
 git branch <branch_name> <start_point>
 
-$ start_point: command git for-each-ref --format="%(refname:short)" refs/heads
+$ start_point: git for-each-ref --format="%(refname:short)" refs/heads
 
 # create feature branch
 git switch -c "feature/<name>" <start_point>
@@ -39,12 +46,28 @@ git branch -d <local_branch>
 # delete merged-branch
 git branch -d <local_branch>
 
-$ current_branch: command git branch --show-current
-$ local_branch: command git for-each-ref --format="%(refname:short)" refs/heads | command grep -v $(command git branch --show-current) | command sed "s/grigin\///" | command sort | command uniq
-$ remote_branch: command git for-each-ref --format="%(refname:short)" refs/remotes | command grep -v $(command git branch --show-current) | command sed "s/grigin\///" | command sort | command uniq
-$ all_branch: command git for-each-ref --format="%(refname:short)" refs/remotes refs/heads | command grep -v $(command git branch --show-current) | command sed "s/origin\///" | command sort | command uniq
+$ current_branch: git branch --show-current
+$ local_branch: git for-each-ref --format="%(refname:short)" refs/heads \
+  | grep -v $(git branch --show-current) \
+  | sed "s/grigin\///" \
+  | sort | uniq
+$ remote_branch: git for-each-ref --format="%(refname:short)" refs/remotes \
+  | grep -v $(git branch --show-current) \
+  | sed "s/grigin\///" \
+  | sort | uniq
+$ all_branch: git for-each-ref --format="%(refname:short)" refs/remotes refs/heads \
+  | grep -v $(git --show-current) \
+  | sed "s/origin\///" \
+  | sort | uniq
+$ worktree_branch: git worktree list --porcelain \
+  | grep branch \
+  | sed "s/.*refs\/heads\///"
+$ switchable_branch:  git for-each-ref --format="%(refname:short)" refs/remotes refs/heads \
+  |  rg -v $(echo "($(git worktree list --porcelain | grep branch | sed "s/.*refs\/heads\///" | tr '\n' '|')HEAD)") \
+  |  sed "s/origin\///" \
+  |  sort | uniq
 
-% git, tag
+% git-tag
 
 # create tag
 git tag <version>
@@ -67,17 +90,3 @@ git tag <old_tag> <new_tag> \
   # && git push origin :refs/tags/<old_tag>
 
 $ old_tag: git tag -l
-
-% git
-
-# cd local repo
-cd <local_repo>
-
-$ local_repo: fd --type directory --absolute-path --exact-depth 1 --base-directory ~/LocalProject/
-
-% git, ghq
-
-# show ghq repo
-echo <ghq-repo>
-
-$ ghq-repo: ghq list --full-path
