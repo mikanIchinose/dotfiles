@@ -1,5 +1,6 @@
 # reset abbrs
 # __mikan_reset_abbr
+
 # fish_vi_key_bindings
 # set fish_cusor_default block
 # set fish_cusor_insert line
@@ -43,7 +44,7 @@ if test -d ~/.asdf
   set -l ASDF_HOME "$HOMEBREW_PREFIX/opt/asdf"
   source $ASDF_HOME/libexec/asdf.fish
 end
- 
+
 # if type -q fzf &> /dev/null
 #   set -l FZF_COLOR_SCHEME "
 #   --color=dark
@@ -51,7 +52,7 @@ end
 #   --color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7
 #   "
 #   set -x FZF_LEGACY_KEYBINDINGS 0
-# 
+#
 #   # 逆順､半分の高さ､ボーダー付き､ANSIカラー付き
 #   set -x FZF_DEFAULT_OPTS "
 #     --layout=reverse
@@ -60,10 +61,10 @@ end
 #     --ansi
 #     $FZF_COLOR_SCHEME
 #   "
-# 
+#
 #   if type -q fd &> /dev/null
 #     set -x FZF_DEFAULT_COMMAND "
-#     fd 
+#     fd
 #       -HI
 #       --type f
 #       -E .git
@@ -81,7 +82,7 @@ end
 if type -q zoxide &> /dev/null
   zoxide init fish | source
 end
- 
+
 # if test -d "$HOME/.cargo" &> /dev/null
 #   set -x PATH $HOME/.cargo/bin $PATH
 #   source "$HOME/.cargo/env"
@@ -125,13 +126,13 @@ if type -q navi &> /dev/null
     bind -M insert \cn _navi_smart_replace
   end
 end
- 
+
 if test -d "$HOME/.deno" &> /dev/null
   set -x DENO_INSTALL "$HOME/.deno"
   set -x PATH "$DENO_INSTALL/bin" $PATH
 end
 
-set -x PATH "$HOME/.local/bin" $PATH 
+set -x PATH "$HOME/.local/bin" $PATH
 set -x PATH "$HOME/scripts"     $PATH
 set -x GREP_TOOL rg
 set -x FIND_TOOL fd

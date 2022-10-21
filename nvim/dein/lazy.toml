@@ -416,15 +416,24 @@ lua_source = '''
 require('neorg').setup {
   load = {
     ["core.defaults"] = {},
+    -- ["core.keybinds"] = {
+    --   config = { 
+    --     default_keybindings = false, 
+    --     hook = function(keybinds)
+    --       keybinds.map("norg","n",keybinds.leader .. "<CR>","core.norg.qol.todo_items.task_cycle")
+    --     end,
+    --     },
+    --   },
     ["core.norg.concealer"] = {},
-    ["core.norg.completion"] = {
-      config = {
-        engine = 'nvim-cmp',
-      },
-    },
+    -- ["core.norg.completion"] = {
+    --   config = {
+    --     engine = 'nvim-cmp',
+    --   },
+    -- },
   }
 }
 '''
+
 
 ## NOTE: sidebar
 #[[plugins]]

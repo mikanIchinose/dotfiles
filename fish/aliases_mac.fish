@@ -1,3 +1,1 @@
-# abbr pass "set key (yq e 'keys' /Volumes/TOSHIBA/password.yml | sed 's/- //' | fzf | sed 's/^/\./') && yq e \$key /Volumes/TOSHIBA/password.yml"
-# alias m "cd ~/Documents/memo; vim memo.md -c '\$' -c 'AerialToggle' -c 'wincmd h'; cd -"
-alias m "cd ~/Documents/memo; vim memo.md -c '\$'; cd -"
+alias m "cd ~/Documents/memo; vim (fd --type file | fzf); cd -"

@@ -5,8 +5,12 @@ end
 
 ---@param filetypes string[]
 ---@param option_name string
-local function patch_filetype(filetypes, option_name, value)
-  vim.call('ddc#custom#patch_filetype', filetypes, option_name, value)
+local function patch_filetype_with_option(filetypes, option_name, value)
+  vim.fn['ddc#custom#patch_filetype'](filetypes, option_name, value)
+end
+
+local function patch_filetype(filetypes, value)
+  vim.fn['ddc#custom#patch_filetype'](filetypes, value)
 end
 
 patch_global('sourceOptions', {
@@ -26,6 +30,12 @@ patch_global('sourceOptions', {
     matchers = { 'matcher_fuzzy' },
     sorters = { 'sorter_rank' },
     converters = { 'converter_fuzzy', 'converter_remove_overlap' },
+  },
+  ['nvim-lsp_by-treesitter'] = {
+    mark = 'LSP_TS',
+  },
+  treesitter = {
+    mark = 'TS',
   },
   necovim = {
     mark = 'vim',
@@ -49,18 +59,21 @@ patch_global('sourceOptions', {
     minAutoCompleteLength = 2,
     isVolatile = true,
   },
-  cmdline={
-    mark='cmdline',
-    forceCompletionPatter=[[\S/\S*]],
-    dup=true,
+  cmdline = {
+    mark = 'cmdline',
+    forceCompletionPatter = [[\S/\S*]],
+    dup = true,
   },
-  ['cmdline-history']={
-    mark='history',
-    sorters={},
+  ['cmdline-history'] = {
+    mark = 'history',
+    sorters = {},
   },
 })
 patch_global('sourceParams', {
   ['nvim-lsp'] = {
+    kindLabels = require('lspkind').symbol_map,
+  },
+  ['nvim-lsp_by-treesitter'] = {
     kindLabels = require('lspkind').symbol_map,
   },
 })
@@ -75,12 +88,21 @@ patch_global('autoCompleteEvents', {
 })
 patch_global('completionMenu', 'pum.vim')
 
--- sources
+-- set sources
 patch_global('sources', { 'nvim-lsp', 'vsnip', 'around', 'rg', 'file' })
-patch_global('cmdlinesSources', { 'cmdline-history','file','around' })
-patch_filetype({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around' })
-patch_filetype({ 'vim' }, 'sources', { 'vsnip', 'necovim', 'nvim-lsp', 'around' })
--- patch_filetype({ 'FineCmdlinePrompt' }, {keywordPattern='[0-9a-zA-Z_:#-]',sources={'cmdline-history','around'},specialBufferCompletion=true,})
+patch_global('cmdlinesSources', { 'cmdline-history', 'file', 'around' })
+patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around' })
+patch_filetype_with_option({ 'vim' }, 'sources', { 'vsnip', 'necovim', 'nvim-lsp', 'around' })
+patch_filetype_with_option(
+  { 'norg' },
+  'sources',
+  { 'nvim-lsp', 'nvim-lsp_by-treesitter', 'treesitter', 'around', 'rg', 'file' }
+)
+patch_filetype({ 'FineCmdlinePrompt' }, {
+  keywordPattern = '[0-9a-zA-Z_:#-]',
+  sources = { 'cmdline-history', 'around' },
+  specialBufferCompletion = true,
+})
 
 -- NOTE: ghost-textで補完するときに必要
 -- patch_filetype({ 'markdown' }, 'specialBufferCompletion', 'v:true')
