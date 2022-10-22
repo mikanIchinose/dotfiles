@@ -47,6 +47,7 @@ command! DeinClean call DeinClean()
 " let g:denops#debug = 1
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-zenn_article
+set runtimepath^=/Users/solenoid/ghq/github.com/mikanIchinose/ddu-source-zenn
 
 
 function! InsertTodo() abort

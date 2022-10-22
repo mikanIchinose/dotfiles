@@ -37,6 +37,7 @@ symlink "$SOURCE/gh-dash" "$DESTINATION/.config/gh-dash"
 symlink "$SOURCE/markdownlint" "$DESTINATION/.config/markdownlint"
 symlink "$SOURCE/lazygit" "$DESTINATION/.config/lazygit"
 symlink "$SOURCE/efm-langserver" "$DESTINATION/.config/efm-langserver"
+symlink "$SOURCE/gitui" "$DESTINATION/.config/gitui"
 
 if [ "$(uname)" == 'Darwin' ]; then
   # asdf

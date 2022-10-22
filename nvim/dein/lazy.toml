@@ -1,3 +1,4 @@
+#:schema /Users/solenoid/ghq/github.com/mikanIchinose/schemastore/src/schemas/json/dein.json
 ## なんか便利な強いやつ いろんなプラギンが依存してる
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
@@ -17,7 +18,7 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'folke/noice.nvim'
 depends = ['nui.nvim', 'nvim-notify']
-on_event = ['VimEnter']
+on_event = ['VimEnter', 'CmdlineEnter', 'CursorHold']
 lua_source = '''
 require('noice').setup {
   cmdline = {
@@ -124,6 +125,9 @@ nmap gco <Plug>(caw:jump:comment-next)
 nmap gcO <Plug>(caw:jump:comment-prev)
 
 xmap gc <Plug>(caw:hatpos:toggle)
+'''
+hook_source = '''
+autocmd FileType lua let g:caw_integrated_plugin = "ts_context_commentstring"
 '''
 # [[plugins]]
 # repo = 'numToStr/Comment.nvim'
@@ -313,6 +317,9 @@ lua require("lsp-colors").setup()
 '''
 [[plugins]]
 repo      = 'SmiteshP/nvim-navic'
+on_source = 'nvim-lspconfig'
+[[plugins]]
+repo      = 'LumaKernel/vim-tsdetect'
 on_source = 'nvim-lspconfig'
 # [[plugins]]
 # repo = 'nvim-lua/lsp-status.nvim'
@@ -648,13 +655,13 @@ highlight rainbowcol7 guifg=#3FA4D9
 #repo     = 'haringsrob/nvim_context_vt'
 #depends  = 'nvim-treesitter'
 #on_event = 'BufReadPost'
-# [[plugins]]
-# repo = 'romgrk/nvim-treesitter-context'
-# on_source = 'nvim-treesitter'
-# [[plugins]]
-# repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
-# on_source = 'nvim-treesitter'
-# depends = ['nvim-treesitter']
+[[plugins]]
+repo      = 'romgrk/nvim-treesitter-context'
+on_source = 'nvim-treesitter'
+[[plugins]]
+repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
+on_source = 'nvim-treesitter'
+depends   = ['nvim-treesitter']
 [[plugins]]
 repo = 'm-demare/hlargs.nvim'
 depends = ['nvim-treesitter']

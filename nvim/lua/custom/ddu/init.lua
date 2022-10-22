@@ -4,7 +4,7 @@ local sourceOptions = {
   _ = {
     ignoreCase = true,
     matchers = {
-      'converter_display_word',
+      -- 'converter_display_word',
       -- 'matcher_relative',
       -- 'matcher_fzf',
       'matcher_substring',

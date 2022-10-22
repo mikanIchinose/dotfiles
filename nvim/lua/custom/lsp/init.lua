@@ -127,6 +127,7 @@ local server_ops = {
             -- 'https://www.schemastore.org/api/json/catalog.json',
           },
           enable = true,
+          -- associations = {},
         },
         formatter = {
           alignEntries = true,
@@ -162,14 +163,15 @@ local on_attach = function(client, bufnr)
     K = { vim.lsp.buf.hover, 'Hover' },
     ['[d'] = { vim.diagnostic.goto_prev, 'go previous diagnostic' },
     [']d'] = { vim.diagnostic.goto_next, 'go next diagnostic' },
-    ['<M-Enter>'] = {
-      function()
-        vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' })
-      end,
-    },
     ['<Leader>'] = {
       a = { code_action.code_action_menu, 'code action' },
       r = { vim.lsp.buf.rename, 'rename' },
+    },
+    ['<C-g>'] = {
+      function()
+        vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' })
+      end,
+      'open float',
     },
   }, { mode = 'n' })
 end

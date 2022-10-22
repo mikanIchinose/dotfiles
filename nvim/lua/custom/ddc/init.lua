@@ -69,14 +69,17 @@ patch_global('sourceOptions', {
     sorters = {},
   },
 })
-patch_global('sourceParams', {
-  ['nvim-lsp'] = {
-    kindLabels = require('lspkind').symbol_map,
-  },
-  ['nvim-lsp_by-treesitter'] = {
-    kindLabels = require('lspkind').symbol_map,
-  },
-})
+local lspkind_ok, _ = pcall(require, 'lspkind')
+if lspkind_ok then
+  patch_global('sourceParams', {
+    ['nvim-lsp'] = {
+      kindLabels = require('lspkind').symbol_map,
+    },
+    ['nvim-lsp_by-treesitter'] = {
+      kindLabels = require('lspkind').symbol_map,
+    },
+  })
+end
 
 -- use pum.vim
 patch_global('autoCompleteEvents', {
