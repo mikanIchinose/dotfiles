@@ -13,16 +13,18 @@ local function patch_filetype(filetypes, value)
   vim.fn['ddc#custom#patch_filetype'](filetypes, value)
 end
 
+patch_global('ui', 'pum')
+
 patch_global('sourceOptions', {
   ['_'] = {
-    matchers = { 'matcher_head', 'matcher_length' },
-    sorters = { 'sorter_rank' },
-    converters = { 'converter_remove_overlap' },
+    -- matchers = { 'matcher_head', 'matcher_length' },
+    -- sorters = { 'sorter_rank' },
+    -- converters = { 'converter_remove_overlap' },
     --matchers = { 'matcher_head' },
     -- fuzzy maching
-    --matchers = { 'matcher_fuzzy' },
-    --sorters = { 'sorter_rank' },
-    --converters = { 'converter_fuzzy', 'converter_remove_overlap' },
+    matchers = { 'matcher_fuzzy' },
+    sorters = { 'sorter_rank' },
+    converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   ['nvim-lsp'] = {
     mark = 'LSP',
@@ -66,7 +68,7 @@ patch_global('sourceOptions', {
   },
   ['cmdline-history'] = {
     mark = 'history',
-    sorters = {},
+    -- sorters = {},
   },
 })
 local lspkind_ok, _ = pcall(require, 'lspkind')
@@ -115,7 +117,7 @@ patch_filetype({ 'FineCmdlinePrompt' }, {
 -- )
 
 -- keymap
-require('custom.ddc.keymap')
+-- require('custom.ddc.keymap')
 -- vim.cmd([[
 -- inoremap <silent><expr> <TAB>
 --  \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :

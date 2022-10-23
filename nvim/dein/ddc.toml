@@ -15,11 +15,23 @@ call pum#set_option({
   \ 'highlight_normal_menu': 'PnormalMenu',
   \ })
 " none, single, double, rounded, solid, shadow, or array like ['╔', '═' ,'╗', '║', '╝', '═', '╚', '║']
-" call pum#set_option('border', 'rounded')
 call pum#set_option('scrollbar_char', '')
+" call pum#set_option('border', 'rounded')
 " call pum#set_option('padding',v:true)
 call pum#set_option('use_complete',v:true)
+autocmd CmdlineEnter * call CmdlinePum()
+autocmd InsertEnter * call BufferPum()
 call popup_preview#enable()
+
+function! CmdlinePum() abort
+  call pum#set_option('border', 'rounded')
+  call pum#set_option('padding',v:true)
+endfunction
+
+function! BufferPum() abort
+  call pum#set_option('border', 'none')
+  call pum#set_option('padding',v:false)
+endfunction
 '''
 [[plugins]]
 repo      = 'matsui54/denops-popup-preview.vim'
@@ -27,12 +39,14 @@ on_source = 'pum.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
+rev = 'split_ui' # latest version
 depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CursorHold']
 lua_source = '''
 require('custom.ddc')
 '''
 hook_add = '''
+lua require('custom.ddc.keymap')
 nnoremap ; <Cmd>call CommandlinePre(':')<CR>:
 
 function! CommandlinePre(mode) abort
@@ -77,6 +91,11 @@ function! CommandlinePost() abort
   set wildcharm=<Tab>
 endfunction
 '''
+
+## NOTE: ui
+[[plugins]]
+repo      = 'Shougo/ddc-ui-pum'
+on_source = 'ddc.vim'
 
 ## NOTE: source
 [[plugins]]
