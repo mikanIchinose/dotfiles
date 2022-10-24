@@ -44,10 +44,11 @@ endfunction
 command! DeinClean call DeinClean()
 
 " local plugin
-" let g:denops#debug = 1
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddc-gitmoji
 " set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-zenn_article
-set runtimepath^=/Users/solenoid/ghq/github.com/mikanIchinose/ddu-source-zenn
+set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-zenn
+set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-nvim-lsp
+set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-markdown
 
 
 function! InsertTodo() abort

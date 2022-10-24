@@ -54,14 +54,14 @@ nnoremap <M-Right> :bn<CR>
 nnoremap <M-Left> :bp<CR>
 
 " nnoremap <Leader><C-r> :action InvalidateCaches<CR>
-nnoremap <Leader><C-r> <Cmd>action RestartIde<CR>
+nnoremap <Leader><C-r> :action RestartIde<CR>
 
 " start app
-nnoremap <Leader>ar <Cmd>action Run<CR>
+nnoremap <Leader>ar :action Run<CR>
 " debug app
-nnoremap <Leader>ad <Cmd>action Debug<CR>
+nnoremap <Leader>ad :action Debug<CR>
 " sync project
-nnoremap <Leader>sp <Cmd>action Android.SyncProject<CR>
-nnoremap <Leader>cc <Cmd>action Clean<CR>
-nnoremap <Leader>cp <Cmd>action CleanGradleProject<CR>
-" nnoremap <Leader>cp <Cmd>action RebuildGradleProject<CR>
+nnoremap <Leader>sp :action Android.SyncProject<CR>
+nnoremap <Leader>cc :action Clean<CR>
+nnoremap <Leader>cp :action CleanGradleProject<CR>
+" nnoremap <Leader>cp :action RebuildGradleProject<CR>

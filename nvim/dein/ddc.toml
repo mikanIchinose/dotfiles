@@ -96,6 +96,15 @@ endfunction
 [[plugins]]
 repo      = 'Shougo/ddc-ui-pum'
 on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-ui-native'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-ui-none'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-ui-inline'
+on_source = 'ddc.vim'
 
 ## NOTE: source
 [[plugins]]
@@ -174,26 +183,18 @@ imap <C-j> <Plug>(skkeleton-toggle)
 cmap <C-j> <Plug>(skkeleton-toggle)
 '''
 hook_source = '''
-"lua vim.notify("onSource skkeleton")
-"augroup skkeleton
-"  autocmd!
-"augroup END
-
 autocmd User skkeleton-initialize-pre call s:skkeleton_init()
 autocmd User skkeleton-enable-pre     call s:skkeleton_pre()
 autocmd User skkeleton-disable-pre    call s:skkeleton_post()
-" autocmd User skkeleton-mode-changed call lightline#update()
 
 function! s:skkeleton_init() abort
   call skkeleton#config({
     \ 'globalJisyo': '~/.config/SKK-JISYO.L',
     \ 'eggLikeNewline': v:true,
     \ 'registerConvertResult': v:true,
+    \ 'markerHenkan': '<>',
+    \ 'markerHenkanSelect': '>>',
     \ })
-  call skkeleton#config({
-   \   'markerHenkan': '<>',
-   \   'markerHenkanSelect': '>>',
-   \ })
   call skkeleton#register_kanatable('rom', {
     \ 'jj': 'escape',
     \ '~': ['〜'],
@@ -202,6 +203,10 @@ function! s:skkeleton_init() abort
     \ 'z.': ['.'],
     \ 'z/': ['/'],
     \ 'z;': [';'],
+    \ 'zh': ['←'],
+    \ 'zj': ['↓'],
+    \ 'zk': ['↑'],
+    \ 'zl': ['→'],
     \ "z\<Space>": ["\u3000"],
     \ })
   call skkeleton#register_keymap('henkan', "\<BS>", 'henkanBackward')

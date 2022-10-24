@@ -53,15 +53,15 @@ require('custom.heirline')
 '''
 
 # NOTE: 正直そんなに使わない
-[[plugins]]
-repo    = 'kevinhwang91/nvim-ufo'
-depends = ['promise-async']
-# on_event = ['BufRead']
-lua_source = '''
-require('custom.nvim-ufo')
-'''
-[[plugins]]
-repo = 'kevinhwang91/promise-async'
+# [[plugins]]
+# repo = 'kevinhwang91/nvim-ufo'
+# depends = ['promise-async']
+# on_event = ['BufReadPost']
+# lua_source = '''
+# require('custom.nvim-ufo')
+# '''
+# [[plugins]]
+# repo = 'kevinhwang91/promise-async'
 
 [[plugins]]
 repo = 'folke/trouble.nvim'
@@ -72,25 +72,13 @@ require('trouble').setup()
 
 [[plugins]]
 repo = 'vim-scripts/vim-auto-save'
-on_event = 'BufRead'
+on_event = 'InsertEnter'
 hook_add = '''
 let g:auto_save = 1
 let g:auto_save_no_updatetime = 1
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
 '''
-
-## plugin platform
-# [[plugins]]
-# repo = 'vim-denops/denops.vim'
-# hook_add = '''
-# let g:denops_server_addr = '127.0.0.1:32123'
-# let g:denops#debug = 1
-# '''
-# [[plugins]]
-# repo      = 'vim-denops/denops-shared-server.vim'
-# on_source = 'denops.vim'
-# on_event  = 'VimEnter'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -129,12 +117,6 @@ xmap gc <Plug>(caw:hatpos:toggle)
 hook_source = '''
 autocmd FileType lua let g:caw_integrated_plugin = "ts_context_commentstring"
 '''
-# [[plugins]]
-# repo = 'numToStr/Comment.nvim'
-# on_event = ['VimEnter']
-# hook_source = '''
-# lua require('Comment').setup()
-# '''
 
 [[plugins]]
 repo     = 'lambdalisue/guise.vim'
@@ -278,12 +260,12 @@ on_source = ['nvim-lspconfig']
 [[plugins]]
 repo   = 'weilbith/nvim-code-action-menu'
 on_cmd = 'CodeActionMemu'
-[[plugins]]
-repo = "j-hui/fidget.nvim"
-on_source = ['nvim-lspconfig']
-hook_source = '''
-lua require('fidget').setup()
-'''
+#[[plugins]]
+#repo = "j-hui/fidget.nvim"
+#on_source = ['nvim-lspconfig']
+#hook_source = '''
+#lua require('fidget').setup()
+#'''
 [[plugins]]
 repo      = 'mortepau/codicons.nvim'
 on_source = 'nvim-lspconfig'

@@ -38,6 +38,8 @@ symlink "$SOURCE/markdownlint" "$DESTINATION/.config/markdownlint"
 symlink "$SOURCE/lazygit" "$DESTINATION/.config/lazygit"
 symlink "$SOURCE/efm-langserver" "$DESTINATION/.config/efm-langserver"
 symlink "$SOURCE/gitui" "$DESTINATION/.config/gitui"
+symlink "$SOURCE/.yabairc" "$DESTINATION/.yabairc"
+symlink "$SOURCE/.skhdrc" "$DESTINATION/.skhdrc"
 
 if [ "$(uname)" == 'Darwin' ]; then
   # asdf

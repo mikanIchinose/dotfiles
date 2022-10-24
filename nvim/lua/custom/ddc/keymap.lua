@@ -8,12 +8,31 @@ local pum_visible = function()
     vim.fn.pumvisible()
   end
 end
+local manual_complete = function(...)
+  if arg.n == 0 then
+    vim.fn['ddc#map#manual_complete']()
+  else
+    vim.fn['ddc#map#manual_complete'](arg[1])
+  end
+end
+local confirm = function()
+  vim.fn['pum#map#confirm']()
+end
+local cancel = function()
+  vim.fn['pum#map#cancel']()
+end
+local cmp_up = function()
+  vim.fn['pum#map#select_relative']('-1')
+end
+local cmp_down = function()
+  vim.fn['pum#map#select_relative']('+1')
+end
 
 vim.cmd([[
 inoremap <silent><expr> <TAB>
  \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
- \ '<TAB>' : ddc#manual_complete()
+ \ '<TAB>' : ddc#map#manual_complete('pum')
 ]])
 -- map('i', '<TAB>', function()
 --   local col = vim.fn.col('.')
@@ -27,37 +46,40 @@ inoremap <silent><expr> <TAB>
 -- end, opts)
 map('i', '<S-TAB>', function()
   if pum_visible() ~= 0 then
-    vim.fn['pum#map#insert_relative']('-1')
+    cmp_up()
   else
     return [[\<S-TAB>]]
   end
 end, opts)
 map('i', '<C-y>', function()
-  vim.fn['pum#map#confirm']()
+  confirm()
 end)
 map('i', '<C-e>', function()
-  vim.fn['pum#map#cancel']()
+  cancel()
 end)
 map('i', '<C-Space>', function()
-  vim.fn['ddc#map#manual_complete']()
+  manual_complete()
+end)
+map('c', '<C-Space>', function()
+  manual_complete()
 end)
 map('c', '<Tab>', function()
   if pum_visible() ~= 0 then
-    vim.fn['pum#map#insert_relative']('+1')
+    cmp_down()
   elseif vim.fn.exists('b:ddc_cmdline_completion') ~= 0 then
-    vim.fn['ddc#manual_complete']()
+    manual_complete('cmdline')
   else
     vim.fn.nr2char(vim.o.wildcharm)
   end
 end)
 map('c', '<S-Tab>', function()
-  vim.fn['pum#map#insert_relative']('-1')
+  cmp_up()
 end)
 map('c', '<C-c>', function()
-  vim.fn['pum#map#cancel']()
+  cancel()
 end)
 map('c', '<C-o>', function()
-  vim.fn['pum#map#confirm']()
+  confirm()
 end)
 
 -- snippet

@@ -81,6 +81,9 @@ local sourceParams = {
   dein_update = {
     useGraphQL = true,
   },
+  markdown = {
+    style = 'indent',
+  },
   -- ['custom-list'] = {
   --   texts = { 'a', 'b', 'c' }
   -- },

@@ -17,14 +17,14 @@ patch_global('ui', 'pum')
 
 patch_global('sourceOptions', {
   ['_'] = {
-    -- matchers = { 'matcher_head', 'matcher_length' },
-    -- sorters = { 'sorter_rank' },
-    -- converters = { 'converter_remove_overlap' },
+    matchers = { 'matcher_head', 'matcher_length' },
+    sorters = { 'sorter_rank' },
+    converters = { 'converter_remove_overlap' },
     --matchers = { 'matcher_head' },
     -- fuzzy maching
-    matchers = { 'matcher_fuzzy' },
-    sorters = { 'sorter_rank' },
-    converters = { 'converter_fuzzy', 'converter_remove_overlap' },
+    -- matchers = { 'matcher_fuzzy' },
+    -- sorters = { 'sorter_rank' },
+    -- converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   ['nvim-lsp'] = {
     mark = 'LSP',
@@ -64,10 +64,11 @@ patch_global('sourceOptions', {
   cmdline = {
     mark = 'cmdline',
     forceCompletionPatter = [[\S/\S*]],
-    dup = true,
+    dup = false,
   },
   ['cmdline-history'] = {
-    mark = 'history',
+    mark = 'cmd history',
+    dup = false,
     -- sorters = {},
   },
 })
@@ -98,11 +99,7 @@ patch_global('sources', { 'nvim-lsp', 'vsnip', 'around', 'rg', 'file' })
 patch_global('cmdlinesSources', { 'cmdline-history', 'file', 'around' })
 patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around' })
 patch_filetype_with_option({ 'vim' }, 'sources', { 'vsnip', 'necovim', 'nvim-lsp', 'around' })
-patch_filetype_with_option(
-  { 'norg' },
-  'sources',
-  { 'nvim-lsp', 'nvim-lsp_by-treesitter', 'treesitter', 'around', 'rg', 'file' }
-)
+patch_filetype_with_option({ 'norg' }, 'sources', { 'nvim-lsp', 'around', 'rg', 'file' })
 patch_filetype({ 'FineCmdlinePrompt' }, {
   keywordPattern = '[0-9a-zA-Z_:#-]',
   sources = { 'cmdline-history', 'around' },

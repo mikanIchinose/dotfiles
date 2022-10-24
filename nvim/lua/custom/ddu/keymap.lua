@@ -12,18 +12,18 @@ require('which-key').register({
   ['<Leader>'] = {
     f = {
       name = '+find',
-      a = {
-        --   Ddu {
-        --     'custom-list',
-        --   },
-        --   'custom list'
-        Ddu({
-          '-name=readme',
-          '-ui-param-startFilter',
-          'readme_viewer',
-        }),
-        'readme',
-      },
+      -- a = {
+      --   --   Ddu {
+      --   --     'custom-list',
+      --   --   },
+      --   --   'custom list'
+      --   Ddu({
+      --     '-name=readme',
+      --     '-ui-param-startFilter',
+      --     'readme_viewer',
+      --   }),
+      --   'readme',
+      -- },
       f = {
         Ddu({
           '-name=files',
@@ -102,14 +102,13 @@ require('which-key').register({
 })
 
 vim.cmd([[
-" nnoremap <silent> / <Cmd>Ddu
-"\ -name=search line
-"\ -ui-param-startFilter<CR>
-" nnoremap <silent> * <Cmd>Ddu
-"\ -name=search line 
-"\ -input=`expand('<cword>')`
-"\ -ui-param-startFilter=v:false<CR>
+autocmd FileType markdown
+\ nnoremap <buffer> <Leader>fm <Cmd>Ddu
+\   -ui=ff -ui-param-split=vertical
+\   -name=headers -resume
+\   markdown<CR>
 ]])
+
 map(
   'n',
   '/',
