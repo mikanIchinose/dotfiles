@@ -64,4 +64,6 @@ nnoremap <Leader>ad :action Debug<CR>
 nnoremap <Leader>sp :action Android.SyncProject<CR>
 nnoremap <Leader>cc :action Clean<CR>
 nnoremap <Leader>cp :action CleanGradleProject<CR>
+nnoremap <Leader>cr :action RearrangeCode<CR>
+
 " nnoremap <Leader>cp :action RebuildGradleProject<CR>

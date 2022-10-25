@@ -325,17 +325,6 @@ lua require('custom.hydra')
 '''
 
 [[plugins]]
-repo = 'kwkarlwang/bufresize.nvim'
-# on_event = ['BufRead']
-lua_source = '''
-require('bufresize').setup({
-  --resize = {
-  --  increment = 5,
-  --},
-})
-'''
-
-[[plugins]]
 repo = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
 on_event = ['BufReadPre']
@@ -405,22 +394,13 @@ lua_source = '''
 require('neorg').setup {
   load = {
     ["core.defaults"] = {},
-    -- ["core.keybinds"] = {
-    --   config = { 
-    --     default_keybindings = false, 
-    --     hook = function(keybinds)
-    --       keybinds.map("norg","n",keybinds.leader .. "<CR>","core.norg.qol.todo_items.task_cycle")
-    --     end,
-    --     },
-    --   },
     ["core.norg.concealer"] = {},
-    -- ["core.norg.completion"] = {
-    --   config = {
-    --     engine = 'nvim-cmp',
-    --   },
-    -- },
   }
 }
+'''
+[plugins.ftplugin]
+norg = '''
+lua require('keymap.neorg')
 '''
 
 
@@ -442,44 +422,44 @@ require('neorg').setup {
 # Outline = '''
 # setlocal wrap
 # '''
-[[plugins]]
-repo = 'stevearc/aerial.nvim'
-on_event = 'BufRead'
-depends = ['codicons.nvim', 'stickybuf.nvim']
-lua_source = '''
-local codicons = require('codicons')
-require('aerial').setup {
-  backends = {
-    ['_'] = {'lsp', 'treesitter'},
-    -- markdown = {'markdown'},
-    markdown = {'treesitter'},
-    lua = {'treesitter'},
-  },
-  layout = {
-    width = 0.2,
-    placement = 'edge'
-  },
-  filter_kind = false,
-  attach_mode = 'global',
-  -- default_bindings = false,
-  show_guides = true,
-  icons = {
-    markdown = {
-      Interface = codicons.get('list-flat')
-    },
-    Collapsed = codicons.get('chevron-right'),
-  },
-}
-'''
-[[plugins]]
-repo = 'stevearc/stickybuf.nvim'
-lua_source = '''
-require('stickybuf').setup {
-  buftype = {
-    aerial = 'buftype',
-  }
-}
-'''
+# [[plugins]]
+# repo = 'stevearc/aerial.nvim'
+# on_event = 'BufRead'
+# depends = ['codicons.nvim', 'stickybuf.nvim']
+# lua_source = '''
+# local codicons = require('codicons')
+# require('aerial').setup {
+#   backends = {
+#     ['_'] = {'lsp', 'treesitter'},
+#     -- markdown = {'markdown'},
+#     markdown = {'treesitter'},
+#     lua = {'treesitter'},
+#   },
+#   layout = {
+#     width = 0.2,
+#     placement = 'edge'
+#   },
+#   filter_kind = false,
+#   attach_mode = 'global',
+#   -- default_bindings = false,
+#   show_guides = true,
+#   icons = {
+#     markdown = {
+#       Interface = codicons.get('list-flat')
+#     },
+#     Collapsed = codicons.get('chevron-right'),
+#   },
+# }
+# '''
+# [[plugins]]
+# repo = 'stevearc/stickybuf.nvim'
+# lua_source = '''
+# require('stickybuf').setup {
+#   buftype = {
+#     aerial = 'buftype',
+#   }
+# }
+# '''
 # [[plugins]]
 # repo = 'sidebar-nvim/sidebar.nvim'
 # on_event = 'BufRead'
@@ -493,63 +473,63 @@ require('stickybuf').setup {
 # depends = ['nvim-lspconfig']
 # on_cmd  = ['Vista']
 
-[[plugins]]
-repo = 'lukas-reineke/headlines.nvim'
+# [[plugins]]
+# repo = 'lukas-reineke/headlines.nvim'
 # on_ft = ['markdown', 'norg']
-hook_source = '''
-highlight Headline1 guibg=#30365F guifg=#f2ce00
-highlight Headline2 guibg=#30365F guifg=#C8DB01
-highlight Headline3 guibg=#30365F guifg=#ce6f8f
-highlight Dash      guibg=#D19A66 gui=bold
-" highlight CodeBlock guibg=#0f111b
-" highlight Quote guifg=#0099EC
-lua << EOF
-require('headlines').setup {
-  -- markdown = {
-  --   headline_highlights = {'Headline1','Headline2','Headline3'},
-  --   fat_headlines = true,
-  --   fat_headline_upper_string = '▃',
-  --   fat_headline_lower_string = '▀',
-  -- },
-  norg = {
-    query = vim.treesitter.parse_query(
-      "norg",
-      [[
-        [
-          (heading1_prefix)
-          (heading2_prefix)
-          (heading3_prefix)
-          (heading4_prefix)
-          (heading5_prefix)
-          (heading6_prefix)
-        ] @headline
-
-        (weak_paragraph_delimiter) @dash
-        (strong_paragraph_delimiter) @doubledash
-
-        ((ranged_tag
-          name: (tag_name) @_name
-          (#eq? @_name "code")
-        ) @codeblock (#offset! @codeblock 0 0 1 0))
-
-        (quote1_prefix) @quote
-      ]]
-    ),
-    headline_highlights = { "Headline1","Headline2","Headline3" },
-    codeblock_highlight = "CodeBlock",
-    dash_highlight = "Dash",
-    dash_string = "-",
-    doubledash_highlight = "DoubleDash",
-    doubledash_string = "=",
-    quote_highlight = "Quote",
-    -- quote_string = "┃",
-    fat_headlines = false,
-    fat_headline_upper_string = "▃",
-    fat_headline_lower_string = '▀',
-  },
-}
-EOF
-'''
+# hook_source = '''
+# highlight Headline1 guibg=#30365F guifg=#f2ce00
+# highlight Headline2 guibg=#30365F guifg=#C8DB01
+# highlight Headline3 guibg=#30365F guifg=#ce6f8f
+# highlight Dash      guibg=#D19A66 gui=bold
+# " highlight CodeBlock guibg=#0f111b
+# " highlight Quote guifg=#0099EC
+# lua << EOF
+# require('headlines').setup {
+#   -- markdown = {
+#   --   headline_highlights = {'Headline1','Headline2','Headline3'},
+#   --   fat_headlines = true,
+#   --   fat_headline_upper_string = '▃',
+#   --   fat_headline_lower_string = '▀',
+#   -- },
+#   norg = {
+#     query = vim.treesitter.parse_query(
+#       "norg",
+#       [[
+#         [
+#           (heading1_prefix)
+#           (heading2_prefix)
+#           (heading3_prefix)
+#           (heading4_prefix)
+#           (heading5_prefix)
+#           (heading6_prefix)
+#         ] @headline
+# 
+#         (weak_paragraph_delimiter) @dash
+#         (strong_paragraph_delimiter) @doubledash
+# 
+#         ((ranged_tag
+#           name: (tag_name) @_name
+#           (#eq? @_name "code")
+#         ) @codeblock (#offset! @codeblock 0 0 1 0))
+# 
+#         (quote1_prefix) @quote
+#       ]]
+#     ),
+#     headline_highlights = { "Headline1","Headline2","Headline3" },
+#     codeblock_highlight = "CodeBlock",
+#     dash_highlight = "Dash",
+#     dash_string = "-",
+#     doubledash_highlight = "DoubleDash",
+#     doubledash_string = "=",
+#     quote_highlight = "Quote",
+#     -- quote_string = "┃",
+#     fat_headlines = false,
+#     fat_headline_upper_string = "▃",
+#     fat_headline_lower_string = '▀',
+#   },
+# }
+# EOF
+# '''
 
 # [[plugins]]
 # repo = 'Decodetalkers/csv-tools.lua'
@@ -576,13 +556,16 @@ on_event = 'BufRead'
 lua_source = '''
 require('custom.nvim-smartbufs')
 '''
-#[[plugins]]
-#repo = 'akinsho/bufferline.nvim'
-#rev = "v2.*"
-#on_event = ['BufRead']
-#hook_source = '''
-#lua require('custom.bufferline')
-#'''
+[[plugins]]
+repo = 'kwkarlwang/bufresize.nvim'
+# on_event = ['BufRead']
+lua_source = '''
+require('bufresize').setup({
+  --resize = {
+  --  increment = 5,
+  --},
+})
+'''
 
 
 [[plugins]]
@@ -637,9 +620,9 @@ highlight rainbowcol7 guifg=#3FA4D9
 #repo     = 'haringsrob/nvim_context_vt'
 #depends  = 'nvim-treesitter'
 #on_event = 'BufReadPost'
-[[plugins]]
-repo      = 'romgrk/nvim-treesitter-context'
-on_source = 'nvim-treesitter'
+# [[plugins]]
+# repo      = 'romgrk/nvim-treesitter-context'
+# on_source = 'nvim-treesitter'
 [[plugins]]
 repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
 on_source = 'nvim-treesitter'
@@ -715,44 +698,44 @@ on_event = 'InsertEnter'
 
 # TODO: ddcと干渉しないように設計したい
 # NOTE: 今のところはfishのときしか有効にしていないので大丈夫だと思われる
-[[plugins]]
-repo = 'hrsh7th/nvim-cmp'
-# on_ft = ['fish', 'norg']
-# on_event = 'BufReadPre'
-lua_source = """
-local cmp = require('cmp')
-local mapping = cmp.mapping.preset.insert({
-  ['<C-Space>'] = cmp.mapping.complete(),
-  ['<C-e>'] = cmp.mapping.abort(),
-  ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  ['<Tab>'] = function(fallback)
-    if cmp.visible() then
-      cmp.select_next_item()
-    else
-      fallback()
-    end
-  end,
-  ['<S-Tab>'] = function(fallback)
-    if cmp.visible() then
-      cmp.select_prev_item()
-    else
-      fallback()
-    end
-  end,
-})
-cmp.setup.filetype('norg', {
-  sources = {
-    { name = 'neorg' }
-  },
-  mapping = mapping,
-})
--- cmp.setup.filetype('fish', {
---   sources = {
---     { name = 'omni' }
---   },
---   mapping = mapping,
--- })
-"""
+# [[plugins]]
+# repo = 'hrsh7th/nvim-cmp'
+# # on_ft = ['fish', 'norg']
+# # on_event = 'BufReadPre'
+# lua_source = """
+# local cmp = require('cmp')
+# local mapping = cmp.mapping.preset.insert({
+#   ['<C-Space>'] = cmp.mapping.complete(),
+#   ['<C-e>'] = cmp.mapping.abort(),
+#   ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+#   ['<Tab>'] = function(fallback)
+#     if cmp.visible() then
+#       cmp.select_next_item()
+#     else
+#       fallback()
+#     end
+#   end,
+#   ['<S-Tab>'] = function(fallback)
+#     if cmp.visible() then
+#       cmp.select_prev_item()
+#     else
+#       fallback()
+#     end
+#   end,
+# })
+# cmp.setup.filetype('norg', {
+#   sources = {
+#     { name = 'neorg' }
+#   },
+#   mapping = mapping,
+# })
+# -- cmp.setup.filetype('fish', {
+# --   sources = {
+# --     { name = 'omni' }
+# --   },
+# --   mapping = mapping,
+# -- })
+# """
 # [[plugins]]
 # repo      = 'hrsh7th/cmp-omni'
 # depends   = 'nvim-cmp'

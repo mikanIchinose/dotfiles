@@ -63,3 +63,5 @@ alt - e : yabai -m window --toggle split
 # alt - t : yabai -m window --toggle float && /tmp/yabai-restore/$(yabai -m query --windows --window | jq -re '.id').restore 2>/dev/null || true
 alt - t : yabai -m window --toggle float && yabai -m window --grid 4:4:1:1:2:2
 
+cmd + alt - b : yabai -m space --layout bsp
+cmd + alt - s : yabai -m space --layout stack
