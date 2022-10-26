@@ -51,12 +51,12 @@ nnoremap ; <Cmd>call CommandlinePre(':')<CR>:
 
 function! CommandlinePre(mode) abort
   " NOTE: It disables default command line completion!
-  set wildchar=<C-t>
-  set wildcharm=<C-t>
+  " set wildchar=<C-t>
+  " set wildcharm=<C-t>
 
   cnoremap <expr><buffer> <Tab>
   \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-  \ exists('b:ddc_cmdline_completion') ? ddc#manual_complete() : "\<C-t>"
+  \ exists('b:ddc_cmdline_completion') ? ddc#map#manual_complete('pum') : "\<C-t>"
 
   " Overwrite sources
   if !exists('b:prev_buffer_config')
@@ -88,7 +88,7 @@ function! CommandlinePost() abort
     call ddc#custom#set_buffer({})
   endif
 
-  set wildcharm=<Tab>
+  " set wildcharm=<Tab>
 endfunction
 '''
 

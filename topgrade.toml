@@ -2,7 +2,16 @@
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["git_repos", "mas", "emacs", "vim", "system", "containers"]
+disable = [
+  "git_repos",
+  "mas",
+  "emacs",
+  "vim",
+  "system",
+  "containers",
+  "npm",
+  "yarn",
+]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]

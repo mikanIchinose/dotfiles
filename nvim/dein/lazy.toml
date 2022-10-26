@@ -394,6 +394,11 @@ lua_source = '''
 require('neorg').setup {
   load = {
     ["core.defaults"] = {},
+    ["core.keybinds"] = {
+      config = {
+        default_keybinds = false
+      },
+    },
     ["core.norg.concealer"] = {},
   }
 }

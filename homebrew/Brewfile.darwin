@@ -1,6 +1,7 @@
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/cask-drivers"
+tap "homebrew/cask-fonts"
 tap "homebrew/services"
 tap "d12frosted/emacs-plus" # emacs
 tap "wez/wezterm" # wezterm
@@ -43,6 +44,7 @@ brew "luarocks"
 brew "llvm"
 brew "topgrade"
 brew "maestro"
+brew "wtfutil"
 # brew "aria2"
 # brew "youtube-dl"
 # brew "silicon"
@@ -76,9 +78,10 @@ cask "biscuit"
 #cask "brave-browser"
 
 # terminal
-cask "iterm2"
+cask "iterm2" # なんやかんやこれを使ってしまう
 cask "wezterm" # 日本語との相性わるすぎ
-# cask "alacritty" # タブがないからなー
+cask "kitty" #
+cask "alacritty" # タブがないからなー
 
 # gui
 cask "thunderbird"

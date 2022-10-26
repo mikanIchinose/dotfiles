@@ -8,12 +8,8 @@ local pum_visible = function()
     vim.fn.pumvisible()
   end
 end
-local manual_complete = function(...)
-  if arg.n == 0 then
-    vim.fn['ddc#map#manual_complete']()
-  else
-    vim.fn['ddc#map#manual_complete'](arg[1])
-  end
+local manual_complete = function(source)
+  vim.fn['ddc#map#manual_complete'](source, vim.fn['ddc#custom#get_global']().ui)
 end
 local confirm = function()
   vim.fn['pum#map#confirm']()
@@ -32,7 +28,7 @@ vim.cmd([[
 inoremap <silent><expr> <TAB>
  \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
- \ '<TAB>' : ddc#map#manual_complete('pum')
+ \ '<TAB>' : ddc#map#manual_complete(['nvim-lsp','rg','around'],'pum')
 ]])
 -- map('i', '<TAB>', function()
 --   local col = vim.fn.col('.')
@@ -58,11 +54,11 @@ map('i', '<C-e>', function()
   cancel()
 end)
 map('i', '<C-Space>', function()
-  manual_complete()
-end)
+  manual_complete({ 'nvim-lsp', 'rg', 'around' })
+end, opts)
 map('c', '<C-Space>', function()
-  manual_complete()
-end)
+  manual_complete({ 'cmdline-history', 'cmdline' })
+end, opts)
 map('c', '<Tab>', function()
   if pum_visible() ~= 0 then
     cmp_down()

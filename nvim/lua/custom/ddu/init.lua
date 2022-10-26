@@ -169,7 +169,7 @@ local uiParams = {
     -- previewRow = vim.o.lines,
     statusline = false,
   },
-  filer = filerNoSplit,
+  filer = filerVertical,
 }
 
 local kindOptions = {

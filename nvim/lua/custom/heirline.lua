@@ -66,7 +66,8 @@ local ViMode = {
     },
   },
   provider = function(self)
-    return ' %2(' .. self.mode_names[self.mode] .. '%)'
+    -- return ' %2(' .. self.mode_names[self.mode] .. '%)'
+    return self.mode_names[self.mode]
   end,
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character
@@ -146,26 +147,26 @@ local FileInfo = {
   ReadOnly,
 }
 
-local isLspAttached = function ()
-    if #vim.lsp.buf_get_clients() > 0 then
-      return true
-    else
-      return false
-    end
+local isLspAttached = function()
+  if #vim.lsp.buf_get_clients() > 0 then
+    return true
+  else
+    return false
+  end
 end
-local getLspAttachedCurrentBuffer = function ()
-    if #vim.lsp.buf_get_clients() > 0 then
-      local active_clients = {}
-      for _, value in pairs(vim.lsp.buf_get_clients()) do
-        table.insert(active_clients, value.name)
-      end
-      return string.format('%s %s', require('codicons').get('server', 'icon'), table.concat(active_clients, ' '))
+local getLspAttachedCurrentBuffer = function()
+  if #vim.lsp.buf_get_clients() > 0 then
+    local active_clients = {}
+    for _, value in pairs(vim.lsp.buf_get_clients()) do
+      table.insert(active_clients, value.name)
     end
-    return ''
+    return string.format('%s %s', require('codicons').get('server', 'icon'), table.concat(active_clients, ' '))
+  end
+  return ''
 end
 local LSPServers = {
   condition = isLspAttached,
-  update = { 'LspAttach', 'LspDetach','BufEnter' },
+  update = { 'LspAttach', 'LspDetach', 'BufEnter' },
   provider = getLspAttachedCurrentBuffer,
   hl = { fg = '#0f111b', bold = true },
 }
@@ -293,7 +294,7 @@ local statusline = {
     FileInfo,
   }),
   Space,
-  Navic,
+  -- Navic,
   Space,
   Align,
   LSPServers,

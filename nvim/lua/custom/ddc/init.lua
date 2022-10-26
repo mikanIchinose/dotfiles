@@ -62,7 +62,7 @@ patch_global('sourceOptions', {
     isVolatile = true,
   },
   cmdline = {
-    mark = 'cmdline',
+    mark = 'cmd',
     forceCompletionPatter = [[\S/\S*]],
     dup = false,
   },
