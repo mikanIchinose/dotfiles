@@ -174,7 +174,7 @@ local uiParams = {
 
 local kindOptions = {
   file = { defaultAction = 'open' },
-  word = { defaultAction = 'append' },
+  word = { defaultAction = 'insert' },
   action = { defaultAction = 'do' },
   deol = { defaultAction = 'switch' },
   help = { defaultAction = 'open' },
@@ -216,4 +216,5 @@ patch_global.kindOptions = kindOptions
 patch_global.actionOptions = actionOptions
 patch_global.compilerOptions = columnOptions
 patch_global.columnParams = columnParams
-vim.call('ddu#custom#patch_global', patch_global)
+
+vim.fn['ddu#custom#patch_global'](patch_global)

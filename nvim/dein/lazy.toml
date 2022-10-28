@@ -563,7 +563,6 @@ require('custom.nvim-smartbufs')
 '''
 [[plugins]]
 repo = 'kwkarlwang/bufresize.nvim'
-# on_event = ['BufRead']
 lua_source = '''
 require('bufresize').setup({
   --resize = {
@@ -584,8 +583,11 @@ call lexima#set_default_rules()
 '''
 
 ## 囲みを付けたり変更したり
+# [[plugins]]
+# repo     = 'tpope/vim-surround'
+# on_event = "InsertEnter"
 [[plugins]]
-repo     = 'tpope/vim-surround'
+repo     = 'machakann/vim-sandwich'
 on_event = "InsertEnter"
 
 
@@ -700,6 +702,11 @@ on_event = 'InsertEnter'
 # [[plugins]]
 # repo = 'mattn/emmet-vim'
 # on_ft = [ "html" ]
+[[plugins]]
+repo     = 'mattn/vim-sonictemplate'
+on_event = 'BufRead'
+[[plugins]]
+repo = 'rhysd/committia.vim'
 
 # TODO: ddcと干渉しないように設計したい
 # NOTE: 今のところはfishのときしか有効にしていないので大丈夫だと思われる

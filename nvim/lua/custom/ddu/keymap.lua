@@ -75,13 +75,6 @@ require('which-key').register({
         }),
         'find help',
       },
-      m = {
-        Ddu({
-          '-name=mr',
-          'mr',
-        }),
-        'find mr',
-      },
       c = {
         Ddu({
           '-name=commands',
@@ -106,7 +99,7 @@ autocmd FileType markdown
 \ nnoremap <buffer> <Leader>fm <Cmd>Ddu
 \   -ui=filer
 \   -ui-param-split=vertical
-\   -ui-option-toggle=v:false
+\   -ui-param-sort=size
 \   -name=headers
 \   -resume
 \   markdown
@@ -131,3 +124,37 @@ map(
     'emoji',
   })
 )
+map('n', '<C-p>', function()
+  vim.fn['ddu#start']({
+    sources = {
+      { name = 'file_rec' },
+    },
+    ui = 'ff',
+    uiParams = {
+      ff = {
+        prompt = '> ',
+        startFilter = true,
+        statusline = false,
+        split = 'floating',
+        floatingBorder = 'rounded',
+      },
+    },
+  })
+end)
+-- map('n', '<Leader>fm', function()
+--   vim.fn['ddu#start']({
+--     sources = {
+--       { name = 'markdown' },
+--     },
+--     -- ui = 'filer',
+--     -- uiParams = {
+--     --   filer = {
+--     --     split = 'vertical',
+--     --     sort = 'size',
+--     --   },
+--     -- },
+--     actionOptions = {
+--       open = { quit = false },
+--     },
+--   })
+-- end)

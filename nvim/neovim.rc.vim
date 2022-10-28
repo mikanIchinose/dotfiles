@@ -66,6 +66,12 @@ function! InsertTodo() abort
 endfunction
 command! InsertTodo call InsertTodo()
 
+augroup MyAutoCmd
+  autocmd!
+  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
+        \ call vimrc#on_filetype()
+augroup END
+
 if exists('g:neovide')
   let g:neovide_transparency = 0.8
   let g:neovide_remember_window_size = v:true

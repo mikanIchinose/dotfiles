@@ -6,18 +6,18 @@ local map = vim.keymap.set
 local function do_action(action, params)
   if params ~= nil then
     return function()
-      vim.call('ddu#ui#filer#do_action', action, params)
+      vim.fn['ddu#ui#filer#do_action'](action, params)
     end
   else
     return function()
-      vim.call('ddu#ui#filer#do_action', action)
+      vim.fn['ddu#ui#filer#do_action'](action)
     end
   end
 end
 
 -- NOTE: not support multi items
 local function deleteItem()
-  vim.call('ddu#ui#filer#do_action', 'itemAction', { name = 'getSourceName' })
+  vim.fn['ddu#ui#filer#do_action']('itemAction', { name = 'getSourceName' })
   local action
   if vim.b.ddu_source_name == 'buffer' then
     action = 'bdelete'
@@ -25,10 +25,10 @@ local function deleteItem()
     action = 'delete'
   else
     -- vim.b.ddu_source_name = ''
-    vim.call('ddu#ui#filer#do_action', 'chooseAction')
+    vim.fn['ddu#ui#filer#do_action']('chooseAction')
     return
   end
-  vim.call('ddu#ui#filer#do_action', 'itemAction', { name = action })
+  vim.fn['ddu#ui#filer#do_action']('itemAction', { name = action })
   -- vim.call('ddu#ui#filer#do_action', 'checkItems')
   -- vim.call('ddu#ui#filer#multi_actions', {
   --   { 'itemAction', { name = action } },
@@ -55,7 +55,7 @@ map('n', 'r', do_action('itemAction', { name = 'rename' }), opts)
 map('n', 'm', do_action('itemAction', { name = 'move' }), opts)
 map('n', 'p', do_action('itemAction', { name = 'paste' }), opts)
 map('n', 'c', function()
-  vim.call('ddu#ui#filer#multi_actions', {
+  vim.fn['ddu#ui#filer#multi_actions']({
     { 'itemAction', { name = 'copy' } },
     { 'clearSelectAllItems' },
   })

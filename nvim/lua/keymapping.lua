@@ -15,6 +15,6 @@ map('x', 'v', 'V') -- select line
 
 vim.cmd([[
 augroup ftplugin
-  autocmd FileType null-ls-info,help nnoremap <buffer> q <Cmd>quit<CR>
+  autocmd FileType null-ls-info,help,qf nnoremap <buffer> q <Cmd>quit<CR>
 augroup END
 ]])
