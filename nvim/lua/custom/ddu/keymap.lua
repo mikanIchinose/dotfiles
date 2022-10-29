@@ -97,11 +97,10 @@ require('which-key').register({
 vim.cmd([[
 autocmd FileType markdown
 \ nnoremap <buffer> <Leader>fm <Cmd>Ddu
-\   -ui=filer
-\   -ui-param-split=vertical
-\   -ui-param-sort=size
 \   -name=headers
 \   -resume
+\   -ui=filer
+\   -ui-param-sort=size
 \   markdown
 \   <CR>
 ]])
