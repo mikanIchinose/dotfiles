@@ -101,6 +101,7 @@ autocmd FileType markdown
 \   -resume
 \   -ui=filer
 \   -ui-param-sort=size
+\   -ui-param-sortDirectoriesFirst=v:false
 \   markdown
 \   <CR>
 ]])

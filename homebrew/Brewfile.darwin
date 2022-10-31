@@ -74,7 +74,7 @@ brew "jsonnet"
 cask "vivaldi"
 cask "google-chrome"
 cask "biscuit"
-#cask "firefox"
+cask "firefox"
 #cask "brave-browser"
 
 # terminal

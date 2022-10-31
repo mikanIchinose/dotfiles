@@ -29,9 +29,12 @@ patch_global('sourceOptions', {
   ['nvim-lsp'] = {
     mark = 'LSP',
     forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
-    matchers = { 'matcher_fuzzy' },
+    matchers = { 'matcher_head', 'matcher_length' },
     sorters = { 'sorter_rank' },
-    converters = { 'converter_fuzzy', 'converter_remove_overlap' },
+    converters = { 'converter_remove_overlap' },
+    -- matchers = { 'matcher_fuzzy' },
+    -- sorters = { 'sorter_rank' },
+    -- converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   ['nvim-lsp_by-treesitter'] = {
     mark = 'LSP_TS',
@@ -97,7 +100,7 @@ patch_global('completionMenu', 'pum.vim')
 -- set sources
 patch_global('sources', { 'nvim-lsp', 'vsnip', 'around', 'rg', 'file' })
 patch_global('cmdlinesSources', { 'cmdline-history', 'file', 'around' })
-patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around' })
+patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around', 'file' })
 patch_filetype_with_option({ 'vim' }, 'sources', { 'necovim', 'nvim-lsp', 'vsnip', 'around', 'file' })
 patch_filetype_with_option({ 'norg' }, 'sources', { 'nvim-lsp', 'around', 'rg', 'file' })
 patch_filetype({ 'FineCmdlinePrompt' }, {

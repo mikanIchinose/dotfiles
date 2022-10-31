@@ -22,6 +22,7 @@ call ddu#custom#action('source', 'buffer', 'bdelete', 'DeleteBuffers')
 call ddu#custom#action('kind', '_', 'echoItems', 'EchoItems')
 call ddu#custom#action('kind', '_', 'getSourceName', 
 \ { args -> execute('let b:ddu_source_name = args.items[0].__sourceName') })
+call ddu#custom#action('kind', '_', 'echoContext', 'EchoContext')
 
 " function! GetFilePaths(args)
 "   let g:ddu#file_paths = []
@@ -40,6 +41,11 @@ call ddu#custom#action('kind', '_', 'getSourceName',
 function! EchoItems(args)
   let b:ddu_items = a:args.items
   lua vim.notify(vim.inspect(vim.b.ddu_items))
+endfunction
+
+function! EchoContext(args) abort
+  let b:ddu_context = a:args.context
+  lua vim.notify(vim.inspect(vim.b.ddu_context))
 endfunction
 
 " function! GetSourceName(args)
@@ -73,6 +79,8 @@ nnoremap <buffer><silent> i
   \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
 nnoremap <buffer><silent> <C-l>
   \ <Cmd>call ddu#ui#ff#do_action('refreshItems')<CR>
+nnoremap <buffer><silent> o
+  \ <Cmd>call ddu#ui#ff#do_action('expandItem', {'mode': 'toggle'})<CR>
 nnoremap <buffer><silent> p
   \ <Cmd>call ddu#ui#ff#do_action('preview', {'previewCmds': ['bat', '-n', '%s', '-r', '%b:%e', '--highlight-line', '%l']})<CR>
 nnoremap <buffer><silent> q

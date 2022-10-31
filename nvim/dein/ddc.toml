@@ -39,7 +39,6 @@ on_source = 'pum.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-rev = 'split_ui' # latest version
 depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CursorHold']
 lua_source = '''

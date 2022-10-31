@@ -2,16 +2,7 @@
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = [
-  "git_repos",
-  "mas",
-  "emacs",
-  "vim",
-  "system",
-  "containers",
-  "npm",
-  "yarn",
-]
+disable = ["git_repos", "mas", "emacs", "vim", "system", "containers", "node"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -20,7 +11,7 @@ disable = [
 #only = ["system", "emacs"]
 
 # Do not ask to retry failed steps (default: false)
-#no_retry = true
+no_retry = true
 
 # Run inside tmux
 #run_in_tmux = true
@@ -43,6 +34,7 @@ repos = [
   # "~/ghq/**/",
   # "~/ghq-karabiner/**/",
   "~/ghq/github.com/android/compose-samples",
+  "~/LocalProject/neovim_minimal/plugins/**/",
 ]
 
 # Don't pull the predefined git repos
