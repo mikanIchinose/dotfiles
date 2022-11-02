@@ -5,20 +5,24 @@ repo = 'nvim-lua/plenary.nvim'
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
 
-#[[plugins]]
-#repo = 'xiyaowong/nvim-transparent'
-#on_event = ['VimEnter']
-#lua_source = '''
-#require("transparent").setup({
-#  enable = false, -- boolean: enable transparent
-#  exclude = {}, -- table: groups you don't want to clear
-#})
-#'''
+[[plugins]]
+repo = 'kyazdani42/nvim-web-devicons'
+
+## 通知
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_lua = 'notify'
+lua_source = '''
+require("notify").setup({
+  background_colour = "#000000",
+})
+vim.notify = require("notify")
+'''
 
 [[plugins]]
 repo = 'folke/noice.nvim'
 depends = ['nui.nvim', 'nvim-notify']
-on_event = ['VimEnter', 'CmdlineEnter', 'CursorHold']
+on_event = ['CmdlineEnter', 'CursorHold']
 lua_source = '''
 require('noice').setup {
   cmdline = {
@@ -47,7 +51,7 @@ require('noice').setup {
 # NOTE: statusline
 [[plugins]]
 repo = 'rebelot/heirline.nvim'
-on_event = ['VimEnter']
+on_event = 'VimEnter'
 lua_source = '''
 require('custom.heirline')
 '''
@@ -97,7 +101,7 @@ let g:context_filetype#ignore_patterns = {
 # NOTE: comment
 [[plugins]]
 repo = 'tyru/caw.vim'
-on_event = ['BufRead']
+on_event = ['CursorHold']
 hook_add = '''
 " disable default keymap
 let g:caw_no_default_keymappings = 1
@@ -119,21 +123,15 @@ autocmd FileType lua let g:caw_integrated_plugin = "ts_context_commentstring"
 '''
 
 [[plugins]]
-repo     = 'lambdalisue/guise.vim'
-depends  = ['denops.vim']
+repo = 'lambdalisue/guise.vim'
+# depends  = ['denops.vim']
 on_event = ['TerminalOpen']
 
 # syntax hilight
 # NOTE: treesitterでは不都合な場合に利用する
 [[plugins]]
-repo  = 'dag/vim-fish'
-on_ft = 'fish'
-# [plugins.ftplugin]
-# fish = '''
-# compiler fish
-# setlocal textwidth=79
-# setlocal foldmethod=expr
-# '''
+repo = 'dag/vim-fish'
+# on_ft = 'fish'
 # NOTE: treesitterを使うとdein系のtomlのハイライトが上手くいかない
 # [[plugins]]
 # repo  = 'cespare/vim-toml'
@@ -141,7 +139,7 @@ on_ft = 'fish'
 
 [[plugins]]
 repo = 'lfilho/cosco.vim'
-on_ft = ['php', 'rust', 'java', 'dart']
+# on_ft = ['php', 'rust', 'java', 'dart']
 hook_source = '''
 " autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
@@ -209,7 +207,7 @@ nmap <buffer><nowait> ? <Plug>(gin-action-help)
 '''
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-on_event = ['VimEnter']
+on_event = ['CursorHold']
 lua_source = '''
 require("custom.gitsigns")
 '''
@@ -229,7 +227,7 @@ require("custom.gitsigns")
 ## NOTE: lsp
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = ['BufReadPre']
+# on_event = ['BufRead']
 lua_source = '''
 require('custom.lsp')
 '''
@@ -280,7 +278,7 @@ require('lspkind').init {
 '''
 [[plugins]]
 repo = 'jose-elias-alvarez/null-ls.nvim'
-depends = ['nvim-lspconfig']
+depends = ['nvim-lspconfig', 'plenary.nvim']
 on_event = ['BufReadPre']
 hook_source = '''
 lua require('custom.null-ls')
@@ -319,7 +317,6 @@ on_source = 'nvim-lspconfig'
 ## NOTE: make your own mode
 [[plugins]]
 repo = 'anuvyklack/hydra.nvim'
-# on_event = ['VimEnter']
 hook_source = '''
 lua require('custom.hydra')
 '''
@@ -327,7 +324,7 @@ lua require('custom.hydra')
 [[plugins]]
 repo = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
-on_event = ['BufReadPre']
+on_event = ['BufReadPost']
 lua_source = '''
 require("custom.incline")
 '''
@@ -543,7 +540,7 @@ lua require('keymap.neorg')
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 depends = ['plenary.nvim']
-on_event = 'BufRead'
+on_event = 'BufReadPost'
 lua_source = '''
 require('todo-comments').setup {}
 '''
@@ -551,18 +548,19 @@ require('todo-comments').setup {}
 ## リサイズを便利にするやつ
 [[plugins]]
 repo = 'mrjones2014/smart-splits.nvim'
-on_event = 'BufRead'
+on_event = 'BufReadPost'
 lua_source = '''
 require('custom.smart-splits')
 '''
 [[plugins]]
 repo = 'johann2357/nvim-smartbufs'
-on_event = 'BufRead'
+on_event = 'BufReadPost'
 lua_source = '''
 require('custom.nvim-smartbufs')
 '''
 [[plugins]]
 repo = 'kwkarlwang/bufresize.nvim'
+on_event = 'BufReadPost'
 lua_source = '''
 require('bufresize').setup({
   --resize = {
@@ -637,16 +635,16 @@ depends   = ['nvim-treesitter']
 [[plugins]]
 repo = 'm-demare/hlargs.nvim'
 depends = ['nvim-treesitter']
-on_event = 'BufRead'
+on_event = 'BufReadPost'
 hook_source = '''
 lua <<EOF
 require('hlargs').setup()
 EOF
 '''
 
-[[plugins]]
-repo     = 'tpope/vim-repeat'
-on_event = 'BufRead'
+# [[plugins]]
+# repo     = 'tpope/vim-repeat'
+# on_event = 'BufRead'
 
 # sticky shift
 [[plugins]]
@@ -703,8 +701,8 @@ on_event = 'InsertEnter'
 # repo = 'mattn/emmet-vim'
 # on_ft = [ "html" ]
 [[plugins]]
-repo     = 'mattn/vim-sonictemplate'
-on_event = 'BufRead'
+repo = 'mattn/vim-sonictemplate'
+# on_event = 'BufRead'
 [[plugins]]
 repo = 'rhysd/committia.vim'
 

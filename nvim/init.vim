@@ -1,6 +1,6 @@
 " improve start up time
-set runtimepath^=~/ghq/github.com/lewis6991/impatient.nvim
-lua require('impatient')
+" set runtimepath^=~/ghq/github.com/lewis6991/impatient.nvim
+" lua require('impatient')
 
 let g:loaded_node_provider       = v:false
 let g:loaded_perl_provider       = v:false
@@ -78,7 +78,7 @@ if dein#min#load_state(s:dein_dir)
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
   call dein#load_toml(s:ddu_toml,  {'lazy': 1})
   call dein#load_toml(s:ddc_toml,  {'lazy': 1})
-  call dein#load_toml(s:fern_toml, {'lazy': 1})
+  " call dein#load_toml(s:fern_toml, {'lazy': 1})
   " call dein#load_toml(s:telescope_toml, {'lazy': 1})
   " call dein#load_toml(s:ft_toml)
 
