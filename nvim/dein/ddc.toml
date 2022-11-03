@@ -175,7 +175,7 @@ on_source = ['skkeleton']
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 on_map = { ic = '<Plug>(skkeleton-toggle)' }
-on_event = ['BufRead']
+on_ft = ['markdown', 'norg']
 depends = ['ddc.vim', 'denops.vim']
 hook_add = '''
 imap <C-j> <Plug>(skkeleton-toggle)

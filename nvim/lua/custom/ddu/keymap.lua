@@ -37,10 +37,10 @@ require('which-key').register({
           '-name=filer',
           '-resume',
           '-ui=filer',
+          '-ui-param-split=no',
           'file',
-          '-source-option-columns=icon_filename',
+          '-source-option-columns=filename',
           '-source-option-path=`getcwd()`',
-          -- 'buffer',
         }),
         'filer',
       },
@@ -103,6 +103,7 @@ autocmd FileType markdown
 \   -ui-param-sort=size
 \   -ui-param-sortDirectoriesFirst=v:false
 \   markdown
+\   -source-option-columns=tree
 \   <CR>
 ]])
 

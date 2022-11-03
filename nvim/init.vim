@@ -94,12 +94,14 @@ if dein#check_install()
   call dein#install()
 endif
 
+lua require('impatient')
+
 function! s:dein_toml_syntax() abort
   if expand('%:p') =~# '\vdein/[^/]+.toml$'
     call dein#toml#syntax()
   endif
 endfunction
-autocmd FileType toml ++nested call timer_start(500, {id -> s:dein_toml_syntax()})
+autocmd MyAutoCmd FileType toml ++nested call timer_start(500, {id -> s:dein_toml_syntax()})
 
 filetype plugin indent on
 syntax enable

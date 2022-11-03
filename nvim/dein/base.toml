@@ -1,6 +1,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+[[plugins]]
+repo = 'lewis6991/impatient.nvim'
+
 # help
 # [[plugins]]
 # repo = 'nanotee/nvim-lua-guide'
@@ -20,6 +23,13 @@ hook_add = '''
 # command! DenopsSharedServerUninstall call denops_shared_server#uninstall()
 # '''
 
+# syntax hilight
+# NOTE: treesitterでは不都合な場合に利用する
+[[plugins]]
+repo = 'dag/vim-fish'
+# NOTE: treesitterを使うとdein系のtomlのハイライトが上手くいかない
+[[plugins]]
+repo = 'cespare/vim-toml'
 
 ## color scheme
 # [[plugins]]

@@ -82,7 +82,7 @@ local sourceParams = {
     useGraphQL = true,
   },
   markdown = {
-    style = 'indent',
+    style = 'none',
   },
   -- ['custom-list'] = {
   --   texts = { 'a', 'b', 'c' }

@@ -1,12 +1,18 @@
-#:schema /Users/solenoid/ghq/github.com/mikanIchinose/schemastore/src/schemas/json/dein.json
 ## なんか便利な強いやつ いろんなプラギンが依存してる
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
-
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
+
+[[plugins]]
+repo = 'goolord/alpha-nvim'
+depends = ['nvim-web-devicons']
+on_event = 'VimEnter'
+lua_source = '''
+require('alpha').setup(require('alpha.themes.startify').config)
+'''
 
 ## 通知
 [[plugins]]
@@ -20,9 +26,10 @@ vim.notify = require("notify")
 '''
 
 [[plugins]]
-repo = 'folke/noice.nvim'
+repo    = 'folke/noice.nvim'
 depends = ['nui.nvim', 'nvim-notify']
-on_event = ['CmdlineEnter', 'CursorHold']
+#on_event = ['CmdlineEnter', 'CursorHold']
+#on_event = 'BufReadPost'
 lua_source = '''
 require('noice').setup {
   cmdline = {
@@ -72,6 +79,14 @@ repo = 'folke/trouble.nvim'
 on_cmd = ['Trouble', 'TroubleToggle']
 lua_source = '''
 require('trouble').setup()
+'''
+
+[[plugins]]
+repo = 'thinca/vim-partedit'
+on_cmd = ['Partedit']
+on_func = ['partedit#start']
+hook_add = '''
+let g:partedit#opener = 'new'
 '''
 
 [[plugins]]
@@ -126,16 +141,6 @@ autocmd FileType lua let g:caw_integrated_plugin = "ts_context_commentstring"
 repo = 'lambdalisue/guise.vim'
 # depends  = ['denops.vim']
 on_event = ['TerminalOpen']
-
-# syntax hilight
-# NOTE: treesitterでは不都合な場合に利用する
-[[plugins]]
-repo = 'dag/vim-fish'
-# on_ft = 'fish'
-# NOTE: treesitterを使うとdein系のtomlのハイライトが上手くいかない
-# [[plugins]]
-# repo  = 'cespare/vim-toml'
-# on_ft = 'toml'
 
 [[plugins]]
 repo = 'lfilho/cosco.vim'
@@ -542,7 +547,11 @@ repo = 'folke/todo-comments.nvim'
 depends = ['plenary.nvim']
 on_event = 'BufReadPost'
 lua_source = '''
-require('todo-comments').setup {}
+require('todo-comments').setup({
+  highlight = {
+    multiline = false,
+  },
+})
 '''
 
 ## リサイズを便利にするやつ
@@ -861,6 +870,10 @@ call ddc#custom#patch_buffer('sourceOptions', {
 # hook_add = '''
 # lua_source = '''
 # lua require('custom.lightline')
+# '''
+# [[plugins]]
+# repo = 'mengelbrecht/lightline-bufferline'
+# depends = ['lightline.vim']
 # '''
 # [[plugins]]
 # repo = 'mengelbrecht/lightline-bufferline'

@@ -49,6 +49,7 @@ command! DeinClean call DeinClean()
 set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-zenn
 set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-nvim-lsp
 set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-source-markdown
+set runtimepath^=~/ghq/github.com/mikanIchinose/ddu-column-tree
 
 
 function! InsertTodo() abort
