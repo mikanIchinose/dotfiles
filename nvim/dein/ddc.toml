@@ -164,6 +164,41 @@ on_source = 'ddc.vim'
 
 # NOTE: skk
 [[plugins]]
+repo = 'kuuote/ddc-source-suconv'
+on_source = 'ddc.vim'
+hook_source = '''
+function! s:enable() abort
+  let b:suconv_spill = ddc#custom#get_buffer()
+  call ddc#custom#patch_buffer(#{
+  \   sources: ['suconv'],
+  \   sourceOptions: #{
+  \     suconv: #{
+  \       converters: [],
+  \       matchers: [],
+  \       sorters: [],
+  \       isVolatile: v:true,
+  \     }
+  \   },
+  \   sourceParams: #{
+  \     suconv: #{dictionary: '/Users/solenoid/.config/SKK-JISYO.L'}
+  \   }
+  \ })
+endfunction
+
+function! s:disable() abort
+  if has_key(b:, 'suconv_spill')
+    call ddc#custom#set_buffer(b:suconv_spill)
+    unlet b:suconv_spill
+  endif
+endfunction
+
+augroup suconv
+  autocmd InsertLeave * call s:disable()
+augroup END
+
+nnoremap si i<Cmd>call <SID>enable()<CR>
+'''
+[[plugins]]
 repo      = 'Matts966/skk-vconv.vim'
 on_source = ['skkeleton']
 # [[plugins]]

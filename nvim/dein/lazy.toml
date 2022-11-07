@@ -26,9 +26,9 @@ vim.notify = require("notify")
 '''
 
 [[plugins]]
-repo    = 'folke/noice.nvim'
-depends = ['nui.nvim', 'nvim-notify']
-#on_event = ['CmdlineEnter', 'CursorHold']
+repo     = 'folke/noice.nvim'
+depends  = ['nui.nvim', 'nvim-notify']
+on_event = ['CmdlineEnter', 'CursorHold']
 #on_event = 'BufReadPost'
 lua_source = '''
 require('noice').setup {
