@@ -26,14 +26,14 @@ vim.notify = require("notify")
 '''
 
 [[plugins]]
-repo     = 'folke/noice.nvim'
-depends  = ['nui.nvim', 'nvim-notify']
-on_event = ['CmdlineEnter', 'CursorHold']
+repo    = 'folke/noice.nvim'
+depends = ['nui.nvim', 'nvim-notify']
+#on_event = ['CmdlineEnter', 'CursorHold']
 #on_event = 'BufReadPost'
 lua_source = '''
 require('noice').setup {
   cmdline = {
-    enabled = true,
+    enabled = false,
     icons = {
       ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
       ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
@@ -44,7 +44,7 @@ require('noice').setup {
     enabled = false,
   },
   messages = {
-    enabled = true,
+    enabled = false,
   },
   routes = {
     {

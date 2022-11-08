@@ -77,32 +77,32 @@ local ViMode = {
     'ModeChanged',
   },
 }
-local WorkDir = {
-  provider = function(self)
-    self.icon = ' '
-    local cwd = vim.fn.getcwd(0)
-    self.cwd = vim.fn.fnamemodify(cwd, ':~')
-  end,
-  hl = { fg = 'gray', bold = true },
-
-  utils.make_flexible_component(1, {
-    -- evaluates to the full-lenth path
-    provider = function(self)
-      local trail = self.cwd:sub(-1) == '/' and '' or '/'
-      return self.icon .. self.cwd .. trail .. ' '
-    end,
-  }, {
-    -- evaluates to the shortened path
-    provider = function(self)
-      local cwd = vim.fn.pathshorten(self.cwd)
-      local trail = self.cwd:sub(-1) == '/' and '' or '/'
-      return self.icon .. cwd .. trail .. ' '
-    end,
-  }, {
-    -- evaluates to "", hiding the component
-    provider = '',
-  }),
-}
+-- local WorkDir = {
+--   provider = function(self)
+--     self.icon = ' '
+--     local cwd = vim.fn.getcwd(0)
+--     self.cwd = vim.fn.fnamemodify(cwd, ':~')
+--   end,
+--   hl = { fg = 'gray', bold = true },
+--
+--   utils.make_flexible_component(1, {
+--     -- evaluates to the full-lenth path
+--     provider = function(self)
+--       local trail = self.cwd:sub(-1) == '/' and '' or '/'
+--       return self.icon .. self.cwd .. trail .. ' '
+--     end,
+--   }, {
+--     -- evaluates to the shortened path
+--     provider = function(self)
+--       local cwd = vim.fn.pathshorten(self.cwd)
+--       local trail = self.cwd:sub(-1) == '/' and '' or '/'
+--       return self.icon .. cwd .. trail .. ' '
+--     end,
+--   }, {
+--     -- evaluates to "", hiding the component
+--     provider = '',
+--   }),
+-- }
 local FileName = {
   provider = function(self)
     -- first, trim the pattern relative to the current directory. For other

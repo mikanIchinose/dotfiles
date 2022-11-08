@@ -1,6 +1,6 @@
 ---@param option_name string
 local function patch_global(option_name, value)
-  vim.call('ddc#custom#patch_global', option_name, value)
+  vim.fn['ddc#custom#patch_global'](option_name, value)
 end
 
 ---@param filetypes string[]
@@ -23,18 +23,12 @@ patch_global('sourceOptions', {
     --matchers = { 'matcher_head' },
     -- fuzzy maching
     -- matchers = { 'matcher_fuzzy' },
-    -- sorters = { 'sorter_rank' },
-    -- converters = { 'converter_fuzzy', 'converter_remove_overlap' },
+    -- sorters = { 'sorter_fuzzy' },
+    -- converters = { 'converter_fuzzy' },
   },
   ['nvim-lsp'] = {
     mark = 'LSP',
     forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
-    matchers = { 'matcher_head', 'matcher_length' },
-    sorters = { 'sorter_rank' },
-    converters = { 'converter_remove_overlap' },
-    -- matchers = { 'matcher_fuzzy' },
-    -- sorters = { 'sorter_rank' },
-    -- converters = { 'converter_fuzzy', 'converter_remove_overlap' },
   },
   ['nvim-lsp_by-treesitter'] = {
     mark = 'LSP_TS',
@@ -72,7 +66,6 @@ patch_global('sourceOptions', {
   ['cmdline-history'] = {
     mark = 'cmd history',
     dup = false,
-    -- sorters = {},
   },
 })
 local lspkind_ok, _ = pcall(require, 'lspkind')
@@ -153,7 +146,7 @@ patch_filetype({ 'FineCmdlinePrompt' }, {
 -- " autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
 -- ]])
 
-vim.call('ddc#enable')
+vim.fn['ddc#enable']()
 
 -- NOTE: lspkindを使うので不要、また必要になったらまた使う
 -- local codicon = require('codicons')

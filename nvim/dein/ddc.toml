@@ -24,13 +24,13 @@ autocmd InsertEnter * call BufferPum()
 call popup_preview#enable()
 
 function! CmdlinePum() abort
-  call pum#set_option('border', 'rounded')
-  call pum#set_option('padding',v:true)
+  call pum#set_option('border', 'none')
+  call pum#set_option('padding', v:true)
 endfunction
 
 function! BufferPum() abort
   call pum#set_option('border', 'none')
-  call pum#set_option('padding',v:false)
+  call pum#set_option('padding', v:false)
 endfunction
 '''
 [[plugins]]
@@ -55,7 +55,8 @@ function! CommandlinePre(mode) abort
 
   cnoremap <expr><buffer> <Tab>
   \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-  \ exists('b:ddc_cmdline_completion') ? ddc#map#manual_complete() : "\<C-t>"
+  \ exists('b:ddc_cmdline_completion') ? ddc#map#manual_complete() :
+  \ "\<C-t>"
 
   " Overwrite sources
   if !exists('b:prev_buffer_config')
@@ -63,7 +64,7 @@ function! CommandlinePre(mode) abort
   endif
   if a:mode ==# ':'
     call ddc#custom#patch_buffer('cmdlineSources',
-            \ ['cmdline-history', 'cmdline', 'around'])
+            \ ['cmdline-history', 'cmdline'])
     call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#-]*')
   else
     call ddc#custom#patch_buffer('cmdlineSources',
@@ -107,28 +108,31 @@ on_source = 'ddc.vim'
 
 ## NOTE: source
 [[plugins]]
-repo      = 'Shougo/ddc-around'
+repo      = 'Shougo/ddc-source-around'
 on_source = 'ddc.vim'
 [[plugins]]
-repo      = 'Shougo/ddc-nvim-lsp'
+repo      = 'Shougo/ddc-source-nvim-lsp'
 on_source = 'ddc.vim'
 [[plugins]]
-repo      = 'Shougo/ddc-rg'
+repo      = 'Shougo/ddc-source-rg'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/neco-vim'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-nextword'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-cmdline-history'
 on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'LumaKernel/ddc-file'
 on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'matsui54/ddc-buffer'
-on_source = 'ddc.vim'
-[[plugins]]
-repo      = 'Shougo/neco-vim'
-on_source = 'ddc.vim'
-[[plugins]]
-repo      = 'Shougo/ddc-cmdline'
-on_source = 'ddc.vim'
-[[plugins]]
-repo      = 'Shougo/ddc-cmdline-history'
 on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'nabezokodaikon/ddc-nvim-lsp_by-treesitter'
@@ -142,6 +146,12 @@ on_source = 'ddc.vim'
 repo      = 'tani/ddc-fuzzy'
 on_source = 'ddc.vim'
 [[plugins]]
+repo      = 'tani/ddc-onp'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'matsui54/ddc-matcher_fuzzy'
+on_source = 'ddc.vim'
+[[plugins]]
 repo      = 'Shougo/ddc-sorter_rank'
 on_source = 'ddc.vim'
 [[plugins]]
@@ -152,6 +162,9 @@ repo      = 'Shougo/ddc-matcher_length'
 on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'Shougo/ddc-converter_remove_overlap'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-converter_truncate_abbr'
 on_source = 'ddc.vim'
 
 # NOTE: snippet
@@ -170,7 +183,7 @@ hook_source = '''
 function! s:enable() abort
   let b:suconv_spill = ddc#custom#get_buffer()
   call ddc#custom#patch_buffer(#{
-  \   sources: ['suconv'],
+  \   sources: ['suconv', 'around', 'file'],
   \   sourceOptions: #{
   \     suconv: #{
   \       converters: [],

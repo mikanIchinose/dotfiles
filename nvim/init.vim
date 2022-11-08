@@ -94,7 +94,7 @@ if dein#check_install()
   call dein#install()
 endif
 
-lua require('impatient')
+" lua require('impatient')
 
 function! s:dein_toml_syntax() abort
   if expand('%:p') =~# '\vdein/[^/]+.toml$'

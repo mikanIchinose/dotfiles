@@ -1,8 +1,8 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-[[plugins]]
-repo = 'lewis6991/impatient.nvim'
+#[[plugins]]
+#repo = 'lewis6991/impatient.nvim'
 
 # help
 # [[plugins]]
@@ -42,10 +42,6 @@ repo = 'folke/tokyonight.nvim'
 # repo = 'sainnhe/gruvbox-material'
 [[plugins]]
 repo = 'sainnhe/everforest'
-
-## icon
-# [[plugins]]
-# repo = 'kyazdani42/nvim-web-devicons'
 
 ## which-key
 [[plugins]]
