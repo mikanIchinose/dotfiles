@@ -34,9 +34,12 @@ ffmpeg -i "<video-file>" -r 24 "ffmpeg/<git_file>.gif"
 
 # compress video
 for video (<videos>) ffmpeg -i "$video" -crf 20 "ffmpeg/$video"
+# compress mp4
+for video (<mp4s>) ffmpeg -i "$video" -crf 30 "ffmpeg/$video"
 
 $ video-file: fd -e mp4 -e mov -E ffmpeg
 $ videos: fd -e mp4 -e mov -E ffmpeg --- --multi --expand
+$ mp4s: fd -e mp4 -E ffmpeg --- --multi --expand
 
 % vim, doc, memo
 
