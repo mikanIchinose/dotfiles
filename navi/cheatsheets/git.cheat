@@ -44,16 +44,17 @@ git branch -m <current_branch> <new_branch>
 git branch -d <local_branch>
 
 # delete merged-branch
-git branch -d <local_branch>
+git branch -d <merged_branchs>
 
 $ current_branch: git branch --show-current
 $ local_branch: git for-each-ref --format="%(refname:short)" refs/heads \
   | grep -v $(git branch --show-current) \
-  | sed "s/grigin\///" \
+  | sed "s/origin\///" \
   | sort | uniq
+$ merged_branchs: git branch --merged | grep -Ev "(\*|\+)" | tr -d " " --- --multi --expand
 $ remote_branch: git for-each-ref --format="%(refname:short)" refs/remotes \
   | grep -v $(git branch --show-current) \
-  | sed "s/grigin\///" \
+  | sed "s/origin\///" \
   | sort | uniq
 $ all_branch: git for-each-ref --format="%(refname:short)" refs/remotes refs/heads \
   | grep -v $(git --show-current) \
