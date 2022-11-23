@@ -7,6 +7,12 @@ repo = 'MunifTanjim/nui.nvim'
 repo = 'kyazdani42/nvim-web-devicons'
 
 [[plugins]]
+repo = 'Shougo/junkfile.vim'
+hook_add = '''
+command! -nargs=0 JunkfileDay call junkfile#open_immediately(strftime('%Y-%m-%d.md'))
+'''
+
+[[plugins]]
 repo = 'goolord/alpha-nvim'
 depends = ['nvim-web-devicons']
 on_event = 'VimEnter'
@@ -136,11 +142,6 @@ xmap gc <Plug>(caw:hatpos:toggle)
 hook_source = '''
 autocmd FileType lua let g:caw_integrated_plugin = "ts_context_commentstring"
 '''
-
-[[plugins]]
-repo = 'lambdalisue/guise.vim'
-# depends  = ['denops.vim']
-on_event = ['TerminalOpen']
 
 [[plugins]]
 repo = 'lfilho/cosco.vim'

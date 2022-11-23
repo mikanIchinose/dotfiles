@@ -64,7 +64,7 @@ function! CommandlinePre(mode) abort
   endif
   if a:mode ==# ':'
     call ddc#custom#patch_buffer('cmdlineSources',
-            \ ['cmdline-history', 'cmdline'])
+            \ ['cmdline'])
     call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#-]*')
   else
     call ddc#custom#patch_buffer('cmdlineSources',

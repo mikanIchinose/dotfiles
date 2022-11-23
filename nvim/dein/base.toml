@@ -23,6 +23,10 @@ hook_add = '''
 # command! DenopsSharedServerUninstall call denops_shared_server#uninstall()
 # '''
 
+[[plugins]]
+repo    = 'lambdalisue/guise.vim'
+depends = ['denops.vim']
+
 # syntax hilight
 # NOTE: treesitterでは不都合な場合に利用する
 [[plugins]]

@@ -57,7 +57,7 @@ map('i', '<C-Space>', function()
   manual_complete({ 'nvim-lsp', 'rg', 'around' })
 end, opts)
 map('c', '<C-Space>', function()
-  manual_complete({ 'cmdline-history', 'cmdline' })
+  manual_complete({ 'cmdline' })
 end, opts)
 map('c', '<Tab>', function()
   if pum_visible() ~= 0 then
