@@ -60,6 +60,9 @@ local sourceOptions = {
       'matcher_dein_update',
     },
   },
+  markdown = {
+    columns = { 'tree' },
+  },
 }
 
 local sourceParams = {
@@ -82,7 +85,8 @@ local sourceParams = {
     useGraphQL = true,
   },
   markdown = {
-    style = 'none',
+    -- style = 'none',
+    style = 'hash',
   },
   -- ['custom-list'] = {
   --   texts = { 'a', 'b', 'c' }
