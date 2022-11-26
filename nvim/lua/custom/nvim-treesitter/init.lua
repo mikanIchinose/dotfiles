@@ -7,6 +7,7 @@ local config = {
       'lua',
       -- 'vim',
       'toml',
+      'typescript',
       -- 'fish',
     },
     additional_vim_regex_highlighting = false,

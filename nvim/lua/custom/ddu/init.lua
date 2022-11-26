@@ -9,6 +9,9 @@ local sourceOptions = {
       -- 'matcher_fzf',
       'matcher_substring',
     },
+    sorters = {
+      'sorter_alpha',
+    },
     -- converters = {
     --   -- 'converter_display_word',
     -- },
@@ -19,9 +22,9 @@ local sourceOptions = {
     -- },
   },
   file = {
-    -- columns = {
-    --   'icon_filename'
-    -- },
+    columns = {
+      'icon_filename',
+    },
     matchers = {
       'matcher_hidden', -- ignore hidden file
     },

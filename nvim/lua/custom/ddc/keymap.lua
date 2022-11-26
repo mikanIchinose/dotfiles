@@ -56,27 +56,27 @@ end)
 map('i', '<C-Space>', function()
   manual_complete({ 'nvim-lsp', 'rg', 'around' })
 end, opts)
-map('c', '<C-Space>', function()
-  manual_complete({ 'cmdline' })
-end, opts)
-map('c', '<Tab>', function()
-  if pum_visible() ~= 0 then
-    cmp_down()
-  elseif vim.fn.exists('b:ddc_cmdline_completion') ~= 0 then
-    manual_complete('cmdline')
-  else
-    vim.fn.nr2char(vim.o.wildcharm)
-  end
-end)
-map('c', '<S-Tab>', function()
-  cmp_up()
-end)
-map('c', '<C-c>', function()
-  cancel()
-end)
-map('c', '<C-o>', function()
-  confirm()
-end)
+--map('c', '<C-Space>', function()
+--  manual_complete({ 'cmdline' })
+--end, opts)
+--map('c', '<Tab>', function()
+--  if pum_visible() ~= 0 then
+--    cmp_down()
+--  elseif vim.fn.exists('b:ddc_cmdline_completion') ~= 0 then
+--    manual_complete('cmdline')
+--  else
+--    vim.fn.nr2char(vim.o.wildcharm)
+--  end
+--end,{buffer=true})
+--map('c', '<S-Tab>', function()
+--  cmp_up()
+--end)
+--map('c', '<C-c>', function()
+--  cancel()
+--end)
+--map('c', '<C-o>', function()
+--  confirm()
+--end)
 
 -- snippet
 vim.cmd([[

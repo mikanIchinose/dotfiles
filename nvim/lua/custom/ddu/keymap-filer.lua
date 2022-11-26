@@ -22,19 +22,13 @@ local function deleteItem()
   if vim.b.ddu_source_name == 'buffer' then
     action = 'bdelete'
   elseif vim.b.ddu_source_name == 'file' then
-    action = 'delete'
+    action = 'trash'
   else
     -- vim.b.ddu_source_name = ''
     vim.fn['ddu#ui#filer#do_action']('chooseAction')
     return
   end
   vim.fn['ddu#ui#filer#do_action']('itemAction', { name = action })
-  -- vim.call('ddu#ui#filer#do_action', 'checkItems')
-  -- vim.call('ddu#ui#filer#multi_actions', {
-  --   { 'itemAction', { name = action } },
-  --   { 'checkItems' },
-  -- })
-  -- vim.b.ddu_source_name = ''
 end
 
 local opts = { buffer = true, silent = true }

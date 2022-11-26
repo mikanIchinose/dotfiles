@@ -84,4 +84,8 @@ endif
 lua << EOF
 require("keymapping")
 require("custom.which-key")
+require("notify").setup({
+  background_colour = "#000000",
+})
+vim.notify = require("notify")
 EOF

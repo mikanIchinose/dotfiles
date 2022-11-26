@@ -1,24 +1,26 @@
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/cask-drivers"
-tap "homebrew/cask-fonts"
 tap "homebrew/services"
-tap "d12frosted/emacs-plus" # emacs
-tap "wez/wezterm" # wezterm
 tap "koekeishiya/formulae"
-tap "jesseduffield/lazygit"
 tap "mobile-dev-inc/tap"
 
 # cli
 brew "git"
 brew "ghq"
 brew "git-delta"
-brew "lazygit"
 brew "commitizen"
 brew "gh"
 brew "gitlint"
 brew "gitui"
+tap "jesseduffield/lazygit"
+brew "lazygit"
+
 # brew "mas" # いまのmacosだと正常に動作しない
+
+tap "homebrew/cask-fonts"
+#brew "font-fira-code"
+
 brew "wget"
 brew "fzf"
 brew "starship"
@@ -45,22 +47,26 @@ brew "llvm"
 brew "topgrade"
 brew "maestro"
 brew "wtfutil"
-# brew "aria2"
-# brew "youtube-dl"
-# brew "silicon"
+brew "aria2"
+brew "gcc"
+brew "scrcpy"
+brew "yt-dlp"
+brew "ttyd"
+brew "vhs"
+brew "desktop-file-utils"
+
+tap "terrastruct/d2"
+brew "d2"
 
 # lang
 brew "deno"
 brew "go"
 brew "jsonnet"
 # brew "dhall"
-# brew "dhall-lsp-server"
 # brew "dhall-yaml"
 
-# neovim
-# brew "neovim", args: ["HEAD"]
-
 # emacs
+# tap "d12frosted/emacs-plus" # emacs
 # brew "emacs-plus@28", args: ["with-xwidgets", "with-imagemagick", "with-native-comp"]
 # cask "emacs"
 # brew "sqlite" # used by org-roam
@@ -75,13 +81,14 @@ cask "vivaldi"
 cask "google-chrome"
 cask "biscuit"
 cask "firefox"
-#cask "brave-browser"
+cask "brave-browser"
 
 # terminal
 cask "iterm2" # なんやかんやこれを使ってしまう
-cask "wezterm" # 日本語との相性わるすぎ
-cask "kitty" #
+cask "kitty" # 可もなく不可もなく
 cask "alacritty" # タブがないからなー
+tap "wez/wezterm"
+cask "wezterm" # 日本語との相性わるすぎ
 
 # gui
 cask "thunderbird"
@@ -98,7 +105,6 @@ cask "zsa-wally"
 cask "atok"
 cask "cyberduck"
 cask "keepassxc"
-cask "clipy"
 cask "box-drive"
 cask "anki-beta"
 cask "google-drive"
@@ -106,18 +112,17 @@ cask "aquaskk"
 cask "ngrok"
 cask "raycast"
 cask "gather"
-cask "remnote"
 cask "meetingbar"
 cask "disk-drill"
-# cask "alfred"
 # cask "postman"
 # cask "smlnj"
+# cask "clipy"
 
 # Editor/IDE
 cask "visual-studio-code"
 cask "android-studio"
 
-## beautiful desktop environtment
+# beautiful desktop environtment
 brew "yabai"
 brew "koekeishiya/formulae/skhd"
 cask "ubersicht"

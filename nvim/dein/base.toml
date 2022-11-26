@@ -34,6 +34,8 @@ repo = 'dag/vim-fish'
 # NOTE: treesitterを使うとdein系のtomlのハイライトが上手くいかない
 [[plugins]]
 repo = 'cespare/vim-toml'
+[[plugins]]
+repo = 'terrastruct/d2-vim'
 
 ## color scheme
 # [[plugins]]

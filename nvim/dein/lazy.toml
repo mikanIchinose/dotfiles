@@ -1,10 +1,19 @@
 ## なんか便利な強いやつ いろんなプラギンが依存してる
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
-[[plugins]]
-repo = 'MunifTanjim/nui.nvim'
+#[[plugins]]
+#repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
+[[plugins]]
+repo   = 'rcarriga/nvim-notify'
+on_lua = 'notify'
+#lua_source = '''
+#require("notify").setup({
+#  background_colour = "#000000",
+#})
+#vim.notify = require("notify")
+#'''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
@@ -20,46 +29,40 @@ lua_source = '''
 require('alpha').setup(require('alpha.themes.startify').config)
 '''
 
-## 通知
-[[plugins]]
-repo = 'rcarriga/nvim-notify'
-on_lua = 'notify'
-lua_source = '''
-require("notify").setup({
-  background_colour = "#000000",
-})
-vim.notify = require("notify")
-'''
-
-[[plugins]]
-repo = 'folke/noice.nvim'
-# depends = ['nui.nvim', 'nvim-notify']
+#[[plugins]]
+#repo     = 'folke/noice.nvim'
+#depends  = ['nui.nvim', 'nvim-notify']
 #on_event = ['CmdlineEnter', 'CursorHold']
-#on_event = 'BufReadPost'
-lua_source = '''
-require('noice').setup {
-  cmdline = {
-    enabled = true,
-    icons = {
-      ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
-      ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
-      [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
-    },
-  },
-  popupmenu = {
-    enabled = false,
-  },
-  messages = {
-    enabled = false,
-  },
-  routes = {
-    {
-      view = "split",
-      filter = { min_width = 500 },
-    },
-  },
-}
-'''
+##on_event = 'BufRead'
+#lua_source = '''
+#require('noice').setup({
+#  lsp = {
+#    progress = {
+#      enabled = false,
+#    },
+#  },
+#  --cmdline = {
+#  --  enabled = true,
+#  --  icons = {
+#  --    ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
+#  --    ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
+#  --    [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
+#  --  },
+#  --},
+#  --popupmenu = {
+#  --  enabled = true,
+#  --},
+#  messages = {
+#    enabled = false,
+#  },
+#  --routes = {
+#  --  {
+#  --    view = "split",
+#  --    filter = { min_width = 500 },
+#  --  },
+#  --},
+#})
+#'''
 
 # NOTE: statusline
 [[plugins]]
@@ -233,43 +236,44 @@ require("custom.gitsigns")
 ## NOTE: lsp
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-# on_event = ['BufRead']
+depends = ['mason.nvim', 'mason-lspconfig.nvim']
 lua_source = '''
 require('custom.lsp')
 '''
 [[plugins]]
-repo      = 'williamboman/mason.nvim'
-on_source = ['nvim-lspconfig']
+repo = 'williamboman/mason.nvim'
 [[plugins]]
-repo      = 'williamboman/mason-lspconfig.nvim'
-depends   = ['mason.nvim']
-on_source = ['nvim-lspconfig']
+repo = 'williamboman/mason-lspconfig.nvim'
 [[plugins]]
-repo    = 'jayp0521/mason-null-ls.nvim'
-depends = ['mason.nvim', 'null-ls.nvim']
+repo = 'jayp0521/mason-null-ls.nvim'
+lua_source = '''
+require('mason-null-ls').setup({
+  automatic_setup = true,
+})
+'''
 [[plugins]]
-repo      = 'WhoIsSethDaniel/mason-tool-installer.nvim'
-depends   = ['mason.nvim']
-on_source = ['nvim-lspconfig']
-## lua development
+repo = 'jose-elias-alvarez/null-ls.nvim'
+depends = ['nvim-lspconfig', 'plenary.nvim', 'mason.nvim', 'mason-null-ls.nvim']
+on_event = ['BufReadPre']
+lua_source = '''
+--require('custom.null-ls')
+'''
+# [[plugins]]
+# repo      = 'WhoIsSethDaniel/mason-tool-installer.nvim'
+# depends   = ['mason.nvim']
+# on_source = ['nvim-lspconfig']
 [[plugins]]
 repo      = 'folke/neodev.nvim'
 on_source = ['nvim-lspconfig']
 [[plugins]]
-repo      = 'lukas-reineke/lsp-format.nvim'
+repo = 'lukas-reineke/lsp-format.nvim'
 on_source = ['nvim-lspconfig', 'null-ls']
+lua_source = '''
+require('lsp-format').setup()
+'''
 [[plugins]]
 repo      = 'b0o/SchemaStore.nvim'
 on_source = ['nvim-lspconfig']
-[[plugins]]
-repo   = 'weilbith/nvim-code-action-menu'
-on_cmd = 'CodeActionMemu'
-#[[plugins]]
-#repo = "j-hui/fidget.nvim"
-#on_source = ['nvim-lspconfig']
-#hook_source = '''
-#lua require('fidget').setup()
-#'''
 [[plugins]]
 repo      = 'mortepau/codicons.nvim'
 on_source = 'nvim-lspconfig'
@@ -281,13 +285,6 @@ require('lspkind').init {
   mode = 'symbol',
   preset = 'codicons',
 }
-'''
-[[plugins]]
-repo = 'jose-elias-alvarez/null-ls.nvim'
-depends = ['nvim-lspconfig', 'plenary.nvim']
-on_event = ['BufReadPre']
-hook_source = '''
-lua require('custom.null-ls')
 '''
 [[plugins]]
 repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
@@ -307,6 +304,9 @@ on_source = 'nvim-lspconfig'
 [[plugins]]
 repo      = 'LumaKernel/vim-tsdetect'
 on_source = 'nvim-lspconfig'
+[[plugins]]
+repo   = 'weilbith/nvim-code-action-menu'
+on_cmd = 'CodeActionMemu'
 # [[plugins]]
 # repo = 'nvim-lua/lsp-status.nvim'
 # depends = ['nvim-lspconfig']
@@ -856,8 +856,8 @@ call ddc#custom#patch_buffer('sourceOptions', {
 # '''
 
 ## editorconfig
-# [[plugins]]
-# repo = 'editorconfig/editorconfig-vim'
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
 
 ## textobject
 # [[plugins]]

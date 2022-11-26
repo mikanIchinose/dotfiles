@@ -223,11 +223,11 @@ local Git = {
   hl = { fg = '#ce6f8f' },
 }
 local Skk = {
-  condition = vim.g.loaded_skkeleton == 0,
+  condition = vim.g.loaded_skkeleton ~= nil and vim.g.loaded_skkeleton == 0,
   provider = function(self)
     local mode = vim.fn.mode(1)
     if mode == 'i' or mode == 'c' then
-      local skkeleton_mode = vim.call('skkeleton#mode')
+      local skkeleton_mode = vim.fn['skkeleton#mode']()
       if self.mode_names[skkeleton_mode] then
         return ' ' .. self.mode_names[skkeleton_mode]
       else
@@ -290,7 +290,7 @@ local Space = { provider = ' ' }
 local statusline = {
   utils.surround({ '', '' }, '#30365F', {
     ViMode,
-    Skk,
+    --Skk,
     FileInfo,
   }),
   Space,

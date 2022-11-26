@@ -39,7 +39,6 @@ require('which-key').register({
           '-ui=filer',
           '-ui-param-split=no',
           'file',
-          '-source-option-columns=filename',
           '-source-option-path=`getcwd()`',
         }),
         'filer',
@@ -109,7 +108,7 @@ autocmd FileType markdown
 
 map(
   'n',
-  '/',
+  '?',
   Ddu({
     '-name=search_line',
     '-ui-param-startFilter',

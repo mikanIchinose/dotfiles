@@ -89,8 +89,8 @@ nnoremap <buffer><silent> a
   \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
 nnoremap <buffer><silent> c
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
-" nnoremap <buffer><silent> d
-"  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'delete'})<CR>
+nnoremap <buffer><silent> D
+ \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'trash'})<CR>
 nnoremap <buffer><silent> d
   \ <Cmd>call ddu#ui#ff#multi_actions([
   \   ['itemAction', {'name': 'bdelete'}],
@@ -251,6 +251,9 @@ let g:readme_viewer#plugin_manager = 'dein.vim'
 [[plugins]]
 repo      = 'Shougo/ddu-filter-matcher_substring'
 on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-filter-sorter_alpha'
+on_source = 'ddu.vim'
 ## path情報を見て相対パスに該当するもので絞る
 [[plugins]]
 repo      = 'Shougo/ddu-filter-matcher_relative'
@@ -265,6 +268,7 @@ on_source = 'ddu.vim'
 repo      = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
 
+
 # NOTE: kind
 [[plugins]]
 repo      = 'Shougo/ddu-kind-file'
@@ -277,6 +281,6 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo      = 'Shougo/ddu-column-filename'
 on_source = 'ddu.vim'
-# [[plugins]]
-# repo      = 'ryota2357/ddu-column-icon_filename'
-# on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'ryota2357/ddu-column-icon_filename'
+on_source = 'ddu.vim'

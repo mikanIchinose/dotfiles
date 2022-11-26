@@ -1,4 +1,3 @@
-
 " indent & tab/space
 " 直前の行と同じインデントを挿入する
 set autoindent
@@ -33,12 +32,12 @@ set titlestring=%t
 set backspace=indent,eol,start
 set inccommand=split
 "NOTE: statusline
-try
-  set cmdheight=0
-catch
-  set cmdheight=1
-endtry
-" set cmdheight=1
+"try
+"  set cmdheight=0
+"catch
+"  set cmdheight=1
+"endtry
+set cmdheight=1
 set laststatus=3
 set nowrap
 " fold
@@ -87,3 +86,7 @@ set winblend=0 " floating window の透明度を無くす
 set inccommand=nosplit
 " set pumblend=20
 " set winblend=20
+
+" set isfname&
+"  \ isfname+=@-@
+"  \ isfname-==

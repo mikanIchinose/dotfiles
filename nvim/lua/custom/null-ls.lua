@@ -2,9 +2,9 @@ local formatting = require('null-ls').builtins.formatting
 local diagnostics = require('null-ls').builtins.diagnostics
 local code_actions = require('null-ls').builtins.code_actions
 require('null-ls').setup({
-  on_attach = function(client, _)
-    require('lsp-format').on_attach(client)
-  end,
+  --on_attach = function(client, _)
+  --  require('lsp-format').on_attach(client)
+  --end,
   sources = {
     -- formatting.deno_fmt.with({ filetypes = {''} }),
     formatting.prettierd.with({
@@ -12,9 +12,10 @@ require('null-ls').setup({
     }),
     -- text
     -- diagnostics.cspell,
-    -- diagnostics.textlint.with({
-    --   filetypes = { 'markdown' },
-    -- }),
+    -- diagnostics.vale,
+    diagnostics.textlint.with({
+      filetypes = { 'markdown' },
+    }),
     -- editorconfig
     -- diagnostics.editorconfig_checker,
     -- fish
@@ -27,7 +28,6 @@ require('null-ls').setup({
     -- diagnostics.markdownlint.with({
     --   args = { '-c', '~/.config/markdownlint/.markdownlintrc', '--stdin' },
     -- }),
-    -- diagnostics.vale,
     -- shell
     formatting.shfmt.with({
       args = { '-i', '2', '-filename', '$FILENAME' },

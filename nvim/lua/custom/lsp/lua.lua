@@ -1,5 +1,3 @@
-local M = {}
-
 local runtimePath = vim.split(package.path, ';')
 table.insert(runtimePath, 'lua/?.lua')
 table.insert(runtimePath, 'lua/?/init.lua')
@@ -9,6 +7,7 @@ for i = 1, #library do
   library[i] = vim.loop.fs_realpath(library[i])
 end
 
+local M = {}
 M.sumneko_lua = function(opts)
   opts.settings = {
     Lua = {
@@ -37,5 +36,33 @@ M.sumneko_lua = function(opts)
     },
   }
 end
+M.opts = {
+  settings = {
+    Lua = {
+      format = {
+        enable = false,
+        defaultConfig = {
+          indent_style = 'space',
+          indent_size = 2,
+        },
+      },
+      runtime = {
+        version = 'LuaJIT',
+        path = runtimePath,
+      },
+      diagnostics = {
+        globals = { 'vim' },
+        neededFileStatus = {
+          ['codestyle-check'] = 'Any',
+        },
+      },
+      workspace = {
+        library = library,
+      },
+      telemetry = { enable = false },
+      completion = { keywordSnippet = 'Replace' },
+    },
+  },
+}
 
 return M

@@ -91,16 +91,15 @@ patch_global('autoCompleteEvents', {
 patch_global('completionMenu', 'pum.vim')
 
 -- set sources
-patch_global('sources', { 'nvim-lsp', 'vsnip', 'around', 'rg', 'file' })
-patch_global('cmdlinesSources', { 'cmdline', 'file', 'around' })
+patch_global('sources', { 'nvim-lsp', 'vsnip', 'file', 'around', 'rg' })
+-- patch_global('cmdlinesSources', { 'cmdline', 'file', 'around' })
 patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around', 'file' })
-patch_filetype_with_option({ 'vim' }, 'sources', { 'necovim', 'nvim-lsp', 'vsnip', 'around', 'file' })
-patch_filetype_with_option({ 'norg' }, 'sources', { 'nvim-lsp', 'around', 'rg', 'file' })
-patch_filetype({ 'FineCmdlinePrompt' }, {
-  keywordPattern = '[0-9a-zA-Z_:#-]',
-  sources = { 'cmdline', 'around' },
-  specialBufferCompletion = true,
-})
+patch_filetype_with_option({ 'vim' }, 'sources', { 'necovim', 'nvim-lsp', 'file', 'around' })
+-- patch_filetype({ 'FineCmdlinePrompt' }, {
+--   keywordPattern = '[0-9a-zA-Z_:#-]',
+--   sources = { 'cmdline', 'cmdline-history', 'file', 'around' },
+--   specialBufferCompletion = true,
+-- })
 
 -- NOTE: ghost-textで補完するときに必要
 -- patch_filetype({ 'markdown' }, 'specialBufferCompletion', 'v:true')
