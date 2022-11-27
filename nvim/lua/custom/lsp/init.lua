@@ -192,7 +192,7 @@ local LS = {
 
 local on_attach = function(client, bufnr)
   -- format on save
-  --require('lsp-format').on_attach(client)
+  require('lsp-format').on_attach(client)
 
   -- keymap
   local code_action = {
