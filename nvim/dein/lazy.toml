@@ -1,8 +1,7 @@
-## なんか便利な強いやつ いろんなプラギンが依存してる
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
-#[[plugins]]
-#repo = 'MunifTanjim/nui.nvim'
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
 [[plugins]]
@@ -29,59 +28,47 @@ lua_source = '''
 require('alpha').setup(require('alpha.themes.startify').config)
 '''
 
-#[[plugins]]
-#repo     = 'folke/noice.nvim'
-#depends  = ['nui.nvim', 'nvim-notify']
-#on_event = ['CmdlineEnter', 'CursorHold']
-##on_event = 'BufRead'
-#lua_source = '''
-#require('noice').setup({
-#  lsp = {
-#    progress = {
-#      enabled = false,
-#    },
-#  },
-#  --cmdline = {
-#  --  enabled = true,
-#  --  icons = {
-#  --    ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
-#  --    ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
-#  --    [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
-#  --  },
-#  --},
-#  --popupmenu = {
-#  --  enabled = true,
-#  --},
-#  messages = {
-#    enabled = false,
-#  },
-#  --routes = {
-#  --  {
-#  --    view = "split",
-#  --    filter = { min_width = 500 },
-#  --  },
-#  --},
-#})
-#'''
+[[plugins]]
+repo = 'folke/noice.nvim'
+depends = 'nui.nvim'
+on_event = ['CmdlineEnter', 'CursorHold']
+lua_source = '''
+require('noice').setup({
+  lsp = {
+    progress = {
+      enabled = false,
+    },
+  },
+  --cmdline = {
+  --  enabled = true,
+  --  icons = {
+  --    ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
+  --    ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
+  --    [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
+  --  },
+  --},
+  --popupmenu = {
+  --  enabled = true,
+  --},
+  messages = {
+    enabled = false,
+  },
+  --routes = {
+  --  {
+  --    view = "split",
+  --    filter = { min_width = 500 },
+  --  },
+  --},
+})
+'''
 
 # NOTE: statusline
 [[plugins]]
 repo = 'rebelot/heirline.nvim'
-on_event = 'VimEnter'
+on_event = ['VimEnter', 'CursorHold']
 lua_source = '''
 require('custom.heirline')
 '''
-
-# NOTE: 正直そんなに使わない
-# [[plugins]]
-# repo = 'kevinhwang91/nvim-ufo'
-# depends = ['promise-async']
-# on_event = ['BufReadPost']
-# lua_source = '''
-# require('custom.nvim-ufo')
-# '''
-# [[plugins]]
-# repo = 'kevinhwang91/promise-async'
 
 [[plugins]]
 repo = 'folke/trouble.nvim'
@@ -116,16 +103,11 @@ let g:context_filetype#ignore_patterns = {
    \ 'toml': ['^\s*#\s*'],
    \ }
 '''
-# [[plugins]]
-# repo = 'osyo-manga/vim-precious'
-# on_ft = 'toml'
-# depends = ['context_filetype.vim']
-# on_if = 'expand("%:p") =~# "\vdein/[^/]+.toml$"'
 
 # NOTE: comment
 [[plugins]]
 repo = 'tyru/caw.vim'
-on_event = ['CursorHold']
+on_event = ['CursorHold', 'BufRead']
 hook_add = '''
 " disable default keymap
 let g:caw_no_default_keymappings = 1
@@ -141,9 +123,6 @@ nmap gco <Plug>(caw:jump:comment-next)
 nmap gcO <Plug>(caw:jump:comment-prev)
 
 xmap gc <Plug>(caw:hatpos:toggle)
-'''
-hook_source = '''
-autocmd FileType lua let g:caw_integrated_plugin = "ts_context_commentstring"
 '''
 
 [[plugins]]
@@ -233,13 +212,6 @@ require("custom.gitsigns")
 # EOF
 # '''
 
-## NOTE: lsp
-[[plugins]]
-repo = 'neovim/nvim-lspconfig'
-depends = ['mason.nvim', 'mason-lspconfig.nvim']
-lua_source = '''
-require('custom.lsp')
-'''
 [[plugins]]
 repo = 'williamboman/mason.nvim'
 [[plugins]]
@@ -251,17 +223,20 @@ require('mason-null-ls').setup({
   automatic_setup = true,
 })
 '''
+## NOTE: lsp
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+depends = ['mason.nvim', 'mason-lspconfig.nvim']
+lua_source = '''
+require('custom.lsp')
+'''
 [[plugins]]
 repo = 'jose-elias-alvarez/null-ls.nvim'
 depends = ['nvim-lspconfig', 'plenary.nvim', 'mason.nvim', 'mason-null-ls.nvim']
-on_event = ['BufReadPre']
+on_event = ['BufRead']
 lua_source = '''
---require('custom.null-ls')
+require('custom.null-ls')
 '''
-# [[plugins]]
-# repo      = 'WhoIsSethDaniel/mason-tool-installer.nvim'
-# depends   = ['mason.nvim']
-# on_source = ['nvim-lspconfig']
 [[plugins]]
 repo      = 'folke/neodev.nvim'
 on_source = ['nvim-lspconfig']
@@ -273,7 +248,7 @@ require('lsp-format').setup()
 '''
 [[plugins]]
 repo      = 'b0o/SchemaStore.nvim'
-on_source = ['nvim-lspconfig']
+on_source = 'nvim-lspconfig'
 [[plugins]]
 repo      = 'mortepau/codicons.nvim'
 on_source = 'nvim-lspconfig'
@@ -316,8 +291,9 @@ on_cmd = 'CodeActionMemu'
 # '''
 
 # NOTE: lspの前には有効化されていないといけない
-# [[plugins]]
-# repo = 'google/vim-jsonnet'
+[[plugins]]
+repo    = 'google/vim-jsonnet'
+on_path = '.jsonnet'
 
 
 ## NOTE: make your own mode
@@ -330,7 +306,7 @@ lua require('custom.hydra')
 [[plugins]]
 repo = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
-on_event = ['BufReadPost']
+on_event = ['BufRead']
 lua_source = '''
 require("custom.incline")
 '''
@@ -340,7 +316,6 @@ repo = 'max397574/better-escape.nvim'
 on_event = 'InsertEnter'
 lua_source = '''
 require('better_escape').setup {
-  mapping = {'jk', 'jj'},
   timeout = 200,
 }
 '''
@@ -546,7 +521,7 @@ lua require('keymap.neorg')
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 depends = ['plenary.nvim']
-on_event = 'BufReadPost'
+on_event = 'BufRead'
 lua_source = '''
 require('todo-comments').setup({
   highlight = {
@@ -555,7 +530,6 @@ require('todo-comments').setup({
 })
 '''
 
-## リサイズを便利にするやつ
 [[plugins]]
 repo = 'mrjones2014/smart-splits.nvim'
 on_event = 'BufReadPost'
@@ -591,13 +565,9 @@ call lexima#set_default_rules()
 '''
 
 ## 囲みを付けたり変更したり
-# [[plugins]]
-# repo     = 'tpope/vim-surround'
-# on_event = "InsertEnter"
 [[plugins]]
 repo     = 'machakann/vim-sandwich'
 on_event = "InsertEnter"
-
 
 ## color code highlighter
 [[plugins]]
@@ -616,18 +586,18 @@ hook_post_source = 'TSUpdate'
 lua_source = '''
 require('custom.nvim-treesitter')
 '''
-[[plugins]]
-repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
-on_source = 'nvim-treesitter'
-hook_add = '''
-highlight rainbowcol1 guifg=#B2C224
-highlight rainbowcol2 guifg=#FECC31
-highlight rainbowcol3 guifg=#F9A327
-highlight rainbowcol4 guifg=#F6621E
-highlight rainbowcol5 guifg=#EE647A
-highlight rainbowcol6 guifg=#A463D8
-highlight rainbowcol7 guifg=#3FA4D9
-'''
+#[[plugins]]
+#repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
+#on_source = 'nvim-treesitter'
+#hook_add = '''
+#highlight rainbowcol1 guifg=#B2C224
+#highlight rainbowcol2 guifg=#FECC31
+#highlight rainbowcol3 guifg=#F9A327
+#highlight rainbowcol4 guifg=#F6621E
+#highlight rainbowcol5 guifg=#EE647A
+#highlight rainbowcol6 guifg=#A463D8
+#highlight rainbowcol7 guifg=#3FA4D9
+#'''
 # [[plugins]]
 # repo      = 'TornaxO7/tree-setter'
 # on_source = 'nvim-treesitter'
@@ -638,29 +608,25 @@ highlight rainbowcol7 guifg=#3FA4D9
 # [[plugins]]
 # repo      = 'romgrk/nvim-treesitter-context'
 # on_source = 'nvim-treesitter'
-[[plugins]]
-repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
-on_source = 'nvim-treesitter'
-depends   = ['nvim-treesitter']
+#[[plugins]]
+#repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
+#on_source = 'nvim-treesitter'
+#depends   = ['nvim-treesitter']
 [[plugins]]
 repo = 'm-demare/hlargs.nvim'
 depends = ['nvim-treesitter']
 on_event = 'BufReadPost'
-hook_source = '''
-lua <<EOF
+lua_source = '''
 require('hlargs').setup()
-EOF
 '''
 
-# [[plugins]]
-# repo     = 'tpope/vim-repeat'
-# on_event = 'BufRead'
+[[plugins]]
+repo     = 'tpope/vim-repeat'
+on_event = 'BufRead'
 
-# sticky shift
 [[plugins]]
 repo     = 'lambdalisue/pinkyless.vim'
 on_event = 'InsertEnter'
-
 
 #[[plugins]]
 #repo = 'skanehira/denops-gh.vim'
@@ -840,7 +806,7 @@ call ddc#custom#patch_buffer('sourceOptions', {
 #       enabled = true
 #     }
 #   }
-
+#
 #   require('which-key').register({
 #     ['<Leader>'] = {
 #       F = {
@@ -855,9 +821,12 @@ call ddc#custom#patch_buffer('sourceOptions', {
 # EOF
 # '''
 
-## editorconfig
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+# [[plugins]]
+# repo  = 'HerringtonDarkholme/yats.vim'
+# on_ft = ['typescript', 'typescriptreact']
 
 ## textobject
 # [[plugins]]

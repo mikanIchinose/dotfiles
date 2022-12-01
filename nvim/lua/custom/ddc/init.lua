@@ -13,22 +13,23 @@ local function patch_filetype(filetypes, value)
   vim.fn['ddc#custom#patch_filetype'](filetypes, value)
 end
 
-patch_global('ui', 'pum')
-
 patch_global('sourceOptions', {
   ['_'] = {
-    matchers = { 'matcher_head', 'matcher_length' },
-    sorters = { 'sorter_rank' },
-    converters = { 'converter_remove_overlap' },
+    -- matchers = { 'matcher_head' },
+    -- sorters = { 'sorter_rank' },
+    -- converters = { 'converter_remove_overlap' },
     --matchers = { 'matcher_head' },
     -- fuzzy maching
-    -- matchers = { 'matcher_fuzzy' },
-    -- sorters = { 'sorter_fuzzy' },
-    -- converters = { 'converter_fuzzy' },
+    matchers = { 'matcher_fuzzy' },
+    sorters = { 'sorter_fuzzy' },
+    converters = { 'converter_fuzzy' },
   },
   ['nvim-lsp'] = {
     mark = 'LSP',
     forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+    -- matchers = { 'matcher_fuzzy' },
+    -- sorters = { 'sorter_fuzzy' },
+    -- converters = { 'converter_fuzzy' },
   },
   ['nvim-lsp_by-treesitter'] = {
     mark = 'LSP_TS',
@@ -58,14 +59,20 @@ patch_global('sourceOptions', {
     minAutoCompleteLength = 2,
     isVolatile = true,
   },
-  cmdline = {
-    mark = 'cmd',
-    forceCompletionPatter = [[\S/\S*]],
-    dup = false,
-  },
+  -- cmdline = {
+  --   mark = 'cmdline',
+  --   forceCompletionPattern = 'S/S*|.w*',
+  --   dup = 'force',
+  -- },
   ['cmdline-history'] = {
-    mark = 'cmd history',
-    dup = false,
+    mark = 'history',
+    sorters = {},
+  },
+})
+patch_global('sourceParams', {
+  file = {
+    filenameChars = '[:keyword:].',
+    disableMenu = true,
   },
 })
 local lspkind_ok, _ = pcall(require, 'lspkind')
@@ -85,21 +92,35 @@ patch_global('autoCompleteEvents', {
   'InsertEnter',
   'TextChangedI',
   'TextChangedP',
+  'TextChangedT',
   'CmdlineEnter',
   'CmdlineChanged',
 })
-patch_global('completionMenu', 'pum.vim')
+patch_global('ui', 'pum')
 
 -- set sources
 patch_global('sources', { 'nvim-lsp', 'vsnip', 'file', 'around', 'rg' })
--- patch_global('cmdlinesSources', { 'cmdline', 'file', 'around' })
+patch_global('cmdlineSources', {
+  [':'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
+  ['@'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
+  ['>'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
+  ['/'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
+  ['?'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
+  ['-'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
+  ['='] = { 'cmdline', 'cmdline-history', 'file', 'around' },
+})
 patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around', 'file' })
 patch_filetype_with_option({ 'vim' }, 'sources', { 'necovim', 'nvim-lsp', 'file', 'around' })
--- patch_filetype({ 'FineCmdlinePrompt' }, {
---   keywordPattern = '[0-9a-zA-Z_:#-]',
---   sources = { 'cmdline', 'cmdline-history', 'file', 'around' },
+-- patch_filetype({ 'ddu-ff-filter' }, {
+--   keywordPattern = '[0-9a-zA-Z_:#-]*',
+--   sources = { 'line', 'buffer' },
 --   specialBufferCompletion = true,
 -- })
+patch_filetype({ 'FineCmdlinePrompt' }, {
+  keywordPattern = '[0-9a-zA-Z_:#-]*',
+  sources = { 'cmdline-history', 'file', 'around' },
+  specialBufferCompletion = true,
+})
 
 -- NOTE: ghost-textで補完するときに必要
 -- patch_filetype({ 'markdown' }, 'specialBufferCompletion', 'v:true')
@@ -107,44 +128,6 @@ patch_filetype_with_option({ 'vim' }, 'sources', { 'necovim', 'nvim-lsp', 'file'
 --   'specialBufferCompletion',
 --   'v:true'
 -- )
-
--- keymap
--- require('custom.ddc.keymap')
--- vim.cmd([[
--- inoremap <silent><expr> <TAB>
---  \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
---  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
---  \ '<TAB>' : ddc#manual_complete()
--- inoremap <silent><expr> <S-Tab>
---  \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' :
---  \ '<S-Tab>'
--- " inoremap <C-j> <Cmd>call pum#map#select_relative(+1)<CR>
--- " inoremap <C-k> <Cmd>call pum#map#select_relative(-1)<CR>
--- inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
--- inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
--- inoremap <silent><expr> <C-Space> ddc#map#manual_complete()
---
--- " inoremap <silent><expr> <Tab>
--- "   \ pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' :
--- "   \ vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
--- " inoremap <silent><expr> <S-Tab>
--- "   \ pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' :
--- "   \ vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
--- " inoremap <silent><expr> <C-l> ddc#map#extend()
--- " inoremap <silent> <C-Space> ddc#manual_complete('nvim-lsp')
---
--- " inoremap <silent><expr> <CR> ddc#map#pum_visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
--- " inoremap <silent><expr> <Esc> ddc#map#pum_visible() ? '<Cmd>call pum#map#cancel()<CR><Esc>' : '<Esc>'
--- " inoremap <silent><expr> <Down> pum#visible() ? "<Cmd>call pum#map#select_relative(+1)<CR>" : "<Down>"
--- " inoremap <silent><expr> <Up>   pum#visible() ? "<Cmd>call pum#map#select_relative(-1)<CR>" : "<Up>"
---
--- " smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
--- " smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
---
--- " snippetの展開を行う
--- " autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
--- ]])
-
 vim.fn['ddc#enable']()
 
 -- NOTE: lspkindを使うので不要、また必要になったらまた使う

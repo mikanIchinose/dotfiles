@@ -7,6 +7,7 @@ local lspconfig_configs = require('lspconfig.configs')
 local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup()
 require('neodev').setup()
+local schemas = require('schemastore').json.schemas()
 
 -- vim.lsp.set_log_level('debug')
 
@@ -16,7 +17,22 @@ require('neodev').setup()
 ---@type LanguageServerSpec[]
 local LS = {
   taplo = {
-    opts = require('custom.lsp.toml').opts,
+    opts = {
+      settings = {
+        evenBetterToml = {
+          schema = {
+            catalogs = {
+              --'https://taplo.tamasfe.dev/schema_index.json',
+              'https://www.schemastore.org/api/json/catalog.json',
+            },
+            enable = true,
+          },
+          formatter = {
+            alignEntries = true,
+          },
+        },
+      },
+    },
   },
   grammarly = {
     opts = {
@@ -24,17 +40,26 @@ local LS = {
     },
   },
   tsserver = {
-    opts = require('custom.lsp.javascript').tsserver.opts,
+    opts = {
+      root_dir = lspconfig_util.root_pattern('package.json', 'node_modules'),
+    },
   },
   denols = {
-    opts = require('custom.lsp.javascript').denols.opts,
+    opts = {
+      root_dir = lspconfig_util.root_pattern('deno.json', 'deno.jsonc', 'deps.ts', 'import_map.json', 'mod.ts'),
+      init_options = {
+        enable = true,
+        lint = true,
+        unstable = true,
+      },
+    },
   },
   html = {
     opts = {},
   },
-  emmet_ls = {
-    opts = {},
-  },
+  -- emmet_ls = {
+  --   opts = {},
+  -- },
   cssls = {
     opts = {},
   },
@@ -51,11 +76,11 @@ local LS = {
           -- 'twind.config.ts'
         )(fname)
       end,
-      settings = {
-        tailwindCSS = {
-          emmetCompletions = true
-        }
-      }
+      -- settings = {
+      --   tailwindCSS = {
+      --     emmetCompletions = true,
+      --   },
+      -- },
     },
   },
   volar = {
@@ -75,13 +100,25 @@ local LS = {
     opts = {},
   },
   jsonls = {
-    opts = require('custom.lsp.json').opts,
+    opts = {
+      settings = {
+        json = {
+          schemas = schemas,
+        },
+      },
+    },
   },
   jsonnet_ls = {
     opts = {},
   },
   yamlls = {
-    opts = require('custom.lsp.yaml').opts,
+    opts = {
+      settings = {
+        yaml = {
+          schemas = schemas,
+        },
+      },
+    },
   },
   vimls = {
     opts = {},

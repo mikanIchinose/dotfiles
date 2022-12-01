@@ -38,14 +38,14 @@ repo = 'cespare/vim-toml'
 repo = 'terrastruct/d2-vim'
 
 ## color scheme
-# [[plugins]]
-# repo = 'dracula/vim'
+[[plugins]]
+repo = 'dracula/vim'
 [[plugins]]
 repo = 'pineapplegiant/spaceduck'
 [[plugins]]
 repo = 'folke/tokyonight.nvim'
-# [[plugins]]
-# repo = 'sainnhe/gruvbox-material'
+[[plugins]]
+repo = 'sainnhe/gruvbox-material'
 [[plugins]]
 repo = 'sainnhe/everforest'
 

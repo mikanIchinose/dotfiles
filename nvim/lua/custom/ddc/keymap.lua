@@ -77,6 +77,16 @@ end, opts)
 --map('c', '<C-o>', function()
 --  confirm()
 --end)
+vim.cmd([[
+cnoremap <expr> <Tab>
+\ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+\ exists('b:ddc_cmdline_completion') ?
+\ ddc#map#manual_complete() : nr2char(&wildcharm)
+cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+cnoremap <C-o>   <Cmd>call pum#map#confirm()<CR>
+cnoremap <expr> <C-e>
+\ ddc#map#insert_item(0, '<Cmd>call pum#map#cancel()<CR>')
+]])
 
 -- snippet
 vim.cmd([[

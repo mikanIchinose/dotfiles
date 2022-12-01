@@ -25,7 +25,7 @@ let g:did_load_ftplugin          = 1
 set encoding=utf-8
 scriptencoding utf-8
 
-let g:colorscheme='tokyonight'
+let g:colorscheme='everforest'
 
 " dein Scripts {{{
 let s:dein_dir = expand('~/.cache/dein')

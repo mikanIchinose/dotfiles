@@ -4,56 +4,39 @@ local sourceOptions = {
   _ = {
     ignoreCase = true,
     matchers = {
-      -- 'converter_display_word',
-      -- 'matcher_relative',
-      -- 'matcher_fzf',
       'matcher_substring',
+    },
+  },
+  buffer = {},
+  file = {
+    matchers = {
+      'matcher_hidden', -- ignore hidden file
+      'matcher_substring',
+      'matcher_fzf',
     },
     sorters = {
       'sorter_alpha',
     },
-    -- converters = {
-    --   -- 'converter_display_word',
-    -- },
-  },
-  buffer = {
-    -- converters = {
-    --   'converter_display_word',
-    -- },
-  },
-  file = {
-    columns = {
-      'icon_filename',
-    },
-    matchers = {
-      'matcher_hidden', -- ignore hidden file
-    },
   },
   file_rec = {
-    -- columns = {
-    --   'filename'
-    -- },
-    -- converters = {
-    --   'matcher_substring',
-    -- },
+    sorters = {
+      'sorter_alpha',
+    },
   },
   file_old = {
-    -- columns = {
-    --   'icon_filename'
-    -- },
+    sorters = {
+      'sorter_alpha',
+    },
   },
   line = {},
   rg = {
     matchers = {
-      -- 'converter_display_word',
       'matcher_substring',
       'matcher_hidden',
     },
-    -- converters = {
-    --   'converter_display_word',
-    -- 'matcher_substring',
-    -- },
-    sorters = {},
+    sorters = {
+      'sorter_alpha',
+    },
   },
   dein = {
     defaultAction = 'cd',
@@ -65,6 +48,7 @@ local sourceOptions = {
   },
   markdown = {
     columns = { 'tree' },
+    sorters = {}, -- 勝手に並び換えられると困る
   },
 }
 
@@ -88,12 +72,8 @@ local sourceParams = {
     useGraphQL = true,
   },
   markdown = {
-    -- style = 'none',
-    style = 'hash',
+    style = 'none',
   },
-  -- ['custom-list'] = {
-  --   texts = { 'a', 'b', 'c' }
-  -- },
 }
 
 local filterParams = {
@@ -179,6 +159,11 @@ local uiParams = {
   filer = filerVertical,
 }
 
+local kindParams = {
+  extcmd = {
+    runner = 'terminal',
+  },
+}
 local kindOptions = {
   file = { defaultAction = 'open' },
   word = { defaultAction = 'insert' },
@@ -190,12 +175,15 @@ local kindOptions = {
   source = { defaultAction = 'execute' },
   readme_viewer = { defaultAction = 'open' },
   dein_update = { defaultAction = 'viewDiff' },
+  ui_select = { defaultAction = 'select' },
+  extcmd = { defaultAction = 'run' },
 }
 
 local actionOptions = {
   -- _ = { quit = false },
   bdelete = { quit = false },
   delete = { quit = false },
+  trash = { quit = false },
   getSourceName = { quit = false },
   set = { quit = false },
   echo = { quit = false },
@@ -213,15 +201,16 @@ local columnParams = {
   },
 }
 
-patch_global.ui = 'ff'
 patch_global.sourceOptions = sourceOptions
 patch_global.sourceParams = sourceParams
 patch_global.filterParams = filterParams
+patch_global.ui = 'ff'
 patch_global.uiOptions = uiOptions
 patch_global.uiParams = uiParams
+patch_global.kindParams = kindParams
 patch_global.kindOptions = kindOptions
 patch_global.actionOptions = actionOptions
-patch_global.compilerOptions = columnOptions
+patch_global.columnOptions = columnOptions
 patch_global.columnParams = columnParams
 
 vim.fn['ddu#custom#patch_global'](patch_global)

@@ -8,7 +8,7 @@ local config = {
       -- 'vim',
       'toml',
       --'typescript',
-      -- 'typescriptreact',
+      --'typescriptreact',
       -- 'fish',
     },
     additional_vim_regex_highlighting = false,

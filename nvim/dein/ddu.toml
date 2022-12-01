@@ -178,6 +178,9 @@ lua require('custom.ddu.keymap-filer')
 "   call ddu#ui#filer#do_action('itemAction', {'name': action})
 " endfunction
 '''
+[[plugins]]
+repo      = 'matsui54/ddu-vim-ui-select'
+on_source = 'ddu.vim'
 
 # NOTE: source
 [[plugins]]
@@ -246,6 +249,9 @@ on_cmd = ['DeinReadme']
 hook_add = '''
 let g:readme_viewer#plugin_manager = 'dein.vim'
 '''
+[[plugins]]
+repo      = 'tennashi/ddu-kind-extcmd'
+on_source = 'ddu.vim'
 
 # NOTE: filter
 [[plugins]]
@@ -254,7 +260,6 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo      = 'Shougo/ddu-filter-sorter_alpha'
 on_source = 'ddu.vim'
-## path情報を見て相対パスに該当するもので絞る
 [[plugins]]
 repo      = 'Shougo/ddu-filter-matcher_relative'
 on_source = 'ddu.vim'

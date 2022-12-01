@@ -82,6 +82,7 @@ cask "google-chrome"
 cask "biscuit"
 cask "firefox"
 cask "brave-browser"
+cask "min"
 
 # terminal
 cask "iterm2" # なんやかんやこれを使ってしまう

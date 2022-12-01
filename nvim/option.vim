@@ -88,5 +88,6 @@ set inccommand=nosplit
 " set winblend=20
 
 " set isfname&
-"  \ isfname+=@-@
-"  \ isfname-==
+" \ isfname+=@-@
+" \ isfname-==
+" set isfname-==

@@ -15,13 +15,14 @@ highlight PmenuSel    guibg=#3d59a1
 "  \ 'highlight_normal_menu': 'PnormalMenu',
 "  \ })
 " none, single, double, rounded, solid, shadow, or array like ['╔', '═' ,'╗', '║', '╝', '═', '╚', '║']
+
 call pum#set_option('scrollbar_char', '')
+call pum#set_option('use_complete', v:true)
+" call popup_preview#enable()
 " call pum#set_option('border', 'rounded')
 " call pum#set_option('padding', v:true)
-call pum#set_option('use_complete', v:true)
 " autocmd CmdlineEnter * call CmdlinePum()
 " autocmd InsertEnter * call BufferPum()
-call popup_preview#enable()
 
 " function! CmdlinePum() abort
 "   call pum#set_option('border', 'none')
@@ -33,64 +34,71 @@ call popup_preview#enable()
 "   call pum#set_option('padding', v:false)
 " endfunction
 '''
-[[plugins]]
-repo      = 'matsui54/denops-popup-preview.vim'
-on_source = 'pum.vim'
+# [[plugins]]
+# repo      = 'matsui54/denops-popup-preview.vim'
+# on_source = 'pum.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['context_filetype.vim', 'denops.vim', 'pum.vim']
-on_event = ['InsertEnter', 'CursorHold', 'CmdlineEnter']
-lua_source = '''
-require('custom.ddc')
+on_event = ['InsertEnter', 'CursorHold']
+hook_source = '''
+call ddc#custom#patch_global('sourceOptions', #{
+\ cmdline: #{
+\   mark: 'cmdline',
+\   forceCompletionPattern: '\S/\S*|\.\w*',
+\   dup: 'force',
+\   matchers: ['matcher_head'],
+\   sorters: ['sorter_rank'],
+\   converters: ['converter_remove_overlap'],
+\ },
+\ })
+" call ddc#custom#patch_filetype(['FineCmdlinePrompt'], #{
+"    \   keywordPattern: '[0-9a-zA-Z_:#-]*',
+"    \   sources: ['cmdline-history'],
+"    \   specialBufferCompletion: v:true,
+"    \ })
+" call ddc#custom#patch_global('cmdlineSources', {
+"    \   ':': ['cmdline-history', 'cmdline'],
+"    \ })
+
+lua require('custom.ddc')
 '''
 hook_add = '''
+let g:mr_disable_warning = 1
 lua require('custom.ddc.keymap')
-"nnoremap ; <Cmd>call CommandlinePre(':')<CR>:
- 
-"function! CommandlinePre(mode) abort
-"  " NOTE: It disables default command line completion!
-"  set wildchar=<C-t>
-"  set wildcharm=<C-t>
-"
-"  cnoremap <expr><buffer> <Tab>
-"  \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-"  \ exists('b:ddc_cmdline_completion') ? ddc#map#manual_complete() :
-"  \ "\<C-t>"
-"
-"  " Overwrite sources
-"  if !exists('b:prev_buffer_config')
-"    let b:prev_buffer_config = ddc#custom#get_buffer()
-"  endif
-"
-"  if a:mode ==# ':'
-"    call ddc#custom#patch_buffer('cmdlineSources',
-"           \ ['cmdline'])
-"    call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#-]*')
-"  else
-"    call ddc#custom#patch_buffer('cmdlineSources',
-"           \ ['around', 'line'])
-"  endif
-"
-"  autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
-"  autocmd MyAutoCmd InsertEnter <buffer> ++once call CommandlinePost()
-"
-"  call ddc#enable_cmdline_completion()
-"endfunction
-"
-"function! CommandlinePost() abort
-"  silent! cunmap <buffer> <Tab>
-"
-"  " Restore sources
-"  if exists('b:prev_buffer_config')
-"    call ddc#custom#set_buffer(b:prev_buffer_config)
-"    unlet b:prev_buffer_config
-"  else
-"    call ddc#custom#set_buffer({})
-"  endif
-"
-"  set wildcharm=<Tab>
-"endfunction
+
+nnoremap : <Cmd>call CommandlinePre(':')<CR>:
+function! CommandlinePre(mode) abort
+  set wildchar=<C-t>
+  set wildcharm=<C-t>
+  cnoremap <expr><buffer> <Tab>
+  \ pum#visible() ?
+  \  '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+  \ exists('b:ddc_cmdline_completion') ?
+  \   ddc#map#manual_complete() : "\<C-t>"
+  " Overwrite sources
+  if !exists('b:prev_buffer_config')
+    let b:prev_buffer_config = ddc#custom#get_buffer()
+  endif
+  if a:mode ==# ':'
+    call ddc#custom#patch_buffer('keywordPattern', '[0-9a-zA-Z_:#-]*')
+  endif
+  autocmd MyAutoCmd User DDCCmdlineLeave ++once call CommandlinePost()
+  autocmd MyAutoCmd InsertEnter <buffer> ++once call CommandlinePost()
+  call ddc#enable_cmdline_completion()
+endfunction
+function! CommandlinePost() abort
+  silent! cunmap <buffer> <Tab>
+  " Restore sources
+  if exists('b:prev_buffer_config')
+    call ddc#custom#set_buffer(b:prev_buffer_config)
+    unlet b:prev_buffer_config
+  else
+    call ddc#custom#set_buffer({})
+  endif
+  set wildcharm=<Tab>
+endfunction
 '''
 
 ## NOTE: ui
@@ -123,14 +131,14 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'Shougo/ddc-source-nextword'
 on_source = 'ddc.vim'
-#[[plugins]]
-#repo      = 'Shougo/ddc-source-cmdline'
-#on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'Shougo/ddc-source-cmdline-history'
 on_source = 'ddc.vim'
 [[plugins]]
-repo      = 'LumaKernel/ddc-file'
+repo      = 'LumaKernel/ddc-source-file'
 on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'matsui54/ddc-buffer'
@@ -278,7 +286,6 @@ function! s:skkeleton_pre() abort
 endfunction
 
 function! s:skkeleton_post() abort
-  " Restore sources
   call ddc#custom#set_buffer(s:prev_buffer_config)
 endfunction
 '''

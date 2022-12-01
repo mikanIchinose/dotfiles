@@ -12,25 +12,13 @@ require('which-key').register({
   ['<Leader>'] = {
     f = {
       name = '+find',
-      -- a = {
-      --   --   Ddu {
-      --   --     'custom-list',
-      --   --   },
-      --   --   'custom list'
-      --   Ddu({
-      --     '-name=readme',
-      --     '-ui-param-startFilter',
-      --     'readme_viewer',
-      --   }),
-      --   'readme',
-      -- },
       f = {
         Ddu({
           '-name=files',
           '-ui-param-startFilter',
           'file_rec',
         }),
-        'find file',
+        'file',
       },
       F = {
         Ddu({
@@ -39,6 +27,7 @@ require('which-key').register({
           '-ui=filer',
           '-ui-param-split=no',
           'file',
+          '-source-option-columns=icon_filename',
           '-source-option-path=`getcwd()`',
         }),
         'filer',
@@ -48,15 +37,15 @@ require('which-key').register({
           '-name=buffers',
           'buffer',
         }),
-        'find buffer',
+        'buffer',
       },
       r = {
         Ddu({
           '-name=search_source',
-          [[-source-param-input=`input('Pattern: ')`]],
+          "-source-param-input=`input('Pattern: ')`",
           'rg',
         }),
-        'find source',
+        'source',
       },
       d = {
         Ddu({
@@ -72,7 +61,7 @@ require('which-key').register({
           '-ui-param-startFilter',
           'help',
         }),
-        'find help',
+        'help',
       },
       c = {
         Ddu({
@@ -80,31 +69,50 @@ require('which-key').register({
           '-ui-param-startFilter',
           'command_history',
         }),
-        'find command',
+        'command',
       },
       C = {
         Ddu({
           '-name=color',
           'colorscheme',
         }),
-        'find color',
+        'color',
+      },
+      m = {
+        function()
+          vim.fn['ddu#start']({
+            sources = {
+              { name = 'markdown' },
+            },
+            ui = 'filer',
+            uiParams = {
+              filer = {
+                sort = 'none',
+              },
+            },
+            actionOptions = {
+              open = { quit = false },
+            },
+          })
+        end,
+        'outline',
       },
     },
   },
 })
 
-vim.cmd([[
-autocmd FileType markdown
-\ nnoremap <buffer> <Leader>fm <Cmd>Ddu
-\   -name=headers
-\   -resume
-\   -ui=filer
-\   -ui-param-sort=size
-\   -ui-param-sortDirectoriesFirst=v:false
-\   markdown
-\   -source-option-columns=tree
-\   <CR>
-]])
+-- vim.cmd([[
+-- autocmd FileType markdown
+-- \ nnoremap <buffer> <Leader>fm <Cmd>Ddu
+-- \   -name=headers
+-- \   -resume
+-- \   -ui=filer
+-- \   -ui-param-sort=size
+-- \   -ui-param-sortDirectoriesFirst=v:false
+-- \   markdown
+-- \   -source-option-columns=tree
+-- \   <CR>
+-- ]])
 
 map(
   'n',
@@ -141,20 +149,3 @@ map('n', '<C-p>', function()
     },
   })
 end)
--- map('n', '<Leader>fm', function()
---   vim.fn['ddu#start']({
---     sources = {
---       { name = 'markdown' },
---     },
---     -- ui = 'filer',
---     -- uiParams = {
---     --   filer = {
---     --     split = 'vertical',
---     --     sort = 'size',
---     --   },
---     -- },
---     actionOptions = {
---       open = { quit = false },
---     },
---   })
--- end)
