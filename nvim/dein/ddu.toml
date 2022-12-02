@@ -23,6 +23,8 @@ call ddu#custom#action('kind', '_', 'echoItems', 'EchoItems')
 call ddu#custom#action('kind', '_', 'getSourceName', 
 \ { args -> execute('let b:ddu_source_name = args.items[0].__sourceName') })
 call ddu#custom#action('kind', '_', 'echoContext', 'EchoContext')
+call ddu#custom#action('kind', '_', 'restart', 
+\ { args -> execute('call ddu#start(#{resume: v:true})') })
 
 " function! GetFilePaths(args)
 "   let g:ddu#file_paths = []
@@ -132,6 +134,9 @@ autocmd TabEnter,CursorHold,FocusGained <buffer>
 \ call ddu#ui#filer#do_action('checkItems')
 
 lua require('custom.ddu.keymap-filer')
+nnoremap <buffer><silent> v
+  \ <Cmd>call ddu#ui#filer#do_action('itemAction',
+  \ {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
 
 " keymap
 " nnoremap <buffer><silent> a

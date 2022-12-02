@@ -81,6 +81,7 @@ require('which-key').register({
       m = {
         function()
           vim.fn['ddu#start']({
+            -- resume = true,
             sources = {
               { name = 'markdown' },
             },
@@ -89,9 +90,6 @@ require('which-key').register({
               filer = {
                 sort = 'none',
               },
-            },
-            actionOptions = {
-              open = { quit = false },
             },
           })
         end,

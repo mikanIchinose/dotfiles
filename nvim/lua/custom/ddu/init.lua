@@ -88,6 +88,7 @@ local filterParams = {
 local uiOptions = {
   filer = {
     toggle = false,
+    persist = true,
   },
 }
 
