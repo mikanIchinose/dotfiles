@@ -46,6 +46,8 @@ if test -d "$HOME/.deno" &> /dev/null; then
   fi
 fi
 
+# . ~/.asdf/plugins/java/set-java-home.zsh
+
 if [[ $EMACS == "yes" ]]; then
   ## Emacs経由で起動した場合は環境変数のみ設定する
   # . ~/.asdf/plugins/java/set-java-home.zsh

@@ -46,6 +46,7 @@ symlink "$SOURCE/wtf" "$DESTINATION/.config/wtf"
 if [ "$(uname)" == 'Darwin' ]; then
   # asdf
   symlink "$SOURCE/asdf/darwin/.tool-versions" "$DESTINATION/.tool-versions"
+  symlink "$SOURCE/asdf/darwin/.asdfrc" "$DESTINATION/.asdfrc"
   # zsh
   symlink "$SOURCE/shell/.zshrc" "$DESTINATION/.zshrc"
   # navi

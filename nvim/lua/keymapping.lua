@@ -7,8 +7,8 @@ map('n', '<Leader>\\', '<Cmd>vsplit<CR>')
 map('n', '<Leader>n', '<Cmd>nohlsearch<CR>')
 
 -- better indent
-map('n', '<', '<<')
-map('n', '>', '>>')
+-- map('n', '<', '<<')
+-- map('n', '>', '>>')
 
 map('x', 'r', '<C-v>') -- select rectangle
 map('x', 'v', 'V') -- select line

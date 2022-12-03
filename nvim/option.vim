@@ -32,12 +32,12 @@ set titlestring=%t
 set backspace=indent,eol,start
 set inccommand=split
 "NOTE: statusline
-"try
-"  set cmdheight=0
-"catch
-"  set cmdheight=1
-"endtry
-set cmdheight=1
+try
+ set cmdheight=0
+catch
+ set cmdheight=1
+endtry
+" set cmdheight=1
 set laststatus=3
 set nowrap
 " fold
@@ -91,3 +91,6 @@ set inccommand=nosplit
 " \ isfname+=@-@
 " \ isfname-==
 " set isfname-==
+
+set textwidth=0
+set wrapmargin=0

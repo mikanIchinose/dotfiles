@@ -21,17 +21,19 @@ command! -nargs=0 JunkfileDay call junkfile#open_immediately(strftime('%Y-%m-%d.
 '''
 
 [[plugins]]
-repo = 'goolord/alpha-nvim'
-depends = ['nvim-web-devicons']
+repo     = 'goolord/alpha-nvim'
+depends  = ['nvim-web-devicons']
 on_event = 'VimEnter'
+
 lua_source = '''
 require('alpha').setup(require('alpha.themes.startify').config)
 '''
 
 [[plugins]]
-repo = 'folke/noice.nvim'
-depends = 'nui.nvim'
-on_event = ['CmdlineEnter', 'CursorHold']
+repo     = 'folke/noice.nvim'
+depends  = 'nui.nvim'
+on_event = ['VimEnter', 'CursorHold']
+
 lua_source = '''
 require('noice').setup({
   lsp = {
@@ -39,14 +41,14 @@ require('noice').setup({
       enabled = false,
     },
   },
-  --cmdline = {
+  -- cmdline = {
   --  enabled = true,
   --  icons = {
   --    ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
   --    ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
   --    [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
   --  },
-  --},
+  -- },
   --popupmenu = {
   --  enabled = true,
   --},
@@ -64,30 +66,34 @@ require('noice').setup({
 
 # NOTE: statusline
 [[plugins]]
-repo = 'rebelot/heirline.nvim'
+repo     = 'rebelot/heirline.nvim'
 on_event = ['VimEnter', 'CursorHold']
+
 lua_source = '''
 require('custom.heirline')
 '''
 
 [[plugins]]
-repo = 'folke/trouble.nvim'
+repo   = 'folke/trouble.nvim'
 on_cmd = ['Trouble', 'TroubleToggle']
+
 lua_source = '''
 require('trouble').setup()
 '''
 
 [[plugins]]
-repo = 'thinca/vim-partedit'
-on_cmd = ['Partedit']
+repo    = 'thinca/vim-partedit'
+on_cmd  = ['Partedit']
 on_func = ['partedit#start']
+
 hook_add = '''
 let g:partedit#opener = 'new'
 '''
 
 [[plugins]]
-repo = 'vim-scripts/vim-auto-save'
+repo     = 'vim-scripts/vim-auto-save'
 on_event = 'InsertEnter'
+
 hook_add = '''
 let g:auto_save = 1
 let g:auto_save_no_updatetime = 1
@@ -97,7 +103,8 @@ let g:auto_save_silent = 1
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-on_ft = ['toml', 'markdown', 'lua', 'vim']
+#on_ft = ['toml', 'markdown', 'lua', 'vim']
+
 hook_add = '''
 let g:context_filetype#ignore_patterns = {
    \ 'toml': ['^\s*#\s*'],
@@ -106,8 +113,10 @@ let g:context_filetype#ignore_patterns = {
 
 # NOTE: comment
 [[plugins]]
-repo = 'tyru/caw.vim'
+repo     = 'tyru/caw.vim'
 on_event = ['CursorHold', 'BufRead']
+depends  = 'context_filetype.vim'
+
 hook_add = '''
 " disable default keymap
 let g:caw_no_default_keymappings = 1
@@ -126,27 +135,34 @@ xmap gc <Plug>(caw:hatpos:toggle)
 '''
 
 [[plugins]]
-repo = 'lfilho/cosco.vim'
-# on_ft = ['php', 'rust', 'java', 'dart']
+repo  = 'lfilho/cosco.vim'
+on_ft = ['php', 'rust', 'java', 'dart']
+if    = 0
+
 hook_source = '''
 " autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 '''
 
 ## NOTE: git
+# [[plugins]]
+# repo     = 'lambdalisue/gina.vim'
+# on_event = 'VimEnter'
+# [plugins.ftplugin]
+# gina-status = '''
+# nmap <buffer> < <Plug>(gina-index-stage)
+# xmap <buffer> < <Plug>(gina-index-stage)
+# nmap <buffer> > <Plug>(gina-index-unstage)
+# xmap <buffer> > <Plug>(gina-index-unstage)
+# '''
 [[plugins]]
-repo     = 'lambdalisue/gina.vim'
-on_event = 'VimEnter'
-[plugins.ftplugin]
-gina-status = '''
-nmap <buffer> < <Plug>(gina-index-stage)
-xmap <buffer> < <Plug>(gina-index-stage)
-nmap <buffer> > <Plug>(gina-index-unstage)
-xmap <buffer> > <Plug>(gina-index-unstage)
-'''
+repo     = 'itchyny/vim-gitbranch'
+on_event = 'BufReadPre'
 [[plugins]]
-repo = 'lambdalisue/gin.vim'
-depends = 'denops.vim'
+repo     = 'lambdalisue/gin.vim'
+depends  = 'denops.vim'
+on_event = 'BufReadPre'
+
 on_cmd = [
   'Gin',
   'GinBranch',
@@ -157,45 +173,45 @@ on_cmd = [
   'GinStatus',
 ]
 hook_add = '''
-let g:gin_branch_disable_default_mappings = 1
-let g:gin_chaperon_disable_default_mappings = 1
-let g:gin_diff_disable_default_mappings = 1
-let g:gin_patch_disable_default_mappings = 1
-let g:gin_status_disable_default_mappings = 1
-
+" let g:gin_branch_disable_default_mappings = 1
+" let g:gin_chaperon_disable_default_mappings = 1
+" let g:gin_diff_disable_default_mappings = 1
+" let g:gin_patch_disable_default_mappings = 1
+" let g:gin_status_disable_default_mappings = 1
 silent! !git rev-parse --is-inside-work-tree
 if v:shell_error == 0
   lua require('custom.gin.keymap')
 endif
 '''
-[plugins.ftplugin]
-gin = '''
-'''
-gin-branch = '''
-map <buffer><nowait> a <Plug>(gin-action-choice)
-map <buffer><nowait> . <Plug>(gin-action-repeat)
-nmap <buffer><nowait> ? <Plug>(gin-action-help)
-'''
-gin-diff = '''
-map <buffer><nowait> a <Plug>(gin-action-choice)
-map <buffer><nowait> . <Plug>(gin-action-repeat)
-nmap <buffer><nowait> ? <Plug>(gin-action-help)
-
-nmap <buffer> <CR> <Plug>(gin-diffjump-smart)
-'''
-gin-edit = '''
-map <buffer><nowait> a <Plug>(gin-action-choice)
-map <buffer><nowait> . <Plug>(gin-action-repeat)
-nmap <buffer><nowait> ? <Plug>(gin-action-help)
-'''
-gin-status = '''
-map <buffer><nowait> a <Plug>(gin-action-choice)
-map <buffer><nowait> . <Plug>(gin-action-repeat)
-nmap <buffer><nowait> ? <Plug>(gin-action-help)
-'''
+# [plugins.ftplugin]
+# gin = '''
+# '''
+# gin-branch = '''
+# map <buffer><nowait> a <Plug>(gin-action-choice)
+# map <buffer><nowait> . <Plug>(gin-action-repeat)
+# nmap <buffer><nowait> ? <Plug>(gin-action-help)
+# '''
+# gin-diff = '''
+# map <buffer><nowait> a <Plug>(gin-action-choice)
+# map <buffer><nowait> . <Plug>(gin-action-repeat)
+# nmap <buffer><nowait> ? <Plug>(gin-action-help)
+# 
+# nmap <buffer> <CR> <Plug>(gin-diffjump-smart)
+# '''
+# gin-edit = '''
+# map <buffer><nowait> a <Plug>(gin-action-choice)
+# map <buffer><nowait> . <Plug>(gin-action-repeat)
+# nmap <buffer><nowait> ? <Plug>(gin-action-help)
+# '''
+# gin-status = '''
+# map <buffer><nowait> a <Plug>(gin-action-choice)
+# map <buffer><nowait> . <Plug>(gin-action-repeat)
+# nmap <buffer><nowait> ? <Plug>(gin-action-help)
+# '''
 [[plugins]]
-repo = 'lewis6991/gitsigns.nvim'
-on_event = ['CursorHold']
+repo     = 'lewis6991/gitsigns.nvim'
+on_event = 'BufReadPre'
+
 lua_source = '''
 require("custom.gitsigns")
 '''
@@ -225,15 +241,17 @@ require('mason-null-ls').setup({
 '''
 ## NOTE: lsp
 [[plugins]]
-repo = 'neovim/nvim-lspconfig'
+repo    = 'neovim/nvim-lspconfig'
 depends = ['mason.nvim', 'mason-lspconfig.nvim']
+
 lua_source = '''
 require('custom.lsp')
 '''
 [[plugins]]
-repo = 'jose-elias-alvarez/null-ls.nvim'
-depends = ['nvim-lspconfig', 'plenary.nvim', 'mason.nvim', 'mason-null-ls.nvim']
+repo     = 'jose-elias-alvarez/null-ls.nvim'
+depends  = ['nvim-lspconfig', 'plenary.nvim', 'mason.nvim', 'mason-null-ls.nvim']
 on_event = ['BufRead']
+
 lua_source = '''
 require('custom.null-ls')
 '''
@@ -241,8 +259,9 @@ require('custom.null-ls')
 repo      = 'folke/neodev.nvim'
 on_source = ['nvim-lspconfig']
 [[plugins]]
-repo = 'lukas-reineke/lsp-format.nvim'
+repo      = 'lukas-reineke/lsp-format.nvim'
 on_source = ['nvim-lspconfig', 'null-ls']
+
 lua_source = '''
 require('lsp-format').setup()
 '''
@@ -253,8 +272,9 @@ on_source = 'nvim-lspconfig'
 repo      = 'mortepau/codicons.nvim'
 on_source = 'nvim-lspconfig'
 [[plugins]]
-repo = 'onsails/lspkind.nvim'
+repo      = 'onsails/lspkind.nvim'
 on_source = 'nvim-lspconfig'
+
 lua_source = '''
 require('lspkind').init {
   mode = 'symbol',
@@ -262,14 +282,16 @@ require('lspkind').init {
 }
 '''
 [[plugins]]
-repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+repo      = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 on_source = 'nvim-lspconfig'
+
 hook_source = '''
 lua require('custom.lsp_lines')
 '''
 [[plugins]]
-repo = 'folke/lsp-colors.nvim'
+repo      = 'folke/lsp-colors.nvim'
 on_source = 'nvim-lspconfig'
+
 hook_source = '''
 lua require("lsp-colors").setup()
 '''
@@ -282,13 +304,27 @@ on_source = 'nvim-lspconfig'
 [[plugins]]
 repo   = 'weilbith/nvim-code-action-menu'
 on_cmd = 'CodeActionMemu'
-# [[plugins]]
-# repo = 'nvim-lua/lsp-status.nvim'
-# depends = ['nvim-lspconfig']
-# on_event = 'BufRead'
-# lua_source = '''
-# require('lsp-status').register_progress()
-# '''
+
+[[plugins]]
+repo = 'kevinhwang91/promise-async'
+[[plugins]]
+repo     = 'kevinhwang91/nvim-ufo'
+depends  = 'promise-async'
+on_event = 'VimEnter'
+if       = 0
+
+lua_source = '''
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
+require('ufo').setup()
+'''
 
 # NOTE: lspの前には有効化されていないといけない
 [[plugins]]
@@ -299,21 +335,24 @@ on_path = '.jsonnet'
 ## NOTE: make your own mode
 [[plugins]]
 repo = 'anuvyklack/hydra.nvim'
+
 hook_source = '''
 lua require('custom.hydra')
 '''
 
 [[plugins]]
-repo = "b0o/incline.nvim"
-depends = ['nvim-web-devicons']
+repo     = "b0o/incline.nvim"
+depends  = ['nvim-web-devicons']
 on_event = ['BufRead']
+
 lua_source = '''
 require("custom.incline")
 '''
 
 [[plugins]]
-repo = 'max397574/better-escape.nvim'
+repo     = 'max397574/better-escape.nvim'
 on_event = 'InsertEnter'
+
 lua_source = '''
 require('better_escape').setup {
   timeout = 200,
@@ -345,8 +384,9 @@ require('better_escape').setup {
 
 # NOTE: markdown
 [[plugins]]
-repo = 'SidOfc/mkdx'
+repo  = 'SidOfc/mkdx'
 on_ft = 'markdown'
+
 hook_add = '''
 let g:mkdx#settings = {
   \ 'map': {
@@ -586,6 +626,9 @@ hook_post_source = 'TSUpdate'
 lua_source = '''
 require('custom.nvim-treesitter')
 '''
+[[plugins]]
+repo      = 'windwp/nvim-ts-autotag'
+on_source = 'nvim-treesitter'
 #[[plugins]]
 #repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
 #on_source = 'nvim-treesitter'

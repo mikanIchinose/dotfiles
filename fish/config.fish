@@ -21,6 +21,8 @@
 
 # Android Studio
 # set -x JAVA_HOME "/Users/solenoid/Library/Application Support/JetBrains/Toolbox/apps/AndroidStudio/ch-2/213.7172.25.2113.8718688/Android Studio Preview.app/Contents/jre/Contents/Home/"
+. ~/.asdf/plugins/java/set-java-home.fish
+
 source $HOME/.config/fish/aliases.fish
 set -l HOMEBREW_PREFIX "/opt/homebrew"
 

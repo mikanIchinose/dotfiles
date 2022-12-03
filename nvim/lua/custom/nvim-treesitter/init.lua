@@ -5,8 +5,8 @@ local config = {
     enable = true,
     disable = {
       'lua',
-      -- 'vim',
       'toml',
+      -- 'vim',
       --'typescript',
       --'typescriptreact',
       -- 'fish',
@@ -34,6 +34,13 @@ if ts_rainbow_ok then
     enable = true,
     exteded_mode = true,
     max_file_lines = 10000,
+  }
+end
+
+local autotag_ok, _ = pcall(require, 'nvim-ts-autotag')
+if autotag_ok then
+  config.autotag = {
+    enable = true,
   }
 end
 

@@ -225,6 +225,9 @@ on_source = 'ddu.vim'
 repo      = '4513ECHO/ddu-source-colorscheme'
 on_source = 'ddu.vim'
 [[plugins]]
+repo      = 'matsui54/ddu-source-highlight'
+on_source = 'ddu.vim'
+[[plugins]]
 repo      = 'kuuote/ddu-source-mr'
 on_source = 'ddu.vim'
 depends   = 'mr.vim'

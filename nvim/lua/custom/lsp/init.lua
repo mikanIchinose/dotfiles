@@ -268,10 +268,17 @@ mason_lspconfig.setup_handlers({
   ---@param server_name string
   function(server_name)
     -- nvim-ufo
-    -- capabilities.textDocument.foldingRange = {
-    --   dynamicRegistration = false,
-    --   lineFoldingOnly = true,
-    -- }
+    if
+      server_name == 'denols' or server_name == 'tsserver'
+      -- or server_name == 'cssmodules_ls'
+      -- or server_name == 'ltex'
+      -- or server_name == 'emmet_ls'
+    then
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+    end
 
     local opts = {
       on_attach = function(client, bufnr)

@@ -1,6 +1,9 @@
 local conditions = require('heirline.conditions')
 local utils = require('heirline.utils')
 
+local Align = { provider = '%=' }
+local Space = { provider = ' ' }
+local Bar = { provider = '|' }
 local ViMode = {
   init = function(self)
     self.mode = vim.fn.mode(1) -- :h mode()
@@ -168,11 +171,12 @@ local LSPServers = {
   condition = isLspAttached,
   update = { 'LspAttach', 'LspDetach', 'BufEnter' },
   provider = getLspAttachedCurrentBuffer,
-  hl = { fg = '#0f111b', bold = true },
+  -- hl = { fg = '#0f111b', bold = true },
+  hl = { fg = '#5ccc96', bold = true },
 }
-LSPServers = utils.surround({ '', '' }, '#5ccc96', { LSPServers })
-LSPServers[1].condition = isLspAttached
-LSPServers[3].condition = isLspAttached
+-- LSPServers = utils.surround({ '', '' }, '#5ccc96', { LSPServers })
+-- LSPServers[1].condition = isLspAttached
+-- LSPServers[3].condition = isLspAttached
 
 local is_ready_navic, navic = pcall(require, 'nvim-navic')
 local Navic = {
@@ -192,49 +196,75 @@ local Navic = {
 }
 local Git = {
   condition = function()
-    return vim.g.loaded_gina == 1
+    return vim.g.loaded_gin and vim.g.loaded_gitbranch
   end,
   provider = function()
-    if vim.g.loaded_gina == 1 then
-      local status = ''
-      local branch = vim.call('gina#component#repo#branch')
-      if branch == '' then
-        return ''
-      end
-      status = status .. ' ' .. branch
-      local staged = vim.call('gina#component#status#staged')
-      if staged ~= '' then
-        status = status .. string.format('  %s', staged)
-      end
-      local unstaged = vim.call('gina#component#status#unstaged')
-      if unstaged ~= '' then
-        status = status .. string.format('  %s', unstaged)
-      end
-      -- local conflicted = vim.call('gina#component#status#conflicted')
-      -- local ahead = vim.call('gina#component#status#ahead')
-      -- local behind = vim.call('gina#component#status#behind')
-      return status
-    end
-    -- if vim.g.loaded_gin == 1 then
-    --   return 'Gin ' .. vim.call('gin#component#branch#unicode')
+    -- local gitsigns_ok, _ = pcall(require, 'gitsigns')
+    -- if gitsigns_ok then
+    --   return vim.b.gitsigns_status
     -- end
-    return ''
+    local status_txt = {}
+    table.insert(status_txt, '')
+    if vim.g.loaded_gitbranch == 1 then
+      local branch = vim.fn['gitbranch#name']()
+      if branch ~= '' then
+        table.insert(status_txt, branch)
+      end
+    end
+    if vim.g.loaded_gin == 1 then
+      -- local branch = vim.fn['gin#component#branch#unicode']()
+      -- if branch then
+      --   table.insert(status_txt, branch)
+      -- end
+      local traffic = vim.fn['gin#component#traffic#ascii']()
+      if traffic ~= '' then
+        table.insert(status_txt, traffic)
+      end
+      local worktree = vim.fn['gin#component#worktree#name']()
+      if worktree ~= '' then
+        table.insert(status_txt, worktree)
+      end
+    end
+    return table.concat(status_txt, ' ')
+    -- if vim.g.loaded_gina == 1 then
+    --   local status = ''
+    --   local branch = vim.call('gina#component#repo#branch')
+    --   if branch == '' then
+    --     return ''
+    --   end
+    --   status = status .. ' ' .. branch
+    --   local staged = vim.call('gina#component#status#staged')
+    --   if staged ~= '' then
+    --     status = status .. string.format('  %s', staged)
+    --   end
+    --   local unstaged = vim.call('gina#component#status#unstaged')
+    --   if unstaged ~= '' then
+    --     status = status .. string.format('  %s', unstaged)
+    --   end
+    --   -- local conflicted = vim.call('gina#component#status#conflicted')
+    --   -- local ahead = vim.call('gina#component#status#ahead')
+    --   -- local behind = vim.call('gina#component#status#behind')
+    --   return status
+    -- end
   end,
-  hl = { fg = '#ce6f8f' },
+  hl = { fg = '#ffffff' },
 }
 local Skk = {
-  condition = vim.g.loaded_skkeleton ~= nil and vim.g.loaded_skkeleton == 0,
+  Space,
+  -- condition = vim.g.loaded_skkeleton,
   provider = function(self)
-    local mode = vim.fn.mode(1)
-    if mode == 'i' or mode == 'c' then
-      local skkeleton_mode = vim.fn['skkeleton#mode']()
-      if self.mode_names[skkeleton_mode] then
-        return ' ' .. self.mode_names[skkeleton_mode]
-      else
-        return ' A'
+    if vim.g.loaded_skkeleton then
+      local mode = vim.fn.mode(1)
+      if mode == 'i' or mode == 'c' then
+        local skkeleton_mode = vim.fn['skkeleton#mode']()
+        if self.mode_names[skkeleton_mode] then
+          return ' ' .. self.mode_names[skkeleton_mode]
+        else
+          return ' A'
+        end
       end
     end
-    return ''
+    return ' A'
   end,
   static = {
     mode_names = {
@@ -244,23 +274,57 @@ local Skk = {
       zenkaku = 'Ａ',
       abbrev = 'abbr',
     },
-    -- mode_colors = {
-    --   hira = 'red',
-    --   kata = 'blue',
-    --   hankata = 'blue',
-    --   zenkaku = 'purple',
-    --   abbrev = 'gray',
-    -- },
   },
-  -- hl = function(self)
-  --   local mode = vim.call('skkeleton#mode')
-  --   return { fg = self.mode_colors[mode], bold = true }
-  -- end,
 }
 local LineInfo = {
   provider = '%7(%l/%3L%):%2c',
   hl = { fg = '#00a3cc' },
 }
+local FileNameBlock = {
+  init = function(self)
+    self.filename = vim.api.nvim_buf_get_name(0)
+  end,
+}
+local FileIcon = {
+  init = function(self)
+    local filename = self.filename
+    local extension = vim.fn.fnamemodify(filename, ':e')
+    self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+  end,
+  provider = function(self)
+    return self.icon and (self.icon .. ' ')
+  end,
+  hl = function(self)
+    return { fg = self.icon_color }
+  end,
+}
+local FileName = {
+  provider = function(self)
+    local filename = vim.fn.fnamemodify(self.filename, ':.')
+    if filename == '' then
+      return '[No Name]'
+    end
+    if not conditions.width_percent_below(#filename, 0.25) then
+      filename = vim.fn.pathshorten(filename)
+    end
+    return filename
+  end,
+}
+local FileNameModifer = {
+  hl = function()
+    if vim.bo.modified then
+      -- use `force` because we need to override the child's hl foreground
+      return { fg = 'cyan', bold = true, force = true }
+    end
+  end,
+}
+FileNameBlock = utils.insert(
+  FileNameBlock,
+  FileIcon,
+  utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
+  -- unpack(FileFlags), -- A small optimisation, since their parent does nothing
+  { provider = '%<' } -- this means that the statusline is cut here when there's not enough space
+)
 -- local DeinPluginStatus = {
 --   provider = function()
 --     local message = 'nvim-lspconfig is'
@@ -285,25 +349,24 @@ local LineInfo = {
 --     return message
 --   end,
 -- }
-local Align = { provider = '%=' }
-local Space = { provider = ' ' }
 local statusline = {
-  utils.surround({ '', '' }, '#30365F', {
+  utils.surround({ '', '' }, '#003404', {
     ViMode,
-    --Skk,
+    Skk,
+    FileNameBlock,
     FileInfo,
   }),
   Space,
   -- Navic,
-  Space,
+  -- Space,
   Align,
   LSPServers,
-  Space,
   -- WorkDir,
-  -- Space,
-  Git,
   Space,
+  -- utils.surround({ '', '' }, '#ce6f8f', { Git }),
+  Git,
   LineInfo,
+  hl = { bg = utils.get_highlight('BufferCurrent').bg },
 }
 
 require('heirline').setup(statusline)
