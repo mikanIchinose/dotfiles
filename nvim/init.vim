@@ -69,8 +69,8 @@ if dein#min#load_state(s:path)
   call dein#begin(s:path, expand('<sfile>'))
 
   call dein#load_toml(s:base_toml, {'lazy': 0})
-  call dein#load_toml(s:lazy_tmp_toml, {'lazy': 1})
-  " call dein#load_toml(s:lazy_toml, {'lazy': 1})
+  " call dein#load_toml(s:lazy_tmp_toml, {'lazy': 1})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
   call dein#load_toml(s:ddu_toml,  {'lazy': 1})
   call dein#load_toml(s:ddc_toml,  {'lazy': 1})
   " call dein#load_toml(s:ft_toml)
@@ -92,5 +92,3 @@ endif
 if !empty(argv())
   call vimrc#on_filetype()
 endif
-"filetype plugin indent on
-"syntax enable

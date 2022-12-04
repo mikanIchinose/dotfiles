@@ -1,4 +1,3 @@
-let g:colorscheme='everforest'
 
 " indent & tab/space
 " 直前の行と同じインデントを挿入する
@@ -42,7 +41,6 @@ try
 catch
   set cmdheight=1
 endtry
-" set cmdheight=1
 set laststatus=3
 set nowrap
 " fold
@@ -57,10 +55,10 @@ set clipboard+=unnamedplus
 " leaderをspaceに変更
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
-
 set timeout timeoutlen=100 ttimeoutlen=200
+set updatetime=200
 
-"NOTE: completion
+" NOTE: completion
 set completeopt=menuone
 " Don't complete from other buffer.
 set complete=.
@@ -76,7 +74,7 @@ set completeslash=slash
 " color
 set termguicolors
 set background=dark
-execute 'colorscheme ' . g:colorscheme
+colorscheme everforest
 
 set noequalalways
 
@@ -106,8 +104,6 @@ set smartcase
 set incsearch
 set nohlsearch
 set wrapscan
-
-set updatetime=500
 
 set directory-=.
 set undofile

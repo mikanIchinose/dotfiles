@@ -6,10 +6,9 @@ local config = {
     disable = {
       'lua',
       'toml',
-      -- 'vim',
+      'vim',
       --'typescript',
       --'typescriptreact',
-      -- 'fish',
     },
     additional_vim_regex_highlighting = false,
   },

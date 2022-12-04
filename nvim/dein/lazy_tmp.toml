@@ -22,7 +22,7 @@ vim.notify = require("notify")
 '''
 [[plugins]]
 repo     = 'Shougo/context_filetype.vim'
-on_event = 'BufRead'
+on_event = 'CursorHold'
 
 hook_add = '''
 let g:context_filetype#ignore_patterns = {
@@ -47,7 +47,7 @@ command! -nargs=0 JunkfileDay call junkfile#open_immediately(strftime('%Y-%m-%d.
 # [[plugins]]
 # repo     = 'goolord/alpha-nvim'
 # depends  = ['nvim-web-devicons']
-# on_event = 'VimEnter'
+# on_event = 'CursorHold'
 # 
 # lua_source = '''
 # require('alpha').setup(require('alpha.themes.startify').config)
@@ -56,7 +56,7 @@ command! -nargs=0 JunkfileDay call junkfile#open_immediately(strftime('%Y-%m-%d.
 [[plugins]]
 repo     = 'folke/noice.nvim'
 depends  = 'nui.nvim'
-on_event = ['VimEnter', 'CursorHold']
+on_event = 'CursorHold'
 
 lua_source = '''
 require('noice').setup({
@@ -91,8 +91,7 @@ require('noice').setup({
 # NOTE: statusline
 [[plugins]]
 repo     = 'rebelot/heirline.nvim'
-repo     = 'rebelot/heirline.nvim'
-on_event = ['VimEnter', 'CursorHold']
+on_event = 'CursorHold'
 
 lua_source = '''
 require('custom.heirline')
@@ -162,7 +161,7 @@ let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 ## NOTE: git
 # [[plugins]]
 # repo     = 'lambdalisue/gina.vim'
-# on_event = 'VimEnter'
+# on_event = 'CursorHold'
 # [plugins.ftplugin]
 # gina-status = '''
 # nmap <buffer> < <Plug>(gina-index-stage)
@@ -172,7 +171,7 @@ let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 # '''
 [[plugins]]
 repo     = 'itchyny/vim-gitbranch'
-on_event = 'VimEnter'
+on_event = 'CursorHold'
 [[plugins]]
 repo     = 'lambdalisue/gin.vim'
 depends  = 'denops.vim'
@@ -225,7 +224,7 @@ endif
 # '''
 [[plugins]]
 repo     = 'lewis6991/gitsigns.nvim'
-on_event = 'VimEnter'
+on_event = 'CursorHold'
 
 lua_source = '''
 require("custom.gitsigns")
@@ -265,7 +264,7 @@ require('custom.lsp')
 [[plugins]]
 repo     = 'jose-elias-alvarez/null-ls.nvim'
 depends  = ['nvim-lspconfig', 'plenary.nvim', 'mason.nvim', 'mason-null-ls.nvim']
-on_event = ['BufRead']
+on_event = 'CursorHold'
 
 lua_source = '''
 require('custom.null-ls')
@@ -325,7 +324,7 @@ repo = 'kevinhwang91/promise-async'
 [[plugins]]
 repo     = 'kevinhwang91/nvim-ufo'
 depends  = 'promise-async'
-on_event = 'VimEnter'
+on_event = 'CursorHold'
 if       = 0
 
 lua_source = '''
@@ -358,7 +357,7 @@ require('ufo').setup()
 [[plugins]]
 repo     = "b0o/incline.nvim"
 depends  = ['nvim-web-devicons']
-on_event = ['BufRead']
+on_event = 'CursorHold'
 
 lua_source = '''
 require("custom.incline")
@@ -578,7 +577,7 @@ lua require('keymap.neorg')
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 depends = ['plenary.nvim']
-on_event = 'BufRead'
+on_event = 'CursorHold'
 lua_source = '''
 require('todo-comments').setup({
   highlight = {
@@ -589,19 +588,19 @@ require('todo-comments').setup({
 
 [[plugins]]
 repo = 'mrjones2014/smart-splits.nvim'
-on_event = 'BufRead'
+on_event = 'CursorHold'
 lua_source = '''
 require('custom.smart-splits')
 '''
 [[plugins]]
 repo = 'johann2357/nvim-smartbufs'
-on_event = 'BufRead'
+on_event = 'CursorHold'
 lua_source = '''
 require('custom.nvim-smartbufs')
 '''
 [[plugins]]
 repo = 'kwkarlwang/bufresize.nvim'
-on_event = 'BufRead'
+on_event = 'CursorHold'
 lua_source = '''
 require('bufresize').setup({
   --resize = {
@@ -635,7 +634,7 @@ require('colorizer').setup()
 [[plugins]]
 repo     = 'nvim-treesitter/nvim-treesitter'
 merged   = 0
-on_event = 'BufRead'
+on_event = 'CursorHold'
 
 # hook_post_source = 'TSUpdate'
 lua_source = '''
@@ -662,7 +661,7 @@ on_source = 'nvim-treesitter'
 #[[plugins]]
 #repo     = 'haringsrob/nvim_context_vt'
 #depends  = 'nvim-treesitter'
-#on_event = 'BufReadPost'
+#on_event = 'CursorHold'
 # [[plugins]]
 # repo      = 'romgrk/nvim-treesitter-context'
 # on_source = 'nvim-treesitter'
@@ -673,7 +672,7 @@ on_source = 'nvim-treesitter'
 [[plugins]]
 repo     = 'm-demare/hlargs.nvim'
 depends  = ['nvim-treesitter']
-on_event = 'BufReadPost'
+on_event = 'CursorHold'
 
 lua_source = '''
 require('hlargs').setup()
@@ -681,7 +680,7 @@ require('hlargs').setup()
 
 [[plugins]]
 repo     = 'tpope/vim-repeat'
-on_event = 'BufRead'
+on_event = 'CursorHold'
 
 [[plugins]]
 repo     = 'lambdalisue/pinkyless.vim'
@@ -690,7 +689,7 @@ on_event = 'InsertEnter'
 #[[plugins]]
 #repo = 'skanehira/denops-gh.vim'
 #depends = ['denops.vim', 'ddc.vim']
-#on_event=['VimEnter']
+#on_event=['CursorHold']
 #hook_source = '''
 #augroup gh_ddc
 #  au!
@@ -737,7 +736,7 @@ on_event = 'InsertEnter'
 # on_ft = [ "html" ]
 [[plugins]]
 repo     = 'mattn/vim-sonictemplate'
-on_event = 'BufRead'
+on_event = 'CursorHold'
 [[plugins]]
 repo = 'rhysd/committia.vim'
 
@@ -839,7 +838,7 @@ call ddc#custom#patch_buffer('sourceOptions', {
 # # on_ft = ['typescript', 'typescriptreact']
 # # [[plugins]]
 # # repo = 'itchyny/lightline.vim'
-# # on_event = ['VimEnter']
+# # on_event = ['CursorHold']
 # # hook_add = '''
 # # lua_source = '''
 # # lua require('custom.lightline')
