@@ -7,4 +7,4 @@ function! s:select_type() abort
   silent! startinsert!
 endfunction
 
-nnoremap <buffer> <CR><CR> <Cmd>call <SID>select_type()<CR>
+nnoremap <buffer> <C-y> <Cmd>call <SID>select_type()<CR>

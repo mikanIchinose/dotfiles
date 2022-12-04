@@ -1,3 +1,5 @@
+let g:colorscheme='everforest'
+
 " indent & tab/space
 " 直前の行と同じインデントを挿入する
 set autoindent
@@ -12,10 +14,11 @@ set tabstop=2
 set softtabstop=2
 " インデント数
 set shiftwidth=2
+set autoindent smartindent
 
 " set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
-set enc=utf-8
-set fenc=utf-8
+set encoding=utf-8
+set fileencoding=utf-8
 set fileencodings=utf-8
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
@@ -33,9 +36,11 @@ set backspace=indent,eol,start
 set inccommand=split
 "NOTE: statusline
 try
- set cmdheight=0
+  set cmdheight=0
+  autocmd MyAutoCmd RecordingEnter * set cmdheight=1
+  autocmd MyAutoCmd RecordingLeave * set cmdheight=0
 catch
- set cmdheight=1
+  set cmdheight=1
 endtry
 " set cmdheight=1
 set laststatus=3
@@ -51,7 +56,7 @@ set clipboard+=unnamedplus
 
 " leaderをspaceに変更
 let g:mapleader = "\<Space>"
-let g:maplocalleader = ","
+let g:maplocalleader = ','
 
 set timeout timeoutlen=100 ttimeoutlen=200
 
@@ -71,7 +76,7 @@ set completeslash=slash
 " color
 set termguicolors
 set background=dark
-execute 'colorscheme ' .. g:colorscheme
+execute 'colorscheme ' . g:colorscheme
 
 set noequalalways
 
@@ -94,3 +99,21 @@ set inccommand=nosplit
 
 set textwidth=0
 set wrapmargin=0
+
+" Search
+set ignorecase
+set smartcase
+set incsearch
+set nohlsearch
+set wrapscan
+
+set updatetime=500
+
+set directory-=.
+set undofile
+let &g:undodir = &directory
+
+set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%
+
+set noshowcmd
+set noruler

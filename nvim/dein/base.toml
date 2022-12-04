@@ -29,13 +29,13 @@ depends = ['denops.vim']
 
 # syntax hilight
 # NOTE: treesitterでは不都合な場合に利用する
-[[plugins]]
-repo = 'dag/vim-fish'
+# [[plugins]]
+# repo = 'dag/vim-fish'
 # NOTE: treesitterを使うとdein系のtomlのハイライトが上手くいかない
-[[plugins]]
-repo = 'cespare/vim-toml'
-[[plugins]]
-repo = 'terrastruct/d2-vim'
+# [[plugins]]
+# repo = 'cespare/vim-toml'
+# [[plugins]]
+# repo = 'terrastruct/d2-vim'
 
 ## color scheme
 [[plugins]]
@@ -52,6 +52,10 @@ repo = 'sainnhe/everforest'
 ## which-key
 [[plugins]]
 repo = 'folke/which-key.nvim'
+#[[plugins]]
+#repo = 'liuchengxu/vim-which-key'
+#[[plugins]]
+#repo = 'AckslD/nvim-whichkey-setup.lua'
 
 # [[plugins]]
 # repo='thinca/vim-quickrun'

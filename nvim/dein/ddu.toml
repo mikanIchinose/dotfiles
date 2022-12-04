@@ -1,7 +1,8 @@
 [[plugins]]
-repo = 'Shougo/ddu.vim'
-# on_event = 'BufRead'
-depends = ['denops.vim']
+repo     = 'Shougo/ddu.vim'
+depends  = ['denops.vim']
+on_event = 'CursorHold'
+
 hook_add = '''
 command! DeinUpdate :Ddu dein_update -name=dein_update 
 \ -ui-param-winHeight=20 -ui-param-winWidth=60 
@@ -189,6 +190,9 @@ on_source = 'ddu.vim'
 
 # NOTE: source
 [[plugins]]
+repo      = 'nabezokodaikon/ddu-source-file_fd'
+on_source = 'ddu.vim'
+[[plugins]]
 repo      = 'Shougo/ddu-source-file'
 on_source = 'ddu.vim'
 [[plugins]]
@@ -232,15 +236,10 @@ repo      = 'kuuote/ddu-source-mr'
 on_source = 'ddu.vim'
 depends   = 'mr.vim'
 [[plugins]]
-repo      = 'lambdalisue/mr.vim'
-on_source = 'ddu.vim'
+repo = 'lambdalisue/mr.vim'
 [[plugins]]
 repo      = '4513ECHO/ddu-source-source'
 on_source = 'ddu.vim'
-# [[plugins]]
-# repo      = 'gamoutatsumi/ddu-source-nvim-lsp'
-# on_source = 'ddu.vim'
-# depends   = ['nvim-lspconfig']
 [[plugins]]
 repo      = 'liquidz/ddu-source-custom-list'
 on_source = 'ddu.vim'
@@ -258,8 +257,19 @@ hook_add = '''
 let g:readme_viewer#plugin_manager = 'dein.vim'
 '''
 [[plugins]]
-repo      = 'tennashi/ddu-kind-extcmd'
-on_source = 'ddu.vim'
+repo      = '~/ghq/github.com/mikanIchinose/ddu-source-zenn'
+on_source = 'ddc.vim'
+# [[plugins]]
+# repo      = 'gamoutatsumi/ddu-source-nvim-lsp'
+# on_source = 'ddu.vim'
+# depends   = ['nvim-lspconfig']
+[[plugins]]
+repo      = '~/ghq/github.com/mikanIchinose/ddu-source-nvim-lsp'
+depends   = 'nvim-lspconfig'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = '~/ghq/github.com/mikanIchinose/ddu-source-markdown'
+on_source = 'ddc.vim'
 
 # NOTE: filter
 [[plugins]]
@@ -289,6 +299,9 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo      = 'Shougo/ddu-kind-word'
 on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'tennashi/ddu-kind-extcmd'
+on_source = 'ddu.vim'
 
 # NOTE: column
 [[plugins]]
@@ -297,3 +310,6 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo      = 'ryota2357/ddu-column-icon_filename'
 on_source = 'ddu.vim'
+[[plugins]]
+repo      = '~/ghq/github.com/mikanIchinose/ddu-column-tree'
+on_source = 'ddc.vim'

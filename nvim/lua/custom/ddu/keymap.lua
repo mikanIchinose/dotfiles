@@ -8,116 +8,86 @@ local function Ddu(args)
   end
 end
 
-require('which-key').register({
-  ['<Leader>'] = {
-    f = {
-      name = '+find',
-      f = {
-        Ddu({
-          '-name=files',
-          '-ui-param-startFilter',
-          'file_rec',
-        }),
-        'file',
-      },
-      F = {
-        Ddu({
-          '-name=filer',
-          '-resume',
-          '-ui=filer',
-          '-ui-param-split=no',
-          'file',
-          '-source-option-columns=icon_filename',
-          '-source-option-path=`getcwd()`',
-        }),
-        'filer',
-      },
-      b = {
-        Ddu({
-          '-name=buffers',
-          'buffer',
-        }),
-        'buffer',
-      },
-      r = {
-        Ddu({
-          '-name=search_source',
-          "-source-param-input=`input('Pattern: ')`",
-          'rg',
-        }),
-        'source',
-      },
-      d = {
-        Ddu({
-          '-name=dein',
-          '-ui-param-startFilter',
-          'dein',
-        }),
-        'dein',
-      },
-      h = {
-        Ddu({
-          '-name=help',
-          '-ui-param-startFilter',
-          'help',
-        }),
-        'help',
-      },
-      c = {
-        Ddu({
-          '-name=commands',
-          '-ui-param-startFilter',
-          'command_history',
-        }),
-        'command',
-      },
-      C = {
-        Ddu({
-          '-name=color',
-          'colorscheme',
-        }),
-        'color',
-      },
-      m = {
-        function()
-          vim.fn['ddu#start']({
-            -- resume = true,
-            sources = {
-              { name = 'markdown' },
-            },
-            ui = 'filer',
-            uiParams = {
-              filer = {
-                sort = 'none',
-              },
-            },
-          })
-        end,
-        'outline',
-      },
-    },
-  },
-})
+map(
+  'n',
+  '<Leader>ff',
+  Ddu({
+    '-name=files',
+    '-ui-param-startFilter',
+    'file_rec',
+  }),
+  { desc = 'file' }
+)
+map(
+  'n',
+  '<Leader>fb',
+  Ddu({
+    '-name=buffers',
+    'buffer',
+  }),
+  { desc = 'buffer' }
+)
+map(
+  'n',
+  '<Leader>fr',
+  Ddu({
+    '-name=search_source',
+    "-source-param-input=`input('Pattern: ')`",
+    'rg',
+  }),
+  { desc = 'grep' }
+)
+map(
+  'n',
+  '<Leader>fh',
+  Ddu({
+    '-name=help',
+    '-ui-param-startFilter',
+    'help',
+  }),
+  { desc = 'help' }
+)
+map(
+  'n',
+  '<C-S-p>',
+  Ddu({
+    '-name=source',
+    '-ui-param-startFilter',
+    'source',
+  }),
+  { desc = 'source' }
+)
+-- vim.keymap.set(
+--   'n',
+--   '<Leader>fo',
+--   Ddu({
+--     '-name=headers',
+--     '-resume',
+--     '-ui=filer',
+--   'markdown',
+--   }),
+--   { desc = 'outline' }
+-- )
 
--- vim.cmd([[
--- autocmd FileType markdown
--- \ nnoremap <buffer> <Leader>fm <Cmd>Ddu
--- \   -name=headers
--- \   -resume
--- \   -ui=filer
--- \   -ui-param-sort=size
--- \   -ui-param-sortDirectoriesFirst=v:false
--- \   markdown
--- \   -source-option-columns=tree
--- \   <CR>
--- ]])
+vim.cmd([[
+autocmd FileType markdown
+\ nnoremap <buffer> <Leader>fm <Cmd>Ddu
+\   -name=outline
+\   -resume
+\   -ui=filer
+\   -ui-param-sort=none
+\   -ui-param-sortDirectoriesFirst=v:false
+\   -ui-option-persist=v:true
+\   markdown
+\   <CR>
+]])
 
 map(
   'n',
   '?',
   Ddu({
     '-name=search_line',
-    '-ui-param-startFilter',
+    '-ui-option-persist=v:true',
     'line',
   }),
   { silent = true }
@@ -130,10 +100,12 @@ map(
     'emoji',
   })
 )
+
+-- like vscode
 map('n', '<C-p>', function()
   vim.fn['ddu#start']({
     sources = {
-      { name = 'file_rec' },
+      { name = 'file_fd' },
     },
     ui = 'ff',
     uiParams = {

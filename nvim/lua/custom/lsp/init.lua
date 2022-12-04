@@ -236,29 +236,41 @@ local on_attach = function(client, bufnr)
     default = vim.lsp.buf.code_action,
     code_action_menu = [[<cmd>CodeActionMenu<CR>]],
   }
-  require('which-key').register({
-    g = {
-      name = 'goto',
-      D = { vim.lsp.buf.declaration, 'go declaration' },
-      d = { vim.lsp.buf.definition, 'go definition' },
-      r = { vim.lsp.buf.references, 'go reference' },
-      i = { vim.lsp.buf.implementation, 'go implementation' },
-      t = { vim.lsp.buf.type_definition, 'go type definition' },
-    },
-    K = { vim.lsp.buf.hover, 'Hover' },
-    ['[d'] = { vim.diagnostic.goto_prev, 'go previous diagnostic' },
-    [']d'] = { vim.diagnostic.goto_next, 'go next diagnostic' },
-    ['<Leader>'] = {
-      a = { code_action.code_action_menu, 'code action' },
-      r = { vim.lsp.buf.rename, 'rename' },
-    },
-    ['<C-g>'] = {
-      function()
-        vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' })
-      end,
-      'open float',
-    },
-  }, { mode = 'n' })
+  local map = vim.keymap.set
+  map('n', 'gd', vim.lsp.buf.definition, { desc = 'definition' })
+  map('n', 'gD', vim.lsp.buf.declaration, { desc = 'declaration' })
+  map('n', 'gr', vim.lsp.buf.references, { desc = 'reference' })
+  map('n', 'gi', vim.lsp.buf.implementation, { desc = 'implementation' })
+  map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'type definition' })
+  map('n', 'K', vim.lsp.buf.hover)
+  map('n', '<Leader>a', code_action.code_action_menu, { desc = 'code action' })
+  map('n', '<Leader>r', vim.lsp.buf.rename, { desc = 'rename' })
+  map('n', '<C-g>', function()
+    vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' })
+  end)
+  -- require('which-key').register({
+  --   g = {
+  --     name = 'goto',
+  --     D = { vim.lsp.buf.declaration, 'go declaration' },
+  --     d = { vim.lsp.buf.definition, 'go definition' },
+  --     r = { vim.lsp.buf.references, 'go reference' },
+  --     i = { vim.lsp.buf.implementation, 'go implementation' },
+  --     t = { vim.lsp.buf.type_definition, 'go type definition' },
+  --   },
+  --   K = { vim.lsp.buf.hover, 'Hover' },
+  --   ['[d'] = { vim.diagnostic.goto_prev, 'go previous diagnostic' },
+  --   [']d'] = { vim.diagnostic.goto_next, 'go next diagnostic' },
+  --   ['<Leader>'] = {
+  --     a = { code_action.code_action_menu, 'code action' },
+  --     r = { vim.lsp.buf.rename, 'rename' },
+  --   },
+  --   ['<C-g>'] = {
+  --     function()
+  --       vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' })
+  --     end,
+  --     'open float',
+  --   },
+  -- }, { mode = 'n' })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

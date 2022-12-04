@@ -28,6 +28,11 @@ local sourceOptions = {
       'sorter_alpha',
     },
   },
+  file_fd = {
+    sorters = {
+      'sorter_alpha',
+    },
+  },
   line = {},
   rg = {
     matchers = {
@@ -59,6 +64,9 @@ local sourceParams = {
       'node_modules',
     },
   },
+  file_fd = {
+    args = { '--max-depth', '20', '--hidden', '--type', 'f' },
+  },
   rg = {
     args = {
       '--json',
@@ -88,7 +96,7 @@ local filterParams = {
 local uiOptions = {
   filer = {
     toggle = false,
-    persist = true,
+    -- persist = true,
   },
 }
 
