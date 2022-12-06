@@ -18,8 +18,10 @@ brew "lazygit"
 
 # brew "mas" # いまのmacosだと正常に動作しない
 
+# font
 tap "homebrew/cask-fonts"
-#brew "font-fira-code"
+# cask "font-fira-code"
+# cask "font-fira-code-nerd-font" # リリースから落とした方がよい
 
 brew "wget"
 brew "fzf"
@@ -55,9 +57,11 @@ brew "yt-dlp"
 brew "ttyd"
 brew "vhs"
 brew "desktop-file-utils"
+brew "tidy-html5"
+# brew "spotifyd"
 
-tap "terrastruct/d2"
-brew "d2"
+# tap "terrastruct/d2"
+# brew "d2"
 
 # lang
 brew "deno"
@@ -73,9 +77,6 @@ brew "jsonnet"
 # brew "sqlite" # used by org-roam
 # brew "mermaid-cli"
 # brew "graphviz"
-
-# font
-# cask "font-fira-code-nerd-font" # リリースから落とした方がよい
 
 # browser
 cask "vivaldi"
@@ -116,6 +117,7 @@ cask "raycast"
 cask "gather"
 cask "meetingbar"
 cask "disk-drill"
+cask "spotify"
 # cask "postman"
 # cask "smlnj"
 # cask "clipy"

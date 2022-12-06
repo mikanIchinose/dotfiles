@@ -21,30 +21,14 @@ local LS = {
       settings = {
         evenBetterToml = {
           schema = {
-            associations = {
-              ['^(.*(/|\\\\)\\.*dein.*\\.toml|\\.*dein.*\\.toml)$'] = 'https://json.schemastore.org/dein.json',
-              ['^(.*(/|\\\\)Cargo\\.toml|Cargo\\.toml)$'] = 'https://json.schemastore.org/cargo.json',
-              ['^(.*(/|\\\\)\\.?rustfmt\\.toml|rustfmt\\.toml)$'] = 'https://json.schemastore.org/rustfmt.json',
-              ['^(.*(/|\\\\)rust-toolchain([.]toml)?)$'] = 'https://json.schemastore.org/rust-toolchain.json',
-              ['\\.*fly(.*)?\\.toml?$'] = 'https://json.schemastore.org/fly.json',
-              ['^(.*(/|\\\\)Makefile\\.toml|Makefile\\.toml)$'] = 'https://json.schemastore.org/cargo-make.json',
-              ['^(.*(/|\\\\)pyproject\\.toml|pyproject\\.toml)$'] = 'https://json.schemastore.org/pyproject.json',
-              ['\\.replit(?:\\.toml)?$'] = 'https://json.schemastore.org/replit.json',
-              ['^(.*(/|\\\\)starship/config\\.toml|starship/config\\.toml)$'] = 'https://starship.rs/config-schema.json',
-              ['\\.golangci\\.toml'] = 'https://json.schemastore.org/golangci-lint.json',
+            catalogs = {
+              --'https://taplo.tamasfe.dev/schema_index.json',
+              'https://www.schemastore.org/api/json/catalog.json',
             },
             enable = true,
           },
           formatter = {
             alignEntries = true,
-            alignComments = true,
-            arrayTrailingComma = true,
-            arrayAutoExpand = true,
-            inlineTableExpand = true,
-            arrayAutoCollapse = true,
-            -- compactArrays = true,
-            -- compactInlineTables = true,
-            -- compactEntries = true,
           },
         },
       },
@@ -67,15 +51,6 @@ local LS = {
         enable = true,
         lint = true,
         unstable = true,
-      },
-      settings = {
-        deno = {
-          inlayHints = {
-            enumMemberValues = { enabled = true },
-            functionLikeReturnTypes = { enabled = true },
-            parameterNames = { enabled = 'all' },
-          },
-        },
       },
     },
   },
@@ -166,10 +141,95 @@ local LS = {
 
 ---@class DapServerSpec
 
+-- local language_servers = {
+--   -- "eslint-lsp",
+--   -- "golangci-lint-langserver",
+--   -- "elm-language-server",
+--   -- "remark-language-server", -- md
+--   --
+--   -- 'bash-language-server',
+--   -- 'css-lsp',
+--   -- 'cssmodules-language-server',
+--   -- 'deno',
+--   'dockerfile-language-server',
+--   -- 'emmet-ls', -- html
+--   -- 'graphql-language-service-cli',
+--   'haskell-language-server',
+--   -- 'html-lsp',
+--   -- 'json-lsp',
+--   -- 'jsonnet-language-server',
+--   -- 'ltex-ls', -- md
+--   -- 'lua-language-server',
+--   -- 'marksman', -- md
+--   -- 'rust-analyzer',
+--   -- 'taplo', -- toml
+--   -- 'typescript-language-server',
+--   -- 'tailwindcss-language-server',
+--   -- 'vim-language-server',
+--   -- 'vue-language-server',
+--   -- 'yaml-language-server',
+--   -- 'grammarly-languageserver',
+-- }
+-- local formatters = {
+--   'cbfmt', -- md
+--   -- "elm-format",
+--   'fixjson', -- とてもいいかんじにjsonをきれいにしてくれる
+--   -- "gofumpt",
+--   -- "goimports",
+--   'jq',
+--   -- "luaformatter",
+--   'shellharden',
+--   'shfmt',
+--   'stylua', -- lua
+--   'yamlfmt',
+--   'prettierd',
+-- }
+-- local linters = {
+--   'actionlint', -- github action workflow
+--   -- "buf",
+--   -- "codespell",
+--   'cspell',
+--   'editorconfig-checker',
+--   -- "eslint_d", -- js/ts
+--   'gitlint', -- gitcommit
+--   -- "golangci-lint",
+--   'hadolint', -- dockerfile
+--   'luacheck',
+--   'selene', -- lua
+--   'shellcheck',
+--   'markdownlint',
+--   'textlint', -- md
+--   'vale', -- md
+--   'vint', -- vimscript
+--   'yamllint',
+-- }
+-- local dap_servers = {
+--   'bash-debug-adapter',
+--   'chrome-debug-adapter',
+--   -- "codelldb", -- rust
+--   -- "delve", -- go
+--   -- "firefox-debug-adapter",
+--   -- "go-debug-adapter",
+-- }
+-- function table.merge(t1, t2)
+--   for _, v in ipairs(t2) do
+--     table.insert(t1, v)
+--   end
+-- end
+
+-- local ensure_installed = {}
+-- table.merge(ensure_installed, language_servers)
+-- table.merge(ensure_installed, formatters)
+-- table.merge(ensure_installed, linters)
+-- table.merge(ensure_installed, dap_servers)
+-- require('mason-tool-installer').setup({
+--   ensure_installed = ensure_installed,
+--   -- auto_update = true,
+-- })
+
 local on_attach = function(client, bufnr)
   -- format on save
   require('lsp-format').on_attach(client)
-  require('lsp-inlayhints').on_attach(client, bufnr)
 
   -- keymap
   local code_action = {
@@ -188,6 +248,29 @@ local on_attach = function(client, bufnr)
   map('n', '<C-g>', function()
     vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' })
   end)
+  -- require('which-key').register({
+  --   g = {
+  --     name = 'goto',
+  --     D = { vim.lsp.buf.declaration, 'go declaration' },
+  --     d = { vim.lsp.buf.definition, 'go definition' },
+  --     r = { vim.lsp.buf.references, 'go reference' },
+  --     i = { vim.lsp.buf.implementation, 'go implementation' },
+  --     t = { vim.lsp.buf.type_definition, 'go type definition' },
+  --   },
+  --   K = { vim.lsp.buf.hover, 'Hover' },
+  --   ['[d'] = { vim.diagnostic.goto_prev, 'go previous diagnostic' },
+  --   [']d'] = { vim.diagnostic.goto_next, 'go next diagnostic' },
+  --   ['<Leader>'] = {
+  --     a = { code_action.code_action_menu, 'code action' },
+  --     r = { vim.lsp.buf.rename, 'rename' },
+  --   },
+  --   ['<C-g>'] = {
+  --     function()
+  --       vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' })
+  --     end,
+  --     'open float',
+  --   },
+  -- }, { mode = 'n' })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -197,17 +280,17 @@ mason_lspconfig.setup_handlers({
   ---@param server_name string
   function(server_name)
     -- nvim-ufo
-    -- if
-    --   server_name == 'denols' or server_name == 'tsserver'
-    --   -- or server_name == 'cssmodules_ls'
-    --   -- or server_name == 'ltex'
-    --   -- or server_name == 'emmet_ls'
-    -- then
-    --   capabilities.textDocument.foldingRange = {
-    --     dynamicRegistration = false,
-    --     lineFoldingOnly = true,
-    --   }
-    -- end
+    if
+      server_name == 'denols' or server_name == 'tsserver'
+      -- or server_name == 'cssmodules_ls'
+      -- or server_name == 'ltex'
+      -- or server_name == 'emmet_ls'
+    then
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+    end
 
     local opts = {
       on_attach = function(client, bufnr)

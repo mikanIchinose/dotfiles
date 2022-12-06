@@ -42,6 +42,8 @@ symlink "$SOURCE/.yabairc" "$DESTINATION/.yabairc"
 symlink "$SOURCE/.skhdrc" "$DESTINATION/.skhdrc"
 symlink "$SOURCE/kitty" "$DESTINATION/.config/kitty"
 symlink "$SOURCE/wtf" "$DESTINATION/.config/wtf"
+symlink "$SOURCE/spotifyd" "$DESTINATION/.config/spotifyd"
+symlink "$SOURCE/spotify-tui" "$DESTINATION/.config/spotify-tui"
 
 if [ "$(uname)" == 'Darwin' ]; then
   # asdf

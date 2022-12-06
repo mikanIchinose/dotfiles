@@ -113,3 +113,5 @@ set listchars=tab:▸\ ,trail:-,precedes:«,nbsp:%
 
 set noshowcmd
 set noruler
+
+set splitkeep=screen

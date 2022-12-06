@@ -33,7 +33,6 @@ M.sumneko_lua = function(opts)
       },
       telemetry = { enable = false },
       completion = { keywordSnippet = 'Replace' },
-      inlayHints = { enable = true },
     },
   }
 end

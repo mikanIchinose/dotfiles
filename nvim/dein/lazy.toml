@@ -98,6 +98,21 @@ require('custom.heirline')
 '''
 
 [[plugins]]
+if       = 0
+repo     = 'mrjones2014/legendary.nvim'
+on_event = 'VimEnter'
+
+[[plugins]]
+repo    = 'rest-nvim/rest.nvim'
+depends = ['plenary.nvim']
+on_ft   = 'http'
+[plugins.ftplugin]
+http = '''
+nmap <Leader>rr <Plug>RestNvim
+nmap <Leader>rp <Plug>RestNvimPreview
+'''
+
+[[plugins]]
 repo   = 'folke/trouble.nvim'
 on_cmd = ['Trouble', 'TroubleToggle']
 
@@ -256,12 +271,13 @@ require('mason-null-ls').setup({
 '''
 [[plugins]]
 repo    = 'neovim/nvim-lspconfig'
-depends = ['mason.nvim', 'mason-lspconfig.nvim']
+depends = ['mason.nvim', 'mason-lspconfig.nvim', 'impatient.nvim']
 
 lua_source = '''
 require('custom.lsp')
 '''
 [[plugins]]
+if       = 0
 repo     = 'jose-elias-alvarez/null-ls.nvim'
 depends  = ['nvim-lspconfig', 'plenary.nvim', 'mason.nvim', 'mason-null-ls.nvim']
 on_event = 'CursorHold'
@@ -306,8 +322,8 @@ lua require('custom.lsp_lines')
 repo      = 'folke/lsp-colors.nvim'
 on_source = 'nvim-lspconfig'
 
-hook_source = '''
-lua require("lsp-colors").setup()
+lua_source = '''
+require("lsp-colors").setup()
 '''
 [[plugins]]
 repo      = 'SmiteshP/nvim-navic'
@@ -318,6 +334,26 @@ on_source = 'nvim-lspconfig'
 [[plugins]]
 repo   = 'weilbith/nvim-code-action-menu'
 on_cmd = 'CodeActionMemu'
+[[plugins]]
+repo      = 'lvimuser/lsp-inlayhints.nvim'
+on_source = 'nvim-lspconfig'
+#on_event = 'LspAttach'
+lua_source = '''
+require('lsp-inlayhints').setup()
+--vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+--vim.api.nvim_create_autocmd("LspAttach", {
+--  group = "LspAttach_inlayhints",
+--  callback = function(args)
+--    if not (args.data and args.data.client_id) then
+--      return
+--    end
+--
+--    local bufnr = args.buf
+--    local client = vim.lsp.get_client_by_id(args.data.client_id)
+--    require("lsp-inlayhints").on_attach(client, bufnr)
+--  end,
+--})
+'''
 
 [[plugins]]
 repo = 'kevinhwang91/promise-async'
@@ -339,7 +375,7 @@ vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 require('ufo').setup()
 '''
-# 
+
 # # NOTE: lspの前には有効化されていないといけない
 # [[plugins]]
 # repo    = 'google/vim-jsonnet'
@@ -419,12 +455,13 @@ nnoremap <buffer> <C-=> <Plug>(mkdx-demote-header)
 
 # NOTE: Neorg
 [[plugins]]
-repo     = 'nvim-neorg/neorg'
-depends  = ['plenary.nvim', 'nvim-treesitter']
-on_event = 'CusorHold'
-# on_path = '\.norg'
+repo    = 'nvim-neorg/neorg'
+depends = ['plenary.nvim', 'nvim-treesitter']
+on_ft   = 'norg'
+# on_event = 'BufReadPre'
+# on_if    = 'bufname("") =~ "norg$"'
+
 lua_source = '''
-vim.notify('load neorg')
 require('neorg').setup {
   load = {
     ["core.defaults"] = {},
@@ -634,7 +671,9 @@ require('colorizer').setup()
 [[plugins]]
 repo     = 'nvim-treesitter/nvim-treesitter'
 merged   = 0
-on_event = 'CursorHold'
+on_event = 'VimEnter'
+depends  = ['impatient.nvim']
+# on_event = 'CursorHold'
 
 # hook_post_source = 'TSUpdate'
 lua_source = '''
@@ -686,10 +725,21 @@ on_event = 'CursorHold'
 repo     = 'lambdalisue/pinkyless.vim'
 on_event = 'InsertEnter'
 
+[[plugins]]
+if       = 0
+repo     = '4513ECHO/denops-gitter.vim'
+depends  = 'denops.vim'
+on_event = 'CursorHold'
+
+hook_add = '''
+let g:gitter#token = ''
+command! StartReadingVimrc new gitter://room/vim-jp/reading-vimrc
+'''
 #[[plugins]]
 #repo = 'skanehira/denops-gh.vim'
 #depends = ['denops.vim', 'ddc.vim']
 #on_event=['CursorHold']
+#
 #hook_source = '''
 #augroup gh_ddc
 #  au!
@@ -737,8 +787,6 @@ on_event = 'InsertEnter'
 [[plugins]]
 repo     = 'mattn/vim-sonictemplate'
 on_event = 'CursorHold'
-[[plugins]]
-repo = 'rhysd/committia.vim'
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'

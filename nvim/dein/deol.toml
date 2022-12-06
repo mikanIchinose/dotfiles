@@ -1,6 +1,7 @@
 [[plugins]]
-repo = 'Shougo/deol.nvim'
+repo    = 'Shougo/deol.nvim'
 depends = ['ddu.vim']
+
 hook_add = '''
 nnoremap <silent><C-s>
   \ <Cmd>Deol fish -no-start-insert -toggle -split=farright<CR>

@@ -55,11 +55,6 @@ local sourceOptions = {
     columns = { 'tree' },
     sorters = {}, -- 勝手に並び換えられると困る
   },
-  zenn={
-    sorters = {
-      'sorter_alpha',
-    },
-  },
 }
 
 local sourceParams = {

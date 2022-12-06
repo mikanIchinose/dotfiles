@@ -1,3 +1,6 @@
+" set runtimepath^=~/ghq/github.com/lewis6991/impatient.nvim
+" lua require("impatient")
+
 let g:loaded_node_provider       = v:false
 let g:loaded_perl_provider       = v:false
 let g:loaded_python_provider     = v:false
@@ -89,6 +92,7 @@ if dein#min#load_state(s:path)
 endif
 " }}} End dein Scripts
 
+" lua require("impatient")
 if !empty(argv())
   call vimrc#on_filetype()
 endif
