@@ -1,5 +1,3 @@
-add_newline = false
-
 format = """
 $hostname\
 $username\
@@ -10,33 +8,35 @@ $git_metrics\
 $git_status
 $character
 """
+add_newline = false
 
-# scan_timeout = 30
-# command_timeout = 500
+scan_timeout    = 30
+command_timeout = 100
 
 [cmd_duration]
 disabled = true
 
 [hostname]
 ssh_only = false
-style    = "bold fg:16 bg:196"
+disabled = true
+style    = "bold fg:17"
 format   = "[💻 $hostname ]($style)"
 trim_at  = ".local"
 
 [username]
-style_user  = "bold fg:16 bg:70"
-format      = "[👤 $user ]($style)"
+# style_user  = "bold fg:17"
+# format      = "[👤 $user ]($style)"
 show_always = true
 
 [directory]
-style             = "bold fg:16 bg:45"
-format            = "[📂 $path ]($style)[$read_only]($read_only_style)"
-truncation_length = 2
-truncation_symbol = "…/"
-truncate_to_repo  = false
+# style             = "bold fg:17"
+# format            = "[📂 $path ]($style)[$read_only]($read_only_style)"
+# truncation_length = 2
+# truncation_symbol = "…/"
+# truncate_to_repo  = false
 
 [character]
-success_symbol = "[ ](bold green)"
+success_symbol = "[ ](green)"
 error_symbol   = "[ ](#ff0000)"
 
 [fill]

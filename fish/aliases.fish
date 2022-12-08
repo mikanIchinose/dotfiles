@@ -1,10 +1,6 @@
 # シェルの再起動
 abbr reload "exec fish"
 
-# exa
-abbr e "exa"
-abbr ei "exa -aF --icons"
-abbr els "exa -alF --time-style=iso --icons"
 abbr cl "clear"
 
 # change owner to me
@@ -12,7 +8,6 @@ abbr chown "sudo chown -R $USER:$USER ."
 
 # git
 abbr g "git"
-# abbr gc "git checkout"
 abbr gb "git branch"
 abbr ga "git add "
 abbr gc "git commit"
@@ -70,6 +65,19 @@ abbr zsh "zsh --no-rcs"
 
 abbr tree "exa --tree"
 
-abbr edit "nvim (fd --type file| fzf)"
-
 abbr denops 'deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
+
+# better cli
+if type -q bat &> /dev/null
+  alias cat "bat"
+end
+if type -q fd &> /dev/null
+  alias find "fd"
+end
+if type -q rg &> /dev/null
+  alias grep "rg"
+end
+if type -q exa &> /dev/null
+  alias ls "exa"
+  abbr ll "exa -al"
+end

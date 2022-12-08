@@ -8,42 +8,43 @@ for i = 1, #library do
 end
 
 local M = {}
-M.sumneko_lua = function(opts)
-  opts.settings = {
-    Lua = {
-      format = {
-        enable = false,
-        defaultConfig = {
-          indent_style = 'space',
-          indent_size = 2,
-        },
-      },
-      runtime = {
-        version = 'LuaJIT',
-        path = runtimePath,
-      },
-      diagnostics = {
-        globals = { 'vim' },
-        neededFileStatus = {
-          ['codestyle-check'] = 'Any',
-        },
-      },
-      workspace = {
-        library = library,
-      },
-      telemetry = { enable = false },
-      completion = { keywordSnippet = 'Replace' },
-      inlayHints = { enable = true },
-    },
-  }
-end
+-- M.sumneko_lua = function(opts)
+--   opts.settings = {
+--     Lua = {
+--       format = {
+--         enable = false,
+--         defaultConfig = {
+--           indent_style = 'space',
+--           indent_size = 2,
+--         },
+--       },
+--       runtime = {
+--         version = 'LuaJIT',
+--         path = runtimePath,
+--       },
+--       diagnostics = {
+--         globals = { 'vim' },
+--         neededFileStatus = {
+--           ['codestyle-check'] = 'Any',
+--         },
+--       },
+--       workspace = {
+--         library = library,
+--         chackThirdParty = false,
+--       },
+--       telemetry = { enable = false },
+--       completion = { keywordSnippet = 'Replace' },
+--       inlayHints = { enable = true },
+--     },
+--   }
+-- end
 M.opts = {
   settings = {
     Lua = {
       format = {
         enable = false,
         defaultConfig = {
-          indent_style = 'space',
+          -- indent_style = 'space',
           indent_size = 2,
         },
       },
@@ -59,6 +60,7 @@ M.opts = {
       },
       workspace = {
         library = library,
+        chackThirdParty = false,
       },
       telemetry = { enable = false },
       completion = { keywordSnippet = 'Replace' },

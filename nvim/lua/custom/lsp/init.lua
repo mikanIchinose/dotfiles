@@ -57,7 +57,7 @@ local LS = {
   },
   tsserver = {
     opts = {
-      root_dir = lspconfig_util.root_pattern('package.json', 'node_modules'),
+      root_dir = lspconfig_util.root_pattern('node_modules'),
     },
   },
   denols = {
@@ -68,15 +68,15 @@ local LS = {
         lint = true,
         unstable = true,
       },
-      settings = {
-        deno = {
-          inlayHints = {
-            enumMemberValues = { enabled = true },
-            functionLikeReturnTypes = { enabled = true },
-            parameterNames = { enabled = 'all' },
-          },
-        },
-      },
+      -- settings = {
+      --   deno = {
+      --     inlayHints = {
+      --       enumMemberValues = { enabled = true },
+      --       functionLikeReturnTypes = { enabled = true },
+      --       parameterNames = { enabled = 'all' },
+      --     },
+      --   },
+      -- },
     },
   },
   html = {
@@ -88,9 +88,9 @@ local LS = {
   cssls = {
     opts = {},
   },
-  cssmodules_ls = {
-    opts = {},
-  },
+  -- cssmodules_ls = {
+  --   opts = {},
+  -- },
   tailwindcss = {
     opts = {
       root_dir = function(fname)
@@ -169,7 +169,7 @@ local LS = {
 local on_attach = function(client, bufnr)
   -- format on save
   require('lsp-format').on_attach(client)
-  require('lsp-inlayhints').on_attach(client, bufnr)
+  -- require('lsp-inlayhints').on_attach(client, bufnr)
 
   -- keymap
   local code_action = {

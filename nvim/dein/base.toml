@@ -2,15 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'lewis6991/impatient.nvim'
-
-# help
-# [[plugins]]
-# repo = 'nanotee/nvim-lua-guide'
-# [[plugins]]
-# repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
 repo = 'vim-denops/denops.vim'
 hook_add = '''
 " let g:denops_server_addr = '127.0.0.1:32123'
@@ -29,17 +20,7 @@ repo = 'lambdalisue/guise.vim'
 [[plugins]]
 repo = 'rhysd/committia.vim'
 
-# syntax hilight
-# NOTE: treesitterでは不都合な場合に利用する
-# [[plugins]]
-# repo = 'dag/vim-fish'
-# NOTE: treesitterを使うとdein系のtomlのハイライトが上手くいかない
-# [[plugins]]
-# repo = 'cespare/vim-toml'
-# [[plugins]]
-# repo = 'terrastruct/d2-vim'
-
-## color scheme
+## colorscheme
 [[plugins]]
 repo = 'dracula/vim'
 [[plugins]]
@@ -54,10 +35,3 @@ repo = 'sainnhe/everforest'
 ## which-key
 [[plugins]]
 repo = 'folke/which-key.nvim'
-#[[plugins]]
-#repo = 'liuchengxu/vim-which-key'
-#[[plugins]]
-#repo = 'AckslD/nvim-whichkey-setup.lua'
-
-# [[plugins]]
-# repo='thinca/vim-quickrun'

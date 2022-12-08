@@ -1,1 +1,0 @@
-set -x DEIN_GITHUB_TOKEN "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"

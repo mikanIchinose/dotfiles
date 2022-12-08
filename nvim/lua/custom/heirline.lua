@@ -195,6 +195,7 @@ local Navic = {
   hl = { fg = 'gray' },
 }
 local Git = {
+  update = { 'InsertEnter', 'CursorHold' },
   condition = function()
     return vim.g.loaded_gin and vim.g.loaded_gitbranch
   end,
@@ -363,8 +364,8 @@ local statusline = {
   LSPServers,
   -- WorkDir,
   Space,
-  -- utils.surround({ '', '' }, '#ce6f8f', { Git }),
   Git,
+  Space,
   LineInfo,
   hl = { bg = utils.get_highlight('BufferCurrent').bg },
 }

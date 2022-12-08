@@ -1,6 +1,3 @@
-" set runtimepath^=~/ghq/github.com/lewis6991/impatient.nvim
-" lua require("impatient")
-
 let g:loaded_node_provider       = v:false
 let g:loaded_perl_provider       = v:false
 let g:loaded_python_provider     = v:false
@@ -72,7 +69,6 @@ if dein#min#load_state(s:path)
   call dein#begin(s:path, expand('<sfile>'))
 
   call dein#load_toml(s:base_toml, {'lazy': 0})
-  " call dein#load_toml(s:lazy_tmp_toml, {'lazy': 1})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
   call dein#load_toml(s:ddu_toml,  {'lazy': 1})
   call dein#load_toml(s:ddc_toml,  {'lazy': 1})
@@ -92,7 +88,6 @@ if dein#min#load_state(s:path)
 endif
 " }}} End dein Scripts
 
-" lua require("impatient")
 if !empty(argv())
   call vimrc#on_filetype()
 endif

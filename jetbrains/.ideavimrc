@@ -1,7 +1,10 @@
+" ------------------------------------------------------------------------------
 " plugin
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+" ------------------------------------------------------------------------------
 
+" ------------------------------------------------------------------------------
 " setting
 set notimeout timeoutlen=300
 set clipboard=unnamed
@@ -11,8 +14,12 @@ set ideajoin
 let g:WhichKey_DefaultDelay = 0
 let g:mapleader = "\<Space>"
 " let g:maplocalleader = ","
+" ------------------------------------------------------------------------------
 
+" ------------------------------------------------------------------------------
 " keymap
+nnoremap ; :
+" goto action
 nnoremap gd :action GotoDeclaration<CR>
 nnoremap gi :action GotoImplementation<CR>
 nnoremap gs :action GotoSuperMethod<CR>
@@ -21,7 +28,6 @@ nnoremap gf :action Forward<CR>
 " nnoremap <C-Left> :action Back<CR>
 " nnoremap <C-Right> :action Forward<CR>
 nnoremap <Leader>r :action RenameElement<CR>
-
 " split window
 nnoremap <Leader>- :split<CR>
 nnoremap <Leader>\ :vsplit<CR>
@@ -37,9 +43,6 @@ nnoremap > >>
 " select mode
 xnoremap r <C-v>
 xnoremap v V
-
-nnoremap ; :
-
 " nnoremap <LocalLeader> <Plug>(eazymotion-prefix)
 " nnoremap <Leader>1 1gt
 " nnoremap <Leader>2 2gt
@@ -48,14 +51,12 @@ nnoremap ; :
 " nnoremap <Leader>5 5gt
 " nnoremap <Leader>6 6gt
 " nnoremap <Leader>7 7gt
-
 " switch buffer
-nnoremap <M-Right> :bn<CR>
-nnoremap <M-Left> :bp<CR>
-
-" nnoremap <Leader><C-r> :action InvalidateCaches<CR>
+nnoremap <C-l> :bn<CR>
+nnoremap <C-h> :bp<CR>
+" restart
 nnoremap <Leader><C-r> :action RestartIde<CR>
-
+nnoremap <Leader><C-c> :action InvalidateCaches<CR>
 " start app
 nnoremap <Leader>ar :action Run<CR>
 " debug app
@@ -65,5 +66,4 @@ nnoremap <Leader>sp :action Android.SyncProject<CR>
 nnoremap <Leader>cc :action Clean<CR>
 nnoremap <Leader>cp :action CleanGradleProject<CR>
 nnoremap <Leader>cr :action RearrangeCode<CR>
-
-" nnoremap <Leader>cp :action RebuildGradleProject<CR>
+" ------------------------------------------------------------------------------

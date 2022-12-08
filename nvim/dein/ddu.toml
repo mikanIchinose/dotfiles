@@ -185,6 +185,7 @@ nnoremap <buffer><silent> v
 " endfunction
 '''
 [[plugins]]
+if        = 0
 repo      = 'matsui54/ddu-vim-ui-select'
 on_source = 'ddu.vim'
 
