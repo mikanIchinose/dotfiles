@@ -3,20 +3,19 @@ set fish_greeting
 # reset abbrs
 # __mikan_reset_abbr
 
-#switch (uname)
-#case Linux
-#  source $HOME/.config/fish/aliases_linux.fish
+source $HOME/.config/fish/aliases.fish
+switch (uname)
+  case Linux
+    source $HOME/.config/fish/aliases_linux.fish
 #  set -x PATH "$HOME/Android/Sdk/platform-tools" $PATH
 #  set -x JAVA_HOME "/usr/local/android-studio/jre"
 #  set -x PATH "$JAVA_HOME/bin" "$PATH"
-#case Darwin
-source $HOME/.config/fish/aliases_mac.fish
-set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
-#set -x JAVA_HOME "~/Library/Application Support/JetBrains/Toolbox/apps/AndroidStudio/ch-0/222.4345.14.2221.9321504/Android Studio Preview.app/Contents/jre/Contents/Home/"
-# . ~/.asdf/plugins/java/set-java-home.fish
-#end
-
-source $HOME/.config/fish/aliases.fish
+  case Darwin
+    source $HOME/.config/fish/aliases_mac.fish
+    set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
+    #set -x JAVA_HOME "~/Library/Application Support/JetBrains/Toolbox/apps/AndroidStudio/ch-0/222.4345.14.2221.9321504/Android Studio Preview.app/Contents/jre/Contents/Home/"
+    source ~/.asdf/plugins/java/set-java-home.fish
+end
 
 if type -q brew &> /dev/null
   set -l HOMEBREW_PREFIX "/opt/homebrew"

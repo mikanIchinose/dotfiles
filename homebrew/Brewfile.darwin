@@ -5,6 +5,11 @@ tap "homebrew/services"
 tap "koekeishiya/formulae"
 tap "mobile-dev-inc/tap"
 
+# font
+tap "homebrew/cask-fonts"
+# cask "font-fira-code"
+# cask "font-fira-code-nerd-font" # リリースから落とした方がよい
+
 # cli
 brew "git"
 brew "ghq"
@@ -15,13 +20,6 @@ brew "gitlint"
 brew "gitui"
 tap "jesseduffield/lazygit"
 brew "lazygit"
-
-# brew "mas" # いまのmacosだと正常に動作しない
-
-# font
-tap "homebrew/cask-fonts"
-# cask "font-fira-code"
-# cask "font-fira-code-nerd-font" # リリースから落とした方がよい
 
 brew "pstree"
 brew "wget"
@@ -55,10 +53,11 @@ brew "aria2"
 brew "gcc"
 brew "scrcpy"
 brew "yt-dlp"
-brew "ttyd"
 brew "vhs"
+brew "ttyd"
 brew "desktop-file-utils"
-brew "tidy-html5"
+brew "tidy-html5" # rest.nvim
+brew "shpotify"
 # brew "spotifyd"
 
 # tap "terrastruct/d2"
@@ -132,4 +131,10 @@ brew "yabai"
 brew "koekeishiya/formulae/skhd"
 cask "ubersicht"
 
-# mas "RunCat", id: 1429033973
+brew "mas" # 1回AppStoreでインストールをやっておかないと正常に動かない
+# mas "", id:
+mas "Xcode", id: 497799835
+mas "RunCat", id: 1429033973
+mas "GoodNotes 5", id: 1444383602
+mas "Toggl Track: Hours & Time Log", id: 1291898086
+# mas "", id:
