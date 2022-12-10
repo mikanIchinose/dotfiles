@@ -1,11 +1,10 @@
 -- 外部ツールセットアップ
 require('custom.lsp.sign_define')
 require('mason').setup()
+local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require('lspconfig')
 local lspconfig_util = require('lspconfig.util')
 local lspconfig_configs = require('lspconfig.configs')
-local mason_lspconfig = require('mason-lspconfig')
-mason_lspconfig.setup()
 require('neodev').setup()
 local schemas = require('schemastore').json.schemas()
 
@@ -62,19 +61,14 @@ local LS = {
   },
   denols = {
     opts = {
-      root_dir = lspconfig_util.root_pattern('deno.json', 'deno.jsonc', 'deps.ts', 'import_map.json', 'mod.ts'),
-      init_options = {
-        enable = true,
-        lint = true,
-        unstable = true,
-      },
+      -- root_dir = lspconfig_util.root_pattern('deno.json', 'deno.jsonc', 'deps.ts', 'import_map.json', 'mod.ts'),
+      -- init_options = {
+      --   enable = true,
+      --   lint = true,
+      --   unstable = true,
+      -- },
       -- settings = {
       --   deno = {
-      --     inlayHints = {
-      --       enumMemberValues = { enabled = true },
-      --       functionLikeReturnTypes = { enabled = true },
-      --       parameterNames = { enabled = 'all' },
-      --     },
       --   },
       -- },
     },
@@ -157,20 +151,27 @@ local LS = {
   bashls = {
     opts = {},
   },
-  -- {
+  -- server = {
   --   opts = {},
   -- },
 }
+local function get_keys(t)
+  local keys = {}
+  for key,_ in pairs(t) do
+    table.insert(keys,key)
+  end
+  return keys
+end
+mason_lspconfig.setup({
+  ensure_installed = get_keys(LS),
+  automatic_installation = true,
+})
 
 ---@class FormatterLinterSpec
 
 ---@class DapServerSpec
 
-local on_attach = function(client, bufnr)
-  -- format on save
-  require('lsp-format').on_attach(client)
-  -- require('lsp-inlayhints').on_attach(client, bufnr)
-
+local setKeymap = function()
   -- keymap
   local code_action = {
     default = vim.lsp.buf.code_action,
@@ -211,7 +212,12 @@ mason_lspconfig.setup_handlers({
 
     local opts = {
       on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
+        setKeymap()
+
+        -- format on save
+        require('lsp-format').on_attach(client)
+        -- require('lsp-inlayhints').on_attach(client, bufnr)
+
         if
           server_name ~= 'tailwindcss'
           and server_name ~= 'grammarly'
@@ -253,6 +259,6 @@ lspconfig_configs['unocss'] = {
   },
 }
 lspconfig.unocss.setup({
-  on_attach = on_attach,
+  on_attach = setKeymap,
   capabilities = capabilities,
 })
