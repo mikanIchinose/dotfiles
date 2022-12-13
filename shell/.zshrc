@@ -61,4 +61,3 @@ if [[ $WITHOUT_FISH == "yes" ]]; then
 else
   type fish &> /dev/null && exec fish
 fi
-

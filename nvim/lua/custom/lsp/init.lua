@@ -57,20 +57,40 @@ local LS = {
   tsserver = {
     opts = {
       root_dir = lspconfig_util.root_pattern('node_modules'),
+      settings = {
+        typescript = {
+          inlayHints = {
+            includeInlayParameterNameHints = 'all',
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+        javascript = {
+          inlayHints = {
+            includeInlayParameterNameHints = 'all',
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+      },
     },
   },
   denols = {
     opts = {
-      -- root_dir = lspconfig_util.root_pattern('deno.json', 'deno.jsonc', 'deps.ts', 'import_map.json', 'mod.ts'),
-      -- init_options = {
-      --   enable = true,
-      --   lint = true,
-      --   unstable = true,
-      -- },
-      -- settings = {
-      --   deno = {
-      --   },
-      -- },
+      root_dir = lspconfig_util.root_pattern('deno.json', 'deno.jsonc', 'deps.ts', 'import_map.json', 'mod.ts'),
+      init_options = {
+        enable = true,
+        lint = true,
+        unstable = true,
+      },
     },
   },
   html = {
@@ -151,14 +171,17 @@ local LS = {
   bashls = {
     opts = {},
   },
+  rome = {
+    opts = {},
+  },
   -- server = {
   --   opts = {},
   -- },
 }
 local function get_keys(t)
   local keys = {}
-  for key,_ in pairs(t) do
-    table.insert(keys,key)
+  for key, _ in pairs(t) do
+    table.insert(keys, key)
   end
   return keys
 end
@@ -224,6 +247,7 @@ mason_lspconfig.setup_handlers({
           and server_name ~= 'cssmodules_ls'
           and server_name ~= 'ltex'
           and server_name ~= 'emmet_ls'
+          and server_name ~= 'rome'
         then
           require('nvim-navic').attach(client, bufnr)
         end

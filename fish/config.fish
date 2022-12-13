@@ -86,3 +86,5 @@ if type -q navi &> /dev/null
 end
 
 source ~/.config/fish/secrets.fish
+
+source ~/.config/fish/completions/cargo-make.fish
