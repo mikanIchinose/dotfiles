@@ -65,17 +65,17 @@ require('noice').setup({
       enabled = false,
     },
   },
-  -- cmdline = {
-  --  enabled = true,
-  --  icons = {
-  --    ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
-  --    ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
-  --    [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
-  --  },
-  -- },
-  --popupmenu = {
-  --  enabled = true,
-  --},
+  cmdline = {
+   enabled = true,
+   icons = {
+     ['/'] = { icon = '/', hl_group = 'DiagnosticWarn' },
+     ['?'] = { icon = '?', hl_group = 'DiagnosticWarn' },
+     [':'] = { icon = ':', hl_group = 'DiagnosticInfo', firstc = false },
+   },
+  },
+  popupmenu = {
+    enabled = true,
+  },
   messages = {
     enabled = false,
   },

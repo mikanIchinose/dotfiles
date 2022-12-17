@@ -64,6 +64,9 @@ brew "serverless"
 # tap "terrastruct/d2"
 # brew "d2"
 
+tap "go-task/tap"
+brew "go-task"
+
 # lang
 brew "deno"
 brew "go"

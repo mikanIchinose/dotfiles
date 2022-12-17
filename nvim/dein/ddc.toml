@@ -1,4 +1,3 @@
-# popup completion menu
 [[plugins]]
 repo = 'Shougo/pum.vim'
 hook_source = '''
@@ -18,7 +17,7 @@ highlight PmenuSel    guibg=#3d59a1
 
 call pum#set_option('scrollbar_char', '')
 call pum#set_option('use_complete', v:true)
-" call popup_preview#enable()
+call popup_preview#enable()
 " call pum#set_option('border', 'rounded')
 " call pum#set_option('padding', v:true)
 " autocmd CmdlineEnter * call CmdlinePum()
@@ -34,9 +33,9 @@ call pum#set_option('use_complete', v:true)
 "   call pum#set_option('padding', v:false)
 " endfunction
 '''
-# [[plugins]]
-# repo      = 'matsui54/denops-popup-preview.vim'
-# on_source = 'pum.vim'
+[[plugins]]
+repo      = 'matsui54/denops-popup-preview.vim'
+on_source = 'pum.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
