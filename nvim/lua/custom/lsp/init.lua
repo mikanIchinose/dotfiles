@@ -172,7 +172,10 @@ local LS = {
     opts = {},
   },
   rome = {
-    opts = {},
+    opts = {
+      root_dir = lspconfig_util.root_pattern('rome.json'),
+      autostart = false,
+    },
   },
   -- server = {
   --   opts = {},

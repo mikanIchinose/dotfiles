@@ -197,6 +197,9 @@ let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 # xmap <buffer> > <Plug>(gina-index-unstage)
 # '''
 [[plugins]]
+repo   = 'kdheepak/lazygit.nvim'
+on_cmd = 'LazyGit'
+[[plugins]]
 repo     = 'itchyny/vim-gitbranch'
 on_event = 'CursorHold'
 [[plugins]]
@@ -281,7 +284,7 @@ require('custom.lsp')
 if = 1
 repo = 'jose-elias-alvarez/null-ls.nvim'
 depends = [
-  'nvim-lspconfig',
+  # 'nvim-lspconfig',
   'plenary.nvim',
   'mason.nvim',
   'mason-null-ls.nvim',

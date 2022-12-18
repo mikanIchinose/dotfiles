@@ -59,14 +59,10 @@ patch_global('sourceOptions', {
     minAutoCompleteLength = 2,
     isVolatile = true,
   },
-  -- cmdline = {
-  --   mark = 'cmdline',
-  --   forceCompletionPattern = 'S/S*|.w*',
-  --   dup = 'force',
-  -- },
-  ['cmdline-history'] = {
-    mark = 'history',
-    sorters = {},
+  mocword = {
+    mark = 'mocword',
+    minAutoCompleteLength = 3,
+    isVolatile = true,
   },
 })
 patch_global('sourceParams', {
@@ -99,7 +95,7 @@ patch_global('autoCompleteEvents', {
 patch_global('ui', 'pum')
 
 -- set sources
-patch_global('sources', { 'nvim-lsp', 'vsnip', 'file', 'around', 'rg' })
+patch_global('sources', { 'nvim-lsp', 'vsnip', 'file', 'mocword', 'around', 'rg' })
 patch_global('cmdlineSources', {
   [':'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
   ['@'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
