@@ -1,3 +1,8 @@
+# [[plugins]]
+# repo = 'lewis6991/impatient.nvim'
+# lua_add = '''
+# require('impatient')
+# '''
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -21,16 +26,16 @@ repo = 'lambdalisue/guise.vim'
 repo = 'rhysd/committia.vim'
 
 ## colorscheme
-[[plugins]]
-repo = 'dracula/vim'
+# [[plugins]]
+# repo = 'dracula/vim'
 [[plugins]]
 repo = 'pineapplegiant/spaceduck'
-[[plugins]]
-repo = 'folke/tokyonight.nvim'
-[[plugins]]
-repo = 'sainnhe/gruvbox-material'
-[[plugins]]
-repo = 'sainnhe/everforest'
+# [[plugins]]
+# repo = 'folke/tokyonight.nvim'
+# [[plugins]]
+# repo = 'sainnhe/gruvbox-material'
+# [[plugins]]
+# repo = 'sainnhe/everforest'
 
 ## which-key
 [[plugins]]

@@ -274,7 +274,7 @@ require('mason-null-ls').setup({
 '''
 [[plugins]]
 repo     = 'neovim/nvim-lspconfig'
-depends  = ['mason.nvim', 'mason-lspconfig.nvim']
+depends  = ['mason.nvim', 'mason-lspconfig.nvim', 'ddc.vim']
 on_event = ['VimEnter', 'BufRead']
 
 lua_source = '''
@@ -544,9 +544,9 @@ require('colorizer').setup()
 
 # NOTE: treesitter
 [[plugins]]
-repo     = 'nvim-treesitter/nvim-treesitter'
-merged   = 0
-on_event = ['BufReadPost', 'BufNewFile']
+repo             = 'nvim-treesitter/nvim-treesitter'
+on_event         = ['BufReadPost', 'BufNewFile']
+hook_post_update = 'TSUpdate'
 
 lua_source = '''
 require('custom.nvim-treesitter')

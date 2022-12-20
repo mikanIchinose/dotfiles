@@ -3,14 +3,14 @@ assume_yes = true
 
 # Disable specific steps - same options as the command line flag
 disable = [
-  "git_repos",
-  "mas",
+  "containers",
   "emacs",
   "vim",
-  "system",
-  "containers",
-  "node",
   "pip3",
+  # "node",
+  # "git_repos",
+  # "mas",
+  # "system",
 ]
 
 # Ignore failures for these steps
@@ -38,12 +38,11 @@ display_time = true
 cleanup = true
 
 [git]
-#max_concurrency = 5
+max_concurrency = 5
 repos = [
-  # "~/ghq/**/",
-  # "~/ghq-karabiner/**/",
-  "~/ghq/github.com/android/compose-samples",
-  "~/LocalProject/neovim_minimal/plugins/**/",
+  "~/ghq/**/",
+  "~/ghq-karabiner/**/",
+  # "~/ghq/github.com/android/compose-samples",
 ]
 
 # Don't pull the predefined git repos
@@ -66,7 +65,7 @@ arguments = "--rebase --autostash"
 [brew]
 greedy_cask = true
 
-[linux]
+# [linux]
 # Arch Package Manager to use. Allowed values: autodetect, trizen, paru, yay, pikaur, pacman, pamac.
 #arch_package_manager = "pacman"
 # Arguments to pass yay (or paru) when updating packages

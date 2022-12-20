@@ -74,7 +74,7 @@ set completeslash=slash
 " color
 set termguicolors
 set background=dark
-colorscheme everforest
+colorscheme spaceduck
 
 set noequalalways
 

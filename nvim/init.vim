@@ -69,10 +69,10 @@ if dein#min#load_state(s:path)
   call dein#begin(s:path, expand('<sfile>'))
 
   call dein#load_toml(s:base_toml, {'lazy': 0})
+  call dein#load_toml(s:ft_toml, {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
   call dein#load_toml(s:ddu_toml,  {'lazy': 1})
   call dein#load_toml(s:ddc_toml,  {'lazy': 1})
-  " call dein#load_toml(s:ft_toml)
   " call dein#load_toml(s:fern_toml, {'lazy': 1})
   " call dein#load_toml(s:telescope_toml, {'lazy': 1})
 
