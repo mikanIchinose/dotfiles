@@ -4,13 +4,14 @@ local sourceOptions = {
   _ = {
     ignoreCase = true,
     matchers = {
+      'matcher_hidden',
       'matcher_substring',
     },
   },
   buffer = {},
   file = {
     matchers = {
-      'matcher_hidden', -- ignore hidden file
+      'matcher_hidden',
       'matcher_substring',
       'matcher_fzf',
     },
@@ -55,7 +56,7 @@ local sourceOptions = {
     columns = { 'tree' },
     sorters = {}, -- 勝手に並び換えられると困る
   },
-  zenn={
+  zenn = {
     sorters = {
       'sorter_alpha',
     },
@@ -100,7 +101,7 @@ local filterParams = {
 
 local uiOptions = {
   filer = {
-    toggle = false,
+    -- toggle = false,
     -- persist = true,
   },
 }
@@ -183,7 +184,7 @@ local kindOptions = {
   word = { defaultAction = 'insert' },
   action = { defaultAction = 'do' },
   deol = { defaultAction = 'switch' },
-  help = { defaultAction = 'open' },
+  help = { defaultAction = 'vsplit' },
   command_history = { defaultAction = 'execute' },
   colorscheme = { defaultAction = 'set' },
   source = { defaultAction = 'execute' },

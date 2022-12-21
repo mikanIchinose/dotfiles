@@ -87,7 +87,7 @@ map(
   '?',
   Ddu({
     '-name=search_line',
-    '-ui-option-persist=v:true',
+    -- '-ui-option-persist=v:true',
     'line',
   }),
   { silent = true }

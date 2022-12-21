@@ -54,6 +54,7 @@ require('alpha').setup(require('alpha.themes.startify').config)
 '''
 
 [[plugins]]
+if       = 0
 repo     = 'folke/noice.nvim'
 depends  = 'nui.nvim'
 on_event = 'CursorHold'
@@ -77,7 +78,7 @@ require('noice').setup({
     enabled = true,
   },
   messages = {
-    enabled = false,
+    enabled = true,
   },
   --routes = {
   --  {
@@ -91,6 +92,7 @@ require('noice').setup({
 # NOTE: statusline
 [[plugins]]
 repo     = 'rebelot/heirline.nvim'
+depends  = 'codicons.nvim'
 on_event = 'CursorHold'
 
 lua_source = '''
@@ -126,7 +128,7 @@ on_cmd  = ['Partedit']
 on_func = ['partedit#start']
 
 hook_add = '''
-let g:partedit#opener = 'new'
+" let g:partedit#opener = 'new'
 '''
 
 [[plugins]]
@@ -144,8 +146,8 @@ let g:auto_save_silent = 1
 # NOTE: comment
 [[plugins]]
 repo     = 'numToStr/Comment.nvim'
-depends  = 'nvim-treesitter'
-on_event = 'CursorHold'
+depends  = ['nvim-treesitter']
+on_event = 'VimEnter'
 
 lua_source = '''
 require('Comment').setup({
@@ -159,24 +161,10 @@ on_event = 'CursorHold'
 depends  = 'context_filetype.vim'
 
 hook_source = '''
-" disable default keymap
-let g:caw_no_default_keymappings = 1
 let g:caw_integrated_plugin = "context_filetype"
-
-nmap gcc <Plug>(caw:hatpos:toggle)
-nmap gci <Plug>(caw:hatpos:comment)
-nmap gcI <Plug>(caw:zeropos:comment)
-nmap gca <Plug>(caw:dollarpos:comment)
-nmap gcw <Plug>(caw:wrap:comment)
-nmap gcb <Plug>(caw:box:comment)
-nmap gco <Plug>(caw:jump:comment-next)
-nmap gcO <Plug>(caw:jump:comment-prev)
-
-xmap gc <Plug>(caw:hatpos:toggle)
 '''
 
 [[plugins]]
-if    = 0
 repo  = 'lfilho/cosco.vim'
 on_ft = ['php', 'rust', 'java', 'dart']
 
@@ -264,9 +252,11 @@ require("custom.gitsigns")
 [[plugins]]
 repo = 'williamboman/mason.nvim'
 [[plugins]]
-repo = 'williamboman/mason-lspconfig.nvim'
+repo    = 'williamboman/mason-lspconfig.nvim'
+depends = 'mason.nvim'
 [[plugins]]
 repo = 'jayp0521/mason-null-ls.nvim'
+depends = 'mason.nvim'
 lua_source = '''
 require('mason-null-ls').setup({
   automatic_setup = true,
@@ -274,23 +264,16 @@ require('mason-null-ls').setup({
 '''
 [[plugins]]
 repo     = 'neovim/nvim-lspconfig'
-depends  = ['mason.nvim', 'mason-lspconfig.nvim', 'ddc.vim']
-on_event = ['VimEnter', 'BufRead']
+depends  = ['mason-lspconfig.nvim', 'ddc.vim']
+on_event = ['VimEnter', 'BufReadPre']
 
 lua_source = '''
 require('custom.lsp')
 '''
 [[plugins]]
-if = 1
-repo = 'jose-elias-alvarez/null-ls.nvim'
-depends = [
-  # 'nvim-lspconfig',
-  'plenary.nvim',
-  'mason.nvim',
-  'mason-null-ls.nvim',
-  'gitsigns.nvim',
-]
-on_event = 'CursorHold'
+repo     = 'jose-elias-alvarez/null-ls.nvim'
+depends  = ['plenary.nvim', 'mason-null-ls.nvim', 'gitsigns.nvim']
+on_event = 'VimEnter'
 
 lua_source = '''
 require('custom.null-ls')
@@ -309,8 +292,8 @@ require('lsp-format').setup()
 repo      = 'b0o/SchemaStore.nvim'
 on_source = 'nvim-lspconfig'
 [[plugins]]
-repo      = 'mortepau/codicons.nvim'
-on_source = 'nvim-lspconfig'
+repo = 'mortepau/codicons.nvim'
+# on_source = 'nvim-lspconfig'
 [[plugins]]
 repo      = 'onsails/lspkind.nvim'
 on_source = 'nvim-lspconfig'
@@ -368,10 +351,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 [[plugins]]
 repo = 'kevinhwang91/promise-async'
 [[plugins]]
+if       = 0
 repo     = 'kevinhwang91/nvim-ufo'
 depends  = 'promise-async'
 on_event = 'CursorHold'
-if       = 0
 
 lua_source = '''
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -482,6 +465,21 @@ require('neorg').setup {
       },
     },
     ["core.norg.concealer"] = {},
+    ["core.gtd.base"] = {
+      config = {
+        workspace = "home"
+      }
+    },
+    ["core.norg.dirman"] = {
+      config = {
+        workspaces = {
+          home = "~/Documents/notes/norg",
+          personal = "~/Documents/notes/norg/personal",
+          karabiner = "~/Documents/notes/norg/karabiner",
+        },
+        index = "index.norg",
+      }
+    },
   }
 }
 '''
@@ -545,7 +543,7 @@ require('colorizer').setup()
 # NOTE: treesitter
 [[plugins]]
 repo             = 'nvim-treesitter/nvim-treesitter'
-on_event         = ['BufReadPost', 'BufNewFile']
+on_event         = ['BufRead', 'BufNewFile']
 hook_post_update = 'TSUpdate'
 
 lua_source = '''
@@ -554,18 +552,18 @@ require('custom.nvim-treesitter')
 [[plugins]]
 repo      = 'windwp/nvim-ts-autotag'
 on_source = 'nvim-treesitter'
-#[[plugins]]
-#repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
-#on_source = 'nvim-treesitter'
-#hook_add = '''
-#highlight rainbowcol1 guifg=#B2C224
-#highlight rainbowcol2 guifg=#FECC31
-#highlight rainbowcol3 guifg=#F9A327
-#highlight rainbowcol4 guifg=#F6621E
-#highlight rainbowcol5 guifg=#EE647A
-#highlight rainbowcol6 guifg=#A463D8
-#highlight rainbowcol7 guifg=#3FA4D9
-#'''
+[[plugins]]
+repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
+on_source = 'nvim-treesitter'
+hook_add = '''
+highlight rainbowcol1 guifg=#B2C224
+highlight rainbowcol2 guifg=#FECC31
+highlight rainbowcol3 guifg=#F9A327
+highlight rainbowcol4 guifg=#F6621E
+highlight rainbowcol5 guifg=#EE647A
+highlight rainbowcol6 guifg=#A463D8
+highlight rainbowcol7 guifg=#3FA4D9
+'''
 # [[plugins]]
 # repo      = 'TornaxO7/tree-setter'
 # on_source = 'nvim-treesitter'
@@ -581,9 +579,9 @@ repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
 on_source = 'nvim-treesitter'
 depends   = ['nvim-treesitter']
 [[plugins]]
-repo     = 'm-demare/hlargs.nvim'
-depends  = ['nvim-treesitter']
-on_event = 'CursorHold'
+repo    = 'm-demare/hlargs.nvim'
+depends = ['nvim-treesitter']
+#on_event = 'CursorHold'
 
 lua_source = '''
 require('hlargs').setup()
@@ -598,7 +596,6 @@ repo     = 'lambdalisue/pinkyless.vim'
 on_event = 'InsertEnter'
 
 [[plugins]]
-if       = 0
 repo     = '4513ECHO/denops-gitter.vim'
 depends  = 'denops.vim'
 on_event = 'CursorHold'

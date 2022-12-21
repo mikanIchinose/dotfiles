@@ -4,7 +4,7 @@ local config = {
   highlight = {
     enable = true,
     disable = {
-      'lua',
+      --'lua',
       'toml',
       'vim',
       --'typescript',

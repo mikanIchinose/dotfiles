@@ -367,7 +367,7 @@ local statusline = {
   Git,
   Space,
   LineInfo,
-  hl = { bg = utils.get_highlight('BufferCurrent').bg },
+  hl = { bg = '' },
 }
 
 require('heirline').setup(statusline)
