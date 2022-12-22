@@ -357,6 +357,7 @@ depends  = 'promise-async'
 on_event = 'CursorHold'
 
 lua_source = '''
+vim.notify('load nvim-ufo')
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.o.foldcolumn = '1'
 vim.o.foldlevel = 99
@@ -461,7 +462,7 @@ require('neorg').setup {
     ["core.defaults"] = {},
     ["core.keybinds"] = {
       config = {
-        default_keybinds = false
+        default_keybinds = true
       },
     },
     ["core.norg.concealer"] = {},
@@ -480,12 +481,24 @@ require('neorg').setup {
         index = "index.norg",
       }
     },
+    ['core.presenter'] = {
+      config = {
+        zen_mode = 'zen-mode'
+      }
+    }
   }
 }
 '''
 [plugins.ftplugin]
 norg = '''
 lua require('keymap.neorg')
+'''
+[[plugins]]
+repo      = 'folke/zen-mode.nvim'
+on_source = 'neorg'
+
+lua_source = '''
+require('zen-mode').setup()
 '''
 
 [[plugins]]
