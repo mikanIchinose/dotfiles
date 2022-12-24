@@ -1,3 +1,5 @@
+.DS_Store
+
 *log
 bin
 vim/bundle
@@ -10,7 +12,6 @@ secret.d/
 !/fish/completions/docker-compose.fish
 /fish/conf.d/*.fish
 /fish/functions/**/*.fish
-/fish/secrets.fish
 # !/fish/functions/gcheck.fish
 # !/fish/functions/gremote.fish
 # !/fish/functions/npm_dump.fish
