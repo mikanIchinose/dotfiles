@@ -4,10 +4,10 @@
 	email = maruisansmai@gmail.com
 [includeIf "gitdir:~/ghq/"]
 	# 個人用
-	path = ~/.dotfiles/git/.gitconfig_private
+	path = ~/dotfiles/gitconfig_personal
 [includeIf "gitdir:~/ghq-karabiner/"]
 	# 会社用
-	path = ~/.dotfiles/git/.gitconfig_karabiner
+	path = ~/dotfiles/gitconfig_karabiner
 [ghq]
 	root = ~/ghq
 [ghq "https://github.com/karabiner-inc"]
