@@ -1,0 +1,20 @@
+{
+  "gitconfig": "~/.gitconfig",
+  "gitmessage": "~/.gitmessage",
+  "fish": "~/.config/fish",
+  "nvim": "~/.config/nvim",
+  "starship": "~/.config/starship",
+  "wezterm": "~/.config/wezterm",
+  "alacritty": "~/.config/alacritty",
+  "ideavimrc": "~/.ideavimrc",
+  "gh": "~/.config/gh",
+  "gh-dash": "~/.config/gh-dash",
+  "markdownlint": "~/.config/markdownlint",
+  "lazygit": "~/.config/lazygit",
+  "efm-langserver": "~/.config/efm-langserver",
+  "kitty": "~/.config/kitty",
+  "wtf": "~/.config/wtf",
+  "navi": "~/.config/navi",
+  "zshrc": "~/.zshrc",
+  "zshenv": "~/.zshenv"
+}

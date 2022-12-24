@@ -1,0 +1,7 @@
+{
+  "yabairc": "~/.yabairc",
+  "skhdrc": "~/.skhdrc",
+  "asdf/tool-versions_darwin": "~/.tool-versions",
+  "asdf/asdfrc_darwin": "~/.asdfrc",
+  "asdf/default-npm-packages_darwin": "~/.default-npm-packages"
+}
