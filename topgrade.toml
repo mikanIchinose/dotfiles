@@ -7,6 +7,8 @@ disable = [
   "emacs",
   "vim",
   "pip3",
+  "flutter",
+  "yarn",
   # "node",
   # "git_repos",
   # "mas",
