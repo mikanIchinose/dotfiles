@@ -10,7 +10,7 @@ tap "homebrew/cask-fonts"
 # cask "font-fira-code"
 # cask "font-fira-code-nerd-font" # リリースから落とした方がよい
 
-# cli
+# git
 brew "git"
 brew "ghq"
 brew "git-delta"
@@ -55,10 +55,11 @@ brew "yt-dlp"
 brew "vhs"
 brew "ttyd"
 brew "desktop-file-utils"
-brew "tidy-html5" # rest.nvim
+brew "tidy-html5" # need for rest.nvim
 brew "shpotify"
 brew "awscli"
 brew "serverless"
+brew "flyctl"
 # brew "spotifyd"
 
 # tap "terrastruct/d2"
@@ -88,7 +89,8 @@ cask "google-chrome"
 cask "biscuit"
 cask "firefox"
 cask "brave-browser"
-cask "min"
+# cask "min"
+# cask "pushplaylabs-sidekick"
 
 # terminal
 cask "iterm2" # なんやかんやこれを使ってしまう
@@ -113,15 +115,17 @@ cask "atok"
 cask "cyberduck"
 cask "keepassxc"
 cask "box-drive"
-cask "anki-beta"
+# cask "anki-beta"
 cask "google-drive"
-cask "aquaskk"
+# cask "aquaskk"
 cask "ngrok"
 cask "raycast"
 cask "gather"
 cask "meetingbar"
 cask "disk-drill"
 cask "spotify"
+cask "coscreen"
+cask "discord"
 # cask "postman"
 # cask "smlnj"
 # cask "clipy"

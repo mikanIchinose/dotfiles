@@ -177,6 +177,9 @@ local LS = {
       autostart = false,
     },
   },
+  julials = {
+    opts = {},
+  },
   -- server = {
   --   opts = {},
   -- },
@@ -188,6 +191,7 @@ local function get_keys(t)
   end
   return keys
 end
+
 mason_lspconfig.setup({
   ensure_installed = get_keys(LS),
   automatic_installation = true,
@@ -272,11 +276,11 @@ lspconfig_configs['unocss'] = {
     cmd = { 'unocss-language-server', '--stdio' },
     filetypes = {
       'html',
-      'javascriptreact',
-      'rescript',
+      -- 'javascriptreact',
+      -- 'rescript',
       'typescriptreact',
-      'vue',
-      'svelte',
+      -- 'vue',
+      -- 'svelte',
       'markdown',
     },
     on_new_config = function(new_config) end,

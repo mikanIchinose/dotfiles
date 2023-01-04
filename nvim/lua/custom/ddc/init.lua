@@ -13,6 +13,8 @@ local function patch_filetype(filetypes, value)
   vim.fn['ddc#custom#patch_filetype'](filetypes, value)
 end
 
+patch_global('ui', 'pum')
+
 patch_global('sourceOptions', {
   ['_'] = {
     -- matchers = { 'matcher_head' },
@@ -92,7 +94,6 @@ patch_global('autoCompleteEvents', {
   'CmdlineEnter',
   'CmdlineChanged',
 })
-patch_global('ui', 'pum')
 
 -- set sources
 patch_global('sources', { 'nvim-lsp', 'vsnip', 'file', 'mocword', 'around', 'rg' })
@@ -107,11 +108,11 @@ patch_global('cmdlineSources', {
 })
 patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around', 'file' })
 patch_filetype_with_option({ 'vim' }, 'sources', { 'necovim', 'nvim-lsp', 'file', 'around' })
--- patch_filetype({ 'ddu-ff-filter' }, {
---   keywordPattern = '[0-9a-zA-Z_:#-]*',
---   sources = { 'line', 'buffer' },
---   specialBufferCompletion = true,
--- })
+patch_filetype({ 'ddu-ff-filter' }, {
+  keywordPattern = '[0-9a-zA-Z_:#-]*',
+  sources = { 'line', 'buffer' },
+  specialBufferCompletion = true,
+})
 patch_filetype({ 'FineCmdlinePrompt' }, {
   keywordPattern = '[0-9a-zA-Z_:#-]*',
   sources = { 'cmdline-history', 'file', 'around' },
@@ -120,10 +121,7 @@ patch_filetype({ 'FineCmdlinePrompt' }, {
 
 -- NOTE: ghost-textで補完するときに必要
 -- patch_filetype({ 'markdown' }, 'specialBufferCompletion', 'v:true')
--- patch_global(
---   'specialBufferCompletion',
---   'v:true'
--- )
+patch_global('specialBufferCompletion', 'v:true')
 vim.fn['ddc#enable']()
 
 -- NOTE: lspkindを使うので不要、また必要になったらまた使う

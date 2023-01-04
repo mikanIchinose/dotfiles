@@ -59,7 +59,7 @@ threshold = 50
 disabled = true
 
 [git_branch]
-style  = "bold fg:16 bg:183"
+# style  = "bold fg:16 bg:183"
 symbol = " "
 format = "[$symbol$branch(->origin/$remote_branch) ]($style)"
 
@@ -74,4 +74,4 @@ staged    = ' $count '
 renamed   = 'A$count '
 deleted   = '﫧$count '
 stashed   = ' $count '
-style     = 'bold fg:16 bg:183'
+# style     = 'bold fg:16 bg:183'

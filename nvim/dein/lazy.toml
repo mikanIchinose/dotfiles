@@ -11,19 +11,18 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
 [[plugins]]
-repo   = 'rcarriga/nvim-notify'
+repo = 'rcarriga/nvim-notify'
+on_event = 'VimEnter'
 on_lua = 'notify'
-
 lua_source = '''
 require("notify").setup({
- background_colour = "#000000",
+  background_colour = "#000000",
 })
 vim.notify = require("notify")
 '''
 [[plugins]]
-repo     = 'Shougo/context_filetype.vim'
+repo = 'Shougo/context_filetype.vim'
 on_event = 'CursorHold'
-
 hook_add = '''
 let g:context_filetype#ignore_patterns = {
    \ 'toml': ['^\s*#\s*'],
@@ -93,7 +92,7 @@ require('noice').setup({
 [[plugins]]
 repo     = 'rebelot/heirline.nvim'
 depends  = 'codicons.nvim'
-on_event = 'CursorHold'
+on_event = 'VimEnter'
 
 lua_source = '''
 require('custom.heirline')
@@ -123,19 +122,36 @@ require('trouble').setup()
 '''
 
 [[plugins]]
-repo    = 'thinca/vim-partedit'
-on_cmd  = ['Partedit']
+repo = 'thinca/vim-partedit'
+depends = ['context_filetype.vim']
+on_cmd = ['Partedit']
 on_func = ['partedit#start']
-
 hook_add = '''
-" let g:partedit#opener = 'new'
+let g:partedit#opener = 'vsplit'
+function! s:operator_partedit() abort
+  let context = context_filetype#get()
+  if context.range == [[0, 0], [0, 0]]
+    echohl WarningMsg
+    echomsg '[partedit] Context is not found'
+    echohl NONE
+    return
+  endif
+  call partedit#start(context.range[0][0], context.range[1][0],
+        \ {'filetype': context.filetype})
+  nnoremap <buffer> q <Cmd>ParteditEnd<Bar>close<CR>
+endfunction
+nnoremap <C-x><C-x> <Cmd>call <SID>operator_partedit()<CR>
+'''
+[plugins.ftplugin]
+make = '''
+let b:partedit_filetype = 'bash'
+let b:partedit_prefix = "\<Tab>"
 '''
 
 [[plugins]]
-if       = 0
-repo     = 'vim-scripts/vim-auto-save'
+if = 0
+repo = 'vim-scripts/vim-auto-save'
 on_event = 'InsertEnter'
-
 hook_source = '''
 let g:auto_save = 1
 let g:auto_save_no_updatetime = 1
@@ -145,29 +161,28 @@ let g:auto_save_silent = 1
 
 # NOTE: comment
 [[plugins]]
-repo     = 'numToStr/Comment.nvim'
-depends  = ['nvim-treesitter']
+if = 0
+repo = 'numToStr/Comment.nvim'
+depends = ['nvim-treesitter']
 on_event = 'VimEnter'
-
 lua_source = '''
 require('Comment').setup({
   pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
 })
 '''
 [[plugins]]
-if       = 0
-repo     = 'tyru/caw.vim'
+if = 1
+repo = 'mikanIchinose/caw.vim'
 on_event = 'CursorHold'
-depends  = 'context_filetype.vim'
-
+depends = ['context_filetype.vim']
 hook_source = '''
 let g:caw_integrated_plugin = "context_filetype"
+xmap gc <Plug>(caw:hatpos:toggle)
 '''
 
 [[plugins]]
-repo  = 'lfilho/cosco.vim'
+repo = 'lfilho/cosco.vim'
 on_ft = ['php', 'rust', 'java', 'dart']
-
 hook_source = '''
 " autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
@@ -191,10 +206,9 @@ on_cmd = 'LazyGit'
 repo     = 'itchyny/vim-gitbranch'
 on_event = 'CursorHold'
 [[plugins]]
-repo     = 'lambdalisue/gin.vim'
-depends  = 'denops.vim'
+repo = 'lambdalisue/gin.vim'
+depends = 'denops.vim'
 on_event = 'CursorHold'
-
 on_cmd = [
   'Gin',
   'GinBranch',
@@ -227,7 +241,7 @@ hook_source = '''
 # map <buffer><nowait> a <Plug>(gin-action-choice)
 # map <buffer><nowait> . <Plug>(gin-action-repeat)
 # nmap <buffer><nowait> ? <Plug>(gin-action-help)
-# 
+#
 # nmap <buffer> <CR> <Plug>(gin-diffjump-smart)
 # '''
 # gin-edit = '''
@@ -241,9 +255,8 @@ hook_source = '''
 # nmap <buffer><nowait> ? <Plug>(gin-action-help)
 # '''
 [[plugins]]
-repo     = 'lewis6991/gitsigns.nvim'
+repo = 'lewis6991/gitsigns.nvim'
 on_event = 'VimEnter'
-
 lua_source = '''
 require("custom.gitsigns")
 '''
@@ -263,18 +276,16 @@ require('mason-null-ls').setup({
 })
 '''
 [[plugins]]
-repo     = 'neovim/nvim-lspconfig'
-depends  = ['mason-lspconfig.nvim', 'ddc.vim']
+repo = 'neovim/nvim-lspconfig'
+depends = ['mason-lspconfig.nvim', 'ddc.vim']
 on_event = ['VimEnter', 'BufReadPre']
-
 lua_source = '''
 require('custom.lsp')
 '''
 [[plugins]]
-repo     = 'jose-elias-alvarez/null-ls.nvim'
-depends  = ['plenary.nvim', 'mason-null-ls.nvim', 'gitsigns.nvim']
+repo = 'jose-elias-alvarez/null-ls.nvim'
+depends = ['plenary.nvim', 'mason-null-ls.nvim', 'gitsigns.nvim']
 on_event = 'VimEnter'
-
 lua_source = '''
 require('custom.null-ls')
 '''
@@ -379,7 +390,7 @@ require('ufo').setup()
 #  NOTE: make your own mode
 # [[plugins]]
 # repo = 'anuvyklack/hydra.nvim'
-# 
+#
 # hook_source = '''
 # lua require('custom.hydra')
 # '''
@@ -452,25 +463,24 @@ nnoremap <buffer> <C-=> <Plug>(mkdx-demote-header)
 
 # NOTE: Neorg
 [[plugins]]
-repo    = 'nvim-neorg/neorg'
+repo = 'nvim-neorg/neorg'
 depends = ['plenary.nvim', 'nvim-treesitter']
-on_ft   = 'norg'
-
+on_ft = 'norg'
 lua_source = '''
 require('neorg').setup {
   load = {
     ["core.defaults"] = {},
     ["core.keybinds"] = {
       config = {
-        default_keybinds = true
+        default_keybinds = false,
       },
     },
     ["core.norg.concealer"] = {},
-    ["core.gtd.base"] = {
-      config = {
-        workspace = "home"
-      }
-    },
+    -- ["core.gtd.base"] = {
+    --   config = {
+    --     workspace = "home"
+    --   }
+    -- },
     ["core.norg.dirman"] = {
       config = {
         workspaces = {
@@ -494,11 +504,66 @@ norg = '''
 lua require('keymap.neorg')
 '''
 [[plugins]]
-repo      = 'folke/zen-mode.nvim'
+repo = 'folke/zen-mode.nvim'
 on_source = 'neorg'
-
 lua_source = '''
 require('zen-mode').setup()
+'''
+[[plugins]]
+if = 0
+repo = 'lukas-reineke/headlines.nvim'
+on_ft = ['norg']
+hook_source = '''
+"highlight Headline1 guibg=#30365F guifg=#f2ce00
+"highlight Headline2 guibg=#30365F guifg=#C8DB01
+"highlight Headline3 guibg=#30365F guifg=#ce6f8f
+"highlight Dash      guibg=#D19A66 gui=bold
+" highlight CodeBlock guibg=#0f111b
+" highlight Quote guifg=#0099EC
+lua << EOF
+vim.cmd [[highlight Headline1 guibg=#1e2718]]
+vim.cmd [[highlight Headline2 guibg=#21262d]]
+vim.cmd [[highlight CodeBlock guibg=#1c1c1c]]
+vim.cmd [[highlight Dash guibg=#D19A66 gui=bold]]
+require('headlines').setup {
+  norg = {
+    query = vim.treesitter.parse_query(
+      "norg",
+      [[
+        [
+          (heading1_prefix)
+          (heading2_prefix)
+          (heading3_prefix)
+          (heading4_prefix)
+          (heading5_prefix)
+          (heading6_prefix)
+        ] @headline
+
+        (weak_paragraph_delimiter) @dash
+        (strong_paragraph_delimiter) @doubledash
+
+        ((ranged_tag
+          name: (tag_name) @_name
+          (#eq? @_name "code")
+        ) @codeblock (#offset! @codeblock 0 0 1 0))
+
+        (quote1_prefix) @quote
+      ]]
+    ),
+    headline_highlights = { "Headline1","Headline2","Headline3" },
+    codeblock_highlight = "CodeBlock",
+    dash_highlight = "Dash",
+    dash_string = "-",
+    doubledash_highlight = "DoubleDash",
+    doubledash_string = "=",
+    quote_highlight = "Quote",
+    -- quote_string = "┃",
+    fat_headlines = false,
+    fat_headline_upper_string = "▃",
+    fat_headline_lower_string = '▀',
+  },
+}
+EOF
 '''
 
 [[plugins]]
@@ -560,7 +625,14 @@ on_event         = ['BufRead', 'BufNewFile']
 hook_post_update = 'TSUpdate'
 
 lua_source = '''
-require('custom.nvim-treesitter')
+-- require('custom.nvim-treesitter')
+require("nvim-treesitter.configs").setup({
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	},
+})
+
 '''
 [[plugins]]
 repo      = 'windwp/nvim-ts-autotag'
@@ -609,46 +681,44 @@ repo     = 'lambdalisue/pinkyless.vim'
 on_event = 'InsertEnter'
 
 [[plugins]]
-repo     = '4513ECHO/denops-gitter.vim'
-depends  = 'denops.vim'
+repo = '4513ECHO/denops-gitter.vim'
+depends = 'denops.vim'
 on_event = 'CursorHold'
-
 hook_add = '''
 let g:gitter#token = $GITTER_PERSONAL_ACCESS_TOKEN
 command! StartReadingVimrc new gitter://room/vim-jp/reading-vimrc
 '''
-#[[plugins]]
-#repo = 'skanehira/denops-gh.vim'
-#depends = ['denops.vim', 'ddc.vim']
-#on_event=['CursorHold']
-#
-#hook_source = '''
-#augroup gh_ddc
-#  au!
-#  au User gh_open_issue call <SID>enableAutoCompletionForGh('gh_issues')
-#  au User gh_open_issue_assignees call <SID>enableAutoCompletionForGh('gh_issues_assginees')
-#augroup END
-#
-#function! s:enableAutoCompletionForGh(kind) abort
-#  call ddc#custom#patch_buffer('sources', [a:kind])
-#  call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
-#  " If you want to complements with japanese, you should add keywordPattern
-#  call ddc#custom#patch_buffer({'keywordPattern':
-#        \ "[a-zA-Z0-9_À-ÿ\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]*"})
-#  let option = {}
-#  if a:kind ==# 'gh_issues'
-#    let option = {'gh_issues': {
-#          \  'matcherKey': 'menu',
-#          \  'minAutoCompleteLength': 1,
-#          \ }}
-#  elseif a:kind ==# 'gh_issues_assginees'
-#    let option = {'gh_issues_assginees': {
-#          \  'minAutoCompleteLength': 1,
-#          \ }}
-#  endif
-#  call ddc#custom#patch_buffer('sourceOptions', option)
-#endfunction
-#'''
+[[plugins]]
+repo = 'skanehira/denops-gh.vim'
+depends = ['denops.vim', 'ddc.vim']
+on_event = ['CursorHold']
+hook_source = '''
+augroup gh_ddc
+  au!
+  au User gh_open_issue call <SID>enableAutoCompletionForGh('gh_issues')
+  au User gh_open_issue_assignees call <SID>enableAutoCompletionForGh('gh_issues_assginees')
+augroup END
+
+function! s:enableAutoCompletionForGh(kind) abort
+  call ddc#custom#patch_buffer('sources', [a:kind])
+  call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
+  " If you want to complements with japanese, you should add keywordPattern
+  call ddc#custom#patch_buffer({'keywordPattern':
+        \ "[a-zA-Z0-9_À-ÿ\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]*"})
+  let option = {}
+  if a:kind ==# 'gh_issues'
+    let option = {'gh_issues': {
+          \  'matcherKey': 'menu',
+          \  'minAutoCompleteLength': 1,
+          \ }}
+  elseif a:kind ==# 'gh_issues_assginees'
+    let option = {'gh_issues_assginees': {
+          \  'minAutoCompleteLength': 1,
+          \ }}
+  endif
+  call ddc#custom#patch_buffer('sourceOptions', option)
+endfunction
+'''
 
 # [[plugins]]
 # repo = 'gamoutatsumi/dps-ghosttext.vim'

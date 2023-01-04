@@ -30,11 +30,11 @@ if type -q brew &> /dev/null
   end
 end
 
-#if type -q starship &> /dev/null
-#  starship init fish | source
-#end
+if type -q starship &> /dev/null
+  starship init fish | source
+end
 
-if test -d ~/.asdf
+if type -q asdf
   set -l ASDF_HOME "$HOMEBREW_PREFIX/opt/asdf"
   source $ASDF_HOME/libexec/asdf.fish
 end
@@ -51,8 +51,8 @@ end
 # navi: An interactive cheatsheet tool for the command-line
 # homepage: https://github.com/denisidoro/navi
 if type -q navi &> /dev/null
-  #NOTE: バグがないかたまに確認しよう
-  #NOTE: https://github.com/denisidoro/navi/issues?q=is%3Aissue+is%3Aopen+shell+widget
+  # NOTE: バグがないかたまに確認しよう
+  # NOTE: https://github.com/denisidoro/navi/issues?q=is%3Aissue+is%3Aopen+shell+widget
   function _navi_smart_replace
     set -l current_process (commandline -p | string trim)
 
@@ -88,7 +88,3 @@ end
 source ~/.secrets.fish
 
 # source ~/.config/fish/completions/cargo-make.fish
-
-# tabtab source for packages
-# uninstall by removing these lines
-[ -f ~/.config/tabtab/fish/__tabtab.fish ]; and . ~/.config/tabtab/fish/__tabtab.fish; or true

@@ -1,3 +1,7 @@
+if has('vim_starting') && empty(argv())
+  " Disable auto syntax loading
+  syntax off
+endif
 " NOTE: event notifier
 " autocmd BufRead * lua vim.notify('BufRead ' .. vim.fn.expand('%'))
 " autocmd BufReadPre * lua vim.notify('BufReadPre ' .. vim.fn.expand('%'))
@@ -9,6 +13,10 @@
 " autocmd LspDetach * lua vim.notify('LspDetach')
 " autocmd BufRead * lua vim.notify('BufRead')
 " autocmd BufReadPost * lua vim.notify('BufReadPost')
+
+" autocmd MyAutoCmd CursorHold * :colorscheme everforest
+colorscheme everforest
+" colorscheme tokyonight
 
 " NOTE: Brewfile treat as ruby-file
 augroup brewfile

@@ -1,16 +1,11 @@
-# [[plugins]]
-# repo = 'lewis6991/impatient.nvim'
-# lua_add = '''
-# require('impatient')
-# '''
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 hook_add = '''
-" let g:denops_server_addr = '127.0.0.1:32123'
-" let g:denops#debug = 1
+"let g:denops_server_addr = '127.0.0.1:32123'
+"let g:denops#debug = 1
 '''
 # [[plugins]]
 # repo = 'vim-denops/denops-shared-server.vim'
@@ -21,23 +16,31 @@ hook_add = '''
 
 [[plugins]]
 repo = 'lambdalisue/guise.vim'
-# depends = ['denops.vim']
 [[plugins]]
 repo = 'rhysd/committia.vim'
 
 ## colorscheme
-[[plugins]]
-repo = 'dracula/vim'
-[[plugins]]
-repo = 'pineapplegiant/spaceduck'
+# [[plugins]]
+# repo = 'dracula/vim'
+# hook_source = '''
+# colorscheme dracula
+# '''
+# [[plugins]]
+# repo = 'pineapplegiant/spaceduck'
+# hook_source = '''
+# colorscheme spaceduck
+# '''
 [[plugins]]
 repo = 'folke/tokyonight.nvim'
-[[plugins]]
-repo = 'Domeee/mosel.nvim'
+# [[plugins]]
+# repo = 'Domeee/mosel.nvim'
 # [[plugins]]
 # repo = 'sainnhe/gruvbox-material'
-# [[plugins]]
-# repo = 'sainnhe/everforest'
+[[plugins]]
+repo = 'sainnhe/everforest'
+#hook_source = '''
+#colorscheme everforest
+#'''
 
 [[plugins]]
 repo = 'folke/which-key.nvim'
@@ -51,8 +54,6 @@ wk.setup({
       enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
       suggestions = 20, -- how many suggestions should be shown in the list?
     },
-    -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-    -- No actual key bindings are created
     presets = {
       operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
       motions = false, -- adds help for motions
@@ -68,6 +69,12 @@ wk.register({
   ['<Leader>'] = {
     f = {
       name = "+find"
+    },
+    g = {
+      name = "+gtd"
+    },
+    t = {
+      name = "+task"
     },
   }
 })

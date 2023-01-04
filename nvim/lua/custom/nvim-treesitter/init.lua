@@ -4,7 +4,7 @@ local config = {
   highlight = {
     enable = true,
     disable = {
-      --'lua',
+      'lua',
       'toml',
       'vim',
       --'typescript',
@@ -45,5 +45,6 @@ end
 
 require('nvim-treesitter.configs').setup(config)
 
+-- treat xml as html
 local parser_mapping = require('nvim-treesitter.parsers').filetype_to_parsername
 parser_mapping.xml = 'html'

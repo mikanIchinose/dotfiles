@@ -83,8 +83,8 @@ if dein#min#load_state(s:path)
     call dein#install()
   endif
 
+  "call dein#call_hook('source')
   call dein#save_state()
-  " call dein#call_hook('source')
 endif
 " }}} End dein Scripts
 

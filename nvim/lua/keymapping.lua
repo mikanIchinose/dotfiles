@@ -5,6 +5,8 @@ map('n', '<Leader>-', '<Cmd>split<CR>')
 map('n', '<Leader>\\', '<Cmd>vsplit<CR>')
 
 map('n', '<Leader>n', '<Cmd>nohlsearch<CR>')
+map('n', '<M-S-Right>', '<Cmd>tabnext<CR>')
+map('n', '<M-S-Left>', '<Cmd>tabprevious<CR>')
 
 -- better indent
 -- map('n', '<', '<<')

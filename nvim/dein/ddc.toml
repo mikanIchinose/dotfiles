@@ -33,10 +33,8 @@ call pum#set_option('use_complete', v:true)
 " endfunction
 '''
 [[plugins]]
-repo      = 'matsui54/denops-popup-preview.vim'
-depends   = 'denops.vim'
-on_source = 'pum.vim'
-
+repo = 'matsui54/denops-popup-preview.vim'
+on_event = ['InsertEnter']
 hook_source = '''
 call popup_preview#enable()
 '''
@@ -68,6 +66,11 @@ call ddc#custom#patch_global('sourceOptions', #{
 " call ddc#custom#patch_global('cmdlineSources', {
 "    \   ':': ['cmdline-history', 'cmdline'],
 "    \ })
+" call ddc#custom#patch_global('ui', 'pum')
+" call ddc#custom#patch_global('autoCompleteEvents', ['InsertEnter','TextChangedT','CmdlineEnter','CmdlineChanged'])
+
+" acwriteセットされてるファイルで補完効かなくて困ることは無いと思う
+autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
 
 lua require('custom.ddc')
 '''

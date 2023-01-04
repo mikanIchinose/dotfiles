@@ -41,19 +41,12 @@ $ video-file: fd -e mp4 -e mov -E ffmpeg
 $ videos: fd -e mp4 -e mov -E ffmpeg --- --multi --expand
 $ mp4s: fd -e mp4 -E ffmpeg --- --multi --expand
 
-% vim, doc, memo
+% vim, note
 
-# create/open today memo
-# cd ~/Documents/memo; local today=$(date "+%Y%m%d"); nvim ~/Documents/memo/${today}.md; cd -
+# open note
+cd ~/Documents/notes; nvim <note>; cd -
 
-# open memo
-cd ~/Documents/memo; nvim memo.md; cd -
-# cd ~/Documents/memo; nvim <memo>; cd -
-
-# delete memo
-# rm -i <memo>
-
-$ memo: fd --type file --absolute-path --exact-depth 1 --base-directory ~/Documents/memo/ --- --multi --expand --preview 'bat --style=numbers --color=always {}'
+$ note: fd --type file --extension md --extension norg --absolute-path --base-directory ~/Documents/notes --- --expand --preview 'bat --color=always {}'
 
 % npm
 

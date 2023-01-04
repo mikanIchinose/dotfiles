@@ -9,8 +9,10 @@ disable = [
   "pip3",
   "flutter",
   "yarn",
+  "nix",
+  "julia",
   # "node",
-  # "git_repos",
+  "git_repos",
   # "mas",
   # "system",
 ]

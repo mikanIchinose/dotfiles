@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile *.norg set filetype=norg
+autocmd BufRead,BufNewFile *.norg setlocal filetype=norg

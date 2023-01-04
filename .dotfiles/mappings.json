@@ -16,5 +16,7 @@
   "wtf": "~/.config/wtf",
   "navi": "~/.config/navi",
   "zshrc": "~/.zshrc",
-  "zshenv": "~/.zshenv"
+  "zshenv": "~/.zshenv",
+  "emacs": "~/.emacs.d",
+  "stylua.toml": "~/.config/stylua.toml"
 }

@@ -3,6 +3,7 @@ export PATH="$HOME/.local/nvim-macos/bin:$HOME/.local/bin:$HOME/scripts:$HOME/.c
 
 export EDITOR=nvim
 export LANG=en_US.UTF-8
+# export CC=/opt/homebrew/opt/gcc/bin/gcc-12
 
 # fzf
 export FZF_COLOR_SCHEME="

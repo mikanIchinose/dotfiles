@@ -75,7 +75,7 @@ set completeslash=slash
 " color
 set termguicolors
 set background=dark
-colorscheme dracula
+" colorscheme everforest
 
 set noequalalways
 
@@ -91,10 +91,10 @@ set inccommand=nosplit
 " set pumblend=20
 " set winblend=20
 
-" set isfname&
-" \ isfname+=@-@
-" \ isfname-==
-" set isfname-==
+set isfname&
+\ isfname+=@-@
+\ isfname-==
+set isfname-==
 
 set textwidth=0
 set wrapmargin=0

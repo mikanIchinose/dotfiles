@@ -7,6 +7,12 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
+# [[plugins]]
+# repo = 'lewis6991/impatient.nvim'
+# lua_add = '''
+# require('impatient')
+# '''
+
 # syntax hilight
 # [[plugins]]
 # repo = 'dag/vim-fish'

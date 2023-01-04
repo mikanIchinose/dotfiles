@@ -4,7 +4,6 @@ local sourceOptions = {
   _ = {
     ignoreCase = true,
     matchers = {
-      'matcher_hidden',
       'matcher_substring',
     },
   },
@@ -67,6 +66,7 @@ local sourceParams = {
   file_rec = {
     ignoredDirectories = {
       '.git',
+      '.next',
       'node_modules',
     },
   },

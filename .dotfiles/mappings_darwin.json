@@ -3,5 +3,7 @@
   "skhdrc": "~/.skhdrc",
   "asdf/tool-versions_darwin": "~/.tool-versions",
   "asdf/asdfrc_darwin": "~/.asdfrc",
-  "asdf/default-npm-packages_darwin": "~/.default-npm-packages"
+  "asdf/default-npm-packages_darwin": "~/.default-npm-packages",
+  "topgrade.toml": "~/.config/topgrade.toml",
+  "homebrew/Brewfile.darwin": "~/Brewfile"
 }
