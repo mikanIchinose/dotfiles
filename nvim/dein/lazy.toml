@@ -92,7 +92,7 @@ require('noice').setup({
 [[plugins]]
 repo     = 'rebelot/heirline.nvim'
 depends  = 'codicons.nvim'
-on_event = 'VimEnter'
+on_event = ['BufRead', 'VimEnter']
 
 lua_source = '''
 require('custom.heirline')
@@ -398,7 +398,7 @@ require('ufo').setup()
 [[plugins]]
 repo     = "b0o/incline.nvim"
 depends  = ['nvim-web-devicons']
-on_event = 'CursorHold'
+on_event = ['BufReadPost', 'VimEnter']
 
 hook_source = '''
 command! ToggleIncline lua require("incline").toggle()

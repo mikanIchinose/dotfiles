@@ -45,7 +45,7 @@ set laststatus=3
 set nowrap
 " fold
 set foldmethod=expr
-set foldlevel=99
+" set foldlevel=99
 
 " ファイル未保存状態でも別のファイルを開けるようにする
 set hidden
