@@ -14,9 +14,9 @@ require('null-ls').setup({
     -- text
     -- diagnostics.cspell,
     -- diagnostics.vale,
-    diagnostics.textlint.with({
-      filetypes = { 'markdown' },
-    }),
+    -- diagnostics.textlint.with({
+    --   filetypes = { 'markdown' },
+    -- }),
     -- editorconfig
     -- diagnostics.editorconfig_checker,
     -- fish

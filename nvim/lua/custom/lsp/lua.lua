@@ -1,7 +1,7 @@
-local runtimePath = vim.split(package.path, ';')
-table.insert(runtimePath, 'lua/?.lua')
-table.insert(runtimePath, 'lua/?/init.lua')
-
+--local runtimePath = vim.split(package.path, ';')
+--table.insert(runtimePath, 'lua/?.lua')
+--table.insert(runtimePath, 'lua/?/init.lua')
+--
 local library = vim.api.nvim__get_runtime({ '' }, true, { is_lua = true })
 for i = 1, #library do
   library[i] = vim.loop.fs_realpath(library[i])
@@ -18,10 +18,10 @@ M.opts = {
           indent_size = 2,
         },
       },
-      runtime = {
-        version = 'LuaJIT',
-        path = runtimePath,
-      },
+      -- runtime = {
+      --   version = 'LuaJIT',
+      --   path = runtimePath,
+      -- },
       diagnostics = {
         globals = { 'vim' },
         neededFileStatus = {

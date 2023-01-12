@@ -49,13 +49,14 @@ local LS = {
       },
     },
   },
-  grammarly = {
-    opts = {
-      autostart = true,
-    },
-  },
+  -- grammarly = {
+  --   opts = {
+  --     autostart = true,
+  --   },
+  -- },
   tsserver = {
     opts = {
+      single_file_support = false,
       root_dir = lspconfig_util.root_pattern('node_modules'),
       settings = {
         typescript = {
@@ -228,17 +229,12 @@ mason_lspconfig.setup_handlers({
   ---@param server_name string
   function(server_name)
     -- nvim-ufo
-    -- if
-    --   server_name == 'denols' or server_name == 'tsserver'
-    --   -- or server_name == 'cssmodules_ls'
-    --   -- or server_name == 'ltex'
-    --   -- or server_name == 'emmet_ls'
-    -- then
-    --   capabilities.textDocument.foldingRange = {
-    --     dynamicRegistration = false,
-    --     lineFoldingOnly = true,
-    --   }
-    -- end
+    if server_name == 'denols' or server_name == 'tsserver' then
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+    end
 
     local opts = {
       on_attach = function(client, bufnr)

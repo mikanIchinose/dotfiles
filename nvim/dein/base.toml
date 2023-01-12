@@ -43,6 +43,12 @@ repo = 'sainnhe/everforest'
 #'''
 
 [[plugins]]
+repo = 'rebelot/heirline.nvim'
+lua_source = '''
+require('custom.heirline')
+'''
+
+[[plugins]]
 repo = 'folke/which-key.nvim'
 lua_source = '''
 local wk = require('which-key')

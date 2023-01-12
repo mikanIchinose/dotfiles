@@ -44,20 +44,18 @@ command! -nargs=0 JunkfileDay call junkfile#open_immediately(strftime('%Y-%m-%d.
 '''
 
 [[plugins]]
-repo     = 'goolord/alpha-nvim'
-depends  = ['nvim-web-devicons']
+repo = 'goolord/alpha-nvim'
+depends = ['nvim-web-devicons']
 on_event = 'VimEnter'
-
 lua_source = '''
 require('alpha').setup(require('alpha.themes.startify').config)
 '''
 
 [[plugins]]
-if       = 0
-repo     = 'folke/noice.nvim'
-depends  = 'nui.nvim'
+if = 0
+repo = 'folke/noice.nvim'
+depends = 'nui.nvim'
 on_event = 'CursorHold'
-
 lua_source = '''
 require('noice').setup({
   lsp = {
@@ -88,15 +86,13 @@ require('noice').setup({
 })
 '''
 
-# NOTE: statusline
-[[plugins]]
-repo     = 'rebelot/heirline.nvim'
-depends  = 'codicons.nvim'
-on_event = ['BufRead', 'VimEnter']
-
-lua_source = '''
-require('custom.heirline')
-'''
+#[[plugins]]
+#repo = 'rebelot/heirline.nvim'
+#depends = 'codicons.nvim'
+#on_event = ['BufRead', 'VimEnter']
+#lua_source = '''
+#require('custom.heirline')
+#'''
 
 [[plugins]]
 if       = 0
@@ -278,7 +274,7 @@ require('mason-null-ls').setup({
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 depends = ['mason-lspconfig.nvim', 'ddc.vim']
-on_event = ['VimEnter', 'BufReadPre']
+on_event = ['VimEnter', 'BufRead']
 lua_source = '''
 require('custom.lsp')
 '''
@@ -362,23 +358,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 [[plugins]]
 repo = 'kevinhwang91/promise-async'
 [[plugins]]
-if       = 0
-repo     = 'kevinhwang91/nvim-ufo'
-depends  = 'promise-async'
-on_event = 'CursorHold'
-
+if      = 1
+repo    = 'kevinhwang91/nvim-ufo'
+depends = 'promise-async'
+# on_event = 'CursorHold'
+on_ft = ['typescript']
 lua_source = '''
-vim.notify('load nvim-ufo')
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.o.foldcolumn = '1'
+-- vim.o.foldcolumn = '1'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
+vim.o.statuscolumn = '%=%l%s%#FoldColumn#%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? " " : " ") : "  " }%*'
+local ufo = require('ufo')
+ufo.setup()
 
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+vim.keymap.set('n', 'zR', ufo.openAllFolds)
+vim.keymap.set('n', 'zM', ufo.closeAllFolds)
 
-require('ufo').setup()
 '''
 
 #  NOTE: lspの前には有効化されていないといけない
