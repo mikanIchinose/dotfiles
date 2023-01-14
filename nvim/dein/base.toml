@@ -22,14 +22,8 @@ repo = 'rhysd/committia.vim'
 ## colorscheme
 # [[plugins]]
 # repo = 'dracula/vim'
-# hook_source = '''
-# colorscheme dracula
-# '''
 # [[plugins]]
 # repo = 'pineapplegiant/spaceduck'
-# hook_source = '''
-# colorscheme spaceduck
-# '''
 [[plugins]]
 repo = 'folke/tokyonight.nvim'
 # [[plugins]]
@@ -38,15 +32,6 @@ repo = 'folke/tokyonight.nvim'
 # repo = 'sainnhe/gruvbox-material'
 [[plugins]]
 repo = 'sainnhe/everforest'
-#hook_source = '''
-#colorscheme everforest
-#'''
-
-[[plugins]]
-repo = 'rebelot/heirline.nvim'
-lua_source = '''
-require('custom.heirline')
-'''
 
 [[plugins]]
 repo = 'folke/which-key.nvim'

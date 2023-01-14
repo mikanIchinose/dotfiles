@@ -13,7 +13,7 @@ map(
   '<Leader>ff',
   Ddu({
     '-name=files',
-    -- '-ui-param-startFilter',
+    '-ui-param-startFilter',
     'file_rec',
   }),
   { desc = 'file' }
@@ -42,7 +42,7 @@ map(
   '<Leader>fh',
   Ddu({
     '-name=help',
-    -- '-ui-param-startFilter',
+    '-ui-param-startFilter',
     'help',
   }),
   { desc = 'help' }

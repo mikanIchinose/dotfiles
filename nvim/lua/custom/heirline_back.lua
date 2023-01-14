@@ -84,4 +84,4 @@ local statusline = {
   hl = { bg = '' },
 }
 
-require('heirline').setup({ statusline })
+require('heirline').setup({ statusline = statusline })

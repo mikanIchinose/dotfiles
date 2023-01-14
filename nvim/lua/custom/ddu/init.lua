@@ -184,7 +184,7 @@ local kindOptions = {
   word = { defaultAction = 'insert' },
   action = { defaultAction = 'do' },
   deol = { defaultAction = 'switch' },
-  help = { defaultAction = 'vsplit' },
+  help = { defaultAction = 'tabopen' },
   command_history = { defaultAction = 'execute' },
   colorscheme = { defaultAction = 'set' },
   source = { defaultAction = 'execute' },
@@ -195,7 +195,6 @@ local kindOptions = {
 }
 
 local actionOptions = {
-  -- _ = { quit = false },
   bdelete = { quit = false },
   delete = { quit = false },
   trash = { quit = false },

@@ -181,6 +181,9 @@ local LS = {
   julials = {
     opts = {},
   },
+  gopls = {
+    opts = {},
+  },
   -- server = {
   --   opts = {},
   -- },

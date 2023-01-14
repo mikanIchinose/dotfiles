@@ -7,7 +7,7 @@ hook_add = '''
 command! DeinUpdate :Ddu dein_update -name=dein_update 
 \ -ui-param-winHeight=20 -ui-param-winWidth=60 
 \ -ui-param-winRow=2 -ui-param-winCol=10
-command! FilerDdu :Ddu 
+command! DduFiler :Ddu 
 \ -name=filer -ui=filer -resume
 \ file
 \ -source-option-columns=icon_filename
@@ -93,7 +93,7 @@ nnoremap <buffer><silent> a
 nnoremap <buffer><silent> c
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'cd'})<CR>
 nnoremap <buffer><silent> D
- \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'trash'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'trash'})<CR>
 nnoremap <buffer><silent> d
   \ <Cmd>call ddu#ui#ff#multi_actions([
   \   ['itemAction', {'name': 'bdelete'}],
@@ -104,6 +104,9 @@ nnoremap <buffer><silent> e
 nnoremap <buffer><silent> v
   \ <Cmd>call ddu#ui#ff#do_action('itemAction',
   \ {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
+nnoremap <buffer><silent> t
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction',
+  \ #{name: 'open', params: #{command: 'tabnew'}})<CR>
 nnoremap <buffer><silent> N
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
 nnoremap <buffer><silent> r
@@ -185,7 +188,7 @@ nnoremap <buffer><silent> v
 " endfunction
 '''
 [[plugins]]
-if        = 0
+if        = 1
 repo      = 'matsui54/ddu-vim-ui-select'
 on_source = 'ddu.vim'
 

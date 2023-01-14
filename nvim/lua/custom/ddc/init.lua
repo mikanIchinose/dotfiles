@@ -29,6 +29,7 @@ patch_global('sourceOptions', {
   ['nvim-lsp'] = {
     mark = 'LSP',
     forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+    ignoreCase = true,
     -- matchers = { 'matcher_fuzzy' },
     -- sorters = { 'sorter_fuzzy' },
     -- converters = { 'converter_fuzzy' },
