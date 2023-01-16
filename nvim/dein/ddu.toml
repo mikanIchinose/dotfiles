@@ -103,14 +103,14 @@ nnoremap <buffer><silent> e
   \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'edit'})<CR>
 nnoremap <buffer><silent> v
   \ <Cmd>call ddu#ui#ff#do_action('itemAction',
-  \ {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
+  \ {'name': 'open', 'params': #{command: 'vsplit'}})<CR>
 nnoremap <buffer><silent> t
   \ <Cmd>call ddu#ui#ff#do_action('itemAction',
   \ #{name: 'open', params: #{command: 'tabnew'}})<CR>
 nnoremap <buffer><silent> N
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'new'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{name: 'new'})<CR>
 nnoremap <buffer><silent> r
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'name': 'quickfix'})<CR>
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{name: 'quickfix'})<CR>
 nnoremap <buffer><silent> u
   \ <Cmd>call ddu#ui#ff#do_action('updateOptions', {
   \   'sourceOptions': {
@@ -119,6 +119,9 @@ nnoremap <buffer><silent> u
   \     },
   \   },
   \ })<CR>
+" dduを再描画せずにdoする
+nnoremap <buffer><silent> <C-CR> 
+  \ <Cmd>call ddu#ui#ff#do_action('itemAction', #{name: 'do', params: #{quit: v:true}})<CR>
 '''
 ddu-ff-filter = '''
 inoremap <buffer><silent> <CR>

@@ -178,6 +178,10 @@ local kindParams = {
   extcmd = {
     runner = 'terminal',
   },
+  -- action = {
+  --   -- action実行後はdduを閉じる
+  --   quit = false,
+  -- },
 }
 local kindOptions = {
   file = { defaultAction = 'open' },

@@ -152,9 +152,11 @@ repo = 'vim-scripts/vim-auto-save'
 on_event = 'InsertEnter'
 hook_source = '''
 let g:auto_save = 1
-let g:auto_save_no_updatetime = 1
-let g:auto_save_in_insert_mode = 0
-let g:auto_save_silent = 1
+let g:auto_save_silent = 0
+let g:auto_save_events = ["InsertLeave"]
+
+" let g:auto_save_no_updatetime = 1
+" let g:auto_save_in_insert_mode = 0
 '''
 
 # NOTE: comment
@@ -411,10 +413,9 @@ vim.keymap.set('n', 'zM', ufo.closeAllFolds)
 # '''
 
 [[plugins]]
-repo     = "b0o/incline.nvim"
-depends  = ['nvim-web-devicons']
+repo = "b0o/incline.nvim"
+depends = ['nvim-web-devicons']
 on_event = ['BufReadPost', 'VimEnter']
-
 hook_source = '''
 command! ToggleIncline lua require("incline").toggle()
 '''
@@ -423,9 +424,8 @@ require("custom.incline")
 '''
 
 [[plugins]]
-repo     = 'max397574/better-escape.nvim'
+repo = 'max397574/better-escape.nvim'
 on_event = 'InsertEnter'
-
 lua_source = '''
 require('better_escape').setup {
   timeout = 200,
@@ -457,9 +457,8 @@ require('better_escape').setup {
 
 # NOTE: markdown
 [[plugins]]
-repo  = 'SidOfc/mkdx'
+repo = 'SidOfc/mkdx'
 on_ft = 'markdown'
-
 hook_add = '''
 let g:mkdx#settings = {
   \ 'map': {
