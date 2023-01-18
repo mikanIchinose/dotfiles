@@ -60,6 +60,7 @@ brew "shpotify"
 brew "awscli"
 brew "serverless"
 brew "flyctl"
+brew "gnirehtet"
 # brew "spotifyd"
 
 # tap "terrastruct/d2"
@@ -126,13 +127,15 @@ cask "disk-drill"
 cask "spotify"
 cask "coscreen"
 cask "discord"
+cask "betterdiscord-installer"
+cask "zotero"
 # cask "postman"
 # cask "smlnj"
 # cask "clipy"
 
 # Editor/IDE
 cask "visual-studio-code"
-cask "android-studio"
+# cask "android-studio"
 
 # beautiful desktop environtment
 brew "yabai"
@@ -144,5 +147,6 @@ brew "mas" # 1回AppStoreでインストールをやっておかないと正常�
 mas "Xcode", id: 497799835
 mas "RunCat", id: 1429033973
 mas "GoodNotes 5", id: 1444383602
-mas "Toggl Track: Hours & Time Log", id: 1291898086
+mas "Toggl Track", id: 1291898086
+mas "Spark", id: 1176895641
 # mas "", id:

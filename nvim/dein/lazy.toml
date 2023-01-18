@@ -40,6 +40,53 @@ autocmd MyAutoCmd FileType toml ++nested call timer_start(500, {id -> s:dein_tom
 '''
 
 [[plugins]]
+repo = 'folke/which-key.nvim'
+on_event = ['VimEnter']
+lua_source = '''
+local wk = require('which-key')
+wk.setup({
+  plugins = {
+    marks = false,
+    registers = true,
+    spelling = {
+      enabled = false,
+    },
+    presets = {
+      operators = false,
+      motions = false,
+      text_objects = false,
+      windows = false,
+      nav = false,
+      z = false,
+      -- g = false,
+    },
+  },
+})
+wk.register({
+  ['<Leader>'] = {
+    f = {
+      name = "+find"
+    },
+  }
+})
+vim.api.nvim_create_autocmd({'CursorHold'},{
+  pattern = {'*.norg'},
+  callback = function()
+    wk.register({
+      ['<Leader>'] = {
+        -- g = {
+        --   name = "+gtd"
+        -- },
+        t = {
+          name = "+task"
+        },
+      }
+    })
+  end,
+})
+'''
+
+[[plugins]]
 repo = 'Shougo/junkfile.vim'
 hook_add = '''
 command! -nargs=0 JunkfileDay call junkfile#open_immediately(strftime('%Y-%m-%d.md'))
@@ -177,6 +224,7 @@ on_event = 'CursorHold'
 depends = ['context_filetype.vim']
 hook_source = '''
 let g:caw_integrated_plugin = "context_filetype"
+nmap gcc <Plug>(caw:hatpos:toggle)
 xmap gc <Plug>(caw:hatpos:toggle)
 '''
 
@@ -194,11 +242,11 @@ repo   = 'kdheepak/lazygit.nvim'
 on_cmd = 'LazyGit'
 [[plugins]]
 repo     = 'itchyny/vim-gitbranch'
-on_event = 'CursorHold'
+on_event = ['BufRead', 'CursorHold']
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
 depends = 'denops.vim'
-on_event = ['CursorHold'] # VimEnterとかするとdenopsが立ち上がってないとか文句言われる
+on_event = ['BufRead', 'CursorHold'] # VimEnterとかするとdenopsが立ち上がってないとか文句言われる
 on_cmd = [
   'Gin',
   'GinBranch',
@@ -246,7 +294,7 @@ hook_source = '''
 # '''
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-on_event = 'VimEnter'
+on_event = ['BufRead', 'VimEnter']
 lua_source = '''
 require("custom.gitsigns")
 '''
