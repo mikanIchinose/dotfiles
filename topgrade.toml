@@ -11,10 +11,10 @@ disable = [
   "yarn",
   "nix",
   "julia",
-  # "node",
+  "node",
   "git_repos",
   # "mas",
-  # "system",
+  "system",
 ]
 
 # Ignore failures for these steps

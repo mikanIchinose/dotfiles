@@ -64,9 +64,10 @@ $ worktree_branch: git worktree list --porcelain \
   | grep branch \
   | sed "s/.*refs\/heads\///"
 $ switchable_branch:  git for-each-ref --format="%(refname:short)" refs/remotes refs/heads \
-  |  rg -v $(echo "($(git worktree list --porcelain | grep branch | sed "s/.*refs\/heads\///" | tr '\n' '|')HEAD)") \
-  |  sed "s/origin\///" \
-  |  sort | uniq
+  | sed "s/origin\///" \
+  | rg -v $(echo "^($(git worktree list --porcelain | grep branch | sed "s/.*refs\/heads\///" | tr '\n' '|')HEAD)\$") \
+  | sort \
+  | uniq
 
 % git-tag
 

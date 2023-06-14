@@ -16,11 +16,10 @@ brew reinstall neovim
 # brew check --file ~/Brewfile
 
 # search
-# brew search <app> && mas search <app>
+brew search <app>
 
 # cleanup
 # brew bundle cleanup --force --file ~/Brewfile
 
 # edit Brewfile
 nvim ~/Brewfile
-

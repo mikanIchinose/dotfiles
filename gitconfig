@@ -18,6 +18,8 @@
 	root = ~/ghq-karabiner
 [push]
 	default = current
+	autoSetupRemote = true
+	userForceIfIncludes = true
 [core]
 	editor = nvim
 	autocrlf = input
@@ -68,3 +70,5 @@
   cmd = nvim -d "$LOCAL" "$REMOTE"
 [commit]
 	template = /Users/solenoid/.gitmessage
+[alias]
+	pushf = push --force-with-lease --force-if-includes

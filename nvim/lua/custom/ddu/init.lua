@@ -1,5 +1,13 @@
 local patch_global = {}
 
+-- @section source
+--- @class DduSouceOption
+--- @field matchers string[]
+--- @field sorters string[]
+--- @field filters string[]
+--- @field columns string[]
+
+--- @type table<string, DduSouceOption>
 local sourceOptions = {
   _ = {
     ignoreCase = true,
@@ -37,11 +45,8 @@ local sourceOptions = {
   rg = {
     matchers = {
       'matcher_substring',
-      'matcher_hidden',
     },
-    sorters = {
-      'sorter_alpha',
-    },
+    sorters = {},
   },
   dein = {
     defaultAction = 'cd',
@@ -90,6 +95,7 @@ local sourceParams = {
   },
 }
 
+-- @section filter
 local filterParams = {
   matcher_fzf = {
     highlightMatched = 'Search',
@@ -99,6 +105,7 @@ local filterParams = {
   },
 }
 
+-- @section ui
 local uiOptions = {
   filer = {
     -- toggle = false,
@@ -106,23 +113,54 @@ local uiOptions = {
   },
 }
 
----@class DduUiFiler_UiParam
+---@class DduUiFilerUiParam
 ---@field split 'horizontal'|'vertical'|'floating'|'no'
 ---@field focus boolean
 ---@field sort 'extention'|'filename'|'size'|'time'
 ---@field sortDirectoriesFirs boolean
 
----@type DduUiFiler_UiParam
-local filerVertical = {
-  toggle = false,
-  split = 'vertical',
-  splitDirection = 'topleft',
-  winWidth = 30,
+--- @type table
+local filerUiParams = {
+  ---@type DduUiFilerUiParam
+  vertical = {
+    toggle = false,
+    split = 'vertical',
+    splitDirection = 'topleft',
+    winWidth = 30,
+  },
+  ---@type DduUiFilerUiParam
+  horizontal = {
+    toggle = false,
+    split = 'horizontal',
+  },
+  ---@type DduUiFilerUiParam
+  floating = {
+    toggle = false,
+    split = 'floating',
+  },
+  ---@type DduUiFilerUiParam
+  noSplit = {
+    toggle = true,
+    split = 'no',
+  },
 }
----@type DduUiFiler_UiParam
-local filerNoSplit = {
-  toggle = true,
-  split = 'no',
+
+---@class DduUiFfUiParam
+---@field split 'horizontal'|'vertical'|'floating'|'no'
+---@field focus boolean
+---@field sort 'extention'|'filename'|'size'|'time'
+---@field sortDirectoriesFirs boolean
+
+local ffUiParams = {
+  horizontal = {
+    filterSplitDirection = 'floating',
+    filterFloatingPosition = 'top',
+    split = 'horizontal',
+    statusline = false,
+  },
+  vertical = {},
+  floating = {},
+  noSplit = {},
 }
 local ffHorizontal = {
   filterSplitDirection = 'floating',
@@ -148,6 +186,7 @@ local ffFloatingBottom = {
   previewRow = vim.o.lines,
 }
 local ffFloatingFloat = {}
+
 local uiParams = {
   ff = {
     -- autoResize = true,
@@ -171,9 +210,10 @@ local uiParams = {
     -- previewRow = vim.o.lines,
     statusline = false,
   },
-  filer = filerVertical,
+  filer = filerUiParams.noSplit,
 }
 
+-- @section kind
 local kindParams = {
   extcmd = {
     runner = 'terminal',
@@ -198,6 +238,7 @@ local kindOptions = {
   extcmd = { defaultAction = 'run' },
 }
 
+-- @section action
 local actionOptions = {
   bdelete = { quit = false },
   delete = { quit = false },
@@ -209,8 +250,8 @@ local actionOptions = {
   viewDiff = { quit = false },
 }
 
-local columnOptions = {}
-
+-- @section column
+local columnOptions = vim.empty_dict()
 local columnParams = {
   icon_filename = {
     defaultIcon = {

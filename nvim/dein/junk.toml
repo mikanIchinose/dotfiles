@@ -7,6 +7,21 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
+# NOTE: error happened from denops-shared-server
+[[plugins]]
+if = 0
+repo = 'goolord/alpha-nvim'
+depends = ['nvim-web-devicons']
+on_event = 'VimEnter'
+lua_source = '''
+require('alpha').setup(require('alpha.themes.startify').config)
+'''
+
+[[plugins]]
+if = 0
+repo = 'mrjones2014/legendary.nvim'
+on_event = 'VimEnter'
+
 # [[plugins]]
 # repo = 'lewis6991/impatient.nvim'
 # lua_add = '''
@@ -14,8 +29,6 @@ repo = 'thinca/vim-quickrun'
 # '''
 
 # syntax hilight
-# [[plugins]]
-# repo = 'dag/vim-fish'
 # [[plugins]]
 # repo = 'cespare/vim-toml'
 # [[plugins]]

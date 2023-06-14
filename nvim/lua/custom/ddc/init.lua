@@ -97,7 +97,7 @@ patch_global('autoCompleteEvents', {
 })
 
 -- set sources
-patch_global('sources', { 'nvim-lsp', 'vsnip', 'file', 'mocword', 'around', 'rg' })
+patch_global('sources', { 'nvim-lsp', 'vsnip', 'file', 'around', 'rg' })
 patch_global('cmdlineSources', {
   [':'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
   ['@'] = { 'cmdline', 'cmdline-history', 'file', 'around' },
@@ -109,9 +109,10 @@ patch_global('cmdlineSources', {
 })
 patch_filetype_with_option({ 'toml' }, 'sources', { 'nvim-lsp', 'necovim', 'around', 'file' })
 patch_filetype_with_option({ 'vim' }, 'sources', { 'necovim', 'nvim-lsp', 'file', 'around' })
+patch_filetype_with_option({ 'graphql' }, 'sources', { 'nvim-lsp', 'around' })
 patch_filetype({ 'ddu-ff-filter' }, {
   keywordPattern = '[0-9a-zA-Z_:#-]*',
-  sources = { 'line', 'buffer' },
+  sources = { 'buffer' },
   specialBufferCompletion = true,
 })
 patch_filetype({ 'FineCmdlinePrompt' }, {

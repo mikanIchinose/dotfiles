@@ -13,7 +13,7 @@ switch (uname)
   case Darwin
     source $HOME/.config/fish/aliases_mac.fish
     set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
-    source ~/.asdf/plugins/java/set-java-home.fish
+    # source ~/.asdf/plugins/java/set-java-home.fish
     # set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jre/Contents/Home"
 end
 
@@ -31,7 +31,7 @@ if type -q brew &> /dev/null
 end
 
 if type -q starship &> /dev/null
-  starship init fish | source
+  # starship init fish | source
 end
 
 if type -q asdf

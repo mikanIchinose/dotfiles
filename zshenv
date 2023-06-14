@@ -1,5 +1,6 @@
 export PATH=/opt/homebrew/opt/llvm/bin:"$PATH" # haskellのコンパイルをllvmで実行する
 export PATH="$HOME/.local/nvim-macos/bin:$HOME/.local/bin:$HOME/scripts:$HOME/.cargo/bin:$HOME/.deno/bin:$HOME/go/bin:$PATH"
+export PATH="$PATH:$HOME/.pub-cache/bin"
 
 export EDITOR=nvim
 export LANG=en_US.UTF-8

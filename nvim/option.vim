@@ -21,7 +21,7 @@ set fileencoding=utf-8
 set fileencodings=utf-8
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
-lang en_US.UTF-8
+" lang en_US.UTF-8
 
 "NOTE: buffer
 set cursorline
@@ -34,13 +34,15 @@ set titlestring=%t
 set backspace=indent,eol,start
 set inccommand=split
 "NOTE: statusline
-try
-  set cmdheight=0
-  autocmd MyAutoCmd RecordingEnter * set cmdheight=1
-  autocmd MyAutoCmd RecordingLeave * set cmdheight=0
-catch
-  set cmdheight=1
-endtry
+" try
+"   " set cmdheight=0
+"   autocmd MyAutoCmd RecordingEnter * set cmdheight=1
+"   autocmd MyAutoCmd RecordingLeave * set cmdheight=0
+" catch
+"   " set cmdheight=1
+" endtry
+autocmd MyAutoCmd RecordingEnter * set cmdheight=1
+autocmd MyAutoCmd RecordingLeave * set cmdheight=0
 set laststatus=3
 set nowrap
 " fold

@@ -14,24 +14,24 @@ require('gitsigns').setup({
   --   delay = 10,
   --   ignore_whitespace = false,
   -- },
-  status_formatter = function(status)
-    local head, added, changed, removed = status.head, status.added, status.changed, status.removed
-    local status_txt = {}
-    if head ~= '' then
-      table.insert(status_txt, head)
-    end
-    if added and added > 0 then
-      table.insert(status_txt, '+' .. added)
-    end
-    if changed and changed > 0 then
-      table.insert(status_txt, '~' .. changed)
-    end
-    if removed and removed > 0 then
-      table.insert(status_txt, '-' .. removed)
-    end
-    return table.concat(status_txt, ' ')
-  end,
-  current_line_blame_formatter_opts = {
-    relative_time = false,
-  },
+  -- status_formatter = function(status)
+  --   local head, added, changed, removed = status.head, status.added, status.changed, status.removed
+  --   local status_txt = {}
+  --   if head ~= '' then
+  --     table.insert(status_txt, head)
+  --   end
+  --   if added and added > 0 then
+  --     table.insert(status_txt, '+' .. added)
+  --   end
+  --   if changed and changed > 0 then
+  --     table.insert(status_txt, '~' .. changed)
+  --   end
+  --   if removed and removed > 0 then
+  --     table.insert(status_txt, '-' .. removed)
+  --   end
+  --   return table.concat(status_txt, ' ')
+  -- end,
+  -- current_line_blame_formatter_opts = {
+  --   relative_time = false,
+  -- },
 })

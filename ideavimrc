@@ -2,6 +2,8 @@
 " plugin
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
 " ------------------------------------------------------------------------------
 
 " ------------------------------------------------------------------------------
@@ -14,6 +16,7 @@ set ideajoin
 let g:WhichKey_DefaultDelay = 0
 let g:mapleader = "\<Space>"
 " let g:maplocalleader = ","
+set keep-english-in-normal-and-restore-in-insert
 " ------------------------------------------------------------------------------
 
 " ------------------------------------------------------------------------------
@@ -52,8 +55,8 @@ xnoremap v V
 " nnoremap <Leader>6 6gt
 " nnoremap <Leader>7 7gt
 " switch buffer
-nnoremap <C-l> :bn<CR>
-nnoremap <C-h> :bp<CR>
+nnoremap <A-l> :bn<CR>
+nnoremap <A-h> :bp<CR>
 " restart
 nnoremap <Leader><C-r> :action RestartIde<CR>
 nnoremap <Leader><C-c> :action InvalidateCaches<CR>

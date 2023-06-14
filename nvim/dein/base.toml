@@ -4,8 +4,8 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 hook_add = '''
-"let g:denops_server_addr = '127.0.0.1:32123'
-"let g:denops#debug = 1
+" let g:denops_server_addr = '127.0.0.1:32123'
+" let g:denops#debug = 1
 '''
 # [[plugins]]
 # repo = 'vim-denops/denops-shared-server.vim'
@@ -24,8 +24,8 @@ repo = 'rhysd/committia.vim'
 # repo = 'dracula/vim'
 # [[plugins]]
 # repo = 'pineapplegiant/spaceduck'
-[[plugins]]
-repo = 'folke/tokyonight.nvim'
+# [[plugins]]
+# repo = 'folke/tokyonight.nvim'
 # [[plugins]]
 # repo = 'Domeee/mosel.nvim'
 # [[plugins]]

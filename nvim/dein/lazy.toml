@@ -1,6 +1,4 @@
 [[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-[[plugins]]
 repo = 'kana/vim-textobj-user'
 [[plugins]]
 repo = 'kana/vim-textobj-line'
@@ -13,8 +11,9 @@ repo = 'kyazdani42/nvim-web-devicons'
 [[plugins]]
 repo = 'mortepau/codicons.nvim'
 [[plugins]]
+if = 0
 repo = 'rcarriga/nvim-notify'
-on_event = 'VimEnter'
+on_event = 'CursorHold'
 on_lua = 'notify'
 lua_source = '''
 require("notify").setup({
@@ -24,7 +23,7 @@ vim.notify = require("notify")
 '''
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-on_event = 'CursorHold'
+on_event = ['BufRead']
 hook_add = '''
 let g:context_filetype#ignore_patterns = {
    \ 'toml': ['^\s*#\s*'],
@@ -38,30 +37,19 @@ function! s:dein_toml_syntax() abort
 endfunction
 autocmd MyAutoCmd FileType toml ++nested call timer_start(500, {id -> s:dein_toml_syntax()})
 '''
+# [[plugins]]
+# repo = 'sainnhe/everforest'
+# on_event = 'BufRead'
+# hook_source = '''
+# colorscheme everforest
+# '''
 
 [[plugins]]
 repo = 'folke/which-key.nvim'
-on_event = ['VimEnter']
+on_event = ['CursorHold']
 lua_source = '''
 local wk = require('which-key')
-wk.setup({
-  plugins = {
-    marks = false,
-    registers = true,
-    spelling = {
-      enabled = false,
-    },
-    presets = {
-      operators = false,
-      motions = false,
-      text_objects = false,
-      windows = false,
-      nav = false,
-      z = false,
-      -- g = false,
-    },
-  },
-})
+wk.setup({})
 wk.register({
   ['<Leader>'] = {
     f = {
@@ -69,42 +57,35 @@ wk.register({
     },
   }
 })
-vim.api.nvim_create_autocmd({'CursorHold'},{
-  pattern = {'*.norg'},
-  callback = function()
-    wk.register({
-      ['<Leader>'] = {
-        -- g = {
-        --   name = "+gtd"
-        -- },
-        t = {
-          name = "+task"
-        },
-      }
-    })
-  end,
-})
+-- vim.api.nvim_create_autocmd({'CursorHold'},{
+--   pattern = {'*.norg'},
+--   callback = function()
+--     wk.register({
+--       ['<Leader>'] = {
+--         -- g = {
+--         --   name = "+gtd"
+--         -- },
+--         t = {
+--           name = "+task"
+--         },
+--       }
+--     })
+--   end,
+-- })
 '''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
+on_cmd = ['JunkfileOpen']
 hook_add = '''
-command! -nargs=0 JunkfileDay call junkfile#open_immediately(strftime('%Y-%m-%d.md'))
+command! -nargs=0 JunkfileDaily call junkfile#open_immediately(strftime('%Y-%m-%d.md'))
 '''
 
+# NOTE: better UI
 [[plugins]]
-repo = 'goolord/alpha-nvim'
-depends = ['nvim-web-devicons']
-on_event = 'VimEnter'
-lua_source = '''
-require('alpha').setup(require('alpha.themes.startify').config)
-'''
-
-[[plugins]]
-if = 0
 repo = 'folke/noice.nvim'
 depends = 'nui.nvim'
-on_event = 'CursorHold'
+on_event = ['CursorHold', 'VimEnter']
 lua_source = '''
 require('noice').setup({
   lsp = {
@@ -134,24 +115,27 @@ require('noice').setup({
   --},
 })
 '''
-
 [[plugins]]
 repo = 'rebelot/heirline.nvim'
-depends = 'codicons.nvim'
-on_event = ['BufRead', 'VimEnter']
+depends = ['codicons.nvim', 'nvim-web-devicons']
+on_event = ['BufRead']
 lua_source = '''
 require('custom.heirline')
 '''
-
 [[plugins]]
-if       = 0
-repo     = 'mrjones2014/legendary.nvim'
-on_event = 'VimEnter'
+repo = 'akinsho/bufferline.nvim'
+rev = 'v3.*'
+depends = ['nvim-web-devicons']
+on_event = ['BufRead']
+lua_source = '''
+require("bufferline").setup({})
+'''
 
+# RESTfullAPI
 [[plugins]]
-repo    = 'rest-nvim/rest.nvim'
+repo = 'rest-nvim/rest.nvim'
 depends = ['plenary.nvim']
-on_ft   = 'http'
+on_ft = 'http'
 [plugins.ftplugin]
 http = '''
 nmap <Leader>rr <Plug>RestNvim
@@ -159,13 +143,13 @@ nmap <Leader>rp <Plug>RestNvimPreview
 '''
 
 [[plugins]]
-repo   = 'folke/trouble.nvim'
+repo = 'folke/trouble.nvim'
 on_cmd = ['Trouble', 'TroubleToggle']
-
 lua_source = '''
 require('trouble').setup()
 '''
 
+# TODO: もうちょいいい使い方考えたほうがよさそう
 [[plugins]]
 repo = 'thinca/vim-partedit'
 depends = ['context_filetype.vim']
@@ -193,34 +177,33 @@ let b:partedit_filetype = 'bash'
 let b:partedit_prefix = "\<Tab>"
 '''
 
+# NOTE: ノーマルモードに戻ったときだけセーブしてくれないかな
 [[plugins]]
-if = 1
+if = 0
 repo = 'vim-scripts/vim-auto-save'
 on_event = 'InsertEnter'
 hook_source = '''
 let g:auto_save = 1
 let g:auto_save_silent = 0
 let g:auto_save_events = ["InsertLeave"]
-
 " let g:auto_save_no_updatetime = 1
 " let g:auto_save_in_insert_mode = 0
 '''
 
 # NOTE: comment
 [[plugins]]
-if = 0
 repo = 'numToStr/Comment.nvim'
 depends = ['nvim-treesitter']
-on_event = 'VimEnter'
+on_event = 'BufRead'
 lua_source = '''
 require('Comment').setup({
   pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
 })
 '''
 [[plugins]]
-if = 1
+if = 0
 repo = 'mikanIchinose/caw.vim'
-on_event = 'CursorHold'
+on_event = 'BufRead'
 depends = ['context_filetype.vim']
 hook_source = '''
 let g:caw_integrated_plugin = "context_filetype"
@@ -229,8 +212,9 @@ xmap gc <Plug>(caw:hatpos:toggle)
 '''
 
 [[plugins]]
+if = 0
 repo = 'lfilho/cosco.vim'
-on_ft = ['php', 'rust', 'java', 'dart']
+on_ft = ['php', 'rust', 'dart']
 hook_source = '''
 " autocmd FileType php,rust,java,dart nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
@@ -238,11 +222,17 @@ let g:cosco_filetype_whitelist = ['php', 'rust', 'java', 'dart']
 
 ## NOTE: git
 [[plugins]]
-repo   = 'kdheepak/lazygit.nvim'
+repo = 'kdheepak/lazygit.nvim'
 on_cmd = 'LazyGit'
 [[plugins]]
-repo     = 'itchyny/vim-gitbranch'
+repo = 'itchyny/vim-gitbranch'
 on_event = ['BufRead', 'CursorHold']
+[[plugins]]
+repo = 'lewis6991/gitsigns.nvim'
+on_event = ['BufRead', 'VimEnter']
+lua_source = '''
+require("custom.gitsigns")
+'''
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
 depends = 'denops.vim'
@@ -292,18 +282,12 @@ hook_source = '''
 # map <buffer><nowait> . <Plug>(gin-action-repeat)
 # nmap <buffer><nowait> ? <Plug>(gin-action-help)
 # '''
-[[plugins]]
-repo = 'lewis6991/gitsigns.nvim'
-on_event = ['BufRead', 'VimEnter']
-lua_source = '''
-require("custom.gitsigns")
-'''
 
 ## NOTE: lsp
 [[plugins]]
 repo = 'williamboman/mason.nvim'
 [[plugins]]
-repo    = 'williamboman/mason-lspconfig.nvim'
+repo = 'williamboman/mason-lspconfig.nvim'
 depends = 'mason.nvim'
 [[plugins]]
 repo = 'jayp0521/mason-null-ls.nvim'
@@ -315,8 +299,8 @@ require('mason-null-ls').setup({
 '''
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-depends = ['mason-lspconfig.nvim', 'ddc.vim']
-on_event = ['VimEnter', 'BufRead']
+depends = ['mason-lspconfig.nvim']
+on_event = ['BufRead']
 lua_source = '''
 require('custom.lsp')
 '''
@@ -328,23 +312,20 @@ lua_source = '''
 require('custom.null-ls')
 '''
 [[plugins]]
-repo      = 'folke/neodev.nvim'
+repo = 'folke/neodev.nvim'
 on_source = ['nvim-lspconfig']
 [[plugins]]
-repo      = 'lukas-reineke/lsp-format.nvim'
-on_source = ['nvim-lspconfig', 'null-ls']
-
+repo = 'lukas-reineke/lsp-format.nvim'
+on_source = ['nvim-lspconfig', 'null-ls.nvim']
 lua_source = '''
 require('lsp-format').setup()
 '''
 [[plugins]]
-repo      = 'b0o/SchemaStore.nvim'
+repo = 'b0o/SchemaStore.nvim'
 on_source = 'nvim-lspconfig'
-# on_source = 'nvim-lspconfig'
 [[plugins]]
-repo      = 'onsails/lspkind.nvim'
+repo = 'onsails/lspkind.nvim'
 on_source = 'nvim-lspconfig'
-
 lua_source = '''
 require('lspkind').init {
   mode = 'symbol',
@@ -352,33 +333,30 @@ require('lspkind').init {
 }
 '''
 [[plugins]]
-repo      = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+repo = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 on_source = 'nvim-lspconfig'
-
 hook_source = '''
 lua require('custom.lsp_lines')
 '''
 [[plugins]]
-repo      = 'folke/lsp-colors.nvim'
+repo = 'folke/lsp-colors.nvim'
 on_source = 'nvim-lspconfig'
-
 lua_source = '''
 require("lsp-colors").setup()
 '''
 [[plugins]]
-repo      = 'SmiteshP/nvim-navic'
+repo = 'SmiteshP/nvim-navic'
 on_source = 'nvim-lspconfig'
 [[plugins]]
-repo      = 'LumaKernel/vim-tsdetect'
+repo = 'LumaKernel/vim-tsdetect'
 on_source = 'nvim-lspconfig'
 [[plugins]]
-repo   = 'weilbith/nvim-code-action-menu'
+repo = 'weilbith/nvim-code-action-menu'
 on_cmd = 'CodeActionMemu'
 [[plugins]]
-if       = 0
-repo     = 'lvimuser/lsp-inlayhints.nvim'
+if = 0
+repo = 'lvimuser/lsp-inlayhints.nvim'
 on_event = 'LspAttach'
-
 lua_source = '''
 require('lsp-inlayhints').setup()
 vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
@@ -398,69 +376,36 @@ vim.api.nvim_create_autocmd("LspAttach", {
 [[plugins]]
 repo = 'kevinhwang91/promise-async'
 [[plugins]]
-if      = 1
-repo    = 'kevinhwang91/nvim-ufo'
+if = 0
+repo = 'kevinhwang91/nvim-ufo'
 depends = 'promise-async'
-# on_event = 'CursorHold'
-on_ft = ['typescript']
+on_ft = ['typescript', 'typescriptreact']
 lua_source = '''
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
--- vim.o.foldenable = true
-vim.o.statuscolumn = '%=%l%s%#FoldColumn#%{foldlevel(v:lnum) > foldlevel(v:lnum - 2) ? (foldclosed(v:lnum) == -1 ? " " : " ") : "  " }%*'
-
-local handler = function(virtText, lnum, endLnum, width, truncate)
-    local newVirtText = {}
-    local suffix = ('  %d '):format(endLnum - lnum)
-    local sufWidth = vim.fn.strdisplaywidth(suffix)
-    local targetWidth = width - sufWidth
-    local curWidth = 0
-    for _, chunk in ipairs(virtText) do
-        local chunkText = chunk[1]
-        local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-        if targetWidth > curWidth + chunkWidth then
-            table.insert(newVirtText, chunk)
-        else
-            chunkText = truncate(chunkText, targetWidth - curWidth)
-            local hlGroup = chunk[2]
-            table.insert(newVirtText, {chunkText, hlGroup})
-            chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then
-                suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-            end
-            break
-        end
-        curWidth = curWidth + chunkWidth
-    end
-    table.insert(newVirtText, {suffix, 'MoreMsg'})
-    return newVirtText
-end
-local ufo = require('ufo')
-ufo.setup({
-  fold_virt_text_handler = handler
-})
-
-vim.keymap.set('n', 'zR', ufo.openAllFolds)
-vim.keymap.set('n', 'zM', ufo.closeAllFolds)
-
+require("custom.nvim-ufo")
 '''
+[[plugins]]
+repo = "jose-elias-alvarez/typescript.nvim"
+on_source = 'null-ls.nvim'
 
 #  NOTE: lspの前には有効化されていないといけない
 # [[plugins]]
 # repo    = 'google/vim-jsonnet'
 # on_ft = 'jsonnet'
 
+[[plugins]]
+repo = 'NoahTheDuke/vim-just'
+on_ft = 'just'
+
 
 #  NOTE: make your own mode
 # [[plugins]]
 # repo = 'anuvyklack/hydra.nvim'
-#
 # hook_source = '''
 # lua require('custom.hydra')
 # '''
 
 [[plugins]]
+if = 0
 repo = "b0o/incline.nvim"
 depends = ['nvim-web-devicons']
 on_event = ['BufReadPost', 'VimEnter']
@@ -505,6 +450,7 @@ require('better_escape').setup {
 
 # NOTE: markdown
 [[plugins]]
+if = 0
 repo = 'SidOfc/mkdx'
 on_ft = 'markdown'
 hook_add = '''
@@ -523,8 +469,16 @@ nnoremap <buffer> <C-_>  <Plug>(mkdx-promote-header)
 nnoremap <buffer> <C-=> <Plug>(mkdx-demote-header)
 '''
 
+# [[plugins]]
+# repo = 'JuliaEditorSupport/julia-vim'
+# on_ft = 'julia'
+# hook_add = '''
+# let g:latex_to_unicode_tab = "off"
+# '''
+
 # NOTE: Neorg
 [[plugins]]
+if = 0
 repo = 'nvim-neorg/neorg'
 depends = ['plenary.nvim', 'nvim-treesitter']
 on_ft = 'norg'
@@ -566,6 +520,7 @@ norg = '''
 lua require('keymap.neorg')
 '''
 [[plugins]]
+if = 0
 repo = 'folke/zen-mode.nvim'
 on_source = 'neorg'
 lua_source = '''
@@ -576,12 +531,6 @@ if = 0
 repo = 'lukas-reineke/headlines.nvim'
 on_ft = ['norg']
 hook_source = '''
-"highlight Headline1 guibg=#30365F guifg=#f2ce00
-"highlight Headline2 guibg=#30365F guifg=#C8DB01
-"highlight Headline3 guibg=#30365F guifg=#ce6f8f
-"highlight Dash      guibg=#D19A66 gui=bold
-" highlight CodeBlock guibg=#0f111b
-" highlight Quote guifg=#0099EC
 lua << EOF
 vim.cmd [[highlight Headline1 guibg=#1e2718]]
 vim.cmd [[highlight Headline2 guibg=#21262d]]
@@ -648,7 +597,7 @@ require('custom.smart-splits')
 '''
 [[plugins]]
 repo = 'johann2357/nvim-smartbufs'
-on_event = 'CursorHold'
+on_event = 'BufRead'
 lua_source = '''
 require('custom.nvim-smartbufs')
 '''
@@ -669,35 +618,27 @@ call lexima#set_default_rules()
 
 ## 囲みを付けたり変更したり
 [[plugins]]
-repo     = 'machakann/vim-sandwich'
+repo = 'machakann/vim-sandwich'
 on_event = "InsertEnter"
 
 ## color code highlighter
 [[plugins]]
 repo = 'norcalli/nvim-colorizer.lua'
-on_ft = ['toml', 'css', 'sh', 'vim', 'lua']
+on_event = ['BufRead']
 lua_source = '''
 require('colorizer').setup()
 '''
 
 # NOTE: treesitter
 [[plugins]]
-repo             = 'nvim-treesitter/nvim-treesitter'
-on_event         = ['BufRead', 'BufNewFile']
+repo = 'nvim-treesitter/nvim-treesitter'
+on_event = ['BufRead', 'BufNewFile']
 hook_post_update = 'TSUpdate'
-
 lua_source = '''
--- require('custom.nvim-treesitter')
-require("nvim-treesitter.configs").setup({
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-})
-
+require('custom.nvim-treesitter')
 '''
 [[plugins]]
-repo      = 'windwp/nvim-ts-autotag'
+repo = 'windwp/nvim-ts-autotag'
 on_source = 'nvim-treesitter'
 [[plugins]]
 repo = 'https://git.sr.ht/~p00f/nvim-ts-rainbow'
@@ -722,38 +663,39 @@ highlight rainbowcol7 guifg=#3FA4D9
 # repo      = 'romgrk/nvim-treesitter-context'
 # on_source = 'nvim-treesitter'
 [[plugins]]
-repo      = 'JoosepAlviste/nvim-ts-context-commentstring'
+repo = 'JoosepAlviste/nvim-ts-context-commentstring'
 on_source = 'nvim-treesitter'
-depends   = ['nvim-treesitter']
 [[plugins]]
-repo    = 'm-demare/hlargs.nvim'
+if = 0
+repo = 'm-demare/hlargs.nvim'
 depends = ['nvim-treesitter']
-#on_event = 'CursorHold'
-
+on_event = 'CursorHold'
 lua_source = '''
 require('hlargs').setup()
 '''
 
 [[plugins]]
-repo     = 'tpope/vim-repeat'
+if = 0
+repo = 'tpope/vim-repeat'
 on_event = 'CursorHold'
 
 [[plugins]]
-repo     = 'lambdalisue/pinkyless.vim'
+repo = 'lambdalisue/pinkyless.vim'
 on_event = 'InsertEnter'
 
 [[plugins]]
-if      = 0
-repo    = '4513ECHO/denops-gitter.vim'
-depends = 'denops.vim'
+if = 0
+repo = '4513ECHO/denops-gitter.vim'
+# depends = 'denops.vim'
 # on_event = 'CursorHold'
 hook_add = '''
 let g:gitter#token = $GITTER_PERSONAL_ACCESS_TOKEN
 command! StartReadingVimrc new gitter://room/vim-jp/reading-vimrc
 '''
 [[plugins]]
-repo    = 'skanehira/denops-gh.vim'
-depends = ['denops.vim', 'ddc.vim']
+if = 0
+repo = 'skanehira/denops-gh.vim'
+#depends = ['denops.vim', 'ddc.vim']
 # on_event = ['CursorHold']
 hook_source = '''
 augroup gh_ddc
@@ -797,17 +739,22 @@ endfunction
 # '''
 
 [[plugins]]
+if = 0
 repo = 'mattn/vim-sonictemplate'
 #on_event = 'CursorHold'
+
+[[plugins]]
+repo = 'dag/vim-fish'
+on_ft = 'fish'
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 depends = ['ddu.vim']
 hook_add = '''
-nnoremap <silent><C-s>
+nnoremap <silent><C-S>
   \ <Cmd>Deol fish -no-start-insert -toggle -split=farright<CR>
 nnoremap <silent> sD <Cmd>call deol#kill_editor()<CR>
-" nnoremap <silent> <C-t> <Cmd>Ddu -name=deol
+" nnoremap <silent> <C-T> <Cmd>Ddu -name=deol
 "   \ -ui-param-split=floating
 "   \ -ui-param-winRow=1 -ui-param-autoResize
 "   \ -ui-param-cursorPos=`tabpagenr()-1`

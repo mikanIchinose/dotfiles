@@ -1,7 +1,8 @@
-if has('vim_starting') && empty(argv())
-  " Disable auto syntax loading
-  syntax off
-endif
+" if has('vim_starting') && empty(argv())
+"   " Disable auto syntax loading
+"   syntax off
+" endif
+
 " NOTE: event notifier
 " autocmd BufRead * lua vim.notify('BufRead ' .. vim.fn.expand('%'))
 " autocmd BufReadPre * lua vim.notify('BufReadPre ' .. vim.fn.expand('%'))
@@ -14,16 +15,19 @@ endif
 " autocmd BufRead * lua vim.notify('BufRead')
 " autocmd BufReadPost * lua vim.notify('BufReadPost')
 
-" autocmd MyAutoCmd CursorHold * :colorscheme everforest
-colorscheme everforest
+autocmd MyAutoCmd BufRead * ++once :colorscheme everforest
+" colorscheme everforest
 " colorscheme tokyonight
+sign define DiagnosticSignError text=
+sign define DiagnosticSignWarn text=
+sign define DiagnosticSignHint text=󰌶
 
 " NOTE: Brewfile treat as ruby-file
 augroup brewfile
   autocmd BufRead Brewfile set filetype=ruby
 augroup END
 
-highlight Comment gui=italic guifg=#B79175
+" highlight Comment gui=italic guifg=#B79175
 
 command! ToggleStatusLine call vimrc#toggle_statusline()
 
@@ -72,5 +76,16 @@ command! InsertTodo call InsertTodo()
 "   endif
 " endif
 
-autocmd MyAutoCmd CursorHold * lua require("keymapping")
-autocmd MyAutoCmd CursorHold * lua require("custom.which-key")
+autocmd MyAutoCmd VimEnter * lua require("keymapping")
+
+" set runtimepath^=~/.cache/dein/repos/github.com/Shougo/ddu.vim
+" set runtimepath^=~/.cache/dein/repos/github.com/Shougo/ddu-ui-ff
+" set runtimepath^=~/.cache/dein/repos/github.com/shun/ddu-source-rg
+" set runtimepath^=~/.cache/dein/repos/github.com/Shougo/ddu-kind-file
+" augroup Ddu
+"  autocmd!
+"  autocmd FileType ddu-ff nnoremap <buffer> q <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+" augroup END
+" call ddu#custom#patch_global(#{
+"      \ ui: 'ff',
+"      \ })

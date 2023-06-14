@@ -29,9 +29,18 @@ map(
 )
 map(
   'n',
+  '<M-p>',
+  Ddu({
+    '-name=buffers',
+    'buffer',
+  }),
+  { desc = 'buffer' }
+)
+map(
+  'n',
   '<Leader>fr',
   Ddu({
-    '-name=search_source',
+    '-name=rg',
     "-source-param-input=`input('Pattern: ')`",
     'rg',
   }),
@@ -57,17 +66,6 @@ map(
   }),
   { desc = 'source' }
 )
--- vim.keymap.set(
---   'n',
---   '<Leader>fo',
---   Ddu({
---     '-name=headers',
---     '-resume',
---     '-ui=filer',
---   'markdown',
---   }),
---   { desc = 'outline' }
--- )
 
 vim.cmd([[
 autocmd FileType markdown
@@ -105,7 +103,7 @@ map(
 map('n', '<C-p>', function()
   vim.fn['ddu#start']({
     sources = {
-      { name = 'file_fd' },
+      { name = 'file_rec' },
     },
     ui = 'ff',
     uiParams = {

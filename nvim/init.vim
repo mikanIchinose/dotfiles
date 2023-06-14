@@ -1,3 +1,5 @@
+lua if vim.loader then vim.loader.enable() end
+
 let g:loaded_node_provider       = v:false
 let g:loaded_perl_provider       = v:false
 let g:loaded_python_provider     = v:false
@@ -20,10 +22,9 @@ let g:did_load_ftplugin          = 1
 
 augroup MyAutoCmd
   autocmd!
-  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
-        \ call vimrc#on_filetype()
+  " autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
+  "      \ call vimrc#on_filetype()
 augroup END
-
 
 " dein Scripts {{{
 let $CACHE = expand('~/.cache')
@@ -51,43 +52,42 @@ let g:dein#install_check_remote_threshold = 24 * 60 * 60
 " initialize
 let s:path = $CACHE . '/dein'
 if dein#min#load_state(s:path)
-  let s:base_dir  = fnamemodify(expand('<sfile>'), ':h') . '/'
+  let s:base_dir  = '<sfile>'->expand()->fnamemodify(':h') .. '/'
   let g:dein#inline_vimrcs = ['option.vim', 'neovim.rc.vim']
-  call map(g:dein#inline_vimrcs, { _, val -> s:base_dir . val })
+  call map(g:dein#inline_vimrcs, { _, val -> s:base_dir .. val })
 
-  let s:toml_dir  = s:base_dir . 'dein/'
-  let s:base_toml = s:toml_dir . 'base.toml'
-  let s:lazy_toml = s:toml_dir . 'lazy.toml'
-  let s:lazy_tmp_toml = s:toml_dir . 'lazy_tmp.toml'
-  let s:ddc_toml  = s:toml_dir . 'ddc.toml'
-  let s:ddu_toml  = s:toml_dir . 'ddu.toml'
-  let s:fern_toml = s:toml_dir . 'fern.toml'
-  let s:telescope_toml = s:toml_dir . 'telescope.toml'
-  let s:ft_toml   = s:toml_dir . 'ftplugin.toml'
+  let s:toml_dir  = s:base_dir .. 'dein/'
+  let s:base_toml = s:toml_dir .. 'base.toml'
+  let s:ft_toml   = s:toml_dir .. 'ftplugin.toml'
+  let s:lazy_toml = s:toml_dir .. 'lazy.toml'
+  let s:ddc_toml  = s:toml_dir .. 'ddc.toml'
+  let s:ddu_toml  = s:toml_dir .. 'ddu.toml'
+  " let s:fern_toml = s:toml_dir .. 'fern.toml'
+  " let s:telescope_toml = s:toml_dir .. 'telescope.toml'
 
   " dein block {{{
-  call dein#begin(s:path, expand('<sfile>'))
+  call dein#begin(s:path, '<sfile>'->expand())
 
   call dein#load_toml(s:base_toml, {'lazy': 0})
-  call dein#load_toml(s:ft_toml, {'lazy': 0})
+  " call dein#load_toml(s:ft_toml,   {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
   call dein#load_toml(s:ddu_toml,  {'lazy': 1})
   call dein#load_toml(s:ddc_toml,  {'lazy': 1})
+
   " call dein#load_toml(s:fern_toml, {'lazy': 1})
   " call dein#load_toml(s:telescope_toml, {'lazy': 1})
 
-  call dein#end()
   " dein block end }}}
 
   if dein#check_install()
     call dein#install()
   endif
 
-  " call dein#call_hook('source')
+  call dein#end()
   call dein#save_state()
 endif
 " }}} End dein Scripts
 
-if !empty(argv())
-  call vimrc#on_filetype()
-endif
+" if !empty(argv())
+"  call vimrc#on_filetype()
+" endif

@@ -4,19 +4,25 @@ local map = vim.keymap.set
 map('n', '<Leader>-', '<Cmd>split<CR>')
 map('n', '<Leader>\\', '<Cmd>vsplit<CR>')
 
-map('n', '<Leader>n', '<Cmd>nohlsearch<CR>')
-map('n', '<M-S-Right>', '<Cmd>tabnext<CR>')
-map('n', '<M-S-Left>', '<Cmd>tabprevious<CR>')
+-- tab
+map('n', '<M-C-Right>', '<Cmd>tabnext<CR>')
+map('n', '<M-C-Left>', '<Cmd>tabprevious<CR>')
+
+-- map('n', ';', ':')
 
 -- better indent
--- map('n', '<', '<<')
--- map('n', '>', '>>')
+map('x', '<', '<<')
+map('x', '>', '>>')
 
-map('x', 'r', '<C-v>') -- select rectangle
-map('x', 'v', 'V') -- select line
+-- visual mode
+map('x', 'r', '<C-v>')
+map('x', 'v', 'V')
+
+-- util
+map('n', '<Leader>n', '<Cmd>nohlsearch<CR>')
 
 vim.cmd([[
 augroup ftplugin
-  autocmd FileType null-ls-info,help,qf nnoremap <buffer> q <Cmd>quit<CR>
+  autocmd FileType help,null-ls-info,qf nnoremap <buffer> q <Cmd>quit<CR>
 augroup END
 ]])

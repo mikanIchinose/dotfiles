@@ -116,11 +116,11 @@ local LS = {
           -- 'twind.config.ts'
         )(fname)
       end,
-      -- settings = {
-      --   tailwindCSS = {
-      --     emmetCompletions = true,
-      --   },
-      -- },
+      settings = {
+        tailwindCSS = {
+          emmetCompletions = true,
+        },
+      },
     },
   },
   volar = {
@@ -163,7 +163,7 @@ local LS = {
   vimls = {
     opts = {},
   },
-  sumneko_lua = {
+  lua_ls = {
     opts = require('custom.lsp.lua').opts,
   },
   rust_analyzer = {
@@ -172,12 +172,12 @@ local LS = {
   bashls = {
     opts = {},
   },
-  rome = {
-    opts = {
-      root_dir = lspconfig_util.root_pattern('rome.json'),
-      autostart = false,
-    },
-  },
+  -- rome = {
+  --   opts = {
+  --     root_dir = lspconfig_util.root_pattern('rome.json'),
+  --     autostart = false,
+  --   },
+  -- },
   julials = {
     opts = {},
   },
@@ -231,8 +231,9 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 mason_lspconfig.setup_handlers({
   ---@param server_name string
   function(server_name)
+    -- NOTE: たぶんここのせいでdenolsが落ちる
     -- nvim-ufo
-    if server_name == 'denols' or server_name == 'tsserver' then
+    if server_name == 'tsserver' then
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
@@ -241,11 +242,11 @@ mason_lspconfig.setup_handlers({
 
     local opts = {
       on_attach = function(client, bufnr)
+        client.server_capabilities.semanticTokensProvider = nil
         setKeymap()
 
         -- format on save
         require('lsp-format').on_attach(client)
-        -- require('lsp-inlayhints').on_attach(client, bufnr)
 
         if
           server_name ~= 'tailwindcss'
@@ -282,7 +283,7 @@ lspconfig_configs['unocss'] = {
       -- 'svelte',
       'markdown',
     },
-    on_new_config = function(new_config) end,
+    -- on_new_config = function(new_config) end,
     root_dir = function(fname)
       return lspconfig_util.root_pattern('unocss.config.js', 'unocss.config.ts')(fname)
     end,

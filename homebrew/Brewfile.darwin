@@ -1,7 +1,7 @@
-tap "homebrew/cask"
-tap "homebrew/cask-versions"
-tap "homebrew/cask-drivers"
-tap "homebrew/services"
+# tap "homebrew/cask"
+# tap "homebrew/cask-versions"
+# tap "homebrew/cask-drivers"
+# tap "homebrew/services"
 tap "koekeishiya/formulae"
 tap "mobile-dev-inc/tap"
 
@@ -17,17 +17,22 @@ brew "git-delta"
 brew "commitizen"
 brew "gh"
 brew "gitlint"
-brew "gitui"
+# brew "gitui"
 tap "jesseduffield/lazygit"
 brew "lazygit"
+brew "git-now"
+
+# flutter
+tap "leoafarias/fvm"
+brew "fvm"
 
 brew "pstree"
 brew "wget"
 brew "fzf"
 brew "starship"
-brew "ripgrep"
-brew "fd"
-brew "exa"
+brew "ripgrep" # better grep
+brew "fd" # better find
+brew "exa" # better ls
 brew "zoxide"
 brew "xsv"
 brew "dasel"
@@ -50,29 +55,37 @@ brew "maestro"
 brew "wtfutil"
 brew "aria2"
 brew "gcc"
-brew "scrcpy"
+brew "scrcpy" # android screen share by adb
 brew "yt-dlp"
 brew "vhs"
-brew "ttyd"
-brew "desktop-file-utils"
+brew "ttyd" # need for vhs
+brew "desktop-file-utils"  # need for ddu.vim
 brew "tidy-html5" # need for rest.nvim
-brew "shpotify"
+brew "shpotify" # spotify for terminal
 brew "awscli"
 brew "serverless"
 brew "flyctl"
-brew "gnirehtet"
-# brew "spotifyd"
+brew "gnirehtet" # vpn proxy for android
+brew "just" # better make
+brew "rm-improved" # better rm
+brew "procs" # better ps
+brew "sd" # better sed
+brew "xsel" # clipboard
+brew "khal" # calendar
+# brew "mutt" # mail client
+# brew "offlineimap" # imap offline support
+# brew "neomutt" # mail client
+# brew "rclone" # better rsync
+brew "neofetch" # なんか格好いいやつ
+brew "silicon"
 
-# tap "terrastruct/d2"
-# brew "d2"
-
-tap "go-task/tap"
-brew "go-task"
+# tap "go-task/tap"
+# brew "go-task"
 
 # lang
 brew "deno"
 brew "go"
-brew "jsonnet"
+# brew "jsonnet"
 # brew "dhall"
 # brew "dhall-yaml"
 
@@ -88,17 +101,18 @@ brew "jsonnet"
 cask "vivaldi"
 cask "google-chrome"
 cask "biscuit"
-cask "firefox"
-cask "brave-browser"
+# cask "firefox"
+# cask "brave-browser"
+# cask "microsoft-edge"
 # cask "min"
 # cask "pushplaylabs-sidekick"
 
 # terminal
-cask "iterm2" # なんやかんやこれを使ってしまう
-cask "kitty" # 可もなく不可もなく
-cask "alacritty" # タブがないからなー
+# cask "iterm2" # なんやかんやこれを使ってしまう
+# cask "kitty" # 可もなく不可もなく
+# cask "alacritty" # タブがないからなー
 tap "wez/wezterm"
-cask "wezterm" # 日本語との相性わるすぎ
+cask "wezterm"
 
 # gui
 cask "thunderbird"
@@ -107,46 +121,37 @@ cask "adobe-creative-cloud"
 cask "flipper"
 cask "slack"
 cask "docker"
-cask "keycastr"
+# cask "keycastr"
 cask "karabiner-elements"
 cask "notion"
 cask "zoom"
 cask "zsa-wally"
-cask "atok"
-cask "cyberduck"
+# cask "atok"
+# cask "cyberduck"
 cask "keepassxc"
-cask "box-drive"
-# cask "anki-beta"
+# cask "box-drive"
 cask "google-drive"
-# cask "aquaskk"
 cask "ngrok"
 cask "raycast"
-cask "gather"
-cask "meetingbar"
-cask "disk-drill"
+# cask "meetingbar"
+# cask "disk-drill"
 cask "spotify"
 cask "coscreen"
 cask "discord"
 cask "betterdiscord-installer"
-cask "zotero"
+cask "google-japanese-ime"
+# cask "aquaskk"
+# cask "kensington-trackball-works"
 # cask "postman"
 # cask "smlnj"
-# cask "clipy"
+cask "kindle"
+cask "rectangle"
+# cask "alt-tab"
 
 # Editor/IDE
 cask "visual-studio-code"
-# cask "android-studio"
 
 # beautiful desktop environtment
-brew "yabai"
-brew "koekeishiya/formulae/skhd"
-cask "ubersicht"
-
-brew "mas" # 1回AppStoreでインストールをやっておかないと正常に動かない
-# mas "", id:
-mas "Xcode", id: 497799835
-mas "RunCat", id: 1429033973
-mas "GoodNotes 5", id: 1444383602
-mas "Toggl Track", id: 1291898086
-mas "Spark", id: 1176895641
-# mas "", id:
+# brew "yabai"
+# brew "koekeishiya/formulae/skhd"
+# cask "ubersicht"

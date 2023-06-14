@@ -27,7 +27,10 @@ abbr gf "git fetch origin"
 abbr gwr "git worktree remove "
 abbr gwl "git worktree list "
 # alias gswf "__mikan_git_switch_fzf"
-abbr gsw "git switch -c "
+abbr gs "git switch -c"
+abbr gsd "git switch develop"
+abbr gcd 'set dir (git worktree list | awk \'{$1=$1; print $3,$1}\' | fzf | awk \'{print $2}\') && test -n "$dir" && cd $dir || echo "exit"'
+# git-flow
 
 # edit config file
 alias setzsh "vim ~/.zshrc"
@@ -67,6 +70,8 @@ abbr tree "exa --tree"
 
 abbr denops 'deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
 
+abbr killjava 'killall -9 java'
+
 # better cli
 if type -q bat &> /dev/null
   alias cat "bat"
@@ -80,4 +85,7 @@ end
 if type -q exa &> /dev/null
   alias ls "exa"
   abbr ll "exa -al"
+end
+if type -q rip &> /dev/null
+  alias rm "rip"
 end
