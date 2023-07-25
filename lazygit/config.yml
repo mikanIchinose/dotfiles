@@ -1,12 +1,38 @@
 gui:
-  showIcons: true
-  sidePanelWidth: 0.23
+  windowSize: 'half'
+  # showIcons: true
+  # nerdFontsVersion: '3'
+  sidePanelWidth: 0.2
+  expandForcusedSidePanel: true
   mouseEvents: false
-# git:
-  # paging:
-  #   pager: delta --dark --paging=never
+  commitLength:
+    show: false
+  # hide datetime
+  timeFormat: ''
+  shortTimeFormat: ''
+  showRandomTip: false
+  showFileTree: false
+  showBottomLine: false
+  showCommandLog: false
+  border: 'hidden'
+  branchColors:
+    'feature': '#11aaff'
+git:
+  paging:
+    pager: delta --dark --paging=never
+  mainBranches: [develop]
   # branchLogCmd: "git log \
   #                --graph \
   #                --pretty=format:\"%C(white)%s%C(reset)\n%C(#979797)%an %ar%C(reset) %C(yellow)%d\n\" \
   #                {{branchName}} --"
 notARepository: 'skip'
+# keybinding:
+#   files:
+#     commitChanges: 'C'
+#     commitChangesWithEditor: 'c'
+customCommands:
+  - key: 'c'
+    context: 'files'
+    command: 'git commit -n'
+    description: 'commit from nvim without hook'
+    subprocess: true

@@ -1,24 +1,29 @@
+# yaml-language-server: $schema=https://dlvhdr.github.io/gh-dash/configuration/gh-dash/schema.json
 prSections:
-- title: My Pull Requests
-  filters: is:open author:@me
-- title: Needs My Review
-  filters: is:open review-requested:@me
-- title: Subscribed
-  filters: is:open -author:@me repo:cli/cli repo:dlvhdr/gh-dash
+  # - title: My Pull Requests
+  #   filters: is:open author:@me
+  - title: Needs My Review
+    filters: >-
+      is:open
+      review-requested:@me
 issuesSections:
-- title: My Issues
-  filters: is:open author:@me
-- title: Assigned
-  filters: is:open assignee:@me
-- title: Subscribed
-  filters: is:open -author:@me repo:cli/cli repo:dlvhdr/gh-dash
+  - title: Assigned
+    filters: >-
+      is:open
+      assignee:@me
+  - title: Issues created by you
+    filters: >-
+      is:open
+      author:@me
 defaults:
   preview:
     open: true
-    width: 50
+    width: 100
   prsLimit: 20
   issuesLimit: 20
   view: prs
 keybindings:
   prs: []
 repoPaths: {}
+pager:
+  diff: delta
