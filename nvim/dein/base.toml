@@ -32,3 +32,9 @@ repo = 'rhysd/committia.vim'
 # repo = 'sainnhe/gruvbox-material'
 [[plugins]]
 repo = 'sainnhe/everforest'
+
+# [[plugins]]
+# repo = 'glacambre/firenvim'
+# hook_post_update = '''
+# call firenvim#install(0)
+# '''

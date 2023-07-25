@@ -57,7 +57,7 @@ local sourceOptions = {
     },
   },
   markdown = {
-    columns = { 'tree' },
+    columns = { 'filename' },
     sorters = {}, -- 勝手に並び換えられると困る
   },
   zenn = {

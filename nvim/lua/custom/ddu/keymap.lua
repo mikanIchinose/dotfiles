@@ -68,6 +68,7 @@ map(
 )
 
 vim.cmd([[
+" \   -ui-option-persist=v:true
 autocmd FileType markdown
 \ nnoremap <buffer> <Leader>fm <Cmd>Ddu
 \   -name=outline
@@ -75,7 +76,6 @@ autocmd FileType markdown
 \   -ui=filer
 \   -ui-param-sort=none
 \   -ui-param-sortDirectoriesFirst=v:false
-\   -ui-option-persist=v:true
 \   markdown
 \   <CR>
 ]])

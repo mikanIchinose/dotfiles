@@ -288,7 +288,7 @@ hook_source = '''
 repo = 'williamboman/mason.nvim'
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
-depends = 'mason.nvim'
+depends = ['mason.nvim','ddc.vim']
 [[plugins]]
 repo = 'jayp0521/mason-null-ls.nvim'
 depends = 'mason.nvim'

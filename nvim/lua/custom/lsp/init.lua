@@ -225,7 +225,7 @@ local setKeymap = function()
   end)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require('ddc_nvim_lsp').make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 mason_lspconfig.setup_handlers({
