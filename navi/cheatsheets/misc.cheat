@@ -32,10 +32,10 @@ $ header: echo -e '\nContent-Type: application/json'
 # convert mov to gif
 ffmpeg -i "<video-file>" -r 24 "ffmpeg/<git_file>.gif"
 
-# compress video
+# compress 20
 for video (<videos>) ffmpeg -i "$video" -crf 20 "ffmpeg/$video"
-# compress mp4
-for video (<mp4s>) ffmpeg -i "$video" -crf 30 "ffmpeg/$video"
+# compress 40
+for video (<videos>) ffmpeg -i "$video" -crf 40 "ffmpeg/$video"
 
 $ video-file: fd -e mp4 -e mov -E ffmpeg
 $ videos: fd -e mp4 -e mov -E ffmpeg --- --multi --expand
