@@ -16,6 +16,8 @@
 	root = ~/ghq-karabiner
 [ghq "https://gitlab.digitalatelier.info"]
 	root = ~/ghq-karabiner
+[ghq "https://github.com/Oisix"]
+	root = ~/ghq-karabiner
 [push]
 	default = current
 	autoSetupRemote = true
