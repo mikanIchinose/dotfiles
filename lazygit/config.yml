@@ -1,14 +1,15 @@
 gui:
-  windowSize: 'half'
+  windowSize: 'normal'
   # showIcons: true
   # nerdFontsVersion: '3'
   sidePanelWidth: 0.2
-  expandForcusedSidePanel: true
+  # expandForcusedSidePanel: true
   mouseEvents: false
   commitLength:
     show: false
   # hide datetime
   timeFormat: ''
+  skipDiscardChangeWarning: true
   shortTimeFormat: ''
   showRandomTip: false
   showFileTree: false

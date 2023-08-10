@@ -123,19 +123,19 @@ local LS = {
       },
     },
   },
-  volar = {
-    opts = {},
-  },
+  -- volar = {
+  --   opts = {},
+  -- },
   graphql = {
     opts = {
       filetypes = { 'graphql' },
     },
   },
-  ltex = {
-    opts = {
-      autostart = false,
-    },
-  },
+  -- ltex = {
+  --   opts = {
+  --     autostart = false,
+  --   },
+  -- },
   marksman = {
     opts = {},
   },
@@ -148,9 +148,9 @@ local LS = {
       },
     },
   },
-  jsonnet_ls = {
-    opts = {},
-  },
+  -- jsonnet_ls = {
+  --   opts = {},
+  -- },
   yamlls = {
     opts = {
       settings = {
@@ -166,9 +166,9 @@ local LS = {
   lua_ls = {
     opts = require('custom.lsp.lua').opts,
   },
-  rust_analyzer = {
-    opts = {},
-  },
+  -- rust_analyzer = {
+  --   opts = {},
+  -- },
   bashls = {
     opts = {},
   },
@@ -178,12 +178,12 @@ local LS = {
   --     autostart = false,
   --   },
   -- },
-  julials = {
-    opts = {},
-  },
-  gopls = {
-    opts = {},
-  },
+  -- julials = {
+  --   opts = {},
+  -- },
+  -- gopls = {
+  --   opts = {},
+  -- },
   -- server = {
   --   opts = {},
   -- },

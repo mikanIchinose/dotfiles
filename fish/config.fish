@@ -34,10 +34,10 @@ if type -q starship &> /dev/null
   # starship init fish | source
 end
 
-if type -q asdf
-  set -l ASDF_HOME "$HOMEBREW_PREFIX/opt/asdf"
-  source $ASDF_HOME/libexec/asdf.fish
-end
+# if type -q asdf
+#   set -l ASDF_HOME "$HOMEBREW_PREFIX/opt/asdf"
+#   source $ASDF_HOME/libexec/asdf.fish
+# end
 
 if type -q zoxide &> /dev/null
   zoxide init fish | source
@@ -83,6 +83,24 @@ if type -q navi &> /dev/null
   else
     bind -M insert \cn _navi_smart_replace
   end
+end
+
+# tea workaround
+# tea --magic=fish --silent だと環境変数の設定に使えない関数を使っている
+# function add_tea_environment --on-variable PWD
+#   "/Users/solenoid/.tea/tea.xyz/v*/bin"/tea --env --keep-going --silent --dry-run=w/trace | source
+# end
+
+if not string match -q -r "^$HOME/.local/bin(:|\$)" $PATH
+  export PATH="$HOME/.local/bin:$PATH"
+end
+
+if ! command -v tea 2>&1 >/dev/null || ! tea --prefix 2>&1 >/dev/null
+  export PATH="/Users/solenoid/.tea/tea.xyz/v*/bin:$PATH"
+end
+
+function fish_command_not_found
+  TEA_MAGIC="abracadabra:$TEA_MAGIC" "/Users/solenoid/.tea/tea.xyz/v*/bin"/tea -- $argv
 end
 
 source ~/.secrets.fish
