@@ -60,7 +60,8 @@ abbr dex "docker-compose exec"
 abbr dcr "docker-compose run"
 abbr dcb "docker-compose build"
 
-alias vim "nvim"
+# alias vim "nvim"
+abbr newvim "nvim -Nu ~/dotfiles/nvim_next/init.vim"
 abbr novim "nvim -u NONE"
 
 abbr bash "bash --norc"
