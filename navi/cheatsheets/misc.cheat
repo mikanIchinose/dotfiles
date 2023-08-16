@@ -6,8 +6,8 @@ rm <files>
 # fuzzy remove director(y|ies)
 rm -r <dirs>
 
-$ files: fd . --type f --hidden --max-depth 1 --- --multi --expand
-$ dirs: fd . --type d --hidden --max-depth 1 --- --multi --expand
+$ files: fd . --type f --hidden --- --multi --expand
+$ dirs: fd . --type d --hidden --- --multi --expand
 
 % curl
 
@@ -57,3 +57,8 @@ npm list -g --depth 0
 
 # create slack reminder
 slack-reminder; open -a "Slack"
+
+% util
+
+# url shortner
+curl -d <url> https://minurl.deno.dev
