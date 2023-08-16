@@ -15,4 +15,4 @@ nvim ~/.config/starship/config.toml
 # nvim ~/Library/Preferences/espanso/default.yml
 
 # navi
-cd ~/.dotfiles/navi && nvim $(fd --type file | fzf)
+cd ~/dotfiles/navi && nvim $(fd --type file | fzf)
