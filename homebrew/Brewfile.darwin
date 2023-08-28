@@ -14,17 +14,17 @@ tap "homebrew/cask-fonts"
 brew "git"
 brew "ghq"
 brew "git-delta"
-brew "commitizen"
 brew "gh"
-brew "gitlint"
-# brew "gitui"
 tap "jesseduffield/lazygit"
 brew "lazygit"
 brew "git-now"
+# brew "commitizen"
+# brew "gitlint"
+# brew "gitui"
 
 # flutter
-tap "leoafarias/fvm"
-brew "fvm"
+# tap "leoafarias/fvm"
+# brew "fvm"
 
 brew "pstree"
 brew "wget"
@@ -48,42 +48,42 @@ brew "cocoapods"
 brew "gpg"
 brew "kdoctor"
 brew "gum"
-brew "luarocks"
 brew "llvm"
 brew "topgrade"
-brew "wtfutil"
 brew "aria2"
-brew "gcc"
 brew "scrcpy" # android screen share by adb
-brew "yt-dlp"
 brew "vhs"
 brew "ttyd" # need for vhs
 brew "desktop-file-utils"  # need for ddu.vim
-brew "tidy-html5" # need for rest.nvim
-brew "shpotify" # spotify for terminal
 brew "awscli"
-brew "serverless"
-brew "flyctl"
 brew "gnirehtet" # vpn proxy for android
-brew "just" # better make
 brew "rm-improved" # better rm
 brew "procs" # better ps
 brew "sd" # better sed
 brew "xsel" # clipboard
 brew "khal" # calendar
+brew "silicon"
 # brew "mutt" # mail client
 # brew "offlineimap" # imap offline support
 # brew "neomutt" # mail client
 # brew "rclone" # better rsync
-brew "neofetch" # なんか格好いいやつ
-brew "silicon"
+# brew "neofetch" # なんか格好いいやつ
+# brew "tidy-html5" # need for rest.nvim
+# brew "shpotify" # spotify for terminal
+# brew "serverless"
+# brew "flyctl"
+# brew "just" # better make
+# brew "luarocks"
+# brew "wtfutil"
+# brew "gcc"
+# brew "yt-dlp"
 
 # tap "go-task/tap"
 # brew "go-task"
 
 # lang
-brew "deno"
-brew "go"
+# brew "deno" # install from official shell
+# brew "go"
 # brew "jsonnet"
 # brew "dhall"
 # brew "dhall-yaml"
@@ -97,9 +97,10 @@ brew "go"
 # brew "graphviz"
 
 # browser
-cask "vivaldi"
 cask "google-chrome"
 cask "biscuit"
+# cask "arc" クリーンインストールしたらこちらに変える
+# cask "vivaldi"
 # cask "firefox"
 # cask "brave-browser"
 # cask "microsoft-edge"
@@ -107,48 +108,45 @@ cask "biscuit"
 # cask "pushplaylabs-sidekick"
 
 # terminal
+tap "wez/wezterm"
+cask "wezterm"
 # cask "iterm2" # なんやかんやこれを使ってしまう
 # cask "kitty" # 可もなく不可もなく
 # cask "alacritty" # タブがないからなー
-tap "wez/wezterm"
-cask "wezterm"
 
 # gui
-cask "thunderbird"
 cask "jetbrains-toolbox"
 cask "adobe-creative-cloud"
-cask "flipper"
 cask "slack"
-cask "docker"
-# cask "keycastr"
 cask "karabiner-elements"
-cask "notion"
 cask "zoom"
-cask "zsa-wally"
-# cask "atok"
-# cask "cyberduck"
 cask "keepassxc"
-# cask "box-drive"
 cask "google-drive"
-cask "ngrok"
 cask "raycast"
-# cask "meetingbar"
-# cask "disk-drill"
-cask "spotify"
-cask "coscreen"
-cask "discord"
-cask "betterdiscord-installer"
 cask "google-japanese-ime"
-# cask "aquaskk"
-# cask "kensington-trackball-works"
-# cask "postman"
-# cask "smlnj"
 cask "kindle"
 cask "rectangle"
-# cask "alt-tab"
+# cask "thunderbird"
+# cask "flipper"
+# cask "docker"
+# cask "keycastr"
+# cask "notion"
+# cask "zsa-wally"
+# cask "atok"
+# cask "cyberduck"
+# cask "box-drive"
+# cask "ngrok"
+# cask "meetingbar"
+# cask "disk-drill"
+# cask "spotify"
+# cask "coscreen"
+# cask "discord"
+# cask "betterdiscord-installer"
+# cask "kensington-trackball-works"
 
 # Editor/IDE
 cask "visual-studio-code"
+# vim download from github release
 
 # beautiful desktop environtment
 # brew "yabai"
