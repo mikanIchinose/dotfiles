@@ -1,0 +1,11 @@
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_lua = 'notify'
+lua_source = '''
+require('notify').setup({
+  render = "minimal",
+  stages = "static",
+  timeout = 1000,
+})
+'''
+

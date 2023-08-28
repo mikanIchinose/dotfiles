@@ -1,0 +1,23 @@
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+on_map = { ict = '<Plug>(skkeleton-toggle)' }
+on_event = ['CursorHold']
+hooks_file = '$BASE_DIR/plugins/skkeleton.vim'
+
+[[plugins]]
+if = 0
+repo = 'delphinus/skkeleton_indicator.nvim'
+on_event = ['CursorHold']
+on_source = ['skkeleton']
+lua_source = '''
+require('skkeleton_indicator').setup {
+  row = 0,
+  col = 2,
+}
+'''
+
+#[[plugins]]
+#repo = 'Matts966/skk-vconv.vim'
