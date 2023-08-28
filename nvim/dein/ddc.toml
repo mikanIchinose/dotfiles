@@ -26,7 +26,7 @@ call pum#set_option('use_complete', v:true)
 "   call pum#set_option('border', 'none')
 "   call pum#set_option('padding', v:true)
 " endfunction
-" 
+"
 " function! BufferPum() abort
 "   call pum#set_option('border', 'none')
 "   call pum#set_option('padding', v:false)
