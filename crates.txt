@@ -1,5 +1,0 @@
-cargo-update
-cargo-make
-mocword
-rogcat
-rates

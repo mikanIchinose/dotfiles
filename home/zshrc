@@ -1,0 +1,31 @@
+[ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
+
+[ -f "/Users/solenoid/.ghcup/env" ] && source "/Users/solenoid/.ghcup/env"
+
+WITHOUT_FISH=
+
+if [[ $WITHOUT_FISH == "yes" ]]; then
+  ## Emacs経由で起動した場合のみ
+  if type starship &> /dev/null; then
+    # eval "$(starship init zsh)"
+  fi
+
+  if type zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+  fi
+
+  if test -d "$HOME/.cargo" &> /dev/null; then
+    source "$HOME/.cargo/env"
+  fi
+
+  if test -d "$HOME/.deno" &> /dev/null; then
+  fi
+
+  if [[ -d "$HOME/.asdf" ]]; then
+    source "$(brew --prefix asdf)/libexec/asdf.sh"
+    source "$(brew --prefix asdf)/completions/asdf.bash"
+  fi
+  autoload -Uz compinit && compinit -C
+else
+  type fish &> /dev/null && exec fish
+fi
