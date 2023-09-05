@@ -5,16 +5,18 @@ set -u
 
 
 # xcode command line toolsをインストール
-# xcode-select --install > /dev/null
+xcode-select --install
 # google日本語入力用
-sudo software update --install-rosetta
+sudo softwareupdate --install-rosetta
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 # setup dotfiles
 brew install go
 go install github.com/rhysd/dotfiles@latest
 ~/go/bin/dotfiles clone --https mikanIchinose/dotfiles ~
 ~/go/bin/dotfiles link ~/dotfiles
+brew bundle
 # install rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
