@@ -61,7 +61,7 @@ abbr dcr "docker-compose run"
 abbr dcb "docker-compose build"
 
 # alias vim "nvim"
-alias nvim "echo use nnvim"
+# alias nvim "echo use nnvim"
 alias nnvim "command nvim -Nu ~/dotfiles/home/config/nvim_next/init.vim"
 abbr newvim "command nvim -Nu ~/dotfiles/home/config/nvim_next/init.vim"
 abbr novim "command nvim -u NONE"

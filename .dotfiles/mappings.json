@@ -10,7 +10,7 @@
   "home/config/fish":           "~/.config/fish",
   "home/config/gh":             "~/.config/gh",
   "home/config/lazygit":        "~/.config/lazygit",
-  "home/config/nvim":           "~/.config/nvim",
+  "home/config/nvim_next":      "~/.config/nvim",
   "home/config/navi":           "~/.config/navi",
   "home/config/starship":       "~/.config/starship",
   "home/config/wezterm":        "~/.config/wezterm"
