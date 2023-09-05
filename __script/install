@@ -1,11 +1,23 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 
 set -e
 set -u
 
-# install hogebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# xcode command line toolsをインストール
+xcode-select --install > /dev/null
+# google日本語入力用
+sudo software update --install-rosetta > /dev/null
+# install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" > /dev/null
+# setup dotfiles
+brew install go > /dev/null
+go install github.com/rhysd/dotfiles@latest > /dev/null
+~/go/bin/dotfiles clone --https mikanIchinose/dotfiles ~ > /dev/null
+~/go/bin/dotfiles link ~/dotfiles > /dev/null
 # install rustup
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh > /dev/null
+
+# trash
 # install ghcup
-curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+# curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh > /dev/null
