@@ -8,5 +8,5 @@
 ## install
 
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mikanIchinose/dotfiles/main/__script/install)"
+ASK_PASS="~/.secret/.ask_pass" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mikanIchinose/dotfiles/main/__script/install)"
 ```
