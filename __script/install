@@ -5,19 +5,19 @@ set -u
 
 
 # xcode command line toolsをインストール
-xcode-select --install > /dev/null
+# xcode-select --install > /dev/null
 # google日本語入力用
-sudo software update --install-rosetta > /dev/null
+sudo software update --install-rosetta
 # install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" > /dev/null
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # setup dotfiles
-brew install go > /dev/null
-go install github.com/rhysd/dotfiles@latest > /dev/null
-~/go/bin/dotfiles clone --https mikanIchinose/dotfiles ~ > /dev/null
-~/go/bin/dotfiles link ~/dotfiles > /dev/null
+brew install go
+go install github.com/rhysd/dotfiles@latest
+~/go/bin/dotfiles clone --https mikanIchinose/dotfiles ~
+~/go/bin/dotfiles link ~/dotfiles
 # install rustup
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh > /dev/null
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # trash
 # install ghcup
-# curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh > /dev/null
+# curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
