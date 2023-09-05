@@ -4,3 +4,9 @@
 - raycastの設定をバックアップ
 - android studioの設定をバックアップ
 - biscuitの設定をバックアップ
+
+## install
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mikanIchinose/dotfiles/main/__script/install)"
+```
