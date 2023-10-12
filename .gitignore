@@ -6,12 +6,12 @@ vim/bundle
 secret.d/
 
 # fish
-/fish/fish_variables
-/fish/completions/*.fish
-!/fish/completions/docker.fish
-!/fish/completions/docker-compose.fish
-/fish/conf.d/*.fish
-/fish/functions/**/*.fish
+/**/fish/fish_variables
+/**/fish/completions/*.fish
+!/**/fish/completions/docker.fish
+!/**/fish/completions/docker-compose.fish
+/**/fish/conf.d/*.fish
+/**/fish/functions/**/*.fish
 # !/fish/functions/gcheck.fish
 # !/fish/functions/gremote.fish
 # !/fish/functions/npm_dump.fish

@@ -17,6 +17,8 @@ let g:WhichKey_DefaultDelay = 0
 let g:mapleader = "\<Space>"
 " let g:maplocalleader = ","
 set keep-english-in-normal-and-restore-in-insert
+set noerrorbells
+set visualbell
 " ------------------------------------------------------------------------------
 
 " ------------------------------------------------------------------------------

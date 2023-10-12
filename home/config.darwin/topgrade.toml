@@ -9,13 +9,14 @@ disable = [
   "vim",
   "pip3",
   "flutter",
-  "yarn",
   "nix",
   "julia",
   "node",
+  "yarn",
+  "pnpm",
   # "git_repos",
   # "mas",
-  # "system",
+  "system",
 ]
 
 # Do not ask to retry failed steps (default: false)

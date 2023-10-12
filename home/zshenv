@@ -8,7 +8,7 @@ export PATH="$HOME/go/bin:$PATH"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 export PATH="$PATH":"$HOME/.maestro/bin"
 
-export SUDO_ASKPASS="$HOME/.ask_pass"
+export SUDO_ASKPASS="$HOME/.secret/.ask_pass"
 
 export EDITOR=nvim
 export LANG=en_US.UTF-8
@@ -57,3 +57,4 @@ export PATH="$PNPM_HOME:$PATH"
 
 # mocword
 export MOCWORD_DATA=$HOME/mocword.sqlite
+. "$HOME/.cargo/env"

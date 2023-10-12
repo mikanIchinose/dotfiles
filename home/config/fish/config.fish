@@ -1,6 +1,8 @@
 set fish_greeting
 
+source ~/.secret/.secrets.fish
 source $HOME/.config/fish/aliases.fish
+
 switch (uname)
   case Linux
     source $HOME/.config/fish/aliases_linux.fish
@@ -25,9 +27,9 @@ if type -q brew &> /dev/null
   end
 end
 
-if type -q starship &> /dev/null
-  starship init fish | source
-end
+#if type -q starship &> /dev/null
+#  starship init fish | source
+#end
 
 # if type -q asdf
 #   set -l ASDF_HOME "$HOMEBREW_PREFIX/opt/asdf"
@@ -74,7 +76,5 @@ if type -q navi &> /dev/null
     bind -M insert \cn _navi_smart_replace
   end
 end
-
-source ~/.secrets.fish
 
 # source ~/.config/fish/completions/cargo-make.fish

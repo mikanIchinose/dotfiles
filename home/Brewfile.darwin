@@ -6,9 +6,11 @@ tap "koekeishiya/formulae"
 tap "mobile-dev-inc/tap"
 
 # font
-tap "homebrew/cask-fonts"
+# tap "homebrew/cask-fonts"
 # cask "font-fira-code"
 # cask "font-fira-code-nerd-font" # リリースから落とした方がよい
+tap "ryota2357/pleck-jp"
+cask "pleck-jp"
 
 # git
 brew "git"
@@ -17,7 +19,7 @@ brew "git-delta"
 brew "gh"
 tap "jesseduffield/lazygit"
 brew "lazygit"
-brew "git-now"
+# brew "git-now"
 # brew "commitizen"
 # brew "gitlint"
 # brew "gitui"
@@ -39,7 +41,6 @@ brew "dasel"
 brew "jq"
 brew "bat"
 brew "navi"
-#brew "asdf"
 brew "ffmpeg"
 brew "http-server"
 brew "tokei"
@@ -63,7 +64,8 @@ brew "sd" # better sed
 brew "xsel" # clipboard
 brew "khal" # calendar
 brew "silicon"
-# brew "mutt" # mail client
+brew "JakeWharton/repo/dependency-tree-diff"
+# brew "asdf"
 # brew "offlineimap" # imap offline support
 # brew "neomutt" # mail client
 # brew "rclone" # better rsync
@@ -78,15 +80,8 @@ brew "silicon"
 # brew "gcc"
 # brew "yt-dlp"
 
-# dependencies for building nvim
-brew "ninja"
-brew "cmake"
-brew "gettext"
-brew "curl"
-
 # lang
-# brew "deno" # install from official shell
-# brew "go"
+brew "go"
 # brew "jsonnet"
 # brew "dhall"
 # brew "dhall-yaml"
@@ -107,8 +102,6 @@ cask "arc"
 # cask "firefox"
 # cask "brave-browser"
 # cask "microsoft-edge"
-# cask "min"
-# cask "pushplaylabs-sidekick"
 
 # terminal
 tap "wez/wezterm"
@@ -126,16 +119,18 @@ cask "keepassxc"
 cask "raycast"
 cask "google-japanese-ime"
 cask "rectangle"
+cask "google-drive"
+cask "notion"
+cask "blackhole-2ch"
+cask "obs"
 # cask "adobe-creative-cloud"
-# cask "google-drive"
+# cask "google-drive" # バージョンアップによるプロセスキルを回避したいのでインストールしない
 # cask "kindle"
 # cask "thunderbird"
 # cask "flipper"
 # cask "docker"
 # cask "keycastr"
-# cask "notion"
 # cask "zsa-wally"
-# cask "atok"
 # cask "cyberduck"
 # cask "box-drive"
 # cask "ngrok"
@@ -144,14 +139,8 @@ cask "rectangle"
 # cask "spotify"
 # cask "coscreen"
 # cask "discord"
-# cask "betterdiscord-installer"
 # cask "kensington-trackball-works"
 
 # Editor/IDE
 cask "visual-studio-code"
-# vim download from github release
 
-# beautiful desktop environtment
-# brew "yabai"
-# brew "koekeishiya/formulae/skhd"
-# cask "ubersicht"

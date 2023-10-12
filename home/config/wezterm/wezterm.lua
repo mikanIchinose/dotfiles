@@ -13,7 +13,7 @@ end
 return {
   audible_bell = "Disabled",
   color_scheme = 'iceberg-dark',
-  --font = wezterm.font('FiraCode Nerd Font', { weight = 'Regular' }),
+  font = wezterm.font('PleckJP', { weight = 'Regular' }),
   --font = wezterm.font('JetBrains Mono', { weight = 'Regular' }),
   font_size = 15.0,
   enable_tab_bar = false,

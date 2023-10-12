@@ -1,8 +1,7 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 set -e
 set -u
-
 
 # xcode command line toolsをインストール
 xcode-select --install
@@ -19,7 +18,8 @@ go install github.com/rhysd/dotfiles@latest
 brew bundle
 # install rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# install deno
+curl -fsSL https://deno.land/x/install/install.sh | sh
+# install maestro
+curl -Ls "https://get.maestro.mobile.dev" | bash
 
-# trash
-# install ghcup
-# curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
