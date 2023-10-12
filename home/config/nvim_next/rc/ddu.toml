@@ -1,0 +1,179 @@
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+on_event = 'DenopsReady'
+hooks_file = '$BASE_DIR/plugins/ddu.vim'
+
+[[plugins]]
+repo    = 'Shougo/ddu-commands.vim'
+depends = 'ddu.vim'
+on_cmd  = ['Ddu']
+
+# ui
+[[plugins]]
+repo      = 'Shougo/ddu-ui-ff'
+on_source = 'ddu.vim'
+hooks_file = '$BASE_DIR/plugins/ddu-ui-ff.vim'
+
+[[plugins]]
+repo      = 'Shougo/ddu-ui-filer'
+on_source = 'ddu.vim'
+hooks_file = '$BASE_DIR/plugins/ddu-ui-filer.vim'
+
+# source
+[[plugins]]
+repo      = 'nabezokodaikon/ddu-source-file_fd'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-source-file'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-source-file_rec'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-source-file_old'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-source-file_point'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-source-line'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'shun/ddu-source-buffer'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-source-action'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'shun/ddu-source-rg'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = '4513ECHO/ddu-source-ghq'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'matsui54/ddu-source-help'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'matsui54/ddu-source-command_history'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = '4513ECHO/ddu-source-colorscheme'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'matsui54/ddu-source-highlight'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = '4513ECHO/ddu-source-source'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'liquidz/ddu-source-custom-list'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = '4513ECHO/ddu-source-emoji'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'matsui54/ddu-source-dein_update'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = '4513ECHO/vim-readme-viewer'
+on_source = 'ddu.vim'
+on_cmd = ['DeinReadme', 'DeinOpne']
+hook_add = '''
+let g:readme_viewer#plugin_manager = 'dein.vim'
+'''
+[[plugins]]
+repo      = '~/ghq/github.com/mikanIchinose/ddu-source-zenn'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = '~/ghq/github.com/mikanIchinose/ddu-source-markdown'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'kuuote/ddu-source-git_diff'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'kuuote/ddu-source-mr'
+on_source = 'ddu.vim'
+depends   = 'mr.vim'
+[[plugins]]
+repo = 'lambdalisue/mr.vim'
+[[plugins]]
+repo = 'uga-rosa/ddu-source-lsp'
+on_source = ['ddu.vim']
+hook_add = '''
+  " Jump to definition
+  nnoremap td <Cmd>call ddu#start(#{
+        \   sync: v:true,
+        \   sources: [
+        \     #{
+        \       name: 'lsp_definition',
+        \     },
+        \   ],
+        \   uiParams: #{
+        \     ff: #{
+        \       ignoreEmpty: v:true,
+        \       immediateAction: 'open',
+        \     },
+        \   },
+        \ })<CR>
+'''
+
+# filter
+[[plugins]]
+repo      = 'Shougo/ddu-filter-sorter_alpha'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-filter-matcher_substring'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-filter-matcher_relative'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-filter-matcher_hidden'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_ignores'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_ignore_files'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_files'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-filter-converter_display_word'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'kyoh86/ddu-filter-converter_hl_dir'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'yuki-yano/ddu-filter-fzf'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Milly/ddu-filter-kensaku'
+depends = 'kensaku.vim'
+on_source = 'ddu.vim'
+
+# kind
+[[plugins]]
+repo      = 'Shougo/ddu-kind-file'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'Shougo/ddu-kind-word'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'tennashi/ddu-kind-extcmd'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = '4513ECHO/ddu-kind-url'
+on_source = 'ddu.vim'
+
+# column
+[[plugins]]
+repo      = 'Shougo/ddu-column-filename'
+on_source = 'ddu.vim'
+[[plugins]]
+repo      = 'ryota2357/ddu-column-icon_filename'
+on_source = 'ddu.vim'
+#[[plugins]]
+#repo      = '~/ghq/github.com/mikanIchinose/ddu-column-tree'
+#on_source = 'ddc.vim'

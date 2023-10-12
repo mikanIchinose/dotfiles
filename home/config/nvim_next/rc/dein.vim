@@ -37,15 +37,23 @@ let g:dein#inline_vimrcs = [
 " plugin step
 call dein#begin(s:path, ['<sfile>'->expand()])
 
-call dein#load_toml('$BASE_DIR/dein.toml', #{ lazy: 0 })
+call dein#load_toml('$BASE_DIR/dein.toml',     #{ lazy: 0 })
 call dein#load_toml('$BASE_DIR/deinlazy.toml', #{ lazy: 1 })
-call dein#load_toml('$BASE_DIR/denops.toml', #{ lazy: 1 })
-call dein#load_toml('$BASE_DIR/ddc.toml', #{ lazy: 1 })
-"call dein#load_toml('$BASE_DIR/ddu.toml', #{ lazy: 1 })
+call dein#load_toml('$BASE_DIR/denops.toml',   #{ lazy: 1 })
+call dein#load_toml('$BASE_DIR/ddc.toml',      #{ lazy: 1 })
+call dein#load_toml('$BASE_DIR/ddu.toml',      #{ lazy: 1 })
 
 call dein#end()
 call dein#save_state()
 
-if '%'->bufname() !=# ''
-  silent filetype detect
+" BufReadがどうのこうのっていうエラーになる
+" if '%'->bufname() !=# ''
+"   silent filetype detect
+" endif
+
+filetype indent plugin on
+
+" Enable syntax highlighting
+if has('syntax')
+  syntax on
 endif

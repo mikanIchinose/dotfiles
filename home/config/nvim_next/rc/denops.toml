@@ -8,16 +8,7 @@ on_event = ['CursorHold']
 hooks_file = '$BASE_DIR/plugins/skkeleton.vim'
 
 [[plugins]]
-if = 0
-repo = 'delphinus/skkeleton_indicator.nvim'
-on_event = ['CursorHold']
-on_source = ['skkeleton']
-lua_source = '''
-require('skkeleton_indicator').setup {
-  row = 0,
-  col = 2,
-}
-'''
+repo = 'lambdalisue/kensaku.vim'
+#depends = 'denops.vim'
+#denops_wait = false
 
-#[[plugins]]
-#repo = 'Matts966/skk-vconv.vim'

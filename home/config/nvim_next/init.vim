@@ -1,7 +1,7 @@
 " Nvimの場合必要ない
-" if &compatible
-"   set nocompatible
-" endif
+if &compatible
+  set nocompatible
+endif
 
 augroup MikanAutoCmd
   autocmd!
@@ -18,6 +18,7 @@ endif
 " 3. ステータスラインは常に非表示
 set shortmess=aTIcFoOsSW showtabline=0 laststatus=0 
 set noruler noshowcmd noshowmode
+set signcolumn=yes
 try
   set cmdheight=0
   " マクロ記録中は見えるようにする
@@ -73,9 +74,9 @@ if filereadable(expand('~/.secret_vimrc'))
   source ~/.secret_vimrc
 endif
 execute 'source' $"{fnamemodify(expand('<sfile>'), ':h')}/rc/dein.vim"
-let s:debug_mode = v:true
-if s:debug_mode
-  execute 'source' $"{fnamemodify(expand('<sfile>'), ':h')}/debug.vim"
-endif
+" let s:debug_mode = v:true
+" if s:debug_mode
+"   execute 'source' $"{fnamemodify(expand('<sfile>'), ':h')}/debug.vim"
+" endif
 
 set secure
