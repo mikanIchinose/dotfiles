@@ -1,5 +1,6 @@
+// deno-lint-ignore-file require-await
 import { BaseConfig } from "https://deno.land/x/ddc_vim@v4.0.4/types.ts";
-import { fn } from "https://deno.land/x/ddc_vim@v4.0.4/deps.ts";
+//import { fn } from "https://deno.land/x/ddc_vim@v4.0.4/deps.ts";
 import { ConfigArguments } from "https://deno.land/x/ddc_vim@v4.0.4/base/config.ts";
 
 export class Config extends BaseConfig {
@@ -14,10 +15,10 @@ export class Config extends BaseConfig {
         "CmdlineChanged",
         "TextChangedT",
       ],
-      sources: ["around", "file"],
+      sources: ["around", "rg", "file"],
       cmdlineSources: {
         ":": ["cmdline", "cmdline-history", "around"],
-        "/": ["around", "line"],
+        "/": ["around"],
       },
       sourceOptions: {
         _: {
@@ -27,7 +28,7 @@ export class Config extends BaseConfig {
           timeout: 1000,
         },
         around: {
-          mark: "A"
+          mark: "A",
         },
         cmdline: {
           mark: "cmdline",
@@ -54,16 +55,25 @@ export class Config extends BaseConfig {
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
-        "nvim-lsp": {
+        "lsp": {
           mark: "lsp",
-          converters: ["converter_fuzzy"],
-          matchers: ["matcher_fuzzy"],
-          sorters: ["sorter_fuzzy"],
-          // forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
-          // dup: "force",
+          //dup: "keep",
+          //keywordPattern: "\k+",
+          sorters: ["sorter_lsp-kind"],
+          //converters: ["converter_fuzzy"],
+          //matchers: ["matcher_fuzzy"],
+          //sorters: ["sorter_fuzzy"],
+          //forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
+          dup: "force",
+        },
+        vsnip: {
+          mark: "snippet",
+        },
+        rg: {
+          mark: "rg",
         },
         "shell-native": {
-          mark: "fish"
+          mark: "fish",
         },
         skkeleton: {
           mark: "skk",
@@ -77,10 +87,20 @@ export class Config extends BaseConfig {
         file: {
           filenameChars: "[:keyword:].",
         },
-        "shell-native": { shell: "fish" },
+        "shell-native": {
+          shell: "fish",
+        },
+        "lsp": {
+          snippetEngine: async (body: string) => {
+            await args.denops.call("vsnip#anonymous", body);
+          },
+          confirmBehavior: "replace",
+          enableResolveItem: true,
+          enableAdditionalTextEdit: true,
+        },
       },
       postFilters: ["sorter_head"],
-    })
+    });
 
     // shell script
     for (const filetype of ["bash", "zsh", "fish"]) {
@@ -95,25 +115,27 @@ export class Config extends BaseConfig {
     }
 
     for (
-        const filetype of [
-          "css",
-          "go",
-          "html",
-          "python",
-          "typescript",
-          "typescriptreact",
-          "tsx",
-          "graphql",
-          "rust",
-        ]
+      const filetype of [
+        "css",
+        "go",
+        "html",
+        "python",
+        "typescript",
+        "typescriptreact",
+        "tsx",
+        "graphql",
+        "rust",
+        "vue",
+        "markdown",
+      ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-       sources: ["nvim-lsp", "around"],
+        sources: ["vsnip", "lsp", "around", "file"],
       });
     }
 
     // args.contextBuilder.patchFiletype("lua", {
-    //   sources: ["codeium", "nvim-lsp", "nvim-lua", "around"],
+    //   sources: ["codeium", "lsp", "nvim-lua", "around"],
     // });
 
     // Enable specialBufferCompletion for cmdwin.
@@ -122,4 +144,3 @@ export class Config extends BaseConfig {
     });
   }
 }
-

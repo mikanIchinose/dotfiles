@@ -15,7 +15,7 @@ return {
   color_scheme = 'iceberg-dark',
   font = wezterm.font('PleckJP', { weight = 'Regular' }),
   --font = wezterm.font('JetBrains Mono', { weight = 'Regular' }),
-  font_size = 15.0,
+  font_size = 25.0,
   enable_tab_bar = false,
   window_padding = {
     left = 0,

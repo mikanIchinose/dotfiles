@@ -1,4 +1,2 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
-[[plugins]]
-repo = 'vim-jp/vimdoc-ja'

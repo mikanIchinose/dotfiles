@@ -9,10 +9,7 @@ abbr chown "sudo chown -R $USER:$USER ."
 # git
 abbr g "git"
 abbr gb "git branch"
-abbr ga "git add "
-abbr gc "git commit"
 abbr gst "git status -sb"
-# alias gstf "__mikan_git_stash_fzf"
 abbr gsp "git stash pop "
 abbr gsa "git stash apply "
 abbr gsd "git stash drop "
@@ -23,14 +20,11 @@ abbr grc "git rebase --continue"
 abbr gm "git merge"
 abbr gmd "git merge develop"
 abbr gf "git fetch origin"
-# alias gwf "__mikan_git_worktree_add_fzf"
 abbr gwr "git worktree remove "
 abbr gwl "git worktree list "
-# alias gswf "__mikan_git_switch_fzf"
 abbr gs "git switch -c"
 abbr gsd "git switch develop"
 abbr gcd 'set dir (git worktree list | awk \'{$1=$1; print $3,$1}\' | fzf | awk \'{print $2}\') && test -n "$dir" && cd $dir || echo "exit"'
-# git-flow
 
 # edit config file
 alias setzsh "vim ~/.zshrc"
@@ -39,13 +33,6 @@ alias setfish "cd ~/.config/fish; vim (fd --type file | fzf); cd -"
 alias setvim "cd ~/.config/nvim; vim (fd --type file | fzf); cd -"
 alias settmux "vim ~/.tmux.conf"
 alias setstar "vim $STARSHIP_CONFIG"
-
-# tmux
-# alias t "tmux" # start session
-# alias ta "tmux attach" # attach session
-# alias tsh "tmux split-window -h" # split horizontal
-# alias tsv "tmux split-window -v" # split vertical
-# alias tks "tmux kill-server" # stop tmux server
 
 # docker
 abbr d "docker"
@@ -60,20 +47,20 @@ abbr dex "docker-compose exec"
 abbr dcr "docker-compose run"
 abbr dcb "docker-compose build"
 
-# alias vim "nvim"
-# alias nvim "echo use nnvim"
-alias nnvim "command nvim -Nu ~/dotfiles/home/config/nvim_next/init.vim"
-abbr newvim "command nvim -Nu ~/dotfiles/home/config/nvim_next/init.vim"
+# vim
+abbr vim "nvim"
 abbr novim "command nvim -u NONE"
 
+# shell
 abbr bash "bash --norc"
 abbr zsh "zsh --no-rcs"
 
 abbr tree "exa --tree"
 
-abbr denops 'deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
+abbr denops-server 'deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
 
 abbr killjava 'killall -9 java'
+abbr ntfy 'curl -d "terminal completed!!" ntfy.sh/mikan_terminal_notify'
 
 # better cli
 if type -q bat &> /dev/null
@@ -88,7 +75,4 @@ end
 if type -q exa &> /dev/null
   alias ls "exa"
   abbr ll "exa -al"
-end
-if type -q rip &> /dev/null
-  alias rm "rip"
 end

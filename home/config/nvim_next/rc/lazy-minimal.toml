@@ -1,0 +1,6 @@
+[[plugins]]
+repo       = 'Shougo/ddu.vim'
+on_event   = 'DenopsReady'
+hook_source = '''
+echom 'load ddu'
+'''

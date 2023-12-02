@@ -1,5 +1,4 @@
-dotfiles        
-go-global-update
-slack-reminder  
-vhs             
-vim-startuptime 
+github.com/rhysd/dotfiles@latest
+github.com/rhysd/vim-startuptime@latest
+github.com/Gelio/go-global-update@latest
+github.com/skanehira/slack-reminder@latest

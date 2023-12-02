@@ -40,19 +40,19 @@ nnoremap <buffer><silent> N
   \ <Cmd>call ddu#ui#do_action('itemAction', #{name: 'new'})<CR>
 nnoremap <buffer><silent> r
   \ <Cmd>call ddu#ui#do_action('itemAction', #{name: 'quickfix'})<CR>
-"nnoremap <buffer><silent> u
-"  \ <Cmd>call ddu#ui#do_action('updateOptions', #{
-"  \   sourceOptions: #{
-"  \     _: #{
-"  \       matchers: [],
-"  \     },
-"  \   },
-"  \ })<CR>
-" dduを再描画せずにdoする
-"nnoremap <buffer><silent> <C-CR> 
-"  \ <Cmd>call ddu#ui#do_action('itemAction', #{
-"  \   name: 'do', params: #{ quit: v:true }
-"  \ })<CR>
+" nnoremap <buffer><silent> u
+"   \ <Cmd>call ddu#ui#do_action('updateOptions', #{
+"   \   sourceOptions: #{
+"   \     _: #{
+"   \       matchers: [],
+"   \     },
+"   \   },
+"   \ })<CR>
+"  dduを再描画せずにdoする
+" nnoremap <buffer><silent> <C-CR> 
+"   \ <Cmd>call ddu#ui#do_action('itemAction', #{
+"   \   name: 'do', params: #{ quit: v:true }
+"   \ })<CR>
 " }}}
 
 " ddu-ff-filter {{{
@@ -63,4 +63,3 @@ nnoremap <buffer><silent> <CR>
 nnoremap <buffer><silent> q
   \ <Cmd>call ddu#ui#do_action('quit')<CR>
 " }}}
-

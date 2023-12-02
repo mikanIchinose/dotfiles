@@ -1,12 +1,5 @@
 " hook_add {{{
 " command
-command! DeinUpdate :Ddu
-      \ -name='dein update'
-      \ -ui-param-ff-winHeight=20
-      \ -ui-param-ff-winWidth=60
-      \ -ui-param-ff-winRow=2
-      \ -ui-param-ff-winCol=10
-      \ dein_update
 command! DduFiler :Ddu
       \ -name=file
       \ -resume
@@ -22,27 +15,37 @@ command! DduFiler :Ddu
 " find file
 nnoremap <Leader>ff <Cmd>Ddu
       \ -name=file
+      \ -ui-param-ff-floatingTitle=file
       \ file_rec
       \ <CR>
 " find buffer
 nnoremap <Leader>fb <Cmd>Ddu
       \ -name=buffer
+      \ -ui-param-ff-floatingTitle=buffer
       \ buffer
       \ <CR>
 " find pattern
 nnoremap <Leader>fr <Cmd>Ddu
       \ -name=regex
+      \ -ui-param-ff-floatingTitle=regex
       \ rg
       \ -source-param-rg-input=`input('Pattern: ')`
       \ <CR>
 " select source
 nnoremap <Leader>fs <Cmd>Ddu
       \ -name=source
+      \ -ui-param-ff-floatingTitle=source
       \ source
+      \ <CR>
+nnoremap <Leader>fh <Cmd>Ddu
+      \ -name=help
+      \ -ui-param-ff-floatingTitle=help
+      \ help
       \ <CR>
 " insert emoji
 inoremap <C-x><C-e> <Cmd>Ddu
       \ -name=emoji
+      \ -ui-param-ff-floatingTitle=emoji
       \ emoji
       \ <CR>
 " open markdown outline

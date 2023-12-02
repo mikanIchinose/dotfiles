@@ -43,6 +43,15 @@ set clipboard+=unnamedplus " クリップボード連携
 " set foldmethod=marker
 lua if vim.loader then vim.loader.enable() end
 
+" indent & tab/space
+set autoindent
+set smartindent
+set smarttab
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
 let g:mapleader = "\<Space>"
 let g:maplocalleader = 'm'
 
@@ -73,7 +82,8 @@ autocmd! FileType help wincmd L
 if filereadable(expand('~/.secret_vimrc'))
   source ~/.secret_vimrc
 endif
-execute 'source' $"{fnamemodify(expand('<sfile>'), ':h')}/rc/dein.vim"
+let s:base_dir = '<sfile>'->expand()->fnamemodify(':h')
+execute 'source' $"{s:base_dir}/rc/init.vim"
 " let s:debug_mode = v:true
 " if s:debug_mode
 "   execute 'source' $"{fnamemodify(expand('<sfile>'), ':h')}/debug.vim"

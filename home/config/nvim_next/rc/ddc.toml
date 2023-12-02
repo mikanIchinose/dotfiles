@@ -1,52 +1,63 @@
 [[plugins]]
-repo = 'Shougo/ddc.vim'
-depends = 'denops.vim'
-on_event = ['InsertEnter']
+repo       = 'Shougo/ddc.vim'
+depends    = 'denops.vim'
+on_event   = ['InsertEnter']
 hooks_file = '$BASE_DIR/plugins/ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/pum.vim'
+repo       = 'Shougo/pum.vim'
 hooks_file = '$BASE_DIR/plugins/pum.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-ui-pum'
-depends = 'pum.vim'
+repo      = 'Shougo/ddc-ui-pum'
+depends   = 'pum.vim'
 on_source = 'ddc.vim'
 
 # source
 [[plugins]]
-repo = 'Shougo/ddc-source-around'
+repo      = 'Shougo/ddc-source-around'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-source-shell-native'
+repo      = 'Shougo/ddc-source-rg'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-source-nvim-lsp'
+repo      = 'Shougo/ddc-source-shell-native'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline'
+repo      = 'Shougo/ddc-source-lsp'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline-history'
+repo = 'hrsh7th/vim-vsnip'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-source-copilot'
+repo = 'uga-rosa/ddc-source-vsnip'
+on_source = 'ddc.vim'
+#[[plugins]]
+#repo = 'hrsh7th/vim-vsnip-integ'
+#on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-cmdline'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'LumaKernel/ddc-source-file'
+repo      = 'Shougo/ddc-source-cmdline-history'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-copilot'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'LumaKernel/ddc-source-file'
 on_source = 'ddc.vim'
 
 # filter
 [[plugins]]
-repo = 'tani/ddc-fuzzy'
+repo      = 'tani/ddc-fuzzy'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-filter-matcher_head'
+repo      = 'Shougo/ddc-filter-matcher_head'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-filter-sorter_head'
+repo      = 'Shougo/ddc-filter-sorter_head'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'Shougo/ddc-filter-sorter_rank'
+repo      = 'Shougo/ddc-filter-sorter_rank'
 on_source = 'ddc.vim'
-

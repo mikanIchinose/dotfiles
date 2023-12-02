@@ -1,22 +1,27 @@
 [[plugins]]
-repo = 'Shougo/ddu.vim'
-on_event = 'DenopsReady'
+repo       = 'Shougo/ddu.vim'
 hooks_file = '$BASE_DIR/plugins/ddu.vim'
+on_event   = 'DenopsReady'
 
 [[plugins]]
 repo    = 'Shougo/ddu-commands.vim'
 depends = 'ddu.vim'
-on_cmd  = ['Ddu']
+on_cmd  = 'Ddu'
 
 # ui
 [[plugins]]
-repo      = 'Shougo/ddu-ui-ff'
-on_source = 'ddu.vim'
+repo       = 'Shougo/ddu-ui-ff'
+on_source  = 'ddu.vim'
 hooks_file = '$BASE_DIR/plugins/ddu-ui-ff.vim'
+[plugins.ftplugin]
+ddu-ff = '''
+nnoremap <buffer><silent> q
+  \ <Cmd>call ddu#ui#do_action('quit')<CR>
+'''
 
 [[plugins]]
-repo      = 'Shougo/ddu-ui-filer'
-on_source = 'ddu.vim'
+repo       = 'Shougo/ddu-ui-filer'
+on_source  = 'ddu.vim'
 hooks_file = '$BASE_DIR/plugins/ddu-ui-filer.vim'
 
 # source
@@ -71,22 +76,16 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo      = '4513ECHO/ddu-source-emoji'
 on_source = 'ddu.vim'
-[[plugins]]
-repo      = 'matsui54/ddu-source-dein_update'
-on_source = 'ddu.vim'
-[[plugins]]
-repo = '4513ECHO/vim-readme-viewer'
-on_source = 'ddu.vim'
-on_cmd = ['DeinReadme', 'DeinOpne']
-hook_add = '''
-let g:readme_viewer#plugin_manager = 'dein.vim'
-'''
-[[plugins]]
-repo      = '~/ghq/github.com/mikanIchinose/ddu-source-zenn'
-on_source = 'ddu.vim'
-[[plugins]]
-repo      = '~/ghq/github.com/mikanIchinose/ddu-source-markdown'
-on_source = 'ddu.vim'
+#[[plugins]]
+#repo      = 'matsui54/ddu-source-dein_update'
+#on_source = 'ddu.vim'
+#[[plugins]]
+#repo = '4513ECHO/vim-readme-viewer'
+#on_source = 'ddu.vim'
+#on_cmd = ['DeinReadme', 'DeinOpne']
+#hook_add = '''
+#let g:readme_viewer#plugin_manager = 'dein.vim'
+#'''
 [[plugins]]
 repo      = 'kuuote/ddu-source-git_diff'
 on_source = 'ddc.vim'
@@ -131,26 +130,26 @@ on_source = 'ddu.vim'
 repo      = 'Shougo/ddu-filter-matcher_hidden'
 on_source = 'ddu.vim'
 [[plugins]]
-repo = 'Shougo/ddu-filter-matcher_ignores'
+repo      = 'Shougo/ddu-filter-matcher_ignores'
 on_source = 'ddu.vim'
 [[plugins]]
-repo = 'Shougo/ddu-filter-matcher_ignore_files'
+repo      = 'Shougo/ddu-filter-matcher_ignore_files'
 on_source = 'ddu.vim'
 [[plugins]]
-repo = 'Shougo/ddu-filter-matcher_files'
+repo      = 'Shougo/ddu-filter-matcher_files'
 on_source = 'ddu.vim'
 [[plugins]]
 repo      = 'Shougo/ddu-filter-converter_display_word'
 on_source = 'ddu.vim'
 [[plugins]]
-repo = 'kyoh86/ddu-filter-converter_hl_dir'
+repo      = 'kyoh86/ddu-filter-converter_hl_dir'
 on_source = 'ddu.vim'
 [[plugins]]
 repo      = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
 [[plugins]]
-repo = 'Milly/ddu-filter-kensaku'
-depends = 'kensaku.vim'
+repo      = 'Milly/ddu-filter-kensaku'
+depends   = 'kensaku.vim'
 on_source = 'ddu.vim'
 
 # kind
@@ -164,7 +163,7 @@ on_source = 'ddu.vim'
 repo      = 'tennashi/ddu-kind-extcmd'
 on_source = 'ddu.vim'
 [[plugins]]
-repo = '4513ECHO/ddu-kind-url'
+repo      = '4513ECHO/ddu-kind-url'
 on_source = 'ddu.vim'
 
 # column

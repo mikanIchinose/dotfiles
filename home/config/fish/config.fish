@@ -6,12 +6,21 @@ source $HOME/.config/fish/aliases.fish
 switch (uname)
   case Linux
     source $HOME/.config/fish/aliases_linux.fish
-  # set -x PATH "$HOME/Android/Sdk/platform-tools" $PATH
-  # set -x JAVA_HOME "/usr/local/android-studio/jre"
-  # set -x PATH "$JAVA_HOME/bin" "$PATH"
+    # set -x PATH "$HOME/Android/Sdk/platform-tools" $PATH
+    # set -x JAVA_HOME "/usr/local/android-studio/jre"
+    # set -x PATH "$JAVA_HOME/bin" "$PATH"
   case Darwin
     source $HOME/.config/fish/aliases_mac.fish
-    set -x PATH "$HOME/Library/Android/sdk/platform-tools" "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" $PATH
+    # set -x JAVA_HOME "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+    set -x ANDROID_HOME "$HOME/Library/Android/sdk"
+    set -x PATH "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin" $PATH
+    set -x PATH \
+      "$ANDROID_HOME/platform-tools" \
+      "$ANDROID_HOME/emulator" \
+      "$ANDROID_HOME/cmdline-tools/latest/bin" \
+      # バージョンは変わりうる
+      "$ANDROID_HOME/build-tools/34.0.0" \
+      $PATH
 end
 
 if type -q brew &> /dev/null
@@ -78,3 +87,7 @@ if type -q navi &> /dev/null
 end
 
 # source ~/.config/fish/completions/cargo-make.fish
+
+# tabtab source for packages
+# uninstall by removing these lines
+[ -f ~/.config/tabtab/fish/__tabtab.fish ]; and . ~/.config/tabtab/fish/__tabtab.fish; or true

@@ -1,0 +1,15 @@
+% adb
+
+# enable debug of firebase analytics
+adb shell setprop debug.firebase.analytics.app <package_name>
+
+# disable debug of firebase analytics
+adb shell setprop debug.firebase.analytics.app .none.
+
+% oisix,android,gradle,task
+
+# apply spotless
+killall -9 java ; ./gradlew clean && ./gradlew spotlessApply
+
+# check buildable
+killall -9 java ; ./gradlew clean && ./gradlew assembleDemoDebug  && ./gradlew assembleMockDebug && ./gradlew bundleProdRelease
