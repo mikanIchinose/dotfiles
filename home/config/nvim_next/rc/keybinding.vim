@@ -1,13 +1,13 @@
 " navigation at insert-mode
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
+inoremap <M-h> <Left>
+inoremap <M-j> <Down>
+inoremap <M-k> <Up>
+inoremap <M-l> <Right>
 " navigation at command-mode
-cnoremap <C-h> <Left>
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
-cnoremap <C-l> <Right>
+cnoremap <M-h> <Left>
+cnoremap <M-j> <Down>
+cnoremap <M-k> <Up>
+cnoremap <M-l> <Right>
 " navigation at terminal-mode
 tnoremap <ESC> <C-\><C-n>
 
@@ -19,3 +19,7 @@ inoremap <expr> ; vimrc#sticky_func()
 " easy escape
 inoremap jj <ESC>
 inoremap j<Space> j
+
+" tab navigation
+nnoremap <Leader>tn <Cmd>tabnext<CR>
+nnoremap <Leader>tp <Cmd>tabprevious<CR>

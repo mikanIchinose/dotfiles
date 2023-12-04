@@ -47,7 +47,7 @@ lua if vim.loader then vim.loader.enable() end
 set autoindent
 set smartindent
 set smarttab
-set expandtab
+"set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -76,12 +76,12 @@ xnoremap v V
 nnoremap ; :
 
 " ヘルプを垂直分割で開く 
-autocmd! FileType help wincmd L
+" autocmd! FileType help wincmd L
 
 " load config
-if filereadable(expand('~/.secret_vimrc'))
-  source ~/.secret_vimrc
-endif
+" if filereadable(expand('~/.secret_vimrc'))
+"   source ~/.secret_vimrc
+" endif
 let s:base_dir = '<sfile>'->expand()->fnamemodify(':h')
 execute 'source' $"{s:base_dir}/rc/init.vim"
 " let s:debug_mode = v:true

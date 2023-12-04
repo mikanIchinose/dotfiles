@@ -3,22 +3,14 @@ import {
   ActionFlags,
   BaseActionParams,
   BaseConfig,
-} from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.6.0/base/config.ts";
+} from "https://deno.land/x/ddu_vim@v3.7.0/types.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.7.0/base/config.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
 import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.1.0/ff.ts";
 import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.1.0/filer.ts";
 
-//type Params = Record<string, unknown>;
-
-//async function calculateUiSize(denops: Denops):Promise<[column: number, line: number]> {
-//  const columns = await ops.columns.get(denops)
-//  const lines = await ops.lines.get(denops)
-//  return [columns, lines]
-//}
-
 export class Config extends BaseConfig {
-  override async config(args: ConfigArguments): Promise<void> {
+  override config(args: ConfigArguments): Promise<void> {
     args.contextBuilder.patchGlobal({
       ui: "ff",
       profile: false,
@@ -29,9 +21,9 @@ export class Config extends BaseConfig {
       },
       uiParams: {
         ff: {
-          //autoAction: {
-          //  name: "preview",
-          //},
+          autoAction: {
+            name: "preview",
+          },
           //startAutoAction: true,
           filterSplitDirection: "floating",
           floatingBorder: "rounded",
@@ -72,8 +64,11 @@ export class Config extends BaseConfig {
         },
         buffer: {
           actions: {
-            deleteBuffers: deleteBuffers,
+            deleteBuffers,
           },
+        },
+        markdown: {
+          sorters: [],
         },
       },
       sourceParams: {
@@ -99,13 +94,17 @@ export class Config extends BaseConfig {
         file: {
           defaultAction: "open",
           actions: {
-            openFileRightWindow: openFileRightWindow,
+            openFileRightWindow,
           },
         },
       },
       kindParams: {},
-      actionOptions: {},
+      actionOptions: {
+        openFileRightWindow: { quit: false },
+      },
     });
+
+    return Promise.resolve();
   }
 }
 

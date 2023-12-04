@@ -1,17 +1,15 @@
 " hook_add {{{
 " command
-command! DduFiler :Ddu
-      \ -name=file
-      \ -resume
-      \ -action-option-open2-quit=v:false
-      \ -ui=filer
-      \ -ui-option-filer-toggle=v:false
-      \ -ui-param-filer-split=vertical
-      \ -ui-param-filer-splitDirection=topleft
-      \ -ui-param-filer-winWidth=30
-      \ file
-      \ -source-option-file-columns=icon_filename
-      \ -source-option-file-path=`getcwd()`
+" command! DduFiler :Ddu
+"       \ -resume
+"       \ -ui=filer
+"       \ -ui-option-filer-toggle=v:false
+"       \ -ui-param-filer-split=vertical
+"       \ -ui-param-filer-splitDirection=topleft
+"       \ -ui-param-filer-winWidth=30
+"       \ file
+"       \ -source-option-file-columns=icon_filename
+"       \ -source-option-file-path=`getcwd()`
 " find file
 nnoremap <Leader>ff <Cmd>Ddu
       \ -name=file
@@ -24,7 +22,7 @@ nnoremap <Leader>fb <Cmd>Ddu
       \ -ui-param-ff-floatingTitle=buffer
       \ buffer
       \ <CR>
-" find pattern
+" find file with pattern
 nnoremap <Leader>fr <Cmd>Ddu
       \ -name=regex
       \ -ui-param-ff-floatingTitle=regex
@@ -51,11 +49,8 @@ inoremap <C-x><C-e> <Cmd>Ddu
 " open markdown outline
 autocmd FileType markdown
       \ nnoremap <buffer> <Leader>fm <Cmd>Ddu
-      \   -name=outline
-      \   -resume
       \   -ui=filer
-      \   -ui-param-sort=none
-      \   -ui-param-sortDirectoriesFirst=v:false
+      \   -ui-param-filer-sort=none
       \   markdown
       \   <CR>
 " }}}

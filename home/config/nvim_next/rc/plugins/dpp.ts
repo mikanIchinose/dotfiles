@@ -4,8 +4,8 @@ import {
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.7/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.7/deps.ts";
+} from "https://deno.land/x/dpp_vim@v0.0.8/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.8/deps.ts";
 
 type Toml = {
   hooks_file?: string;
@@ -25,11 +25,12 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<ConfigReturn> {
-    // set protocol
+    const inlineVimrcs = [
+      "$BASE_DIR/keybinding.vim",
+    ];
+
     args.contextBuilder.setGlobal({
-      inlineVimrcs: [
-        "$BASE_DIR/keybinding.vim",
-      ],
+      inlineVimrcs: inlineVimrcs,
       protocols: ["git"],
       protocolParams: {
         git: {
@@ -50,50 +51,54 @@ export class Config extends BaseConfig {
     // load toml plugins
     const tomls: Toml[] = [];
     for (
-      const tomlPath of [
+      const tomlFile of [
+        "$BASE_DIR/base.toml",
+        "$BASE_DIR/dpp.toml",
+      ]
+    ) {
+      const toml = await args.dpp.extAction(
+        args.denops,
+        context,
+        options,
+        "toml",
+        "load",
+        {
+          path: tomlFile,
+          options: {
+            lazy: false,
+          },
+        },
+      ) as Toml | undefined;
+
+      if (toml) {
+        tomls.push(toml);
+      }
+    }
+    for (
+      const tomlFile of [
         "$BASE_DIR/lazy.toml",
         "$BASE_DIR/denops.toml",
         "$BASE_DIR/ddc.toml",
         "$BASE_DIR/ddu.toml",
       ]
     ) {
-      tomls.push(
-        await args.dpp.extAction(
-          args.denops,
-          context,
-          options,
-          "toml",
-          "load",
-          {
-            path: tomlPath,
-            options: {
-              lazy: true,
-            },
+      const toml = await args.dpp.extAction(
+        args.denops,
+        context,
+        options,
+        "toml",
+        "load",
+        {
+          path: tomlFile,
+          options: {
+            lazy: true,
           },
-        ) as Toml,
-      );
-    }
-    for (
-      const tomlPath of [
-        "$BASE_DIR/base.toml",
-        "$BASE_DIR/dpp.toml",
-      ]
-    ) {
-      tomls.push(
-        await args.dpp.extAction(
-          args.denops,
-          context,
-          options,
-          "toml",
-          "load",
-          {
-            path: tomlPath,
-            options: {
-              lazy: false,
-            },
-          },
-        ) as Toml,
-      );
+        },
+      ) as Toml | undefined;
+
+      if (toml) {
+        tomls.push(toml);
+      }
     }
 
     const plugins: Record<string, Plugin> = {};
@@ -134,6 +139,7 @@ export class Config extends BaseConfig {
         includes: [
           "ddc-*",
           "ddu-*",
+          "dpp-*",
         ],
       },
     ) as Plugin[];
@@ -157,23 +163,23 @@ export class Config extends BaseConfig {
       {
         plugins: Object.values(plugins),
       },
-    ) as LazyMakeStateResult;
+    ) as LazyMakeStateResult | undefined;
 
     const config = {
       checkFiles: await fn.globpath(
         args.denops,
         Deno.env.get("BASE_DIR"),
-        //"/Users/mikan/.config/nvim/rc",
         "*",
         1,
         1,
       ) as unknown as string[],
       ftplugins,
       hooksFiles,
-      plugins: lazyResult.plugins,
-      stateLines: lazyResult.stateLines,
+      plugins: lazyResult?.plugins ?? [],
+      stateLines: lazyResult?.stateLines ?? [],
     };
 
     return config;
   }
 }
+

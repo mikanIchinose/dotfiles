@@ -17,9 +17,6 @@ nnoremap <buffer> o
       \ #{ mode: 'toggle' })<CR>
 nnoremap <buffer> d
       \ <Cmd>call ddu#ui#do_action('itemAction',
-      \ #{ name: 'delete' })<CR>
-nnoremap <buffer> D
-      \ <Cmd>call ddu#ui#do_action('itemAction',
       \ #{ name: 'trash' })<CR>
 nnoremap <buffer> m
       \ <Cmd>call ddu#ui#do_action('itemAction',
