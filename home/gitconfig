@@ -76,3 +76,4 @@
 	template = /Users/solenoid/.gitmessage
 [alias]
 	pushf = push --force-with-lease --force-if-includes
+	sync = !git stash --include-untracked && git switch develop && git pull && git switch -
