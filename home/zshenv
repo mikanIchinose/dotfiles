@@ -1,13 +1,3 @@
-# export PATH=/opt/homebrew/opt/llvm/bin:"$PATH" # haskellのコンパイルをllvmで実行する
-export PATH="$HOME/.local/nvim/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.deno/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-export PATH="$PATH:$HOME/.pub-cache/bin"
-export PATH="$PATH":"$HOME/.maestro/bin"
-
 export SUDO_ASKPASS="$HOME/.secret/.ask_pass"
 
 export EDITOR=nvim
@@ -52,9 +42,9 @@ export STARSHIP_CACHE="$HOME/.cache/starship"
 export DENO_INSTALL="$HOME/.deno"
 
 # pnpm
-export PNPM_HOME="/Users/solenoid/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+#export PNPM_HOME="/Users/solenoid/Library/pnpm"
+#export PATH="$PNPM_HOME:$PATH"
 
 # mocword
-export MOCWORD_DATA=$HOME/mocword.sqlite
-. "$HOME/.cargo/env"
+#export MOCWORD_DATA=$HOME/mocword.sqlite
+#. "$HOME/.cargo/env"

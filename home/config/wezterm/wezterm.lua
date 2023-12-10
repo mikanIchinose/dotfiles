@@ -15,7 +15,7 @@ return {
   color_scheme = 'iceberg-dark',
   font = wezterm.font('PleckJP', { weight = 'Regular' }),
   font_size = 25.0,
-  enable_tab_bar = false,
+  enable_tab_bar = true,
   window_padding = {
     left = 0,
     right = 0,

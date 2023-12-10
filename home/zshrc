@@ -2,6 +2,16 @@
 
 [ -f "/Users/solenoid/.ghcup/env" ] && source "/Users/solenoid/.ghcup/env"
 
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+export PATH="$HOME/.local/nvim/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/scripts:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.deno/bin:$PATH"
+export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$PATH:$HOME/.pub-cache/bin"
+export PATH="$PATH:$HOME/.maestro/bin"
 WITHOUT_FISH=
 
 if [[ $WITHOUT_FISH == "yes" ]]; then
@@ -29,3 +39,10 @@ if [[ $WITHOUT_FISH == "yes" ]]; then
 else
   type fish &> /dev/null && exec fish
 fi
+
+# bun completions
+[ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
