@@ -160,6 +160,8 @@ require('mason-lspconfig').setup_handlers({
     }
 
     if server_name == '' then
+    elseif server_name == 'unocss' then
+      opts.filetypes = {"html", "javascriptreact", "markdown", "typescriptreact", "vue", "svelte"}
     elseif server_name == 'vtsls' then
       if not is_node_repo then
         return
