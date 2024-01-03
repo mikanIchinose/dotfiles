@@ -22,8 +22,8 @@ return {
     top = 0,
     bottom = 0,
   },
-  macos_window_background_blur = 100,
-  window_background_opacity = 0.85,
+  --macos_window_background_blur = 100,
+  --window_background_opacity = 0.85,
   --window_background_image = wezterm.home_dir .. '/Pictures/wallpaper/vim.jpeg',
   --window_background_image_hsb = {
   --  brightness = 0.01,

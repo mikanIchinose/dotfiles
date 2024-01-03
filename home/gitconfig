@@ -26,7 +26,7 @@
 	editor = nvim
 	autocrlf = input
 	whitespace = trailing-space
-	pager = delta
+	#pager = delta
 	# 日本語文字化けの解消
 	quotepath = false
 [pager]
@@ -37,8 +37,8 @@
 [credential]
 	helper = store --file ~/.secrets/git/credentials
 	helper = cache --timeout 3000
-[interactive]
-	diffFilter = delta --color-only
+#[interactive]
+#	diffFilter = delta --color-only
 [delta]
 	features = line-numbers decorations
 	whitespace-error-style = 22 reverse
@@ -69,11 +69,14 @@
 [difftool]
 	prompt = false
 [diff]
-	tool = nvimdiff
+	tool = difftatic
+	external = difft
 [difftool "nvimdiff"]
 	cmd = nvim -d "$LOCAL" "$REMOTE"
+[difftool "difftatic"]
+	cmd = difft "$LOCAL" "$REMOTE"
 [commit]
-	template = /Users/solenoid/.gitmessage
+	template = ~/.gitmessage
 [alias]
 	pushf = push --force-with-lease --force-if-includes
 	sync = !git stash --include-untracked && git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git switch && git pull && git switch -

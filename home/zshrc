@@ -12,6 +12,14 @@ export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 export PATH="$PATH:$HOME/.maestro/bin"
+
+# bun completions
+[ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 WITHOUT_FISH=
 
 if [[ $WITHOUT_FISH == "yes" ]]; then
@@ -39,10 +47,3 @@ if [[ $WITHOUT_FISH == "yes" ]]; then
 else
   type fish &> /dev/null && exec fish
 fi
-
-# bun completions
-[ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"

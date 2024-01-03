@@ -25,7 +25,7 @@ set visualbell
 " keymap
 nnoremap ; :
 inoremap jj <ESC>
-nnoremap <Leader><Leader> <Cmd>update<CR>
+nnoremap <Leader><Leader> :write<CR>
 " goto action
 nnoremap gd :action GotoDeclaration<CR>
 nnoremap gi :action GotoImplementation<CR>
