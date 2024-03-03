@@ -1,8 +1,10 @@
+# engine
 [[plugins]]
 repo       = 'Shougo/ddu.vim'
 hooks_file = '$BASE_DIR/plugins/ddu.vim'
 on_event   = 'DenopsReady'
 
+# command
 [[plugins]]
 repo    = 'Shougo/ddu-commands.vim'
 depends = 'ddu.vim'
@@ -18,7 +20,6 @@ ddu-ff = '''
 nnoremap <buffer><silent> q
   \ <Cmd>call ddu#ui#do_action('quit')<CR>
 '''
-
 [[plugins]]
 repo       = 'Shougo/ddu-ui-filer'
 on_source  = 'ddu.vim'
@@ -76,20 +77,11 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo      = '4513ECHO/ddu-source-emoji'
 on_source = 'ddu.vim'
-#[[plugins]]
-#repo      = 'matsui54/ddu-source-dein_update'
-#on_source = 'ddu.vim'
-#[[plugins]]
-#repo = '4513ECHO/vim-readme-viewer'
-#on_source = 'ddu.vim'
-#on_cmd = ['DeinReadme', 'DeinOpne']
-#hook_add = '''
-#let g:readme_viewer#plugin_manager = 'dein.vim'
-#'''
 [[plugins]]
 repo      = 'kuuote/ddu-source-git_diff'
 on_source = 'ddc.vim'
 [[plugins]]
+if        = 0
 repo      = 'kuuote/ddu-source-mr'
 on_source = 'ddu.vim'
 depends   = 'mr.vim'
@@ -148,6 +140,7 @@ on_source = 'ddu.vim'
 repo      = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
 [[plugins]]
+if        = 0
 repo      = 'Milly/ddu-filter-kensaku'
 depends   = 'kensaku.vim'
 on_source = 'ddu.vim'
@@ -174,5 +167,5 @@ on_source = 'ddu.vim'
 repo      = 'ryota2357/ddu-column-icon_filename'
 on_source = 'ddu.vim'
 #[[plugins]]
-#repo      = '~/ghq/github.com/mikanIchinose/ddu-column-tree'
+#repo      = 'mikanIchinose/ddu-column-tree'
 #on_source = 'ddc.vim'

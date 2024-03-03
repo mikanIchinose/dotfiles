@@ -1,4 +1,3 @@
-" Nvimの場合必要ない
 if &compatible
   set nocompatible
 endif
@@ -7,15 +6,14 @@ augroup MikanAutoCmd
   autocmd!
 augroup END
 
-" True Colorが利用可能 かつ TUIで利用中 のとき True Colorを有効化
 if exists('+termguicolors') && !has('gui_running')
   set termguicolors
 endif
 
 " UIをミニマルにする設定
-" 1. メッセージ省略に関する制御
-" 2. タブラインを表示しない
-" 3. ステータスラインは常に非表示
+" - メッセージ省略に関する制御
+" - タブラインを表示しない
+" - ステータスラインは常に非表示
 set shortmess=aTIcFoOsSW showtabline=0 laststatus=0 
 set noruler noshowcmd noshowmode
 set signcolumn=yes
@@ -24,7 +22,6 @@ try
   " マクロ記録中は見えるようにする
   autocmd MikanAutoCmd CmdlineEnter,RecordingEnter * set cmdheight=1
   autocmd MikanAutoCmd CmdlineLeave,RecordingLeave * set cmdheight=0
-  autocmd MikanAutoCmd BufWrite * lua vim.notify("save")
 catch
   set cmdheight=1
 endtry
@@ -43,9 +40,10 @@ set clipboard+=unnamedplus " クリップボード連携
 " set foldmethod=marker
 lua if vim.loader then vim.loader.enable() end
 
-" indent & tab/space
+" indent
 set autoindent
 set smartindent
+" tab/space
 set smarttab
 "set expandtab
 set tabstop=2

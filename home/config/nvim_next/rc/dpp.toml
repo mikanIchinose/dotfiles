@@ -10,7 +10,7 @@ on_source = 'dpp.vim'
 repo = 'Shougo/dpp-ext-toml'
 on_source = 'dpp.vim'
 hook_add = '''
-autocmd MikanAutoCmd BufRead */rc/*.toml ++once call dpp#ext#toml#syntax()
+autocmd MikanAutoCmd CursorHold */rc/*.toml call dpp#ext#toml#syntax()
 '''
 [[plugins]]
 repo = 'Shougo/dpp-ext-local'

@@ -46,4 +46,9 @@ else
         \ call dpp#check_files()
 endif
 
+autocmd MikanAutoCmd User Dpp:makeStatePost
+      \ echohl WarningMsg
+      \ | echomsg 'dpp make_state() is done'
+      \ | echohl NONE
+
 filetype plugin indent on
