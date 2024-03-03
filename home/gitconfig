@@ -70,7 +70,6 @@
 	prompt = false
 [diff]
 	tool = difftatic
-	external = difft
 [difftool "nvimdiff"]
 	cmd = nvim -d "$LOCAL" "$REMOTE"
 [difftool "difftatic"]
