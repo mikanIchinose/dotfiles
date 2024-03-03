@@ -3,8 +3,8 @@ import {
   ActionFlags,
   BaseActionParams,
   BaseConfig,
-} from "https://deno.land/x/ddu_vim@v3.7.0/types.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.7.0/base/config.ts";
+} from "https://deno.land/x/ddu_vim@v3.10.2/types.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v3.10.2/base/config.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
 import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.1.0/ff.ts";
 import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.1.0/filer.ts";
@@ -80,6 +80,7 @@ export class Config extends BaseConfig {
             ".next",
             ".idea",
             "node_modules",
+            "target",
           ],
         },
       },
