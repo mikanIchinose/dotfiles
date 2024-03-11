@@ -66,6 +66,7 @@
 	prune = true
 [rebase]
 	autosquash = true
+	autostash = true
 [difftool]
 	prompt = false
 [diff]
