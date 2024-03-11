@@ -117,16 +117,19 @@ export class Config extends BaseConfig {
     for (
       const filetype of [
         "css",
-        "go",
         "html",
-        "python",
         "typescript",
         "typescriptreact",
         "tsx",
-        "graphql",
-        "rust",
         "vue",
         "markdown",
+        "yaml",
+        "graphql",
+        "json",
+        "toml",
+        "go",
+        "rust",
+        "python",
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
