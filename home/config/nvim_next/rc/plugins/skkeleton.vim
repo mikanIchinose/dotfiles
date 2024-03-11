@@ -89,7 +89,7 @@ function! s:skkeleton_pre() abort
   endif
 endfunction
 
-autocmd MikanAutoCmd User skkeleton-disable-post call s:skkeleton_post()
+autocmd MikanAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
 function! s:skkeleton_post() abort
   if exists('s:prev_buffer_config')
     " Restore sources
