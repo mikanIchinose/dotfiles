@@ -68,14 +68,14 @@ autocmd MikanAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()
 function! s:skkeleton_pre() abort
   " override ddc sources
   let s:prev_buffer_config = ddc#custom#get_buffer()
-    call ddc#custom#patch_buffer(#{
-            \   sources: ['around', 'skkeleton'],
-            \   sourceOptions: #{
-            \     _: #{
-            \       keywordPattern: '[ァ-ヮア-ンー]+',
-            \     },
-            \   },
-            \ })
+  call ddc#custom#patch_buffer(#{
+          \   sources: ['around', 'skkeleton'],
+          \   sourceOptions: #{
+          \     _: #{
+          \       keywordPattern: '[ァ-ヮア-ンー]+',
+          \     },
+          \   },
+          \ })
 
   let b:includes = ['markdown']
   if index(b:includes, &filetype) >= 0
@@ -91,7 +91,7 @@ endfunction
 
 autocmd MikanAutoCmd User skkeleton-disable-pre call s:skkeleton_post()
 function! s:skkeleton_post() abort
-  if exists('s:prev_buffer_config')
+  if 's:prev_buffer_config'->exists()
     " Restore sources
     call ddc#custom#set_buffer(s:prev_buffer_config)
   endif
