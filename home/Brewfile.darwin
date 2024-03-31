@@ -31,7 +31,7 @@ brew "fzf"
 brew "starship"
 brew "ripgrep" # better grep
 brew "fd" # better find
-brew "exa" # better ls
+brew "eza" # better ls
 brew "zoxide"
 brew "xsv"
 brew "dasel"

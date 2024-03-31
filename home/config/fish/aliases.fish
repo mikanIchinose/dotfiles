@@ -55,7 +55,7 @@ abbr novim "command nvim -u NONE"
 abbr bash "bash --norc"
 abbr zsh "zsh --no-rcs"
 
-abbr tree "exa --tree"
+abbr tree "eza --tree"
 
 abbr denops-server 'deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
 
@@ -72,7 +72,7 @@ end
 if type -q rg &> /dev/null
   alias grep "rg"
 end
-if type -q exa &> /dev/null
-  alias ls "exa"
-  abbr ll "exa -al"
+if type -q eza &> /dev/null
+  alias ls "eza"
+  abbr ll "eza -al"
 end
