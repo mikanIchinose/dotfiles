@@ -1,370 +1,133 @@
+#[[plugins]]
+#repo = 'rcarriga/nvim-notify'
+#on_lua = 'notify'
+#on_event = ['BufRead','CursorHold']
+#lua_source = '''
+#require('notify').setup({
+#  render = "minimal",
+#  stages = "static",
+#  timeout = 1000,
+#})
+#vim.notify = require('notify')
+#'''
+
 [[plugins]]
-repo = 'rcarriga/nvim-notify'
-on_lua = 'notify'
-on_event = ['BufRead', 'CursorHold']
+repo       = 'Shougo/deol.nvim'
+depends    = ['ddu.vim']
+on_source  = ['ddu.vim']
+hooks_file = '$BASE_DIR/plugins/deol.vim'
+
+[[plugins]]
+repo = 'j-hui/fidget.nvim'
+on_ft = ['rust', 'kotlin']
 lua_source = '''
-require('notify').setup({
-  render = "minimal",
-  stages = "static",
-  timeout = 1000,
-})
-vim.notify = require('notify')
+  require('fidget').setup()
 '''
 
-#[[plugins]]
-#repo = 'github/copilot.vim'
-#on_cmd = 'Copilot'
-#hook_source = '''
-#let g:copilot_no_map = v:true
-#let g:copilot_hide_during_completion = 0
-#imap <silent><expr> <C-g> copilot#Accept()
-#imap <silent><expr> <C-n> copilot#Next()
-#imap <silent><expr> <C-p> copilot#Previous()
-#'''
+[[plugins]]
+repo = 'lewis6991/gitsigns.nvim'
+on_event = 'VimEnter'
+lua_source = '''
+  local gitsigns = require('gitsigns')
+  gitsigns.setup {
+    signcolumn = true,
+    numhl = true,
+  }
+  vim.keymap.set('n', '<C-g><C-q>', gitsigns.setqflist)
+'''
 
-#[[plugins]]
-#repo = 'Exafunction/codeium.vim'
-#on_cmd = ['Codeium']
-#hook_source = '''
-#let g:codeium_disable_bindings = 1
-#let g:codeium_render = v:false
-#'''
+[[plugins]]
+repo = 'folke/which-key.nvim'
+on_event = ['VimEnter', 'BufRead']
+lua_source = '''
+  vim.o.timeout = true
+  vim.o.timeoutlen = 300
+  require('which-key').setup {
+    plugins = {
+      marks = false,
+      registers = false,
+    }
+  }
+'''
+
+[[plugins]]
+repo = 'github/copilot.vim'
+on_cmd = 'Copilot'
+hook_source = '''
+  let g:copilot_no_map = v:true
+  let g:copilot_no_tab_map = v:true
+  let g:copilot_hide_during_completion = 0
+  imap <silent><expr> <C-g> copilot#Accept()
+  imap <silent><expr> <C-n> copilot#Next()
+  imap <silent><expr> <C-p> copilot#Previous()
+  let g:copilot_filetypes = #{
+    \   ddu-ff-filter: v:false,
+    \   gitcommit: v:true,
+    \   markdown: v:true,
+    \   text: v:true,
+    \   typescript: v:true,
+    \   typescriptreact: v:true,
+    \   rust: v:true,
+    \   vim: v:true,
+    \   yaml: v:true,
+    \ }
+'''
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 on_event = ['BufRead', 'CursorHold']
 hook_post_update = 'TSUpdate'
-#lua_source = '''
-#require('nvim-treesitter.configs').setup {
-#  ensure_installed = 'all',
-#  additional_vim_regex_highlighting = true,
-#  highlight = {
-#    enable = true,
-#    disable = function(lang, buf)
-#      if (lang == 'vimdoc' or
-#          lang == 'diff' or
-#          lang == 'gitcommit') then
-#          return true
-#      end
-#      local max_filesize = 50 * 1024 -- 50 KB
-#      local ok, stats = pcall(vim.loop.fs_stat,
-#                              vim.api.nvim_buf_get_name(buf))
-#      if ok and stats and stats.size > max_filesize then
-#          return true
-#      end
-#    end,
-#  },
-#}
-#'''
+lua_source = '''
+require('nvim-treesitter.configs').setup {
+  ensure_installed = {'yaml', 'json', 'toml', 'markdown'},
+  additional_vim_regex_highlighting = false,
+  highlight = {
+    enable = true,
+  },
+}
+'''
 
+[[plugins]]
+repo       = 'neovim/nvim-lspconfig'
+hooks_file = "$BASE_DIR/plugins/nvim-lspconfig.lua"
+[[plugins]]
+repo       = 'williamboman/mason-lspconfig.nvim'
+depends    = 'ddc.vim'
+on_source  = 'nvim-lspconfig'
+hooks_file = '$BASE_DIR/plugins/mason-lspconfig.lua'
+[[plugins]]
+repo = 'williamboman/mason.nvim'
+depends = 'nvim-lspconfig'
+on_event = 'FileType'
+lua_source = '''
+  require('mason').setup()
+'''
 [[plugins]]
 repo      = 'b0o/SchemaStore.nvim'
 on_source = 'mason-lspconfig.nvim'
-
-[[plugins]]
-repo = 'neovim/nvim-lspconfig'
-on_event = ['BufRead']
-lua_source = '''
--- NOTE: Disable lsp watcher. Too slow on linux
--- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
-require('vim.lsp._watchfiles')._watchfunc = function()
-  return function() end
-end
-
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    update_in_insert = false,
-    virtual_text = {
-      format = function(diagnostic)
-        return string.format(
-          '%s (%s: %s)',
-          diagnostic.message,
-          diagnostic.source,
-          diagnostic.code
-        )
-      end
-    },
-})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
-  end,
-})
-
-'''
-
 #[[plugins]]
 #repo = 'uga-rosa/ddc-nvim-lsp-setup'
 ##on_source = 'mason-lspconfig.nvim'
 #depends = ['mason-lspconfig.nvim']
+
 #on_source = 'ddc-source-nvim-lsp'
 #lua_source = '''
 #require("ddc_nvim_lsp_setup").setup()
 #require("lspconfig").volar.setup()
 #'''
+
 [[plugins]]
-repo = 'williamboman/mason-lspconfig.nvim'
-depends = 'mason.nvim'
-on_source = 'nvim-lspconfig'
-lua_source = '''
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    "vimls",
-    "lua_ls",
-    "vtsls",
-    "denols",
-    "volar",
-    "html",
-    "emmet_language_server",
-    "cssls",
-    "unocss",
-    "taplo",
-    "jsonls",
-    "yamlls",
-    "rust_analyzer",
-  }
-})
-
--- https://zenn.dev/kawarimidoll/articles/2b57745045b225
-require('mason-lspconfig').setup_handlers({
-  function(server_name)
-    local nvim_lsp = require('lspconfig')
-    local nvim_lsp_util = require('lspconfig.util')
-    local nvim_lsp_configs = require('lspconfig.configs')
-    local is_node_repo = vim.fn.findfile('package-lock.json', '.;') ~= ''
-    local schemas = require('schemastore').json.schemas()
-
-    local opts = {
-      --on_attach = function(client, bufnr)
-      --  -- format on save
-      --  if client.supports_method('textDocument/formatting') then
-      --    vim.api.nvim_create_autocmd('BufWritePre', {
-      --      group = vim.api.nvim_create_augroup('LspFormat', { clear = true }),
-      --      callback = function()
-      --        vim.lsp.buf.format({ async = true })
-      --      end,
-      --    })
-      --  end
-      --end,
-    }
-
-    if server_name == '' then
-    elseif server_name == 'unocss' then
-      opts.filetypes = { "html", "javascriptreact", "markdown", "typescriptreact", "vue", "svelte" }
-    elseif server_name == 'vtsls' then
-      if not is_node_repo then return end
-
-      opts.root_dir = nvim_lsp.util.root_pattern('package.json')
-    elseif server_name == 'denols' then
-      if is_node_repo then return end
-
-      opts.init_options = {
-        lint = true,
-        unstable = true,
-        documentPreloadLimit = 10,
-        suggest = {
-          autoImports = true,
-          imports = {
-            hosts = {
-              ['https://deno.land'] = true,
-            },
-          },
-        },
-      }
-    elseif server_name == 'lua_ls' then
-      opts.settings = {
-        Lua = {
-          runtime = {
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            globals = {
-              'vim',
-              'require'
-            },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          telemetry = {
-            enable = false,
-          },
-        },
-      }
-    elseif server_name == 'taplo' then
-      opts = {}
-      opts.settings = {
-        evenBetterToml = {
-          schema = {
-            associations = {
-              ['^(.*(/|\\\\)\\.*dein.*\\.toml|\\.*dein.*\\.toml)$'] = 'https://json.schemastore.org/dein.json',
-              ['^(.*(/|\\\\)Cargo\\.toml|Cargo\\.toml)$'] = 'https://json.schemastore.org/cargo.json',
-              ['^(.*(/|\\\\)\\.?rustfmt\\.toml|rustfmt\\.toml)$'] = 'https://json.schemastore.org/rustfmt.json',
-              ['^(.*(/|\\\\)rust-toolchain([.]toml)?)$'] = 'https://json.schemastore.org/rust-toolchain.json',
-              ['\\.*fly(.*)?\\.toml?$'] = 'https://json.schemastore.org/fly.json',
-              ['^(.*(/|\\\\)Makefile\\.toml|Makefile\\.toml)$'] = 'https://json.schemastore.org/cargo-make.json',
-              ['^(.*(/|\\\\)pyproject\\.toml|pyproject\\.toml)$'] = 'https://json.schemastore.org/pyproject.json',
-              ['\\.replit(?:\\.toml)?$'] = 'https://json.schemastore.org/replit.json',
-              ['^(.*(/|\\\\)starship/config\\.toml|starship/config\\.toml)$'] = 'https://starship.rs/config-schema.json',
-              ['\\.golangci\\.toml'] = 'https://json.schemastore.org/golangci-lint.json',
-            },
-            enable = true,
-          },
-          formatter = {
-            alignEntries = true,
-            alignComments = true,
-            arrayTrailingComma = true,
-            arrayAutoExpand = true,
-            inlineTableExpand = true,
-            arrayAutoCollapse = true,
-            -- compactArrays = true,
-            -- compactInlineTables = true,
-            -- compactEntries = true,
-          },
-        },
-      }
-    elseif server_name == 'jsonls' then
-      opts.settings = {
-        json = {
-          schemas = schemas,
-        },
-      }
-    elseif server_name == 'yamlls' then
-      opts.settings = {
-        yaml = {
-          schemas = schemas,
-        },
-      }
-    elseif server_name == 'volars' then
-      -- https://github.com/vuejs/language-tools/discussions/606
-      local function on_new_config(new_config, new_root_dir)
-        local function get_typescript_server_path(root_dir)
-          local project_root = nvim_lsp_util.find_node_modules_ancestor(root_dir)
-          return project_root and (nvim_lsp_util.path.join(project_root, 'node_modules', 'typescript', 'lib'))
-            or ''
-        end
-      
-        if
-          new_config.init_options
-          and new_config.init_options.typescript
-          and new_config.init_options.typescript.tsdk == ''
-        then
-          new_config.init_options.typescript.tsdk = get_typescript_server_path(new_root_dir)
-        end
-      end
-
-      local volar_cmd = {'vue-language-server', '--stdio'}
-      local volar_root_dir = nvim_lsp_util.root_pattern 'package.json'
-
-      nvim_lsp_configs.volar_api = {
-        default_config = {
-          cmd = volar_cmd,
-          root_dir = volar_root_dir,
-          on_new_config = on_new_config,
-          filetypes = { 'vue' },
-          init_options = {
-            typescript = {
-              tsdk = ''
-            },
-            languageFeatures = {
-              implementation = true,
-              references = true,
-              definition = true,
-              typeDefinition = true,
-              callHierarchy = true,
-              hover = true,
-              rename = true,
-              renameFileRefactoring = true,
-              signatureHelp = true,
-              codeAction = true,
-              workspaceSymbol = true,
-              completion = {
-                defaultTagNameCase = 'both',
-                defaultAttrNameCase = 'kebabCase',
-                getDocumentNameCasesRequest = false,
-                getDocumentSelectionRequest = false,
-              },
-            }
-          },
-        }
-      }
-      nvim_lsp.volar_api.setup({})
-
-      nvim_lsp_configs.volar_doc = {
-        default_config = {
-          cmd = volar_cmd,
-          root_dir = volar_root_dir,
-          on_new_config = on_new_config,
-      
-          filetypes = { 'vue' },
-          init_options = {
-            typescript = {
-              tsdk = ''
-            },
-            languageFeatures = {
-              implementation = true, -- new in @volar/vue-language-server v0.33
-              documentHighlight = true,
-              documentLink = true,
-              codeLens = { showReferencesNotification = true},
-              semanticTokens = false,
-              diagnostics = true,
-              schemaRequestService = true,
-            }
-          },
-        }
-      }
-      nvim_lsp.volar_doc.setup({})
-
-      nvim_lsp_configs.volar_html = {
-        default_config = {
-          cmd = volar_cmd,
-          root_dir = volar_root_dir,
-          on_new_config = on_new_config,
-      
-          filetypes = { 'vue' },
-          init_options = {
-            typescript = {
-              tsdk = ''
-            },
-            documentFeatures = {
-              selectionRange = true,
-              foldingRange = true,
-              linkedEditingRange = true,
-              documentSymbol = true,
-              documentColor = false,
-              documentFormatting = {
-                defaultPrintWidth = 100,
-              },
-            }
-          },
-        }
-      }
-      nvim_lsp.volar_html.setup({})
-
-      return ""
-    end
-
-    nvim_lsp[server_name].setup(opts)
-  end
-})
+repo = 'liquidz/vim-iced'
+on_ft = 'clojure'
+hook_source = '''
+let g:iced_enable_default_key_mappings = v:true
 '''
-
 [[plugins]]
-repo = 'williamboman/mason.nvim'
-lua_source = '''
-require('mason').setup()
+repo  = 'guns/vim-sexp'
+on_ft = 'clojure'
+[[plugins]]
+repo = 'luochen1990/rainbow'
+on_ft = ['clojure']
+hook_add = '''
+let g:rainbow_active = 1
 '''

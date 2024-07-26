@@ -1,9 +1,8 @@
-// deno-lint-ignore-file require-await
-import { BaseConfig } from "https://deno.land/x/ddc_vim@v4.3.1/types.ts";
-//import { fn } from "https://deno.land/x/ddc_vim@v4.3.1/deps.ts";
-import { ConfigArguments } from "https://deno.land/x/ddc_vim@v4.3.1/base/config.ts";
+import { BaseConfig } from "https://deno.land/x/ddc_vim@v5.0.1/types.ts";
+import { ConfigArguments } from "https://deno.land/x/ddc_vim@v5.0.1/base/config.ts";
 
 export class Config extends BaseConfig {
+  // deno-lint-ignore require-await
   override async config(args: ConfigArguments): Promise<void> {
     args.contextBuilder.patchGlobal({
       ui: "pum",
@@ -28,7 +27,7 @@ export class Config extends BaseConfig {
           timeout: 1000,
         },
         around: {
-          mark: "A",
+          mark: "around",
         },
         cmdline: {
           mark: "cmdline",
@@ -51,7 +50,7 @@ export class Config extends BaseConfig {
           isVolatile: true,
         },
         file: {
-          mark: "F",
+          mark: "file",
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
@@ -59,18 +58,21 @@ export class Config extends BaseConfig {
           mark: "lsp",
           //dup: "keep",
           //keywordPattern: "\k+",
+          matchers: ["matcher_head"],
           sorters: ["sorter_lsp-kind"],
-          //converters: ["converter_fuzzy"],
-          //matchers: ["matcher_fuzzy"],
-          //sorters: ["sorter_fuzzy"],
-          //forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
+          converters: [],
+          // matchers: ["matcher_fuzzy"],
+          // sorters: ["sorter_fuzzy"],
+          // converters: ["converter_fuzzy"],
+          forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
+          // forceCompletionPattern: "\\(\\w+",
           dup: "force",
         },
         vsnip: {
           mark: "snippet",
         },
         rg: {
-          mark: "rg",
+          mark: "grep",
         },
         "shell-native": {
           mark: "fish",
@@ -79,7 +81,6 @@ export class Config extends BaseConfig {
           mark: "skk",
           matchers: ["skkeleton"],
           sorters: [],
-          minAutoCompleteLength: 2,
           isVolatile: true,
         },
       },
@@ -91,12 +92,13 @@ export class Config extends BaseConfig {
           shell: "fish",
         },
         "lsp": {
-          snippetEngine: async (body: string) => {
-            await args.denops.call("vsnip#anonymous", body);
-          },
-          confirmBehavior: "replace",
-          enableResolveItem: true,
-          enableAdditionalTextEdit: true,
+          // snippetEngine: async (body: string) => {
+          //   await args.denops.call("vsnip#anonymous", body);
+          // },
+          // confirmBehavior: "replace",
+          // enableResolveItem: true,
+          // enableAdditionalTextEdit: true,
+          // enableDisplayDetail: true,
         },
       },
       postFilters: ["sorter_head"],
@@ -113,29 +115,60 @@ export class Config extends BaseConfig {
         sources: ["shell-native", "around", "file"],
       });
     }
+    args.contextBuilder.patchFiletype("deol", {
+      specialBufferCompletion: true,
+      sources: [
+        "shell-native",
+        //"shell-history",
+        "around",
+        "file",
+      ],
+      sourceOptions: {
+        _: {
+          keywordPattern: "[0-9a-zA-Z_./#:-]*",
+        },
+      },
+    });
+
+    args.contextBuilder.patchFiletype("typescript", {
+      sourceOptions: {
+        _: {
+          keywordPattern: "#?[a-zA-Z_][0-9a-zA-Z_]*",
+        },
+      },
+    });
 
     for (
       const filetype of [
         "css",
-        "html",
+        // "html",
         "typescript",
         "typescriptreact",
         "tsx",
         "vue",
-        "markdown",
-        "yaml",
+        // "markdown",
         "graphql",
+        "yaml",
         "json",
         "toml",
         "go",
         "rust",
         "python",
+        "haskell",
+        "clojure",
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        sources: ["vsnip", "lsp", "around", "file"],
+        // sources: ["lsp", "around", "file", "vsnip"],
+        sources: ["lsp"],
       });
     }
+    args.contextBuilder.patchFiletype("markdown", {
+      sources: ["lsp", "around", "file", "vsnip"],
+    });
+    args.contextBuilder.patchFiletype("html", {
+      sources: ["lsp", "around", "file", "vsnip"],
+    });
 
     // args.contextBuilder.patchFiletype("lua", {
     //   sources: ["codeium", "lsp", "nvim-lua", "around"],

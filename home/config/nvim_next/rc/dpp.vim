@@ -26,13 +26,22 @@ const s:dpp_base = '~/.cache/dpp'->expand()
 
 let $BASE_DIR = '<sfile>'->expand()->fnamemodify(':h')
 
+function DppMakeState()
+  call dpp#make_state(s:dpp_base, '$BASE_DIR/plugins/dpp.ts'->expand())
+endfunction
+
 " load state file or recreate state
 if dpp#min#load_state(s:dpp_base)
-  call Install('Shougo/dpp-ext-installer')
-  call Install('Shougo/dpp-ext-local')
-  call Install('Shougo/dpp-ext-toml')
-  call Install('Shougo/dpp-protocol-git')
-  call Install('vim-denops/denops.vim')
+  for s:plugin in [
+        \ 'Shougo/dpp-ext-installer',
+        \ 'Shougo/dpp-ext-local',
+        \ 'Shougo/dpp-ext-toml',
+        \ 'Shougo/dpp-protocol-git',
+        \ 'vim-denops/denops.vim',
+        \ ]
+    call Install(s:plugin)
+  endfor
+
   runtime! plugin/denops.vim
 
   " call dpp#make_state after DenopsReady because it depends denops.vim
@@ -40,14 +49,14 @@ if dpp#min#load_state(s:dpp_base)
         \ echohl WarningMsg 
         \ | echomsg 'dpp load_state() is failed'
         \ | echohl NONE
-        \ | call dpp#make_state(s:dpp_base, '$BASE_DIR/plugins/dpp.ts'->expand())
+        \ | call DppMakeState()
 else
   autocmd MikanAutoCmd BufWritePost *.lua,*.vim,*.toml,*.ts
         \ call dpp#check_files()
 endif
 
 autocmd MikanAutoCmd User Dpp:makeStatePost
-      \ echohl WarningMsg
+      \ : echohl WarningMsg
       \ | echomsg 'dpp make_state() is done'
       \ | echohl NONE
 

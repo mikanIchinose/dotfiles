@@ -1,5 +1,12 @@
 " hook_add {{{
-
+nnoremap <Leader>fF
+      \ <Cmd>Ddu
+      \ -name=filer
+      \ -ui=filer
+      \ -resume -sync file
+      \ -source-option-file-path=`t:->get('ddu_ui_filer_path', getcwd())`
+      \ -source-option-file-columns=filename
+      \ <CR>
 " }}}
 
 " hook_source {{{
@@ -8,6 +15,8 @@ autocmd MikanAutoCmd TabEnter,WinEnter,CursorHold,FocusGained *
 " }}}
 
 " ddu-filer {{{
+nnoremap <buffer> <Space>
+      \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
 nnoremap <buffer> q
       \ <Cmd>call ddu#ui#do_action('quit')<CR>
 nnoremap <buffer><silent> a

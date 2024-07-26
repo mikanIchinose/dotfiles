@@ -4,8 +4,9 @@ import {
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.9/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.0.9/deps.ts";
+} from "https://deno.land/x/dpp_vim@v0.3.1/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.3.1/deps.ts";
+import { expandGlob } from "https://deno.land/std@0.224.0/fs/expand_glob.ts";
 
 type Toml = {
   hooks_file?: string;
@@ -48,66 +49,41 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
 
-    // load toml plugins
-    const tomls: Toml[] = [];
-    for (
-      const tomlFile of [
-        "$BASE_DIR/base.toml",
-        "$BASE_DIR/dpp.toml",
-      ]
-    ) {
-      const toml = await args.dpp.extAction(
+    const tomlPromises = [
+      { path: "$BASE_DIR/base.toml", lazy: false },
+      { path: "$BASE_DIR/dpp.toml", lazy: false },
+      { path: "$BASE_DIR/lazy.toml", lazy: true },
+      { path: "$BASE_DIR/denops.toml", lazy: true },
+      { path: "$BASE_DIR/ddc.toml", lazy: true },
+      { path: "$BASE_DIR/ddu.toml", lazy: true },
+    ].map((toml) => {
+      return args.dpp.extAction(
         args.denops,
         context,
         options,
         "toml",
         "load",
         {
-          path: tomlFile,
+          path: toml.path,
           options: {
-            lazy: false,
+            lazy: toml.lazy,
           },
         },
-      ) as Toml | undefined;
-
-      if (toml) {
-        tomls.push(toml);
-      }
-    }
-    for (
-      const tomlFile of [
-        "$BASE_DIR/lazy.toml",
-        "$BASE_DIR/denops.toml",
-        "$BASE_DIR/ddc.toml",
-        "$BASE_DIR/ddu.toml",
-      ]
-    ) {
-      const toml = await args.dpp.extAction(
-        args.denops,
-        context,
-        options,
-        "toml",
-        "load",
-        {
-          path: tomlFile,
-          options: {
-            lazy: true,
-          },
-        },
-      ) as Toml | undefined;
-
-      if (toml) {
-        tomls.push(toml);
-      }
-    }
+      ) as Promise<Toml | undefined>;
+    });
+    const tomls = await Promise.all(tomlPromises);
 
     const plugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
     const hooksFiles: string[] = [];
-    tomls.forEach((toml) => {
-      toml.plugins?.forEach((plugin) => {
+    for (const toml of tomls) {
+      if (!toml) {
+        continue;
+      }
+
+      for (const plugin of toml.plugins ?? []) {
         plugins[plugin.name] = plugin;
-      });
+      }
 
       Object.keys(toml.ftplugins ?? {}).forEach((filetype) => {
         if (toml.ftplugins) {
@@ -122,7 +98,7 @@ export class Config extends BaseConfig {
       if (toml.hooks_file) {
         hooksFiles.push(toml.hooks_file);
       }
-    });
+    }
 
     const localPlugins = await args.dpp.extAction(
       args.denops,
@@ -142,17 +118,20 @@ export class Config extends BaseConfig {
           "dpp-*",
         ],
       },
-    ) as Plugin[];
-    localPlugins.forEach((plugin) => {
-      if (plugin.name in plugins) {
-        plugins[plugin.name] = Object.assign(
-          plugins[plugin.name],
-          plugin,
-        );
-      } else {
-        plugins[plugin.name] = plugin;
-      }
-    });
+    ) as Plugin[] | undefined;
+
+    if (localPlugins) {
+      localPlugins.forEach((plugin) => {
+        if (plugin.name in plugins) {
+          plugins[plugin.name] = Object.assign(
+            plugins[plugin.name],
+            plugin,
+          );
+        } else {
+          plugins[plugin.name] = plugin;
+        }
+      });
+    }
 
     const lazyResult = await args.dpp.extAction(
       args.denops,
@@ -165,21 +144,17 @@ export class Config extends BaseConfig {
       },
     ) as LazyMakeStateResult | undefined;
 
-    const config = {
-      checkFiles: await fn.globpath(
-        args.denops,
-        Deno.env.get("BASE_DIR"),
-        "*",
-        1,
-        1,
-      ) as unknown as string[],
+    const checkFiles = [];
+    for await (const file of expandGlob(`${Deno.env.get("BASE_DIR")}/*`)) {
+      checkFiles.push(file.path);
+    }
+
+    return {
+      checkFiles,
       ftplugins,
       hooksFiles,
       plugins: lazyResult?.plugins ?? [],
       stateLines: lazyResult?.stateLines ?? [],
     };
-
-    return config;
   }
 }
-

@@ -27,14 +27,12 @@ on_source = 'ddc.vim'
 repo      = 'Shougo/ddc-source-lsp'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'hrsh7th/vim-vsnip'
+repo      = 'hrsh7th/vim-vsnip'
 on_source = 'ddc.vim'
 [[plugins]]
-repo = 'uga-rosa/ddc-source-vsnip'
+repo      = 'uga-rosa/ddc-source-vsnip'
+depends   = 'vim-vsnip'
 on_source = 'ddc.vim'
-#[[plugins]]
-#repo = 'hrsh7th/vim-vsnip-integ'
-#on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'Shougo/ddc-source-cmdline'
 on_source = 'ddc.vim'
@@ -56,8 +54,23 @@ on_source = 'ddc.vim'
 repo      = 'Shougo/ddc-filter-matcher_head'
 on_source = 'ddc.vim'
 [[plugins]]
+repo      = 'Shougo/ddc-filter-matcher_length'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-matcher_prefix'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-matcher_vimregexp'
+on_source = 'ddc.vim'
+[[plugins]]
 repo      = 'Shougo/ddc-filter-sorter_head'
 on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'Shougo/ddc-filter-sorter_rank'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-converter_remove_overlap'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-converter_truncate_abbr'
 on_source = 'ddc.vim'

@@ -1,11 +1,11 @@
 [[plugins]]
-repo = 'vim-denops/denops.vim'
+repo     = 'vim-denops/denops.vim'
 on_event = ['BufRead', 'CursorHold']
 
 [[plugins]]
-repo = 'vim-skk/skkeleton'
-on_map = { ict = '<Plug>(skkeleton-toggle)' }
-on_event = ['CursorHold']
+repo       = 'vim-skk/skkeleton'
+on_map     = { ict = '<Plug>(skkeleton-toggle)' }
+on_event   = ['CursorHold']
 hooks_file = '$BASE_DIR/plugins/skkeleton.vim'
 
 #[[plugins]]
@@ -16,7 +16,18 @@ hooks_file = '$BASE_DIR/plugins/skkeleton.vim'
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
 depends = 'denops.vim'
-on_cmd = ['Gin', 'GinBranch', 'GinCd', 'GinChaperon', 'GinDiff', 'GinLog', 'GinPatch', 'GinStatus']
-#hook_source = '''
-#let g:gin_proxy_disable_editor = v:true
-#'''
+on_cmd = [
+  'Gin',
+  'GinBranch',
+  'GinCd',
+  'GinChaperon',
+  'GinDiff',
+  'GinLog',
+  'GinPatch',
+  'GinStatus',
+]
+hook_source = '''
+nnoremap <C-g>p <Cmd>Gin push<Cr>
+nnoremap <C-g>P <Cmd>Gin pull --autostash<Cr>
+nnoremap <C-g>s <Cmd>GinStatus<Cr>
+'''

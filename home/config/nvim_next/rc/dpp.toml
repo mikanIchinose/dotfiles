@@ -1,11 +1,17 @@
 [[plugins]]
 repo = 'Shougo/dpp.vim'
-hooks_file = '$BASE_DIR/plugins/dpp.vim'
+# rtp = ''
+hook_add = '''
+command! DppUpdate call dpp#async_ext_action('installer', 'update')
+command! DppInstall call dpp#async_ext_action('installer', 'install')
+command! DppCheckNotUpdated call dpp#async_ext_action('installer', 'checkNotUpdated')
+'''
 
 # extension
 [[plugins]]
 repo = 'Shougo/dpp-ext-lazy'
 on_source = 'dpp.vim'
+# rtp = ''
 [[plugins]]
 repo = 'Shougo/dpp-ext-toml'
 on_source = 'dpp.vim'
