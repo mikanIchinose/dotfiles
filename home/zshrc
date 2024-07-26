@@ -1,6 +1,6 @@
 [ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
 
-[ -f "/Users/solenoid/.ghcup/env" ] && source "/Users/solenoid/.ghcup/env"
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="$HOME/.local/nvim/bin:$PATH"
@@ -47,3 +47,4 @@ if [[ $WITHOUT_FISH == "yes" ]]; then
 else
   type fish &> /dev/null && exec fish
 fi
+

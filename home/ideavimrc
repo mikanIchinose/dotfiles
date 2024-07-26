@@ -61,16 +61,14 @@ xnoremap v V
 " switch buffer
 nnoremap <A-l> :bn<CR>
 nnoremap <A-h> :bp<CR>
-" restart
 nnoremap <Leader><C-r> :action RestartIde<CR>
 nnoremap <Leader><C-c> :action InvalidateCaches<CR>
-" start app
 nnoremap <Leader>ar :action Run<CR>
-" debug app
 nnoremap <Leader>ad :action Debug<CR>
-" sync project
 nnoremap <Leader>sp :action Android.SyncProject<CR>
 nnoremap <Leader>cc :action Clean<CR>
 nnoremap <Leader>cp :action CleanGradleProject<CR>
 nnoremap <Leader>cr :action RearrangeCode<CR>
+nnoremap <Leader>ff :action SearchEverywhere<CR>
+nnoremap <Leader>fr :action FindInPath<CR>
 " ------------------------------------------------------------------------------

@@ -12,8 +12,8 @@ switch (uname)
   case Darwin
     source $HOME/.config/fish/aliases_mac.fish
     # set -x JAVA_HOME "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+    # set -x PATH "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin" $PATH
     set -x ANDROID_HOME "$HOME/Library/Android/sdk"
-    set -x PATH "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin" $PATH
     set -x PATH \
       "$ANDROID_HOME/platform-tools" \
       "$ANDROID_HOME/emulator" \

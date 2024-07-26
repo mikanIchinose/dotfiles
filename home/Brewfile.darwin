@@ -1,6 +1,5 @@
-tap "homebrew/cask"
-tap "homebrew/cask-versions"
-tap "homebrew/services"
+# tap "homebrew/cask-versions"
+# tap "homebrew/services"
 
 # font
 # tap "homebrew/cask-fonts"
@@ -19,7 +18,6 @@ brew "lazygit"
 # brew "git-now"
 # brew "commitizen"
 # brew "gitlint"
-# brew "gitui"
 
 # flutter
 # tap "leoafarias/fvm"
@@ -46,7 +44,6 @@ brew "cocoapods"
 brew "gpg"
 brew "kdoctor"
 brew "gum"
-brew "llvm"
 brew "topgrade"
 brew "aria2"
 brew "scrcpy" # android screen share by adb
@@ -64,50 +61,27 @@ brew "silicon"
 tap "jakewharton/repo"
 brew "JakeWharton/repo/dependency-tree-diff"
 brew "curl"
-# brew "asdf"
-# brew "offlineimap" # imap offline support
-# brew "neomutt" # mail client
-# brew "rclone" # better rsync
-# brew "neofetch" # なんか格好いいやつ
-# brew "tidy-html5" # need for rest.nvim
-# brew "shpotify" # spotify for terminal
-# brew "serverless"
-# brew "flyctl"
-# brew "just" # better make
-# brew "luarocks"
-# brew "wtfutil"
-# brew "gcc"
-# brew "yt-dlp"
+brew "fastfetch"
+brew "yazi"
+brew "dagger/tap/dagger"
+brew "difftastic"
+brew "coreutils"
+# brew "llvm"
 
 # lang
 brew "go"
-# brew "jsonnet"
+brew "clojure/tools/clojure"
+brew "leiningen"
 # brew "dhall"
 # brew "dhall-yaml"
 
-# emacs
-# tap "d12frosted/emacs-plus" # emacs
-# brew "emacs-plus@28", args: ["with-xwidgets", "with-imagemagick", "with-native-comp"]
-# cask "emacs"
-# brew "sqlite" # used by org-roam
-# brew "mermaid-cli"
-# brew "graphviz"
-
 # browser
 cask "google-chrome"
-cask "biscuit"
 cask "arc"
-# cask "vivaldi"
-# cask "firefox"
-# cask "brave-browser"
-# cask "microsoft-edge"
 
 # terminal
 tap "wez/wezterm"
 cask "wezterm"
-# cask "iterm2" # なんやかんやこれを使ってしまう
-# cask "kitty" # 可もなく不可もなく
-# cask "alacritty" # タブがないからなー
 
 # gui
 cask "jetbrains-toolbox"
@@ -120,26 +94,17 @@ cask "google-japanese-ime"
 cask "rectangle"
 cask "google-drive"
 cask "notion"
-cask "blackhole-2ch"
+cask "notion-calendar"
 cask "obs"
-cask "microsoft-teams"
 cask "figma"
 cask "thunderbird"
 cask "visual-studio-code"
-cask "gather"
-# cask "adobe-creative-cloud"
-# cask "google-drive" # バージョンアップによるプロセスキルを回避したいのでインストールしない
-# cask "kindle"
+cask "discord"
+cask "spotify"
+cask "docker" # need for dagger
+cask "steam"
 # cask "flipper"
-# cask "docker"
 # cask "keycastr"
-# cask "zsa-wally"
 # cask "cyberduck"
 # cask "box-drive"
 # cask "ngrok"
-# cask "meetingbar"
-# cask "disk-drill"
-# cask "spotify"
-# cask "coscreen"
-# cask "discord"
-# cask "kensington-trackball-works"

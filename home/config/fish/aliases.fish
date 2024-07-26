@@ -76,3 +76,5 @@ if type -q eza &> /dev/null
   alias ls "eza"
   abbr ll "eza -al"
 end
+
+abbr junkfile 'touch junkfile_(date +"%Y%m%d_%H%M%S").md'

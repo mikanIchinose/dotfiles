@@ -1,7 +1,6 @@
 #git:
 #  paging:
-#    #externalDiffCommand: difft --color=always --display=side-by-side --syntax-highlight=off
 #    pager: delta
-git:
-  paging:
-    externalDiffCommand: difft --color=always
+#git:
+#  paging:
+#    externalDiffCommand: difft --color=always
