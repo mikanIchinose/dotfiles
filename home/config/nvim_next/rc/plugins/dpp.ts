@@ -4,8 +4,8 @@ import {
   ContextBuilder,
   Dpp,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.3.1/types.ts";
-import { Denops, fn } from "https://deno.land/x/dpp_vim@v0.3.1/deps.ts";
+} from "https://deno.land/x/dpp_vim@v1.0.0/types.ts";
+import { Denops, fn } from "https://deno.land/x/dpp_vim@v1.0.0/deps.ts";
 import { expandGlob } from "https://deno.land/std@0.224.0/fs/expand_glob.ts";
 
 type Toml = {

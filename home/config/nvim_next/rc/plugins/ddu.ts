@@ -3,11 +3,11 @@ import {
   ActionFlags,
   BaseActionParams,
   BaseConfig,
-} from "https://deno.land/x/ddu_vim@v5.0.0-pre6/types.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v5.0.0-pre6/base/config.ts";
-import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
-import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.1.0/ff.ts";
-import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.1.0/filer.ts";
+} from "https://deno.land/x/ddu_vim@v5.0.0/types.ts";
+import { ConfigArguments } from "https://deno.land/x/ddu_vim@v5.0.0/base/config.ts";
+import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.8.0/file.ts";
+import { Params as FfParams } from "https://deno.land/x/ddu_ui_ff@v1.2.0/ff.ts";
+import { Params as FilerParams } from "https://deno.land/x/ddu_ui_filer@v1.2.0/filer.ts";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
