@@ -65,8 +65,9 @@ export class Config extends BaseConfig {
           // sorters: ["sorter_fuzzy"],
           // converters: ["converter_fuzzy"],
           forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
+          minAutoCompleteLength: 1,
           // forceCompletionPattern: "\\(\\w+",
-          dup: "force",
+          // dup: "force",
         },
         vsnip: {
           mark: "snippet",
@@ -91,14 +92,14 @@ export class Config extends BaseConfig {
         "shell-native": {
           shell: "fish",
         },
-        "lsp": {
-          // snippetEngine: async (body: string) => {
-          //   await args.denops.call("vsnip#anonymous", body);
-          // },
-          // confirmBehavior: "replace",
-          // enableResolveItem: true,
-          // enableAdditionalTextEdit: true,
-          // enableDisplayDetail: true,
+        lsp: {
+          snippetEngine: async (body: string) => {
+            await args.denops.call("vsnip#anonymous", body);
+          },
+          confirmBehavior: "replace",
+          enableResolveItem: true,
+          enableAdditionalTextEdit: true,
+          enableDisplayDetail: true,
         },
       },
       postFilters: ["sorter_head"],
@@ -141,12 +142,12 @@ export class Config extends BaseConfig {
     for (
       const filetype of [
         "css",
-        // "html",
+        "html",
         "typescript",
         "typescriptreact",
         "tsx",
         "vue",
-        // "markdown",
+        "markdown",
         "graphql",
         "yaml",
         "json",
@@ -159,16 +160,9 @@ export class Config extends BaseConfig {
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        // sources: ["lsp", "around", "file", "vsnip"],
-        sources: ["lsp"],
+        sources: ["lsp", "around", "file", "vsnip"],
       });
     }
-    args.contextBuilder.patchFiletype("markdown", {
-      sources: ["lsp", "around", "file", "vsnip"],
-    });
-    args.contextBuilder.patchFiletype("html", {
-      sources: ["lsp", "around", "file", "vsnip"],
-    });
 
     // args.contextBuilder.patchFiletype("lua", {
     //   sources: ["codeium", "lsp", "nvim-lua", "around"],

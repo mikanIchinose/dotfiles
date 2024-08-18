@@ -6,10 +6,10 @@ require('mason-lspconfig').setup({
     "vtsls",
     "denols",
     "volar",
-    "html",
+    -- "html", // autocompleteの妨げになってしまう
     "emmet_language_server",
     "cssls",
-    "unocss",
+    -- "unocss",
     "taplo",
     "jsonls",
     "yamlls",
@@ -45,15 +45,15 @@ require('mason-lspconfig').setup_handlers({
     }
 
     if server_name == '' then
-    elseif server_name == 'unocss' then
-      opts.filetypes = {
-        "html",
-        "markdown",
-        "javascriptreact",
-        "typescriptreact",
-        "vue",
-        "svelte",
-      }
+      -- elseif server_name == 'unocss' then
+      --   opts.filetypes = {
+      --     "html",
+      --     "markdown",
+      --     "javascriptreact",
+      --     "typescriptreact",
+      --     "vue",
+      --     "svelte",
+      --   }
     elseif server_name == 'vtsls' then
       if not is_node_repo then return end
 
@@ -249,5 +249,16 @@ require('mason-lspconfig').setup_handlers({
 
     nvim_lsp[server_name].setup(opts)
   end
+})
+
+require('lspconfig').unocss.setup({
+  filetypes = {
+    "html",
+    "markdown",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "svelte",
+  }
 })
 --- }}}
