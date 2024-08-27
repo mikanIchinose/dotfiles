@@ -6,8 +6,8 @@ import {
   type ExtOptions,
   type MultipleHook,
   type Plugin,
-} from "jsr:@shougo/dpp-vim@~2.2.0/types";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.2.0/utils";
+} from "jsr:@shougo/dpp-vim@~2.3.0/types";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.3.0/utils";
 
 import type { Denops } from "jsr:@denops/std@~7.0.1";
 import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
@@ -27,7 +27,7 @@ import type {
 import type {
   Ext as TomlExt,
   Params as TomlParams,
-} from "jsr:@shougo/dpp-ext-toml@~1.1.0";
+} from "jsr:@shougo/dpp-ext-toml@~1.2.0";
 
 export class Config extends BaseConfig {
   override async config(args: {
