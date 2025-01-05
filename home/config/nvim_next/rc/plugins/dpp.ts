@@ -1,40 +1,41 @@
 import {
+  type ContextBuilder,
+  type ExtOptions,
+  type Plugin,
+} from "jsr:@shougo/dpp-vim@~4.0.0/types";
+import {
   BaseConfig,
   type ConfigReturn,
-  type ContextBuilder,
-  type Dpp,
-  type ExtOptions,
   type MultipleHook,
-  type Plugin,
-} from "jsr:@shougo/dpp-vim@~2.3.0/types";
-import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~2.3.0/utils";
-
-import type { Denops } from "jsr:@denops/std@~7.0.1";
-import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
+} from "jsr:@shougo/dpp-vim@~4.0.0/config";
+import { Protocol } from "jsr:@shougo/dpp-vim@~4.0.0/protocol";
+import { mergeFtplugins } from "jsr:@shougo/dpp-vim@~4.0.0/utils";
 
 import type {
   Ext as LazyExt,
-  Params as LazyParams,
   LazyMakeStateResult,
-} from "jsr:@shougo/dpp-ext-lazy@~1.4.0";
+  Params as LazyParams,
+} from "jsr:@shougo/dpp-ext-lazy@~1.5.0";
 import type {
   Ext as LocalExt,
   Params as LocalParams,
-} from "jsr:@shougo/dpp-ext-local@~1.2.0";
+} from "jsr:@shougo/dpp-ext-local@~1.3.0";
 import type {
   Params as PackspecParams,
-} from "jsr:@shougo/dpp-ext-packspec@~1.2.0";
+} from "jsr:@shougo/dpp-ext-packspec@~1.3.0";
 import type {
   Ext as TomlExt,
   Params as TomlParams,
-} from "jsr:@shougo/dpp-ext-toml@~1.2.0";
+} from "jsr:@shougo/dpp-ext-toml@~1.3.0";
+
+import type { Denops } from "jsr:@denops/std@~7.4.0";
+import { expandGlob } from "jsr:@std/fs@~1.0.0/expand-glob";
 
 export class Config extends BaseConfig {
   override async config(args: {
     denops: Denops;
     contextBuilder: ContextBuilder;
     basePath: string;
-    dpp: Dpp;
   }): Promise<ConfigReturn> {
     const inlineVimrcs = [
       "$BASE_DIR/keybinding.vim",
@@ -43,11 +44,11 @@ export class Config extends BaseConfig {
     args.contextBuilder.setGlobal({
       inlineVimrcs: inlineVimrcs,
       protocols: ["git"],
-      protocolParams: {
-        git: {
-          partialClone: true,
-        },
-      },
+      // protocolParams: {
+      //   git: {
+      //     partialClone: true,
+      //   },
+      // },
       extParams: {
         installer: {
           checkDiff: true,
@@ -58,7 +59,10 @@ export class Config extends BaseConfig {
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
-    const protocols = await args.dpp.getProtocols(args.denops, options);
+    const protocols = await args.denops.dispatcher.getProtocols() as Record<
+      string,
+      Protocol
+    >;
 
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
@@ -69,12 +73,9 @@ export class Config extends BaseConfig {
       TomlExt | undefined,
       ExtOptions,
       TomlParams,
-    ] = await args.dpp.getExt(
-      args.denops,
-      options,
+    ] = await args.denops.dispatcher.getExt(
       "toml",
     ) as [TomlExt | undefined, ExtOptions, TomlParams];
-
 
     if (tomlExt) {
       const action = tomlExt.actions.load;
@@ -85,7 +86,7 @@ export class Config extends BaseConfig {
         { path: "$BASE_DIR/denops.toml", lazy: true },
         { path: "$BASE_DIR/ddc.toml", lazy: true },
         { path: "$BASE_DIR/ddu.toml", lazy: true },
-      ].map((tomlFile) => 
+      ].map((tomlFile) =>
         action.callback({
           denops: args.denops,
           context,
@@ -125,9 +126,7 @@ export class Config extends BaseConfig {
       LocalExt | undefined,
       ExtOptions,
       LocalParams,
-    ] = await args.dpp.getExt(
-      args.denops,
-      options,
+    ] = await args.denops.dispatcher.getExt(
       "local",
     ) as [LocalExt | undefined, ExtOptions, LocalParams];
     if (localExt) {
@@ -167,9 +166,7 @@ export class Config extends BaseConfig {
       LazyExt | undefined,
       ExtOptions,
       LazyParams,
-    ] = await args.dpp.getExt(
-      args.denops,
-      options,
+    ] = await args.denops.dispatcher.getExt(
       "lazy",
     ) as [LazyExt | undefined, ExtOptions, PackspecParams];
     let lazyResult: LazyMakeStateResult | undefined = undefined;
@@ -188,6 +185,7 @@ export class Config extends BaseConfig {
         },
       });
     }
+
     const checkFiles = [];
     for await (const file of expandGlob(`${Deno.env.get("BASE_DIR")}/*`)) {
       checkFiles.push(file.path);

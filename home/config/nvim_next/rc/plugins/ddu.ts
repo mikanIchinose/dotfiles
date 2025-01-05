@@ -1,13 +1,14 @@
 import {
-  ActionArguments,
+  type ActionArguments,
   ActionFlags,
-  BaseActionParams,
+} from "jsr:@shougo/ddu-vim@~7.0.0/types";
+import {
   BaseConfig,
-} from "jsr:@shougo/ddu-vim@~5.0.0/types";
-import { ConfigArguments } from "jsr:@shougo/ddu-vim@~5.0.0/config";
-import { ActionData } from "jsr:@shougo/ddu-kind-file@~0.8.0";
-import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.2.0";
-import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.2.0";
+  type ConfigArguments,
+} from "jsr:@shougo/ddu-vim@~7.0.0/config";
+import { type ActionData } from "jsr:@shougo/ddu-kind-file@~0.9.0";
+import { type Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.5.0";
+import { type Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.5.0";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
@@ -62,11 +63,11 @@ export class Config extends BaseConfig {
         dein_update: {
           matchers: ["matcher_dein_update"],
         },
-        buffer: {
-          actions: {
-            deleteBuffers,
-          },
-        },
+        // buffer: {
+        //   actions: {
+        //     deleteBuffers,
+        //   },
+        // },
         markdown: {
           sorters: [],
         },
@@ -95,9 +96,9 @@ export class Config extends BaseConfig {
         },
         file: {
           defaultAction: "open",
-          actions: {
-            openFileRightWindow,
-          },
+          // actions: {
+          //   openFileRightWindow,
+          // },
         },
       },
       kindParams: {},
@@ -111,21 +112,21 @@ export class Config extends BaseConfig {
 }
 
 // 右隣のウィンドウでファイルを開く
-async function openFileRightWindow(
-  args: ActionArguments<BaseActionParams>,
-): Promise<ActionFlags> {
-  const action = args.items[0]?.action as ActionData;
-  await args.denops.cmd("wincmd l");
-  await args.denops.cmd(`edit ${action.path}`);
-  return ActionFlags.None;
-}
+// async function openFileRightWindow(
+//   args: ActionArguments<BaseActionParams>,
+// ): Promise<ActionFlags> {
+//   const action = args.items[0]?.action as ActionData;
+//   await args.denops.cmd("wincmd l");
+//   await args.denops.cmd(`edit ${action.path}`);
+//   return ActionFlags.None;
+// }
 
-async function deleteBuffers(
-  args: ActionArguments<BaseActionParams>,
-): Promise<ActionFlags> {
-  for (const item of args.items) {
-    const action = item.action as ActionData;
-    await args.denops.cmd(`bdelete ${action.bufNr}`);
-  }
-  return ActionFlags.RefreshItems;
-}
+// async function deleteBuffers(
+//   args: ActionArguments<BaseActionParams>,
+// ): Promise<ActionFlags> {
+//   for (const item of args.items) {
+//     const action = item.action as ActionData;
+//     await args.denops.cmd(`bdelete ${action.bufNr}`);
+//   }
+//   return ActionFlags.RefreshItems;
+// }

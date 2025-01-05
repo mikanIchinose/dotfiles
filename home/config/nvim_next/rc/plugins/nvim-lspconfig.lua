@@ -6,7 +6,8 @@ require('vim.lsp._watchfiles')._watchfunc = function()
 end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
     update_in_insert = false,
     virtual_text = {
       format = function(diagnostic)
@@ -18,10 +19,11 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
         )
       end
     },
-})
+  }
+)
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  group = vim.api.nvim_create_augroup('LspKeymap', {}),
   callback = function(ev)
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)

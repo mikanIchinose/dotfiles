@@ -1,11 +1,16 @@
-import { BaseConfig } from "jsr:@shougo/ddc-vim@~6.0.0/types";
-import { ConfigArguments } from "jsr:@shougo/ddc-vim@~6.0.0/config";
+// deno-lint-ignore-file require-await
+import { type DdcItem } from "jsr:@shougo/ddc-vim@~9.0.0/types";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.0.0/config";
+import { Denops } from "jsr:@denops/std@~7.3.0";
 
 export class Config extends BaseConfig {
-  // deno-lint-ignore require-await
   override async config(args: ConfigArguments): Promise<void> {
     args.contextBuilder.patchGlobal({
       ui: "pum",
+      dynamicUi: async (_denops: Denops, args: Record<string, unknown>) => {
+        const uiArgs = args as { items: DdcItem[] };
+        return Promise.resolve(uiArgs.items.length === 1 ? "none" : "pum");
+      },
       autoCompleteEvents: [
         "InsertEnter",
         "TextChangedI",
@@ -54,7 +59,7 @@ export class Config extends BaseConfig {
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
-        "lsp": {
+        lsp: {
           mark: "lsp",
           //dup: "keep",
           //keywordPattern: "\k+",
@@ -80,8 +85,8 @@ export class Config extends BaseConfig {
         },
         skkeleton: {
           mark: "skk",
-          matchers: ["skkeleton"],
-          sorters: [],
+          // matchers: ["skkeleton"],
+          // sorters: [],
           isVolatile: true,
         },
       },

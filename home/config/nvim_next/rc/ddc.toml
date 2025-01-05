@@ -12,6 +12,10 @@ hooks_file = '$BASE_DIR/plugins/pum.vim'
 repo      = 'Shougo/ddc-ui-pum'
 depends   = 'pum.vim'
 on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-ui-none'
+depends   = 'pum.vim'
+on_source = 'ddc.vim'
 
 # source
 [[plugins]]
@@ -74,3 +78,42 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo      = 'Shougo/ddc-filter-converter_truncate_abbr'
 on_source = 'ddc.vim'
+
+[[multiple_hooks]]
+plugins = ['ddc.vim', 'skkeleton']
+hook_source = '''
+autocmd MikanAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()
+function! s:skkeleton_pre() abort
+  lua vim.notify("s:skkeleton_pre")
+  " override ddc sources
+  let s:prev_buffer_config = ddc#custom#get_buffer()
+  call ddc#custom#patch_buffer(#{
+          \   sources: ['around', 'skkeleton'],
+          \   sourceOptions: #{
+          \     _: #{
+          \       keywordPattern: '[ァ-ヮア-ンー]+',
+          \     },
+          \   },
+          \ })
+
+  let b:includes = ['markdown']
+  if index(b:includes, &filetype) >= 0
+    call skkeleton#config(#{
+      \ keepState: v:true,
+      \ })
+  else
+    call skkeleton#config(#{
+      \ keepState: v:false,
+      \ })
+  endif
+endfunction
+
+autocmd MikanAutoCmd User skkeleton-disable-pre call s:skkeleton_post_ddc()
+function! s:skkeleton_post_ddc() abort
+  lua vim.notify("s:skkeleton_post_ddc")
+  if 's:prev_buffer_config'->exists()
+    " Restore sources
+    call ddc#custom#set_buffer(s:prev_buffer_config)
+  endif
+endfunction
+'''

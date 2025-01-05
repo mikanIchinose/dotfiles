@@ -1,4 +1,5 @@
 --- lua_source {{{
+require('mason').setup()
 require('mason-lspconfig').setup({
   ensure_installed = {
     "vimls",
@@ -126,6 +127,11 @@ require('mason-lspconfig').setup_handlers({
         },
       }
     elseif server_name == 'jsonls' then
+      opts.filetypes = {
+        "json",
+        "jsonc",
+        "json5",
+      }
       opts.settings = {
         json = {
           schemas = schemas,

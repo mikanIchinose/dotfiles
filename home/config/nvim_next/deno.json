@@ -1,3 +1,7 @@
 {
-  "lock": false
+  "lock": false,
+  "tasks": {
+    "update": "deno run --allow-env --allow-read --allow-write='~/.local,.' --allow-run=git,deno --allow-net=jsr.io jsr:@molt/cli",
+    "update:commit": "deno task -q update --commit"
+  }
 }
