@@ -1,10 +1,4 @@
-# tap "homebrew/cask-versions"
-# tap "homebrew/services"
-
 # font
-# tap "homebrew/cask-fonts"
-# cask "font-fira-code"
-# cask "font-fira-code-nerd-font" # リリースから落とした方がよい
 tap "ryota2357/pleck-jp"
 cask "pleck-jp"
 
@@ -15,9 +9,6 @@ brew "git-delta"
 brew "gh"
 tap "jesseduffield/lazygit"
 brew "lazygit"
-# brew "git-now"
-# brew "commitizen"
-# brew "gitlint"
 
 # flutter
 # tap "leoafarias/fvm"
@@ -53,24 +44,27 @@ brew "desktop-file-utils"  # need for ddu.vim
 brew "awscli"
 brew "gnirehtet" # vpn proxy for android
 brew "rm-improved" # better rm
-brew "procs" # better ps
-brew "sd" # better sed
-brew "xsel" # clipboard
-brew "khal" # calendar
-brew "silicon"
-tap "jakewharton/repo"
-brew "JakeWharton/repo/dependency-tree-diff"
+# brew "procs" # better ps
+# brew "sd" # better sed
+# brew "xsel" # clipboard
+# brew "khal" # calendar
+# brew "silicon"
+# tap "jakewharton/repo"
+# brew "JakeWharton/repo/dependency-tree-diff"
 brew "curl"
-brew "fastfetch"
+# brew "fastfetch"
 brew "yazi"
-brew "dagger/tap/dagger"
-brew "difftastic"
+tap "dagger/tap"
+brew "dagger"
+# brew "difftastic"
 brew "coreutils"
+brew "imagemagick"
 # brew "llvm"
 
 # lang
 brew "go"
-brew "clojure/tools/clojure"
+tap "clojure/tools"
+brew "clojure"
 brew "leiningen"
 # brew "dhall"
 # brew "dhall-yaml"
@@ -100,9 +94,9 @@ cask "figma"
 cask "thunderbird"
 cask "visual-studio-code"
 cask "discord"
-cask "spotify"
 cask "docker" # need for dagger
 cask "steam"
+# cask "spotify" # アプデしたときにダイアログが無限ループしてしまう
 # cask "flipper"
 # cask "keycastr"
 # cask "cyberduck"

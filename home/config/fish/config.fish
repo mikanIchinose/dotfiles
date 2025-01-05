@@ -11,7 +11,7 @@ switch (uname)
     # set -x PATH "$JAVA_HOME/bin" "$PATH"
   case Darwin
     source $HOME/.config/fish/aliases_mac.fish
-    # set -x JAVA_HOME "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+    set -x JAVA_HOME "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     # set -x PATH "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin" $PATH
     set -x ANDROID_HOME "$HOME/Library/Android/sdk"
     set -x PATH \
@@ -35,6 +35,8 @@ if type -q brew &> /dev/null
       set -gx fish_complete_path $fish_complete_path "$HOMEBREW_VENDOR_COMPLETIONS"
   end
 end
+
+set -x PATH $HOME/.cache/dpp/repos/github.com/liquidz/vim-iced/bin $PATH
 
 #if type -q starship &> /dev/null
 #  starship init fish | source
@@ -87,7 +89,3 @@ if type -q navi &> /dev/null
 end
 
 # source ~/.config/fish/completions/cargo-make.fish
-
-# tabtab source for packages
-# uninstall by removing these lines
-[ -f ~/.config/tabtab/fish/__tabtab.fish ]; and . ~/.config/tabtab/fish/__tabtab.fish; or true
