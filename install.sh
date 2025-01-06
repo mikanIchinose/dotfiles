@@ -30,17 +30,6 @@ nix run nix-darwin -- switch --flake ~/dotfiles#mikan
 # gh auth login
 /run/current-system/sw/bin/gh auth login
 
-# install go tools
-for var in $(cat ~/dotfiles/gofile)
-do
-  /run/current-system/sw/bin/go install "$var"
-done
-# install rust tools
-for var in $(cat ~/dotfiles/cargofile)
-do
-  /run/current-system/sw/bin/cargo install $var
-done
-
 # import ghq repositories
 cat ~/local/.ghqfile | /run/current-system/sw/bin/ghq get --parallel --update --shallow
 
@@ -51,3 +40,10 @@ open /Applications/JetBrains\ Toolbox.app
 open /Applications/Notion.app
 open /Applications/Notion\ Calendar.app
 open /Applications/Karabiner-Elements.app
+
+echo "finish"
+echo "next step:"
+echo "  1. restart terminal"
+echo "  2. run install tools script"
+echo "bash -c ~/dotfiles/__script/install_go_tool.sh && bash -c ~/dotfiles/__script/install_cargo_tool.sh"
+
