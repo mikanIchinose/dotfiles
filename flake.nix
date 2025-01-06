@@ -44,6 +44,9 @@
       
       homebrew = {
         enable = true;
+        brews = [
+          "openssl" # need for cargo-update
+        ];
         casks = [
           "arc"
           "wezterm"
