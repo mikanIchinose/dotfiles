@@ -1,4 +1,4 @@
-export SUDO_ASKPASS="$HOME/.secret/.ask_pass"
+#export SUDO_ASKPASS="$HOME/.secret/.ask_pass"
 
 export EDITOR=nvim
 export LANG=en_US.UTF-8
