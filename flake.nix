@@ -13,37 +13,65 @@
     configuration = { pkgs, config, ... }: {
       # skip password
       environment.etc = {
-      	"sudoers.d/10-nix-commands".text = let 
-	  commands = [
-	    "/run/current-system/sw/bin/darwin-rebuild"
-	    "/run/current-system/sw/bin/nix*"
-	    "/run/current-system/sw/bin/ln"
-	    "/nix/store/*/activate"
-	    "/bin/launchctl"
-	  ];
-	  commandsString = builtins.concatStringsSep ", " commands;
-	in ''
-	  %admin ALL=(ALL:ALL) NOPASSWD: ${commandsString}
-	'';
+        "sudoers.d/10-nix-commands".text = let 
+        commands = [
+          "/run/current-system/sw/bin/darwin-rebuild"
+          "/run/current-system/sw/bin/nix*"
+          "/run/current-system/sw/bin/ln"
+          "/nix/store/*/activate"
+          "/bin/launchctl"
+        ];
+        commandsString = builtins.concatStringsSep ", " commands;
+      in ''
+        %admin ALL=(ALL:ALL) NOPASSWD: ${commandsString}
+      '';
       };
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [ pkgs.neovim
+          pkgs.curl
           pkgs.git
           pkgs.gh
           pkgs.ghq
           pkgs.go
+          pkgs.fish
+          pkgs.deno
+          pkgs.starship
+          pkgs.lazygit
+          pkgs.ripgrep
+          pkgs.ripgrep-all
+          pkgs.fd
+          pkgs.eza
+          pkgs.zoxide
+          pkgs.bat
+          pkgs.gum
+          pkgs.scrcpy
+          pkgs.desktop-file-utils
+          pkgs.rm-improved
+          pkgs.yazi
         ];
       
       homebrew = {
         enable = true;
         casks = [
+          "arc"
           "wezterm"
-	  "slack"
-	  "jetbrains-toolbox"
-	  "arc"
-	  "keepassxc"
+          "jetbrains-toolbox"
+          "slack"
+          "karabiner-elements"
+          "zoom"
+          "keepassxc"
+          "raycast"
+          "rectangle"
+          "notion"
+          "notion-calendar"
+          "figma"
+          "visual-studio-code"
+          "discord"
+          "docker" # need for dagger
+          #"google-japanese-ime"
+          #"google-drive"
         ];
       };
 
@@ -83,7 +111,7 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
 
       system.defaults = {
-      	dock.autohide = true;
+        dock.autohide = true;
       };
     };
   in

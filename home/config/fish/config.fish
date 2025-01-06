@@ -1,6 +1,6 @@
 set fish_greeting
 
-source ~/.secret/.secrets.fish
+# source ~/.secret/.secrets.fish
 source $HOME/.config/fish/aliases.fish
 
 switch (uname)
@@ -49,6 +49,9 @@ set -x PATH $HOME/.cache/dpp/repos/github.com/liquidz/vim-iced/bin $PATH
 
 if type -q zoxide &> /dev/null
   zoxide init fish | source
+end
+if type -q starship &> /dev/null
+  starship init fish | source
 end
 
 # navi: An interactive cheatsheet tool for the command-line
