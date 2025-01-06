@@ -14,16 +14,15 @@ fi
 echo "softwareupdate --install-rosetta"
 softwareupdate --install-rosetta
 # install nix
-if ! command -v nix 2>&1 >/dev/null
-then
+if ! command -v /run/current-system/sw/bin/nix 2>&1 >/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 # clone dotfiles
 nix-shell -p git --run "git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles"
 nix run nix-darwin -- switch --flake ~/dotfiles#mikan
 # install dotfiles
-/run/current-system/sw/bin/go install github.com/rhysd/dotfiles
+go install github.com/rhysd/dotfiles@latest
 ~/go/bin/dotfiles link ~/dotfiles
 # auth github
 gh auth login
