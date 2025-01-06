@@ -16,7 +16,7 @@ if ! command -v /run/current-system/sw/bin/nix 2>&1 >/dev/null; then
 fi
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 echo "clone dotfiles"
-nix-shell -p git --run "git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles"
+nix-shell -p git --run "git clone --depth 1 https://github.com/mikanIchinose/dotfiles.git ~/dotfiles"
 read -p "Setup nix-darwin...(Press Enter!)"
 echo "nix run nix-darwin -- switch --flake ~/dotfiles#mikan"
 nix run nix-darwin -- switch --flake ~/dotfiles#mikan
