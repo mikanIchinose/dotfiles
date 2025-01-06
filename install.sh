@@ -25,3 +25,5 @@ nix run nix-darwin -- switch --flake ~/dotfiles#mikan
 # install dotfiles
 /run/current-system/sw/bin/go install github.com/rhysd/dotfiles
 ~/go/bin/dotfiles link ~/dotfiles
+# auth github
+gh auth login
