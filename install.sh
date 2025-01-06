@@ -20,8 +20,10 @@ fi
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 echo "clone dotfiles"
 nix-shell -p git --run "git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles"
+read -p "Setup nix-darwin...(Press Enter!)"
 echo "nix run nix-darwin -- switch --flake ~/dotfiles#mikan"
 nix run nix-darwin -- switch --flake ~/dotfiles#mikan
+read -p "Setup dotfiles...(Press Enter!)"
 echo "link dotfiles"
 /run/current-system/sw/bin/go install github.com/rhysd/dotfiles@latest
 ~/go/bin/dotfiles link ~/dotfiles
