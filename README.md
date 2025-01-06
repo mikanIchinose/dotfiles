@@ -15,6 +15,9 @@ ASK_PASS="~/.secret/.ask_pass" /bin/bash -c "$(curl -fsSL https://raw.githubuser
 ## install(nix)
 
 ```bash
+# 0. restart macOS
+# まずは再起動しろ！
+
 # 1. copy local directory from SD-card
 
 # 2. run install script
