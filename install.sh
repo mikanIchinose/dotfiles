@@ -28,14 +28,14 @@ echo "gh auth login"
 /run/current-system/sw/bin/gh auth login
 
 # install go tools
-for var in $(cat ~/dotfiles/gofiles)
+for var in $(cat ~/dotfiles/gofile)
 do
-  go install "$var"
+  /run/current-system/sw/bin/go install "$var"
 done
 # install rust tools
-for var in $(cat ~/dotfiles/cargofiles)
+for var in $(cat ~/dotfiles/cargofile)
 do
-  cargo install $var
+  /run/current-system/sw/bin/cargo install $var
 done
 
 # import ghq repositories
