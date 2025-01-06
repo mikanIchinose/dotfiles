@@ -5,7 +5,7 @@ set -u
 
 echo "install xcode command line tools if needed"
 pathXCodeCommandLineTools=$(xcode-select -p 2>&1)
-if ["$pathXCodeCommandLineTools" != "/Library/Developer/CommandLineTools"]; then
+if [ "$pathXCodeCommandLineTools" != "/Library/Developer/CommandLineTools" ]; then
   echo "xcode-select --install"
   xcode-select --install
   read -p "Installing XCode Command Line Tools..."
