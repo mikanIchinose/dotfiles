@@ -26,3 +26,26 @@ echo "link dotfiles"
 ~/go/bin/dotfiles link ~/dotfiles
 echo "gh auth login"
 /run/current-system/sw/bin/gh auth login
+
+# install go tools
+for var in $(cat ~/dotfiles/gofiles)
+do
+  go install "$var"
+done
+# install rust tools
+for var in $(cat ~/dotfiles/cargofiles)
+do
+  cargo install $var
+done
+
+# import ghq repositories
+cat ~/local/.ghqfile | /run/current-system/sw/bin/ghq get --parallel --update --depth 100
+
+# startup gui
+open /Applications/Rectangle.app
+open /Applications/Raycast.app
+open /Applications/JetBrains\ Toolbox.app
+open /Applications/Notion.app
+open /Applications/Notion\ Calendar.app
+open /Applications/Karabiner-Elements.app
+

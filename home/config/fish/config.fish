@@ -3,11 +3,19 @@ set fish_greeting
 # source ~/.secret/.secrets.fish
 source $HOME/.config/fish/aliases.fish
 
-function ghq_backup -d "backup ghq repositories"
+function backup_go -d "backup globally installed go tool"
+  gup list | awk -F'@' '{print $1}' | awk '{print $2 "@latest"}' > ~/dotfiles/gofile
+end
+
+function backup_cargo -d "backup globally installed rust tool"
+  ls ~/.cargo/bin/ > ~/dotfiles/cargofile
+end
+
+function backup_ghq -d "backup ghq repositories"
   ghq list > ~/local/.ghqfile
 end
 
-function ghq_import -d "import ghq repositories from ghqfile"
+function import_ghq -d "import ghq repositories from ghqfile"
   cat ~/local/.ghqfile | ghq get --parallel --update
 end
 
