@@ -42,7 +42,7 @@ do
 done
 
 # import ghq repositories
-cat ~/local/.ghqfile | /run/current-system/sw/bin/ghq get --parallel --update --depth 100
+cat ~/local/.ghqfile | /run/current-system/sw/bin/ghq get --parallel --update --shallow
 
 # startup gui
 open /Applications/Rectangle.app
