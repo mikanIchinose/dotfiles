@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 echo "install xcode command line tools if needed"
 pathXCodeCommandLineTools=$(xcode-select -p 2>&1)
 if [ "$pathXCodeCommandLineTools" != "/Library/Developer/CommandLineTools" ]; then
