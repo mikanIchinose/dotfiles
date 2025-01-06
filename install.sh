@@ -3,26 +3,27 @@
 set -e
 set -u
 
-# install xcode command line tools
+echo "install xcode command line tools if needed"
 pathXCodeCommandLineTools=$(xcode-select -p 2>&1)
 if ["$pathXCodeCommandLineTools" != "/Library/Developer/CommandLineTools"]; then
   echo "xcode-select --install"
   xcode-select --install
   read -p "Installing XCode Command Line Tools..."
 fi
-# install rosetta
+echo "install rosetta"
 echo "softwareupdate --install-rosetta"
 softwareupdate --install-rosetta
-# install nix
+echo "install nix if needed"
 if ! command -v /run/current-system/sw/bin/nix 2>&1 >/dev/null; then
-  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
 fi
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-# clone dotfiles
+echo "clone dotfiles"
 nix-shell -p git --run "git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles"
+echo "nix run nix-darwin -- switch --flake ~/dotfiles#mikan"
 nix run nix-darwin -- switch --flake ~/dotfiles#mikan
-# install dotfiles
-go install github.com/rhysd/dotfiles@latest
+echo "link dotfiles"
+/run/current-system/sw/bin/go install github.com/rhysd/dotfiles@latest
 ~/go/bin/dotfiles link ~/dotfiles
-# auth github
-gh auth login
+echo "gh auth login"
+/run/current-system/sw/bin/gh auth login
