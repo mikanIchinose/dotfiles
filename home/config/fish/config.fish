@@ -3,6 +3,14 @@ set fish_greeting
 # source ~/.secret/.secrets.fish
 source $HOME/.config/fish/aliases.fish
 
+function ghq_backup -d "backup ghq repositories"
+  ghq list > ~/local/.ghqfile
+end
+
+function ghq_import -d "import ghq repositories from ghqfile"
+  cat ~/local/.ghqfile | ghq get --parallel --update
+end
+
 switch (uname)
   case Linux
     source $HOME/.config/fish/aliases_linux.fish
