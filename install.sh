@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -e
-set -u
 
 echo "install xcode command line tools if needed"
 pathXCodeCommandLineTools=$(xcode-select -p 2>&1)
