@@ -6,26 +6,15 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, rust-overlay }:
   let
     configuration = { pkgs, config, ... }: {
-      # skip password
-      environment.etc = {
-        "sudoers.d/10-nix-commands".text = let 
-        commands = [
-          "/run/current-system/sw/bin/darwin-rebuild"
-          "/run/current-system/sw/bin/nix*"
-          "/run/current-system/sw/bin/ln"
-          "/nix/store/*/activate"
-          "/bin/launchctl"
-        ];
-        commandsString = builtins.concatStringsSep ", " commands;
-      in ''
-        %admin ALL=(ALL:ALL) NOPASSWD: ${commandsString}
-      '';
-      };
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
@@ -50,6 +39,7 @@
           pkgs.desktop-file-utils
           pkgs.rm-improved
           pkgs.yazi
+          pkgs.nodejs
         ];
       
       homebrew = {
@@ -73,6 +63,11 @@
           #"google-japanese-ime"
           #"google-drive"
         ];
+        onActivation = {
+          autoUpdate = true;
+          upgrade = true;
+          cleanup = "uninstall";
+        };
       };
 
       # make GUI apps findable to spotlight
@@ -130,6 +125,10 @@
             autoMigrate = true;
           };
         }
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [ rust-overlay.overlays.default ];
+          environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
+        })
       ];
     };
   };
