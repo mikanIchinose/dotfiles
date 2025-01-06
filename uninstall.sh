@@ -8,7 +8,7 @@ brew uninstall --force $(brew list)
 brew cleanup
 
 # uninstall nix-darwin
-nix --extra-experimental-features "nix-command flakes" run nix-darwin#darwin-uninstaller --no-confirm
+nix --extra-experimental-features "nix-command flakes" run nix-darwin#darwin-uninstaller
 
 # uninstall nix-store
 nix-store --gc
