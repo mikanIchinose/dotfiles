@@ -15,8 +15,9 @@ require('mason-lspconfig').setup({
     "jsonls",
     "yamlls",
     "rust_analyzer",
-    "hls",
+    -- "hls",
     "clojure_lsp",
+    "nil_ls",
   }
 })
 
@@ -95,8 +96,8 @@ require('mason-lspconfig').setup_handlers({
           },
         },
       }
-    elseif server_name == 'hls' then
-      opts.settings = { single_file_support = true }
+    -- elseif server_name == 'hls' then
+    --   opts.settings = { single_file_support = true }
     elseif server_name == 'taplo' then
       opts = {}
       opts.settings = {

@@ -162,6 +162,7 @@ export class Config extends BaseConfig {
         "python",
         "haskell",
         "clojure",
+        "nix",
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {

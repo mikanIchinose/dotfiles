@@ -7,9 +7,8 @@ tnoremap <C-j> <Plug>(skkeleton-toggle)
 " hook_source {{{
 call skkeleton#config(#{
       \ globalDictionaries: [
-      \   '~/.config/skk-dict/SKK-JISYO.L',
-      \   '~/.config/skk-dict/SKK-JISYO.law',
-      \   '~/.config/skk-dict/zipcode/SKK-JISYO.zipcode',
+      \   '~/ghq/github.com/skk-dev/dict/SKK-JISYO.L',
+      \   '~/ghq/github.com/skk-dev/dict/zipcode/SKK-JISYO.zipcode',
       \ ],
       \ eggLikeNewline: v:true,
       \ registerConvertResult: v:true,
@@ -37,9 +36,8 @@ call skkeleton#register_kanatable('rom', {
 function! s:skkeleton_init() abort
   call skkeleton#config(#{
         \ globalDictionaries: [
-        \   '~/.config/skk-dict/SKK-JISYO.L',
-        \   '~/.config/skk-dict/SKK-JISYO.law',
-        \   '~/.config/skk-dict/zipcode/SKK-JISYO.zipcode',
+      \   '~/ghq/github.com/skk-dev/dict/SKK-JISYO.L',
+      \   '~/ghq/github.com/skk-dev/dict/zipcode/SKK-JISYO.zipcode',
         \ ],
         \ eggLikeNewline: v:true,
         \ registerConvertResult: v:true,
