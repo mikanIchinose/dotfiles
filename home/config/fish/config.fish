@@ -1,7 +1,15 @@
-set fish_greeting
+#set fish_greeting
 
 # source ~/.secret/.secrets.fish
 source $HOME/.config/fish/aliases.fish
+
+function backup
+  backup_ghq
+  backup_go
+  backup_cargo
+  backup_fisher
+  backup_gh_extension
+end
 
 function backup_go -d "backup globally installed go tool"
   gup list | awk -F'@' '{print $1}' | awk '{print $2 "@latest"}' > ~/dotfiles/gofile
@@ -17,6 +25,14 @@ end
 
 function import_ghq -d "import ghq repositories from ghqfile"
   cat ~/local/.ghqfile | ghq get --parallel --update
+end
+
+function backup_fisher
+  fisher list > ~/dotfiles/fishfile
+end
+
+function backup_gh_extension
+  gh extension list | awk '{print $3}' > ~/dotfiles/ghfile
 end
 
 switch (uname)
