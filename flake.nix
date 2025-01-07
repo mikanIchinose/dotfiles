@@ -23,6 +23,7 @@
           pkgs.git
           pkgs.gh
           pkgs.ghq
+          pkgs.delta
           pkgs.go
           pkgs.fish
           pkgs.deno
@@ -40,10 +41,16 @@
           pkgs.rm-improved
           pkgs.yazi
           pkgs.nodejs
+          pkgs.fzf
         ];
       
       homebrew = {
         enable = true;
+        onActivation = {
+          autoUpdate = true;
+          upgrade = true;
+          cleanup = "uninstall";
+        };
         brews = [
           "openssl" # need for cargo-update
         ];
@@ -61,15 +68,12 @@
           "notion-calendar"
           "figma"
           "visual-studio-code"
-          "discord"
           "docker" # need for dagger
           #"google-japanese-ime"
           #"google-drive"
         ];
-        onActivation = {
-          autoUpdate = true;
-          upgrade = true;
-          cleanup = "uninstall";
+        masApps = {
+          "Toggl Track" =1291898086;
         };
       };
 
@@ -109,8 +113,24 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
 
       system.defaults = {
-        dock.autohide = true;
+        dock = {
+          # ドックを自動非表示
+          autohide = true;
+          # 最近開いたアプリは非表示
+          show-recents = false;
+        };
+        NSGlobalDomain = {
+          # ライトモード/ダークモードを自動で切り替える
+          AppleInterfaceStyleSwitchesAutomatically = true;
+          # AppleInterfaceStyle= null;
+          # 初回を小さくしすぎると誤入力のもとになる
+          InitialKeyRepeat = 10;
+          # キーを押しっぱなしにしたあとの入力速度は高速にする
+          KeyRepeat = 1;
+        };
       };
+      # 起動時にサウンドを再生しない
+      system.startup.chime = false;
     };
   in
   {
