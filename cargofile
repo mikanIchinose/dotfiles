@@ -1,6 +1,8 @@
-cargo-cache 
-cargo-make  
-cargo-update
-mocword     
-rates       
-rogcat      
+cargo-cache
+cargo-install-update
+cargo-install-update-config
+cargo-make
+makers
+mocword
+rates
+rogcat
