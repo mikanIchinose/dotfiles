@@ -124,27 +124,42 @@
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
 
-          system.defaults = {
-            dock = {
-              # ドックを自動非表示
-              autohide = true;
-              # 最近開いたアプリは非表示
-              show-recents = false;
-            };
-            NSGlobalDomain = {
-              # ライトモード/ダークモードを自動で切り替える
-              AppleInterfaceStyleSwitchesAutomatically = true;
-              # AppleInterfaceStyle= null;
-              # 初回を小さくしすぎると誤入力のもとになる
-              InitialKeyRepeat = 10;
-              # キーを押しっぱなしにしたあとの入力速度は高速にする
-              KeyRepeat = 1;
-              # alert volume
-              "com.apple.sound.beep.volume" = 0.6065307;
-            };
+          system.defaults.dock = {
+            # ドックを自動非表示
+            autohide = true;
+            # 最近開いたアプリは非表示
+            show-recents = false;
+            # ドックの位置
+            orientation = "bottom";
+            persistent-apps = [
+              "/System/Applications/Launchpad.app"
+            ];
+            tilesize = 30;
           };
+          # ライトモード/ダークモードを自動で切り替える
+          system.defaults.NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = true;
+          # 初回を小さくしすぎると誤入力のもとになる
+          system.defaults.NSGlobalDomain.InitialKeyRepeat = 10;
+          # キーを押しっぱなしにしたあとの入力速度は高速にする
+          system.defaults.NSGlobalDomain.KeyRepeat = 1;
+          # alert volume
+          system.defaults.NSGlobalDomain."com.apple.sound.beep.volume" = 0.6065307;
+          # メニューバーを自動で非表示にする
+          system.defaults.NSGlobalDomain._HIHideMenuBar = true;
           # 起動時にサウンドを再生しない
           system.startup.chime = false;
+          # Finder
+          system.defaults.finder = {
+            _FXSortFoldersFirst = true;
+            # 隠しファイルは非表示
+            AppleShowAllFiles = false;
+            # 検索のスコープ: 現在のフォルダ
+            FXDefaultSearchScope = "SCcf";
+            # デフォルトビュー: Column View
+            FXPreferredViewStyle = "clmv";
+            # ファイルパスのぱんくずリストを表示
+            ShowPathbar = true;
+          };
           # background task
           launchd.agents.auto-save-note = {
             serviceConfig = {
