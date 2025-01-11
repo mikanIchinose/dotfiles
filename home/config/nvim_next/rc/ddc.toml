@@ -13,6 +13,10 @@ repo      = 'Shougo/ddc-ui-pum'
 depends   = 'pum.vim'
 on_source = 'ddc.vim'
 [[plugins]]
+repo      = 'Shougo/ddc-ui-inline'
+depends   = 'pum.vim'
+on_source = 'ddc.vim'
+[[plugins]]
 repo      = 'Shougo/ddc-ui-none'
 depends   = 'pum.vim'
 on_source = 'ddc.vim'

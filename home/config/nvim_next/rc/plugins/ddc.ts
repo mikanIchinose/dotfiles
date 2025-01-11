@@ -9,7 +9,7 @@ export class Config extends BaseConfig {
       ui: "pum",
       dynamicUi: async (_denops: Denops, args: Record<string, unknown>) => {
         const uiArgs = args as { items: DdcItem[] };
-        return Promise.resolve(uiArgs.items.length === 1 ? "none" : "pum");
+        return Promise.resolve(uiArgs.items.length === 1 ? "inline" : "pum");
       },
       autoCompleteEvents: [
         "InsertEnter",

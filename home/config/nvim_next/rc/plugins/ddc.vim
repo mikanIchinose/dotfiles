@@ -47,7 +47,9 @@ inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-o> <Cmd>call pum#map#confirm_word()<CR>
 
 inoremap <expr> <TAB>
-      \ pum#visible() 
+      \ ddc#ui#inline#visible()
+      \ ? ddc#map#insert_item(0)
+      \ : pum#visible() 
       \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
       \ : col('.') <= 1 ? '<TAB>' : getline('.')[col('.') - 2] =~# '\s'
       \ ? '<TAB>'
