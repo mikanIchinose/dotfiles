@@ -12,6 +12,7 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs =
@@ -21,6 +22,7 @@
       nixpkgs,
       nix-homebrew,
       rust-overlay,
+      neovim-nightly-overlay,
     }:
     let
       configuration =
@@ -29,7 +31,6 @@
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           environment.systemPackages = [
-            pkgs.neovim
             pkgs.curl
             pkgs.git
             pkgs.gh
@@ -57,6 +58,7 @@
             pkgs.nixd
             pkgs.nixfmt-rfc-style
             pkgs.serie
+            neovim-nightly-overlay.packages.${pkgs.system}.default
           ];
 
           homebrew = {
