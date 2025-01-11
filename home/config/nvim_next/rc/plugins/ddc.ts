@@ -170,7 +170,7 @@ export class Config extends BaseConfig {
       });
     }
     args.contextBuilder.patchFiletype("nix", {
-      sources: ["lsp", "file"],
+      sources: ["lsp", "file", "around"],
     });
 
     // args.contextBuilder.patchFiletype("lua", {
