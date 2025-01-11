@@ -3,8 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -22,7 +24,7 @@
     }:
     let
       configuration =
-        { pkgs, config, ... }:
+        { pkgs, ... }:
         {
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
@@ -121,7 +123,7 @@
           # $ darwin-rebuild changelog
           system.stateVersion = 5;
 
-          # The platform the configuration will be used on.
+          # M1 Mac のプラットフォーム
           nixpkgs.hostPlatform = "aarch64-darwin";
 
           system.defaults.dock = {
