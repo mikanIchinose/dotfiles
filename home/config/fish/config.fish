@@ -1,4 +1,4 @@
-#set fish_greeting
+set fish_greeting
 
 # source ~/.secret/.secrets.fish
 source $HOME/.config/fish/aliases.fish

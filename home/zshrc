@@ -1,17 +1,19 @@
+unsetopt nomatch
+
 [ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
 
+# haskell
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-export PATH="$HOME/.local/nvim/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.deno/bin:$PATH"
-export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/local/scripts:$PATH"
 export PATH="$HOME/go/bin:$PATH"
-export PATH="$PATH:$HOME/.pub-cache/bin"
-export PATH="$PATH:$HOME/.maestro/bin"
+# export PATH="$HOME/.local/nvim/bin:$PATH"
+# export PATH="$HOME/.local/bin:$PATH"
+# export PATH="$HOME/.cargo/bin:$PATH"
+# export PATH="$HOME/.deno/bin:$PATH"
+# export PATH="$HOME/.bun/bin:$PATH"
+# export PATH="$PATH:$HOME/.pub-cache/bin"
+# export PATH="$PATH:$HOME/.maestro/bin"
 
 # bun completions
 [ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"
@@ -20,7 +22,7 @@ export PATH="$PATH:$HOME/.maestro/bin"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-WITHOUT_FISH=
+# WITHOUT_FISH=
 
 if [[ $WITHOUT_FISH == "yes" ]]; then
   ## Emacs経由で起動した場合のみ
@@ -40,10 +42,12 @@ if [[ $WITHOUT_FISH == "yes" ]]; then
   fi
 
   if [[ -d "$HOME/.asdf" ]]; then
-    source "$(brew --prefix asdf)/libexec/asdf.sh"
-    source "$(brew --prefix asdf)/completions/asdf.bash"
+    # source "$(brew --prefix asdf)/libexec/asdf.sh"
+    # source "$(brew --prefix asdf)/completions/asdf.bash"
   fi
   autoload -Uz compinit && compinit -C
+elif [ -n "$INTELLIJ_ENVIRONMENT_READER" ]; then
+  echo "hello"
 else
   type fish &> /dev/null && exec fish
 fi

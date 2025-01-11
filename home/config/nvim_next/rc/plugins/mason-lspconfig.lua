@@ -17,7 +17,7 @@ require('mason-lspconfig').setup({
     "rust_analyzer",
     -- "hls",
     "clojure_lsp",
-    "nil_ls",
+    -- "nil_ls",
   }
 })
 
@@ -258,14 +258,16 @@ require('mason-lspconfig').setup_handlers({
   end
 })
 
-require('lspconfig').unocss.setup({
-  filetypes = {
-    "html",
-    "markdown",
-    "javascriptreact",
-    "typescriptreact",
-    "vue",
-    "svelte",
-  }
-})
+-- require('lspconfig').unocss.setup({
+--   filetypes = {
+--     "html",
+--     "markdown",
+--     "javascriptreact",
+--     "typescriptreact",
+--     "vue",
+--     "svelte",
+--   }
+-- })
+
+require('lspconfig').nixd.setup({})
 --- }}}
