@@ -42,6 +42,10 @@
           pkgs.yazi
           pkgs.nodejs
           pkgs.fzf
+          pkgs.coreutils
+          pkgs.nixd
+          pkgs.nixfmt-rfc-style
+          pkgs.serie
         ];
       
       homebrew = {
@@ -69,11 +73,10 @@
           "figma"
           "visual-studio-code"
           "docker" # need for dagger
-          #"google-japanese-ime"
-          #"google-drive"
+          "logseq"
         ];
         masApps = {
-          "Toggl Track" =1291898086;
+          "Toggl Track" = 1291898086;
         };
       };
 
@@ -127,10 +130,25 @@
           InitialKeyRepeat = 10;
           # キーを押しっぱなしにしたあとの入力速度は高速にする
           KeyRepeat = 1;
+          # alert volume
+          "com.apple.sound.beep.volume" = 0.6065307;
         };
       };
       # 起動時にサウンドを再生しない
       system.startup.chime = false;
+      # background task
+      launchd.agents.auto-save-note = {
+        serviceConfig = {
+          ProgramArguments = [
+            "/run/current-system/sw/bin/zsh"
+            "/Users/mikan/local/scripts/auto-save-note"
+          ];
+          ProcessType = "Background";
+          StartCalendarInterval = [{ Minute = 0; }]; # hourly
+          StandardOutPath = "/tmp/update-note.log";
+          StandardErrorPath = "/tmp/update-note.err.log";
+        };
+      };
     };
   in
   {
