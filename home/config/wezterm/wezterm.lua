@@ -1,7 +1,9 @@
+local wezterm = require 'wezterm'
 return {
   audible_bell = "Disabled",
   color_scheme = 'iceberg-dark',
-  --font = wezterm.font('PleckJP', { weight = 'Regular' }),
+  font = wezterm.font('PlemolJP Console NF', { weight = 'Regular' }),
+  -- font = wezterm.font('UDEV Gothic 35NFLG', { weight = 'Regular' }),
   font_size = 15.0,
   enable_tab_bar = false,
   window_padding = {
