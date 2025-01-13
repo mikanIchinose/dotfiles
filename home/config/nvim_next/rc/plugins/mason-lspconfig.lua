@@ -96,8 +96,8 @@ require('mason-lspconfig').setup_handlers({
           },
         },
       }
-    -- elseif server_name == 'hls' then
-    --   opts.settings = { single_file_support = true }
+      -- elseif server_name == 'hls' then
+      --   opts.settings = { single_file_support = true }
     elseif server_name == 'taplo' then
       opts = {}
       opts.settings = {
@@ -258,16 +258,17 @@ require('mason-lspconfig').setup_handlers({
   end
 })
 
--- require('lspconfig').unocss.setup({
---   filetypes = {
---     "html",
---     "markdown",
---     "javascriptreact",
---     "typescriptreact",
---     "vue",
---     "svelte",
---   }
--- })
+require('lspconfig').unocss.setup({
+  cmd = { "npx", "unocss-language-server", "--stdio" },
+  filetypes = {
+    "html",
+    "markdown",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "svelte",
+  }
+})
 
 require('lspconfig').nixd.setup({})
 --- }}}

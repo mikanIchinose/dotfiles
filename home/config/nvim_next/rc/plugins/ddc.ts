@@ -162,16 +162,13 @@ export class Config extends BaseConfig {
         "python",
         "haskell",
         "clojure",
-        //"nix",
+        "nix",
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
         sources: ["lsp", "around", "file", "vsnip"],
       });
     }
-    args.contextBuilder.patchFiletype("nix", {
-      sources: ["lsp", "file", "around"],
-    });
 
     // args.contextBuilder.patchFiletype("lua", {
     //   sources: ["codeium", "lsp", "nvim-lua", "around"],
