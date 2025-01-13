@@ -35,8 +35,9 @@
 	reflog = delta
 	show = delta
 [credential]
-	helper = store --file ~/.secrets/git/credentials
-	helper = cache --timeout 3000
+  helper = osxkeychain
+	; helper = store --file ~/.secrets/git/credentials
+	; helper = cache --timeout 3000
 #[interactive]
 #	diffFilter = delta --color-only
 [delta]
