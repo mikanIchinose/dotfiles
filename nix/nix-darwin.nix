@@ -98,9 +98,23 @@
   system.startup.chime = false;
 
   # background task
+  # launchd.agents.sample = {
+  #   serviceConfig = {
+  #     UserName = "mikan";
+  #     SessionCreate = true;
+  #     ProgramArguments = [
+  #       "/Users/mikan/local/scripts/sample"
+  #     ];
+  #     ProcessType = "Background";
+  #     StartInterval = 60;
+  #     StandardOutPath = "/tmp/sample.log";
+  #     StandardErrorPath = "/tmp/sample.log";
+  #   };
+  # };
   launchd.agents.auto-save-note = {
     serviceConfig = {
       UserName = "mikan";
+      SessionCreate = true;
       ProgramArguments = [
         "/run/current-system/sw/bin/zsh"
         "/Users/mikan/local/scripts/auto-save-note"
