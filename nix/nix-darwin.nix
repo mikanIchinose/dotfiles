@@ -43,9 +43,12 @@
       "visual-studio-code"
       "docker" # need for dagger
       "logseq"
+      "obs"
     ];
     masApps = {
       "Toggl Track" = 1291898086;
+      "Kindle" = 302584613;
+      "iMovie" = 408981434;
     };
   };
 
@@ -111,24 +114,24 @@
   #     StandardErrorPath = "/tmp/sample.log";
   #   };
   # };
-  launchd.agents.auto-save-note = {
-    serviceConfig = {
-      UserName = "mikan";
-      SessionCreate = true;
-      ProgramArguments = [
-        "/run/current-system/sw/bin/zsh"
-        "/Users/mikan/local/scripts/auto-save-note"
-      ];
-      ProcessType = "Background";
-      StartCalendarInterval = [
-        { Hour = 10; }
-        { Hour = 15; }
-        { Hour = 20; }
-      ];
-      StandardOutPath = "/tmp/update-note.log";
-      StandardErrorPath = "/tmp/update-note.err.log";
-    };
-  };
+  # launchd.agents.auto-save-note = {
+  #   serviceConfig = {
+  #     UserName = "mikan";
+  #     SessionCreate = true;
+  #     ProgramArguments = [
+  #       "/Users/mikan/local/scripts/auto-save-note"
+  #     ];
+  #     ProcessType = "Background";
+  #     StartInterval = 60;
+  #     StartCalendarInterval = [
+  #       { Hour = 10; }
+  #       { Hour = 15; }
+  #       { Hour = 20; }
+  #     ];
+  #     StandardOutPath = "/tmp/update-note.log";
+  #     StandardErrorPath = "/tmp/update-note.err.log";
+  #   };
+  # };
   launchd.agents.backup-to-sd-card = {
     serviceConfig = {
       UserName = "mikan";
