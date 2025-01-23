@@ -5,6 +5,7 @@ hook_add = '''
 command! DppUpdate call dpp#async_ext_action('installer', 'update')
 command! DppInstall call dpp#async_ext_action('installer', 'install')
 command! DppCheckNotUpdated call dpp#async_ext_action('installer', 'checkNotUpdated')
+command! DppMakeState call DppMakeState()
 '''
 
 # extension
