@@ -61,7 +61,9 @@ inoremap <expr> <C-l>  ddc#map#manual_complete()
 
 " For command line mode completion
 cnoremap <expr> <Tab>
-      \ wildmenumode()
+      \ ddc#ui#inline#visible()
+      \ ? ddc#map#insert_item(0)
+      \ : wildmenumode()
       \ ? &wildcharm->nr2char()
       \ : pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'

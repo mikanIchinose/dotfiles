@@ -163,6 +163,7 @@ export class Config extends BaseConfig {
         "haskell",
         "clojure",
         "nix",
+        "lua",
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
