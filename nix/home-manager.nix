@@ -45,5 +45,6 @@ in
     nixd
     nixfmt-rfc-style
     serie
+    ffmpeg
   ];
 }
