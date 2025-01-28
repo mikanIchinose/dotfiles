@@ -46,5 +46,6 @@ in
     nixfmt-rfc-style
     serie
     ffmpeg
+    hyperfine
   ];
 }
