@@ -21,7 +21,7 @@ export class Config extends BaseConfig {
       ],
       sources: ["around", "rg", "file"],
       cmdlineSources: {
-        ":": ["cmdline", "cmdline-history", "around"],
+        ":": ["cmdline", "cmdline_history", "around"],
         "/": ["around"],
       },
       sourceOptions: {
@@ -38,7 +38,7 @@ export class Config extends BaseConfig {
           mark: "cmdline",
           forceCompletionPattern: "\\S/\\S*|\\.\\w*",
         },
-        "cmdline-history": {
+        "cmdline_history": {
           mark: "history",
           sorters: [],
         },

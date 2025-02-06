@@ -1,7 +1,7 @@
 " hook_add {{{
-"nnoremap : <Cmd>call CommandlinePre(':')<CR>:
-"nnoremap ; <Cmd>call CommandlinePre(':')<CR>:
-"nnoremap / <Cmd>call CommandlinePre('/')<CR>/
+nnoremap : <Cmd>call CommandlinePre(':')<CR>:
+nnoremap ; <Cmd>call CommandlinePre(':')<CR>:
+nnoremap / <Cmd>call CommandlinePre('/')<CR>/
 
 function! CommandlinePre(mode) abort
   " Overwrite sources
@@ -17,7 +17,7 @@ function! CommandlinePre(mode) abort
     call ddc#custom#set_context_buffer({ ->
           \ getcmdline()->stridx('!') ==# 0 ? #{
           \   cmdlineSources: [
-          \     'shell-native', 'cmdline', 'cmdline-history', 'around',
+          \     'shell-native', 'cmdline', 'cmdline_history', 'around',
           \   ],
           \ } : {} })
   " elseif a:mode ==# 'dda'
