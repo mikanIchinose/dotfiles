@@ -44,6 +44,7 @@
       "docker" # need for dagger
       "logseq"
       "obs"
+      "zen-browser"
     ];
     masApps = {
       "Toggl Track" = 1291898086;

@@ -47,5 +47,8 @@ in
     serie
     ffmpeg
     hyperfine
+    clojure
+    leiningen
+    babashka
   ];
 }
