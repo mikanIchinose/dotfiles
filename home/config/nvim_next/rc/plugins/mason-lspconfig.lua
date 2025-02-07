@@ -1,25 +1,25 @@
 --- lua_source {{{
 require('mason').setup()
-require('mason-lspconfig').setup({
+
+require('mason-lspconfig').setup{
   ensure_installed = {
     "vimls",
     "lua_ls",
     "vtsls",
-    "denols",
     "volar",
     -- "html", // autocompleteの妨げになってしまう
     "emmet_language_server",
     "cssls",
-    -- "unocss",
     "taplo",
     "jsonls",
     "yamlls",
     "rust_analyzer",
     -- "hls",
     "clojure_lsp",
-    -- "nil_ls",
   }
-})
+}
+
+local capabilities = require('ddc_source_lsp').make_client_capabilities()
 
 -- https://zenn.dev/kawarimidoll/articles/2b57745045b225
 require('mason-lspconfig').setup_handlers({
@@ -29,7 +29,6 @@ require('mason-lspconfig').setup_handlers({
     local nvim_lsp_configs = require('lspconfig.configs')
     local is_node_repo = vim.fn.findfile('package-lock.json', '.;') ~= ''
     local schemas = require('schemastore').json.schemas()
-    local capabilities = require('ddc_source_lsp').make_client_capabilities()
 
     local opts = {
       capabilities = capabilities,
@@ -60,22 +59,22 @@ require('mason-lspconfig').setup_handlers({
       if not is_node_repo then return end
 
       opts.root_dir = nvim_lsp.util.root_pattern('package.json')
-    elseif server_name == 'denols' then
-      if is_node_repo then return end
-
-      opts.init_options = {
-        lint = true,
-        unstable = true,
-        documentPreloadLimit = 10,
-        suggest = {
-          autoImports = true,
-          imports = {
-            hosts = {
-              ['https://deno.land'] = true,
-            },
-          },
-        },
-      }
+      -- elseif server_name == 'denols' then
+      --   if is_node_repo then return end
+      --
+      --   opts.init_options = {
+      --     lint = true,
+      --     unstable = true,
+      --     documentPreloadLimit = 10,
+      --     suggest = {
+      --       autoImports = true,
+      --       imports = {
+      --         hosts = {
+      --           ['https://deno.land'] = true,
+      --         },
+      --       },
+      --     },
+      --   }
     elseif server_name == 'lua_ls' then
       opts.settings = {
         Lua = {
@@ -258,7 +257,8 @@ require('mason-lspconfig').setup_handlers({
   end
 })
 
-require('lspconfig').unocss.setup({
+require('lspconfig').unocss.setup {
+  capabilities = capabilities,
   cmd = { "npx", "unocss-language-server", "--stdio" },
   filetypes = {
     "html",
@@ -268,7 +268,27 @@ require('lspconfig').unocss.setup({
     "vue",
     "svelte",
   }
-})
+}
 
-require('lspconfig').nixd.setup({})
+require('lspconfig').nixd.setup {}
+
+local is_node_repo = vim.fn.findfile('package-lock.json', '.;') ~= ''
+if not is_node_repo then
+  require('lspconfig').denols.setup {
+    capabilities = capabilities,
+    init_options = {
+      lint = true,
+      unstable = true,
+      documentPreloadLimit = 10,
+      suggest = {
+        autoImports = true,
+        imports = {
+          hosts = {
+            ['https://deno.land'] = true,
+          },
+        },
+      },
+    }
+  }
+end
 --- }}}
