@@ -48,6 +48,7 @@ in
     ffmpeg
     hyperfine
     clojure
+    clj-kondo
     leiningen
     babashka
   ];
