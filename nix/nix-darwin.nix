@@ -45,6 +45,7 @@
       "logseq"
       "obs"
       "zen-browser"
+      "cursor"
     ];
     masApps = {
       "Toggl Track" = 1291898086;
