@@ -3,19 +3,19 @@ require('mason').setup()
 
 require('mason-lspconfig').setup{
   ensure_installed = {
-    "vimls",
-    "lua_ls",
-    "vtsls",
-    "volar",
+    -- "vimls",
+    -- "lua_ls",
+    -- "vtsls",
+    -- "volar",
     -- "html", // autocompleteの妨げになってしまう
-    "emmet_language_server",
-    "cssls",
-    "taplo",
-    "jsonls",
-    "yamlls",
-    "rust_analyzer",
+    -- "emmet_language_server",
+    -- "cssls",
+    -- "taplo",
+    -- "jsonls",
+    -- "yamlls",
+    -- "rust_analyzer",
     -- "hls",
-    "clojure_lsp",
+    -- "clojure_lsp",
   }
 }
 

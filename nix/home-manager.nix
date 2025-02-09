@@ -7,11 +7,33 @@
 }:
 let
   username = "mikan";
+  lsp = with pkgs; [
+    nixd
+    clojure-lsp
+    rust-analyzer
+    emmet-language-server
+    lua-language-server
+    taplo
+    vtsls
+    vscode-langservers-extracted
+    yaml-language-server
+    vue-language-server
+  ];
+  formatter = with pkgs; [
+    nixfmt-rfc-style
+  ];
+  linter = with pkgs; [
+    clj-kondo
+  ];
 in
 {
   nixpkgs.overlays = [
     inputs.neovim-nightly-overlay.overlays.default
   ];
+  programs.neovim = {
+    enable = true;
+    extraPackages = lsp ++ formatter ++ linter;
+  };
   programs.home-manager.enable = true;
   home.username = username;
   home.homeDirectory = "/Users/${username}";
@@ -42,13 +64,10 @@ in
     nodejs
     fzf
     coreutils
-    nixd
-    nixfmt-rfc-style
     serie
     ffmpeg
     hyperfine
     clojure
-    clj-kondo
     leiningen
     babashka
   ];
