@@ -24,8 +24,12 @@
       upgrade = true;
       cleanup = "uninstall";
     };
+    taps = [
+      "leoafarias/fvm"
+    ];
     brews = [
       "openssl" # need for cargo-update
+      "fvm"
     ];
     casks = [
       "arc"
@@ -40,7 +44,7 @@
       "notion"
       "notion-calendar"
       "figma"
-      "visual-studio-code"
+      "visual-studio-code@insiders"
       "docker" # need for dagger
       "logseq"
       "obs"
