@@ -70,5 +70,6 @@ in
     clojure
     leiningen
     babashka
+    firebase-tools
   ];
 }

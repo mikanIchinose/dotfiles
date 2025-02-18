@@ -30,6 +30,7 @@
     brews = [
       "openssl" # need for cargo-update
       "fvm"
+      "cocoapods" # need for flutter
     ];
     casks = [
       "arc"
@@ -49,6 +50,7 @@
       "logseq"
       "obs"
       "zen-browser"
+      "google-chrome" # need for flutter
       "cursor"
     ];
     masApps = {
