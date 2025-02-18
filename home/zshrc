@@ -52,3 +52,9 @@ else
   type fish &> /dev/null && exec fish
 fi
 
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
