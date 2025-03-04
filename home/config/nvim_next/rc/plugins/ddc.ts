@@ -80,7 +80,7 @@ export class Config extends BaseConfig {
         rg: {
           mark: "grep",
         },
-        "shell-native": {
+        "shell_native": {
           mark: "fish",
         },
         skkeleton: {
@@ -94,7 +94,7 @@ export class Config extends BaseConfig {
         file: {
           filenameChars: "[:keyword:].",
         },
-        "shell-native": {
+        "shell_native": {
           shell: "fish",
         },
         lsp: {
@@ -118,13 +118,13 @@ export class Config extends BaseConfig {
             keywordPattern: "[0-9a-zA-Z_./#:-]*",
           },
         },
-        sources: ["shell-native", "around", "file"],
+        sources: ["shell_native", "around", "file"],
       });
     }
     args.contextBuilder.patchFiletype("deol", {
       specialBufferCompletion: true,
       sources: [
-        "shell-native",
+        "shell_native",
         //"shell-history",
         "around",
         "file",
