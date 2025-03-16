@@ -78,3 +78,5 @@ if type -q eza &> /dev/null
 end
 
 abbr junkfile 'touch junkfile_(date +"%Y%m%d_%H%M%S").md'
+
+alias dart "fvm dart"

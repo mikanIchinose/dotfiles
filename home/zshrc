@@ -5,6 +5,11 @@ unsetopt nomatch
 # haskell
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
 export PATH="$HOME/local/scripts:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 # export PATH="$HOME/.local/nvim/bin:$PATH"
@@ -53,8 +58,4 @@ else
 fi
 
 
-## [Completion]
-## Completion scripts setup. Remove the following line to uninstall
-[[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
-## [/Completion]
 
