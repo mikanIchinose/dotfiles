@@ -57,5 +57,3 @@ else
   type fish &> /dev/null && exec fish
 fi
 
-
-
