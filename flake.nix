@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +23,7 @@
     inputs@{
       self,
       nix-darwin,
+      nix-homebrew,
       nixpkgs,
       rust-overlay,
       home-manager,
@@ -54,6 +56,14 @@
           inherit inputs self system;
         };
         modules = [
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = "mikan";
+            };
+          }
           ./nix/nix-darwin.nix
           (
             { pkgs, ... }:

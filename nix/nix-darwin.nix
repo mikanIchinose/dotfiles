@@ -56,10 +56,9 @@
     masApps = {
       "Toggl Track" = 1291898086;
       "Kindle" = 302584613;
-      "iMovie" = 408981434;
       "Save to Raindrop.io" = 1549370672;
       "Xcode" = 497799835;
-      "Swift Playgrounds" = 1496833156;
+      "Bitwarden" = 1352778147;
     };
   };
 
