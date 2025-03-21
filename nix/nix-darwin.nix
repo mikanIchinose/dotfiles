@@ -24,9 +24,6 @@
       upgrade = true;
       cleanup = "uninstall";
     };
-    taps = [
-      "leoafarias/fvm"
-    ];
     brews = [
       "openssl" # need for cargo-update
       "fvm"
@@ -142,29 +139,29 @@
   #     StandardErrorPath = "/tmp/update-note.err.log";
   #   };
   # };
-  launchd.agents.backup-to-sd-card = {
-    serviceConfig = {
-      UserName = "mikan";
-      ProgramArguments = [
-        "/Users/mikan/local/scripts/backup-to-sd-card"
-      ];
-      ProcessType = "Background";
-      StartCalendarInterval = [
-        {
-          Day = 1;
-          Hour = 13;
-        }
-        {
-          Day = 1;
-          Hour = 14;
-        }
-        {
-          Day = 1;
-          Hour = 15;
-        }
-      ];
-      StandardOutPath = "/tmp/backup-to-sd-card.log";
-      StandardErrorPath = "/tmp/backup-to-sd-card.err.log";
-    };
-  };
+  # launchd.agents.backup-to-sd-card = {
+  #   serviceConfig = {
+  #     UserName = "mikan";
+  #     ProgramArguments = [
+  #       "/Users/mikan/local/scripts/backup-to-sd-card"
+  #     ];
+  #     ProcessType = "Background";
+  #     StartCalendarInterval = [
+  #       {
+  #         Day = 1;
+  #         Hour = 13;
+  #       }
+  #       {
+  #         Day = 1;
+  #         Hour = 14;
+  #       }
+  #       {
+  #         Day = 1;
+  #         Hour = 15;
+  #       }
+  #     ];
+  #     StandardOutPath = "/tmp/backup-to-sd-card.log";
+  #     StandardErrorPath = "/tmp/backup-to-sd-card.err.log";
+  #   };
+  # };
 }

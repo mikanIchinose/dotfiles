@@ -71,5 +71,6 @@ in
     leiningen
     babashka
     firebase-tools
+    difftastic
   ];
 }
