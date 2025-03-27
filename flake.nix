@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew?ref=refs/pull/71/merge";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;

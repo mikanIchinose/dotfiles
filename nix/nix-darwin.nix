@@ -28,6 +28,7 @@
       "openssl" # need for cargo-update
       "fvm"
       "cocoapods" # need for flutter
+      "bitwarden-cli"
     ];
     casks = [
       "arc"
@@ -51,11 +52,11 @@
       "cursor"
     ];
     masApps = {
-      "Toggl Track" = 1291898086;
-      "Kindle" = 302584613;
+      TogglTrack = 1291898086;
+      Kindle = 302584613;
       "Save to Raindrop.io" = 1549370672;
-      "Xcode" = 497799835;
-      "Bitwarden" = 1352778147;
+      Xcode = 497799835;
+      Bitwarden = 1352778147;
     };
   };
 
