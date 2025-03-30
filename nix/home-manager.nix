@@ -30,6 +30,9 @@ in
   nixpkgs.overlays = [
     inputs.neovim-nightly-overlay.overlays.default
   ];
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   programs.neovim = {
     enable = true;
     extraPackages = lsp ++ formatter ++ linter;
@@ -72,5 +75,7 @@ in
     babashka
     firebase-tools
     difftastic
+    fortune
+    claude-code
   ];
 }
