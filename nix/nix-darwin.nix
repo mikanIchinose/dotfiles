@@ -46,10 +46,9 @@
       "visual-studio-code@insiders"
       "docker" # need for dagger
       "logseq"
-      "obs"
-      "zen-browser"
       "google-chrome" # need for flutter
       "cursor"
+      "claude"
     ];
     masApps = {
       TogglTrack = 1291898086;
@@ -57,6 +56,7 @@
       "Save to Raindrop.io" = 1549370672;
       Xcode = 497799835;
       Bitwarden = 1352778147;
+      ToyViewer = 414298354;
     };
   };
 
