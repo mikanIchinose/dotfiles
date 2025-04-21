@@ -17,7 +17,15 @@
       flake = false;
     };
     homebrew-fvm = {
-      url = "github:leoafarias/fvm";
+      url = "github:leoafarias/homebrew-tap";
+      flake = false;
+    };
+    homebrew-macskk = {
+      url = "github:mtgto/homebrew-macSKK";
+      flake = false;
+    };
+    homebrew-aerospace = {
+      url = "github:nikitabobko/homebrew-tap";
       flake = false;
     };
     home-manager = {
@@ -44,6 +52,8 @@
       homebrew-cask,
       homebrew-bundle,
       homebrew-fvm,
+      homebrew-macskk,
+      homebrew-aerospace,
       nixpkgs,
       rust-overlay,
       home-manager,
@@ -64,6 +74,7 @@
               nix flake update
               echo "Updating home-manager..."
               nix run nixpkgs#home-manager -- switch --flake .#myHomeConfig
+              rm -rf ~/.cache/dpp/nvim/
               echo "Updating nix-darwin..."
               nix run nix-darwin -- switch --flake .#mikan
               echo "Update done!"
@@ -86,7 +97,9 @@
                 "homebrew/homebrew-core" = homebrew-core;
                 "homebrew/homebrew-cask" = homebrew-cask;
                 "homebrew/homebrew-bundle" = homebrew-bundle;
-                "leoafarias/fvm" = homebrew-fvm;
+                "leoafarias/homebrew-tap" = homebrew-fvm;
+                "mtgto/homebrew-macSKK" = homebrew-macskk;
+                "nikitabobko/homebrew-tap" = homebrew-aerospace;
               };
               mutableTaps = false;
             };

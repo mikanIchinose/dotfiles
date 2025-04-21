@@ -49,6 +49,9 @@
       "google-chrome" # need for flutter
       "cursor"
       "claude"
+      "obsidian"
+      "macskk"
+      "aerospace"
     ];
     masApps = {
       TogglTrack = 1291898086;

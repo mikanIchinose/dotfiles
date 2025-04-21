@@ -77,5 +77,8 @@ in
     difftastic
     fortune
     claude-code
+    uv
+    maestro
+    tokei
   ];
 }
