@@ -13,5 +13,6 @@
   "home/config/nvim_next":      "~/.config/nvim",
   "home/config/navi":           "~/.config/navi",
   "home/config/starship":       "~/.config/starship",
-  "home/config/wezterm":        "~/.config/wezterm"
+  "home/config/wezterm":        "~/.config/wezterm",
+  "aerospace":                  "~/.config/aerospace"
 }
