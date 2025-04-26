@@ -81,7 +81,10 @@ nnoremap ; :
 "   source ~/.secret_vimrc
 " endif
 let s:base_dir = '<sfile>'->expand()->fnamemodify(':h')
-execute 'source' $"{s:base_dir}/rc/init.vim"
+if exists('g:vscode')
+else
+  execute 'source' $"{s:base_dir}/rc/init.vim"
+endif
 " let s:debug_mode = v:true
 " if s:debug_mode
 "   execute 'source' $"{fnamemodify(expand('<sfile>'), ':h')}/debug.vim"
