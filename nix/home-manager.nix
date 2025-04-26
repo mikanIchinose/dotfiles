@@ -80,5 +80,6 @@ in
     uv
     maestro
     tokei
+    jujutsu
   ];
 }

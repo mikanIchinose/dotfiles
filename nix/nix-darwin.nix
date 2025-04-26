@@ -29,6 +29,7 @@
       "fvm"
       "cocoapods" # need for flutter
       "bitwarden-cli"
+      "arbigent"
     ];
     casks = [
       "arc"

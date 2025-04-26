@@ -28,6 +28,10 @@
       url = "github:nikitabobko/homebrew-tap";
       flake = false;
     };
+    homebrew-takahirom = {
+      url = "github:takahirom/homebrew-repo";
+      flake = false;
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +58,7 @@
       homebrew-fvm,
       homebrew-macskk,
       homebrew-aerospace,
+      homebrew-takahirom,
       nixpkgs,
       rust-overlay,
       home-manager,
@@ -100,6 +105,7 @@
                 "leoafarias/homebrew-tap" = homebrew-fvm;
                 "mtgto/homebrew-macSKK" = homebrew-macskk;
                 "nikitabobko/homebrew-tap" = homebrew-aerospace;
+                "takahirom/homebrew-repo" = homebrew-takahirom;
               };
               mutableTaps = false;
             };
