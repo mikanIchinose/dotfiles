@@ -40,7 +40,6 @@
       "zoom"
       "keepassxc"
       "raycast"
-      "rectangle"
       "notion"
       "notion-calendar"
       "figma"
@@ -48,7 +47,6 @@
       "docker" # need for dagger
       "logseq"
       "google-chrome" # need for flutter
-      "cursor"
       "claude"
       "obsidian"
       "macskk"
