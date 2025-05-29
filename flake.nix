@@ -79,9 +79,9 @@
               nix flake update
               echo "Updating home-manager..."
               nix run nixpkgs#home-manager -- switch --flake .#myHomeConfig
-              rm -rf ~/.cache/dpp/nvim/
               echo "Updating nix-darwin..."
-              nix run nix-darwin -- switch --flake .#mikan
+              sudo nix run nix-darwin -- switch --flake .#mikan
+              rm -rf ~/.cache/dpp/nvim/
               echo "Update done!"
             ''
           );
