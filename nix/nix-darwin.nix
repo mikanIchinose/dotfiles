@@ -51,6 +51,8 @@
       "obsidian"
       "macskk"
       "aerospace"
+      "magnet"
+      "superwhisper"
     ];
     masApps = {
       TogglTrack = 1291898086;

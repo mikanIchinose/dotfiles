@@ -19,6 +19,7 @@ export PATH="$HOME/go/bin:$PATH"
 # export PATH="$HOME/.bun/bin:$PATH"
 # export PATH="$PATH:$HOME/.pub-cache/bin"
 # export PATH="$PATH:$HOME/.maestro/bin"
+export PATH=$HOME/.npm-global/bin:$PATH
 
 # bun completions
 [ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"
@@ -57,3 +58,4 @@ else
   type fish &> /dev/null && exec fish
 fi
 
+alias claude="/Users/mikan/.claude/local/claude"

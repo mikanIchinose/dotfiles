@@ -86,6 +86,7 @@ export class Config extends BaseConfig {
         { path: "$BASE_DIR/denops.toml", lazy: true },
         { path: "$BASE_DIR/ddc.toml", lazy: true },
         { path: "$BASE_DIR/ddu.toml", lazy: true },
+        { path: "$BASE_DIR/ddt.toml", lazy: true },
       ].map((tomlFile) =>
         action.callback({
           denops: args.denops,

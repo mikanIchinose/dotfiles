@@ -14,5 +14,6 @@
   "home/config/navi":           "~/.config/navi",
   "home/config/starship":       "~/.config/starship",
   "home/config/wezterm":        "~/.config/wezterm",
-  "aerospace":                  "~/.config/aerospace"
+  "aerospace":                  "~/.config/aerospace",
+  "claude/settings.json":       "~/.claude/settings.json"
 }

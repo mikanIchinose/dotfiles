@@ -11,11 +11,11 @@ require('notify').setup({
 vim.notify = require('notify')
 '''
 
-[[plugins]]
-repo       = 'Shougo/deol.nvim'
-depends    = ['ddu.vim']
-on_source  = ['ddu.vim']
-hooks_file = '$BASE_DIR/plugins/deol.vim'
+# [[plugins]]
+# repo       = 'Shougo/deol.nvim'
+# depends    = ['ddu.vim']
+# on_source  = ['ddu.vim']
+# hooks_file = '$BASE_DIR/plugins/deol.vim'
 
 [[plugins]]
 repo = 'j-hui/fidget.nvim'

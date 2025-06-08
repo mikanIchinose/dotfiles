@@ -21,5 +21,8 @@ return {
   --   },
   -- },
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
+  keys = {
+    { key = "Enter", mods = "SHIFT", action = wezterm.action.SendString("\n") },
+  },
  }
 

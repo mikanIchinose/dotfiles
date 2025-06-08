@@ -21,5 +21,5 @@ inoremap jj <ESC>
 inoremap j<Space> j
 
 " tab navigation
-nnoremap <Leader>tn <Cmd>tabnext<CR>
-nnoremap <Leader>tp <Cmd>tabprevious<CR>
+"nnoremap <Leader>tn <Cmd>tabnext<CR>
+"nnoremap <Leader>tp <Cmd>tabprevious<CR>

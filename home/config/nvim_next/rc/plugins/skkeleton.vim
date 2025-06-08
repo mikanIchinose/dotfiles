@@ -1,7 +1,7 @@
 " hook_add {{{
 inoremap <C-j> <Plug>(skkeleton-toggle)
-cnoremap <C-j> <Plug>(skkeleton-toggle)
-tnoremap <C-j> <Plug>(skkeleton-toggle)
+"cnoremap <C-j> <Plug>(skkeleton-toggle)
+"tnoremap <C-j> <Plug>(skkeleton-toggle)
 " }}}
 
 " hook_source {{{

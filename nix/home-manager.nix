@@ -18,6 +18,7 @@ let
     vscode-langservers-extracted
     yaml-language-server
     vue-language-server
+    vim-language-server
   ];
   formatter = with pkgs; [
     nixfmt-rfc-style
@@ -76,7 +77,6 @@ in
     firebase-tools
     difftastic
     fortune
-    claude-code
     uv
     maestro
     tokei

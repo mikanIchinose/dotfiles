@@ -4,6 +4,18 @@ if !($CACHE->isdirectory())
   call mkdir($CACHE, 'p')
 endif
 
+" Install(plugin)
+" 指定された GitHub リポジトリ (例: 'Shougo/dpp.vim') を
+" `$CACHE/dpp/repos/github.com/` 配下に `git clone` する関数。
+"
+" Args:
+"   plugin (string): クローンする GitHub リポジトリ名 (例: 'org/repo')。
+"
+" Details:
+"   - 指定された `plugin` 名からローカルのクローン先ディレクトリパスを構築する。
+"   - ディレクトリがまだ存在しない場合のみ `git clone` を実行する。
+"   - 存在する、またはクローンしたディレクトリの絶対パスを Vim の `'runtimepath'` の
+"     先頭に追加する。これにより、プラグインが Vim から認識されるようになる。
 function Install(plugin)
   let dir = $CACHE .. '/dpp/repos/github.com/' .. a:plugin
   if !(dir->isdirectory())
