@@ -1,0 +1,1 @@
+- All vim plugin docs are placed under @~/.cache/dpp/repos/
