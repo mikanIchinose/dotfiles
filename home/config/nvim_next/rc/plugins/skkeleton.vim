@@ -32,7 +32,7 @@ call skkeleton#register_kanatable('rom', {
       \ "z\<Space>": ["\u3000"],
       \ })
 
-" autocmd MikanAutoCmd User skkeleton-initialize-pre call s:skkeleton_init()
+autocmd MikanAutoCmd User skkeleton-initialize-pre call s:skkeleton_init()
 function! s:skkeleton_init() abort
   call skkeleton#config(#{
         \ globalDictionaries: [

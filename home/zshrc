@@ -20,6 +20,7 @@ export PATH="$HOME/go/bin:$PATH"
 # export PATH="$PATH:$HOME/.pub-cache/bin"
 # export PATH="$PATH:$HOME/.maestro/bin"
 export PATH=$HOME/.npm-global/bin:$PATH
+export PATH=$HOME/.claude/local:$PATH
 
 # bun completions
 [ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"

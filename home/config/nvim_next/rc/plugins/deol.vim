@@ -5,22 +5,15 @@ nnoremap <Leader>s
       \   start_insert: v:false,
       \   edit_filetype: 'fish',
       \ })<CR>
-nnoremap <Leader>S
-      \ <Cmd>call deol#start(#{
-      \   command: 'zsh',
-      \   start_insert: v:false,
-      \   edit_filetype: 'fish',
-      \   split: 'floating',
-      \ })<CR>
-nnoremap <C-t>
-      \ <Cmd>Ddu
-      \ -name=deol
-      \ -sync
-      \ -ui-param-ff-split=floating
-      \ -ui-param-ff-winRow=1
-      \ -ui-param-ff-autoResize
-      \ -ui-param-ff-cursorPos=`tabpagenr()-1`
-      \ deol<CR>
+"nnoremap <C-t>
+"      \ <Cmd>Ddu
+"      \ -name=deol
+"      \ -sync
+"      \ -ui-param-ff-split=floating
+"      \ -ui-param-ff-winRow=1
+"      \ -ui-param-ff-autoResize
+"      \ -ui-param-ff-cursorPos=`tabpagenr()-1`
+"      \ deol<CR>
 " }}}
 " hook_source {{{
 let g:deol#enable_dir_changed = v:false

@@ -1,21 +1,21 @@
 " hook_add {{{
-nnoremap <Leader>s <Cmd>call ddt#start(#{
-      \   name: t:->get('ddt_ui_shell_last_name',
-      \                 'shell-' .. win_getid()),
-      \   ui: 'shell',
-      \ })<CR>
+"nnoremap <Leader>s <Cmd>call ddt#start(#{
+"      \   name: t:->get('ddt_ui_shell_last_name',
+"      \                 'shell-' .. win_getid()),
+"      \   ui: 'shell',
+"      \ })<CR>
 nnoremap <Leader>t <Cmd>call ddt#start(#{
       \   name: t:->get('ddt_ui_terminal_last_name',
       \                 'terminal-' .. win_getid()),
       \   ui: 'terminal',
       \ })<CR>
-nnoremap sD <Cmd>call ddt#ui#kill_editor()<CR>
-nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
-      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
-      \ -ui-param-ff-winRow=1
-      \ -ui-param-ff-autoResize
-      \ -ui-param-ff-cursorPos=`tabpagenr()`
-      \ ddt_tab<CR>
+"nnoremap sD <Cmd>call ddt#ui#kill_editor()<CR>
+"nnoremap <C-t> <Cmd>Ddu -name=ddt -sync
+"      \ -ui-param-ff-split=`has('nvim') ? 'floating' : 'horizontal'`
+"      \ -ui-param-ff-winRow=1
+"      \ -ui-param-ff-autoResize
+"      \ -ui-param-ff-cursorPos=`tabpagenr()`
+"      \ ddt_tab<CR>
 " }}}
 
 " hook_source {{{
