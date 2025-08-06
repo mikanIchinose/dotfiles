@@ -5,15 +5,10 @@ unsetopt nomatch
 # haskell
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
-## [Completion]
-## Completion scripts setup. Remove the following line to uninstall
 [[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
-## [/Completion]
 
-export PATH="$HOME/local/scripts:$PATH"
+export PATH="$HOME/local/scripts/git-extensions:$PATH"
 export PATH="$HOME/go/bin:$PATH"
-# export PATH="$HOME/.local/nvim/bin:$PATH"
-# export PATH="$HOME/.local/bin:$PATH"
 # export PATH="$HOME/.cargo/bin:$PATH"
 # export PATH="$HOME/.deno/bin:$PATH"
 # export PATH="$HOME/.bun/bin:$PATH"
@@ -21,11 +16,10 @@ export PATH="$HOME/go/bin:$PATH"
 # export PATH="$PATH:$HOME/.maestro/bin"
 export PATH=$HOME/.npm-global/bin:$PATH
 export PATH=$HOME/.claude/local:$PATH
-
-# bun completions
-[ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"
+export PATH=$HOME/.fvm_flutter/bin:$PATH
 
 # bun
+[ -s "/Users/mikan/.bun/_bun" ] && source "/Users/mikan/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
@@ -59,4 +53,9 @@ else
   type fish &> /dev/null && exec fish
 fi
 
-alias claude="/Users/mikan/.claude/local/claude"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+

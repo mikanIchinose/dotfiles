@@ -9,7 +9,7 @@ cnoremap <M-j> <Down>
 cnoremap <M-k> <Up>
 cnoremap <M-l> <Right>
 " navigation at terminal-mode
-tnoremap <ESC> <C-\><C-n>
+tnoremap jj <C-\><C-n>
 
 " easy save
 nnoremap <Leader><Leader> <Cmd>silent update<CR><Cmd>set cmdheight=0<CR>

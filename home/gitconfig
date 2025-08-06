@@ -1,7 +1,7 @@
 [user]
 	# デフォルト
-	name = Ichinose Yoshihiro
-	email = maruisansmai@gmail.com
+	name = mikan
+	email = 29175998+mikanIchinose@users.noreply.github.com
 [includeIf "gitdir:~/ghq/"]
 	# 個人用
 	path = ~/dotfiles/git/gitconfig_personal
@@ -81,5 +81,7 @@
 	template = ~/.gitmessage
 [alias]
 	pushf = push --force-with-lease --force-if-includes
-	sync = !git stash --include-untracked && git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git switch && git pull && git switch -
 	start = commit --allow-empty --no-verify --message "対応開始"
+[pull]
+	rebase = true
+	ff = only
