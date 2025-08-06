@@ -4,34 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
-    homebrew-fvm = {
-      url = "github:leoafarias/homebrew-tap";
-      flake = false;
-    };
-    homebrew-macskk = {
-      url = "github:mtgto/homebrew-macSKK";
-      flake = false;
-    };
-    homebrew-aerospace = {
-      url = "github:nikitabobko/homebrew-tap";
-      flake = false;
-    };
-    homebrew-takahirom = {
-      url = "github:takahirom/homebrew-repo";
-      flake = false;
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,13 +24,6 @@
       self,
       nix-darwin,
       nix-homebrew,
-      homebrew-core,
-      homebrew-cask,
-      homebrew-bundle,
-      homebrew-fvm,
-      homebrew-macskk,
-      homebrew-aerospace,
-      homebrew-takahirom,
       nixpkgs,
       rust-overlay,
       home-manager,
@@ -81,7 +46,7 @@
               nix run nixpkgs#home-manager -- switch --flake .#myHomeConfig
               echo "Updating nix-darwin..."
               sudo nix run nix-darwin -- switch --flake .#mikan
-              rm -rf ~/.cache/dpp/nvim/
+              rm -rf ~/.cache/dpp/nvim
               echo "Update done!"
             ''
           );
@@ -93,23 +58,6 @@
         };
         modules = [
           nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = true;
-              user = "mikan";
-              taps = {
-                "homebrew/homebrew-core" = homebrew-core;
-                "homebrew/homebrew-cask" = homebrew-cask;
-                "homebrew/homebrew-bundle" = homebrew-bundle;
-                "leoafarias/homebrew-tap" = homebrew-fvm;
-                "mtgto/homebrew-macSKK" = homebrew-macskk;
-                "nikitabobko/homebrew-tap" = homebrew-aerospace;
-                "takahirom/homebrew-repo" = homebrew-takahirom;
-              };
-              mutableTaps = false;
-            };
-          }
           ./nix/nix-darwin.nix
           (
             { pkgs, ... }:

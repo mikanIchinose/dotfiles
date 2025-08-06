@@ -22,14 +22,16 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "uninstall";
+      # cleanup = "zap";
     };
+    # global = {
+    #   brewfile = true;
+    # };
     brews = [
       "openssl" # need for cargo-update
-      "fvm"
+      # "fvm"
       "cocoapods" # need for flutter
       "bitwarden-cli"
-      "arbigent"
     ];
     casks = [
       "arc"
@@ -38,29 +40,27 @@
       "slack"
       "karabiner-elements"
       "zoom"
-      "keepassxc"
+      # "keepassxc"
       "raycast"
-      "notion"
       "notion-calendar"
       "figma"
       "visual-studio-code@insiders"
-      "docker" # need for dagger
-      "logseq"
+      # 最近homebrewからdocker入れると失敗する
+      # "docker" # need for dagger
       "google-chrome" # need for flutter
       "claude"
-      "obsidian"
-      "macskk"
-      "aerospace"
+      # "macskk"
+      # "aerospace"
       "superwhisper"
       "rectangle"
     ];
     masApps = {
-      TogglTrack = 1291898086;
+      # TogglTrack = 1291898086;
       Kindle = 302584613;
-      "Save to Raindrop.io" = 1549370672;
       Xcode = 497799835;
       Bitwarden = 1352778147;
       ToyViewer = 414298354;
+      Keynote = 409183694;
     };
   };
 

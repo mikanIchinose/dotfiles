@@ -13,7 +13,6 @@ let
     rust-analyzer
     emmet-language-server
     lua-language-server
-    taplo
     vtsls
     vscode-langservers-extracted
     yaml-language-server
@@ -80,6 +79,6 @@ in
     uv
     maestro
     tokei
-    jujutsu
+    bun
   ];
 }
