@@ -599,10 +599,10 @@ in
   ccusage = nodeEnv.buildNodePackage {
     name = "ccusage";
     packageName = "ccusage";
-    version = "15.9.4";
+    version = "15.9.5";
     src = fetchurl {
-      url = "https://registry.npmjs.org/ccusage/-/ccusage-15.9.4.tgz";
-      sha512 = "sWJxbwMrjvJx0P8PRaQq4YJTfIiI2sKsObS3Oxdw0kYVV4/0xI8YKuCkclwqAavhoAGGnrTfiD4erksyzGi5Ug==";
+      url = "https://registry.npmjs.org/ccusage/-/ccusage-15.9.5.tgz";
+      sha512 = "qovG9S4rP24w70PanPDE32cTrc1UACgqJiDEMsJZVOvMqn8wKxM+DSQOu2EsvXSeEtbntacOQFhpEPECduZaMQ==";
     };
     buildInputs = globalBuildInputs;
     meta = {
