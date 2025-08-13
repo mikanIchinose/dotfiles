@@ -15,5 +15,6 @@
   "home/config/starship":       "~/.config/starship",
   "home/config/wezterm":        "~/.config/wezterm",
   "aerospace":                  "~/.config/aerospace",
-  "claude/settings.json":       "~/.claude/settings.json"
+  "claude/settings.json":       "~/.claude/settings.json",
+  "home/config/ghostty":        "~/.config/ghostty"
 }

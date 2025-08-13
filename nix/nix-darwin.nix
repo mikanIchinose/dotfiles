@@ -1,12 +1,14 @@
 {
   self,
-  system,
   pkgs,
+  system,
   ...
 }:
 {
   # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.enable = false;
+  # nix.settings.experimental-features = "nix-command flakes";
+
   # M1 Mac のプラットフォーム
   nixpkgs.hostPlatform = system;
 
@@ -15,53 +17,6 @@
       udev-gothic-nf
       plemoljp-nf
     ];
-  };
-
-  homebrew = {
-    enable = true;
-    onActivation = {
-      autoUpdate = true;
-      upgrade = true;
-      # cleanup = "zap";
-    };
-    # global = {
-    #   brewfile = true;
-    # };
-    brews = [
-      "openssl" # need for cargo-update
-      # "fvm"
-      "cocoapods" # need for flutter
-      "bitwarden-cli"
-    ];
-    casks = [
-      "arc"
-      "wezterm"
-      "jetbrains-toolbox"
-      "slack"
-      "karabiner-elements"
-      "zoom"
-      # "keepassxc"
-      "raycast"
-      "notion-calendar"
-      "figma"
-      "visual-studio-code@insiders"
-      # 最近homebrewからdocker入れると失敗する
-      # "docker" # need for dagger
-      "google-chrome" # need for flutter
-      "claude"
-      # "macskk"
-      # "aerospace"
-      "superwhisper"
-      "rectangle"
-    ];
-    masApps = {
-      # TogglTrack = 1291898086;
-      Kindle = 302584613;
-      Xcode = 497799835;
-      Bitwarden = 1352778147;
-      ToyViewer = 414298354;
-      Keynote = 409183694;
-    };
   };
 
   # Enable alternative shell support in nix-darwin.
@@ -74,7 +29,7 @@
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 5;
+  system.stateVersion = 6;
 
   system.defaults.dock = {
     # ドックを自動非表示
@@ -113,62 +68,4 @@
 
   # 起動時にサウンドを再生しない
   system.startup.chime = false;
-
-  # background task
-  # launchd.agents.sample = {
-  #   serviceConfig = {
-  #     UserName = "mikan";
-  #     SessionCreate = true;
-  #     ProgramArguments = [
-  #       "/Users/mikan/local/scripts/sample"
-  #     ];
-  #     ProcessType = "Background";
-  #     StartInterval = 60;
-  #     StandardOutPath = "/tmp/sample.log";
-  #     StandardErrorPath = "/tmp/sample.log";
-  #   };
-  # };
-  # launchd.agents.auto-save-note = {
-  #   serviceConfig = {
-  #     UserName = "mikan";
-  #     SessionCreate = true;
-  #     ProgramArguments = [
-  #       "/Users/mikan/local/scripts/auto-save-note"
-  #     ];
-  #     ProcessType = "Background";
-  #     StartInterval = 60;
-  #     StartCalendarInterval = [
-  #       { Hour = 10; }
-  #       { Hour = 15; }
-  #       { Hour = 20; }
-  #     ];
-  #     StandardOutPath = "/tmp/update-note.log";
-  #     StandardErrorPath = "/tmp/update-note.err.log";
-  #   };
-  # };
-  # launchd.agents.backup-to-sd-card = {
-  #   serviceConfig = {
-  #     UserName = "mikan";
-  #     ProgramArguments = [
-  #       "/Users/mikan/local/scripts/backup-to-sd-card"
-  #     ];
-  #     ProcessType = "Background";
-  #     StartCalendarInterval = [
-  #       {
-  #         Day = 1;
-  #         Hour = 13;
-  #       }
-  #       {
-  #         Day = 1;
-  #         Hour = 14;
-  #       }
-  #       {
-  #         Day = 1;
-  #         Hour = 15;
-  #       }
-  #     ];
-  #     StandardOutPath = "/tmp/backup-to-sd-card.log";
-  #     StandardErrorPath = "/tmp/backup-to-sd-card.err.log";
-  #   };
-  # };
 }

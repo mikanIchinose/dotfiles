@@ -1,49 +1,24 @@
 # font
-tap "ryota2357/pleck-jp"
-cask "pleck-jp"
+# tap "ryota2357/pleck-jp"
+# cask "pleck-jp"
 
 # git
-brew "git"
-brew "ghq"
-brew "git-delta"
-brew "gh"
-tap "jesseduffield/lazygit"
-brew "lazygit"
+# brew "git"
+# brew "ghq"
+# brew "git-delta"
+# brew "gh"
+# tap "jesseduffield/lazygit"
+# brew "lazygit"
 
-# flutter
+
+brew "bitwarden-cli"
+brew "cocoapods"
+brew "openssl"
+
 # tap "leoafarias/fvm"
 # brew "fvm"
-
-brew "pstree"
-brew "wget"
-brew "fzf"
-brew "starship"
-brew "ripgrep" # better grep
-brew "fd" # better find
-brew "eza" # better ls
-brew "zoxide"
-brew "xsv"
-brew "dasel"
-brew "jq"
-brew "bat"
-brew "navi"
-brew "ffmpeg"
-brew "http-server"
-brew "tokei"
-brew "fish"
-brew "cocoapods"
-brew "gpg"
-brew "kdoctor"
-brew "gum"
-brew "topgrade"
-brew "aria2"
-brew "scrcpy" # android screen share by adb
-brew "vhs"
-brew "ttyd" # need for vhs
-brew "desktop-file-utils"  # need for ddu.vim
-brew "awscli"
-brew "gnirehtet" # vpn proxy for android
-brew "rm-improved" # better rm
+# brew "topgrade"
+# brew "rm-improved" # better rm
 # brew "procs" # better ps
 # brew "sd" # better sed
 # brew "xsel" # clipboard
@@ -51,21 +26,19 @@ brew "rm-improved" # better rm
 # brew "silicon"
 # tap "jakewharton/repo"
 # brew "JakeWharton/repo/dependency-tree-diff"
-brew "curl"
+# brew "curl"
 # brew "fastfetch"
-brew "yazi"
-tap "dagger/tap"
-brew "dagger"
+# brew "yazi"
+# tap "dagger/tap"
+# brew "dagger"
 # brew "difftastic"
-brew "coreutils"
-brew "imagemagick"
+# brew "coreutils"
+# brew "imagemagick"
 # brew "llvm"
-
-# lang
-brew "go"
-tap "clojure/tools"
-brew "clojure"
-brew "leiningen"
+# brew "go"
+# tap "clojure/tools"
+# brew "clojure"
+# brew "leiningen"
 # brew "dhall"
 # brew "dhall-yaml"
 
@@ -86,19 +59,8 @@ cask "keepassxc"
 cask "raycast"
 cask "google-japanese-ime"
 cask "rectangle"
-cask "google-drive"
-cask "notion"
 cask "notion-calendar"
-cask "obs"
 cask "figma"
-cask "thunderbird"
-cask "visual-studio-code"
-cask "discord"
-cask "docker" # need for dagger
-cask "steam"
-# cask "spotify" # アプデしたときにダイアログが無限ループしてしまう
-# cask "flipper"
-# cask "keycastr"
-# cask "cyberduck"
-# cask "box-drive"
-# cask "ngrok"
+cask "visual-studio-code@insiders"
+cask "supershisper"
+# cask "docker" # need for dagger

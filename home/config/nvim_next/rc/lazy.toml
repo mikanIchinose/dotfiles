@@ -45,6 +45,16 @@ lua_source = '''
 '''
 
 [[plugins]]
+repo = 'folke/trouble.nvim'
+on_cmd = 'Trouble'
+hook_add = '''
+nnoremap <Leader>xx <Cmd>Trouble diagnostics toggle<Cr>
+'''
+lua_source = '''
+require('trouble').setup()
+'''
+
+[[plugins]]
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
 hook_source = '''
@@ -82,33 +92,24 @@ require('nvim-treesitter.configs').setup {
 '''
 
 [[plugins]]
-repo       = 'williamboman/mason-lspconfig.nvim'
-depends    = 'ddc.vim'
-on_event = 'FileType'
-hooks_file = '$BASE_DIR/plugins/mason-lspconfig.lua'
-[[plugins]]
-repo = 'williamboman/mason.nvim'
-depends = 'nvim-lspconfig'
-on_source  = 'mason-lspconfig.nvim'
-[[plugins]]
 repo       = 'neovim/nvim-lspconfig'
+on_event = 'FileType'
 hooks_file = "$BASE_DIR/plugins/nvim-lspconfig.lua"
-lua_source = '''
-  vim.notify("load nvim-lspconfig")
-'''
 [[plugins]]
 repo      = 'b0o/SchemaStore.nvim'
-on_source = 'mason-lspconfig.nvim'
-#[[plugins]]
-#repo = 'uga-rosa/ddc-nvim-lsp-setup'
-##on_source = 'mason-lspconfig.nvim'
-#depends = ['mason-lspconfig.nvim']
-
-#on_source = 'ddc-source-nvim-lsp'
-#lua_source = '''
-#require("ddc_nvim_lsp_setup").setup()
-#require("lspconfig").volar.setup()
-#'''
+on_source = 'nvim-lspconfig'
+[[plugins]]
+repo      = 'creativenull/efmls-configs-nvim'
+on_source = 'nvim-lspconfig'
+# [[plugins]]
+# repo = 'uga-rosa/ddc-nvim-lsp-setup'
+# on_source = 'mason-lspconfig.nvim'
+# depends = ['mason-lspconfig.nvim']
+# on_source = 'ddc-source-nvim-lsp'
+# lua_source = '''
+# require("ddc_nvim_lsp_setup").setup()
+# require("lspconfig").volar.setup()
+# '''
 
 # Lisp
 [[plugins]]
