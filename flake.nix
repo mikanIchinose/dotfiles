@@ -16,22 +16,33 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     inputs@{
       self,
+      systems,
       nix-darwin,
       nixpkgs,
       rust-overlay,
       home-manager,
+      treefmt-nix,
       ...
     }:
     let
       system = "aarch64-darwin";
       pkgs = import nixpkgs { inherit system; };
+
+      # treefmt
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
       apps.${system} = {
         update = {
           type = "app";
