@@ -11,7 +11,7 @@ jobs:
       # Arrange
       - uses: actions/checkout@v5
         with:
-          ref: ${{ github.head_ref }}
+          ref: main
           token: ${{ secrets.WORKFLOW_PAT }}
       - name: Setup nix
         uses: cachix/install-nix-action@v31
@@ -31,9 +31,7 @@ jobs:
       - name: Format
         run: nix fmt
       - name: Commit changes
-        env:
-          HEAD_REF: ${{ github.head_ref }}
         run: |
           git add .
           git commit -m "Update lockfile"
-          git push origin HEAD:"$HEAD_REF"
+          git push origin HEAD
