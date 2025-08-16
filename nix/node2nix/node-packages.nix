@@ -558,10 +558,10 @@ in
   "@github/copilot-language-server" = nodeEnv.buildNodePackage {
     name = "_at_github_slash_copilot-language-server";
     packageName = "@github/copilot-language-server";
-    version = "1.356.0";
+    version = "1.357.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.356.0.tgz";
-      sha512 = "wgAXgBjTtBcqEicc4G8ocBhehuGcqanp8bTKEfbXKc/5FoDQ65iT2ws6JvySqKTHH6zA+R15h+Kqdua97iydsw==";
+      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.357.0.tgz";
+      sha512 = "kxGiClBSlmHHDnK62UhCcJafPR3PJPmYZcdhxuiEKsXfUoPCMo98n5V4iziWfWbFtkVQDaWP4fI3T/fT7lyeOQ==";
     };
     dependencies = [
       sources."vscode-jsonrpc-8.2.0"
@@ -581,10 +581,10 @@ in
   "@anthropic-ai/claude-code" = nodeEnv.buildNodePackage {
     name = "_at_anthropic-ai_slash_claude-code";
     packageName = "@anthropic-ai/claude-code";
-    version = "1.0.77";
+    version = "1.0.83";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.77.tgz";
-      sha512 = "P4jQ9bd9DEcgQUXb94gh8h7bnconmS2qE3eGUHyxNAi8fhSDqA038fmduCKZ/0wCVGPaldYoFIaO35M/ChRtGA==";
+      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.83.tgz";
+      sha512 = "Mm+88khPbg9eAUbrWGirigWeC4xu2hH0ns3+lnfKWX3e8RJDOV9vnCHjzbEIVXvvvw1YmeIO7TxsFk5/MVuhGA==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -599,10 +599,10 @@ in
   ccusage = nodeEnv.buildNodePackage {
     name = "ccusage";
     packageName = "ccusage";
-    version = "15.9.5";
+    version = "15.9.7";
     src = fetchurl {
-      url = "https://registry.npmjs.org/ccusage/-/ccusage-15.9.5.tgz";
-      sha512 = "qovG9S4rP24w70PanPDE32cTrc1UACgqJiDEMsJZVOvMqn8wKxM+DSQOu2EsvXSeEtbntacOQFhpEPECduZaMQ==";
+      url = "https://registry.npmjs.org/ccusage/-/ccusage-15.9.7.tgz";
+      sha512 = "GHipPGGW9rqKlrD/0nn3p/vQbxUfkIUYBKYaFeDh7A/EJgXuLdJQlXF+LWgSlB7LlqXDPTX6fr4p6lXylnR8Tg==";
     };
     buildInputs = globalBuildInputs;
     meta = {
