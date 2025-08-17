@@ -8,7 +8,6 @@
   "home/zprofile":              "~/.zprofile",
   "home/config/efm-langserver": "~/.config/efm-langserver",
   "home/config/fish":           "~/.config/fish",
-  "home/config/gh":             "~/.config/gh",
   "home/config/lazygit":        "~/.config/lazygit",
   "home/config/nvim_next":      "~/.config/nvim",
   "home/config/navi":           "~/.config/navi",
