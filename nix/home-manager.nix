@@ -4,7 +4,6 @@
   ...
 }:
 let
-  username = "mikan";
   nodePkgs = pkgs.callPackage ./node2nix {
     inherit pkgs;
     nodejs = pkgs.nodejs_24;
@@ -14,9 +13,6 @@ let
     deno
     nodejs
     bun
-    clojure
-    leiningen
-    babashka
     uv
   ];
   lsp = with pkgs; [
@@ -49,6 +45,9 @@ let
     vue-language-server
   ];
   devtools-clojure = with pkgs; [
+    clojure
+    leiningen
+    babashka
     clojure-lsp
     clj-kondo
   ];
@@ -60,7 +59,6 @@ let
     delta
     difftastic
     serie
-    fish
     gum
     desktop-file-utils
     rm-improved
@@ -106,8 +104,6 @@ in
   programs.fzf.enable = true;
 
   home.shell.enableFishIntegration = true;
-  home.username = username;
-  home.homeDirectory = "/Users/${username}";
   home.stateVersion = "25.05";
   home.packages =
     programming

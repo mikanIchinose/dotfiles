@@ -15,6 +15,7 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts.url = "github:hercules-ci/flake-parts";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -25,68 +26,50 @@
   outputs =
     inputs@{
       self,
-      systems,
-      nix-darwin,
       nixpkgs,
+      nix-darwin,
       rust-overlay,
       home-manager,
       treefmt-nix,
+      flake-parts,
       ...
     }:
     let
+      username = "mikan";
       system = "aarch64-darwin";
-      pkgs = import nixpkgs { inherit system; };
-
-      # treefmt
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      rust-configuration =
+        { pkgs, ... }:
+        {
+          nixpkgs.overlays = [ rust-overlay.overlays.default ];
+          environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
+        };
     in
-    {
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
-      apps.${system} = {
-        update = {
-          type = "app";
-          program = toString (
-            pkgs.writeShellScript "update-script" ''
-              set -e
-              echo "Update flake..."
-              nix flake update
-              echo "Updating home-manager..."
-              nix run nixpkgs#home-manager -- switch --flake .#myHomeConfig
-              echo "Updating nix-darwin..."
-              sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#mikan
-              rm -rf ~/.cache/dpp/nvim
-              echo "Update done!"
-            ''
-          );
-        };
-      };
-      darwinConfigurations.mikan = nix-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit self system;
-        };
-        modules = [
-          ./nix/nix-darwin.nix
-          home-manager.darwinModules.home-manager
-          #(
-          #  { pkgs, ... }:
-          #  {
-          #    nixpkgs.overlays = [ rust-overlay.overlays.default ];
-          #    environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
-          #  }
-          #)
-        ];
-      };
-      homeConfigurations = {
-        myHomeConfig = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
-          extraSpecialArgs = {
-            inherit inputs system;
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "aarch64-darwin" ];
+      imports = [ treefmt-nix.flakeModule ];
+      flake = {
+        darwinConfigurations = {
+          mikan = nix-darwin.lib.darwinSystem {
+            specialArgs = {
+              inherit self system username;
+            };
+            modules = [
+              ./nix/nix-darwin.nix
+              home-manager.darwinModules.home-manager
+              rust-configuration
+            ];
           };
-          modules = [
-            ./nix/home-manager.nix
-          ];
         };
       };
+      perSystem =
+        { ... }:
+        {
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+            };
+          };
+        };
     };
 }

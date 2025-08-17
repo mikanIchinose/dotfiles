@@ -2,15 +2,33 @@
   self,
   pkgs,
   system,
+  username,
   ...
 }:
+let
+  homeDirectory = "/Users/${username}";
+in
 {
+  users.users.${username}.home = homeDirectory;
   # Necessary for using flakes on this system.
   nix.enable = false;
   # nix.settings.experimental-features = "nix-command flakes";
 
   # M1 Mac のプラットフォーム
   nixpkgs.hostPlatform = system;
+
+  home-manager = {
+    useUserPackages = true;
+    users."${username}" = {
+      imports = [ ./home-manager.nix ];
+      home = {
+        inherit homeDirectory username;
+      };
+    };
+    extraSpecialArgs = {
+      inherit pkgs;
+    };
+  };
 
   fonts = {
     packages = with pkgs; [
@@ -20,9 +38,10 @@
   };
 
   # Enable alternative shell support in nix-darwin.
-  # programs.fish.enable = true;
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
 
-  system.primaryUser = "mikan";
+  system.primaryUser = username;
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
