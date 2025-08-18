@@ -53,7 +53,7 @@ vim.lsp.enable('gh_actions_ls')
 -- web develop
 vim.lsp.enable({
   'vtsls',
-  'deno',
+  'denols',
   'vue_ls',
   'emmet_language_server',
   'html',
@@ -80,6 +80,6 @@ vim.lsp.config('vtsls', {
 
 vim.lsp.enable('efm')
 vim.lsp.enable('nixd')
-vim.lsp.enable('rust_analyzer')
+-- vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('clojure_lsp')
 -- --- }}}
