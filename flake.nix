@@ -21,17 +21,18 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    systems.url = "github:nix-systems/default";
   };
 
   outputs =
     inputs@{
       self,
-      nixpkgs,
       nix-darwin,
       rust-overlay,
       home-manager,
       treefmt-nix,
       flake-parts,
+      systems,
       ...
     }:
     let
@@ -45,7 +46,7 @@
         };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "aarch64-darwin" ];
+      systems = import systems;
       imports = [ treefmt-nix.flakeModule ];
       flake = {
         darwinConfigurations = {
