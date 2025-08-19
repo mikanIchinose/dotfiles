@@ -1,25 +1,37 @@
 [![lint](https://github.com/mikanIchinose/dotfiles/actions/workflows/lint.yml/badge.svg?branch=master&event=push)](https://github.com/mikanIchinose/dotfiles/actions/workflows/lint.yml)
 
-バックアップ作業
+## backup
+
 - raycastの設定をバックアップ
 - android studioの設定をバックアップ
-- biscuitの設定をバックアップ
 - ~/local をバックアップ
 
 ## install
 
+- restart macOS
+- copy local directory from SD-card
+
 ```
-ASK_PASS="~/.secret/.ask_pass" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mikanIchinose/dotfiles/main/__script/install)"
+xcode-select --install && \
+softwareupdate --install-rosetta && \
+git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles && \
+sudo xcodebuild -license accept
 ```
 
-## install(nix)
+- install nix from https://docs.determinate.systems/
+
+```
+go install github.com/rhysd/dotfiles@latest && \
+~/go/bin/dotfiles link ~/dotfiles
+```
+
+- install skk dictionary
+```
+ghq get skk-dev/dict
+```
+
+## update
 
 ```bash
-# 0. restart macOS
-# まずは再起動しろ！
-
-# 1. copy local directory from SD-card
-
-# 2. run install script
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mikanIchinose/dotfiles/main/install.sh)"
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#mikan
 ```
