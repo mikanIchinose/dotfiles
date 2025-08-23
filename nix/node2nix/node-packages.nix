@@ -558,10 +558,10 @@ in
   "@github/copilot-language-server" = nodeEnv.buildNodePackage {
     name = "_at_github_slash_copilot-language-server";
     packageName = "@github/copilot-language-server";
-    version = "1.361.0";
+    version = "1.362.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.361.0.tgz";
-      sha512 = "hxzH3BcdrFsWgbpkhmJfArhTILqQ3Q6nhu3gAWrpDGGTxtVgiJx6lBdovx1gfKNU3qH//XCJQmfOKQU63w4HBQ==";
+      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.362.0.tgz";
+      sha512 = "4lBt/nVRGCiOZx1Btuvp043ZhGqb3/o8aZzG564nOTOgy3MtQfsNCwzbci+7hZXEuRIPM4bZjBqIzTZ2S2nu9Q==";
     };
     dependencies = [
       sources."vscode-jsonrpc-8.2.0"
@@ -572,7 +572,7 @@ in
     meta = {
       description = "Your AI pair programmer";
       homepage = "https://github.com/github/copilot-language-server-release";
-      license = "https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features";
+      license = "MIT";
     };
     production = true;
     bypassCache = true;
@@ -581,10 +581,10 @@ in
   "@anthropic-ai/claude-code" = nodeEnv.buildNodePackage {
     name = "_at_anthropic-ai_slash_claude-code";
     packageName = "@anthropic-ai/claude-code";
-    version = "1.0.86";
+    version = "1.0.89";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.86.tgz";
-      sha512 = "js1h6JUnFJ1dHvFPBiCxwFChaWjh28XOFamrwebmhOIUBVhQZwMfDJYsNfRyv0qEwpxKxYedvK4nv4WqMCwu9Q==";
+      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.89.tgz";
+      sha512 = "FKzFA0whQ1oVqdq3HG7gE3aojcZfGxrhza9z7OMDUFm4YMADHQxn6TWxWss5dhzXze7vd+QOn8CuH+uHnhAr4w==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -599,10 +599,10 @@ in
   ccusage = nodeEnv.buildNodePackage {
     name = "ccusage";
     packageName = "ccusage";
-    version = "16.1.1";
+    version = "16.1.2";
     src = fetchurl {
-      url = "https://registry.npmjs.org/ccusage/-/ccusage-16.1.1.tgz";
-      sha512 = "k6UDJWEtLw0NrsGZt7QRyz2Ug4SHGc7LYK0mJGySNfxOuWiSEiAOtqrUG/7yJjgC2OT7XJ507gaefmAX9XhvTQ==";
+      url = "https://registry.npmjs.org/ccusage/-/ccusage-16.1.2.tgz";
+      sha512 = "QFPytT7fgZCJN5ECk9zbkvyrCIRHgODS7O5kMkRD+oW4sH2wnqC+8kTv/HYoWCAPEuK8ZViYkNI+Zw+9rcqscw==";
     };
     buildInputs = globalBuildInputs;
     meta = {
