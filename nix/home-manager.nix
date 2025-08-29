@@ -64,6 +64,7 @@ let
     rm-improved
     coreutils
     ffmpeg
+    imagemagick
     hyperfine
     firebase-tools
     maestro
@@ -83,7 +84,7 @@ in
 
   nix.gc = {
     automatic = true;
-    frequency = "monthly";
+    dates = "monthly";
     options = "--delete-older-than 3d";
   };
 
