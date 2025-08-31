@@ -9,7 +9,6 @@ let
     nodejs = pkgs.nodejs_24;
   };
   programming = with pkgs; [
-    go
     deno
     nodejs
     bun
@@ -50,6 +49,10 @@ let
     babashka
     clojure-lsp
     clj-kondo
+  ];
+  devtools-go = with pkgs; [
+    go
+    gopls
   ];
   utility = with pkgs; [
     neovim
@@ -121,5 +124,6 @@ in
     ++ devtools-vim
     ++ devtools-web
     ++ devtools-clojure
+    ++ devtools-go
     ++ utility;
 }
