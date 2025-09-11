@@ -12,40 +12,40 @@
 
 let
   sources = {
-    "@actions/expressions-0.3.17" = {
+    "@actions/expressions-0.3.18" = {
       name = "_at_actions_slash_expressions";
       packageName = "@actions/expressions";
-      version = "0.3.17";
+      version = "0.3.18";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.17.tgz";
-        sha512 = "xgMkMymvw+/fs8q+7JkIPUg63o19SMOySdQMmUoNIVchjUw0KaFITDHMLg7wBSXIP/12ll1lBa1oB9362u/DBA==";
+        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.18.tgz";
+        sha512 = "LiZTqsWk5bwPUz2lkHpcf5sfbznBTlxxihPqjDndD+D+gJW6iOY0vxxztgqq6ft5rKY0WTXSOS+XJkJdqIqv/w==";
       };
     };
-    "@actions/languageserver-0.3.17" = {
+    "@actions/languageserver-0.3.18" = {
       name = "_at_actions_slash_languageserver";
       packageName = "@actions/languageserver";
-      version = "0.3.17";
+      version = "0.3.18";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.17.tgz";
-        sha512 = "c1anfUJYq76flrd9uThJmt9aTzBban/2pHlQOaq7HsE6twzqCY6xYnwFoNx9NKh08L955RgmWJVx0JKCYsfKLw==";
+        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.18.tgz";
+        sha512 = "iq6e0hKeLy7CIZYFWLU8ZHLGC9mTjikXsmoUr57UquMJDFeCVPHihY32OGGyQLTAVvvQGGQEC6eTSKOaYItACQ==";
       };
     };
-    "@actions/languageservice-0.3.17" = {
+    "@actions/languageservice-0.3.18" = {
       name = "_at_actions_slash_languageservice";
       packageName = "@actions/languageservice";
-      version = "0.3.17";
+      version = "0.3.18";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.17.tgz";
-        sha512 = "zp8bWyaYmspuS7IYI+gll8qW3i/XMlWyfvRg986DdPpu05Uh55n9o2eNqDUo78bwg04NNXLsnYWwbhv9kWYtbg==";
+        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.18.tgz";
+        sha512 = "MvNpNlxiDsiif3/pVQG03MSbIqFNx+TXAKWooztiNoJfETxn/A1KH3w+6uMD5ckwKRBqcINOmsvzvLHnS0/BiA==";
       };
     };
-    "@actions/workflow-parser-0.3.17" = {
+    "@actions/workflow-parser-0.3.18" = {
       name = "_at_actions_slash_workflow-parser";
       packageName = "@actions/workflow-parser";
-      version = "0.3.17";
+      version = "0.3.18";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.17.tgz";
-        sha512 = "41muy4240oXPuywq4QbtnZ5CO+hngL8Pmxnd7pZVOkS/mqJSq6kHIMZDtoLS5uIs72jnJ1ktfgJYwJh/LVJtsA==";
+        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.18.tgz";
+        sha512 = "jRimPU7hib7yjotp+pQhOjDvPVQcqckCdjGKMNAiZI/Qqnsp7G5oDlEwOn3VBln/4/RiaLBFzJWTLRzALs3wdg==";
       };
     };
     "@octokit/auth-token-3.0.4" = {
@@ -581,10 +581,10 @@ in
   "@anthropic-ai/claude-code" = nodeEnv.buildNodePackage {
     name = "_at_anthropic-ai_slash_claude-code";
     packageName = "@anthropic-ai/claude-code";
-    version = "1.0.110";
+    version = "1.0.111";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.110.tgz";
-      sha512 = "iNoKuPkdSNk8NizvHCA5yiCKPHMxscxfacsok9JPwLwefumJ80slfBw3kh3abzB2DoFIJslP+0VlewtsG1pnMA==";
+      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.111.tgz";
+      sha512 = "1aALYgO8JyGtRdsFskB3uZiAUKbx8u2YcGoa55ZGwsczTBBVIy/+jsuOi3bAubqlBzi5/8gfFBwYK5QuA621MA==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -623,17 +623,17 @@ in
       sha512 = "T2ph7OoS0tnpWsxpvdiC5k9rrv5t7BMwZRJANrk4gZzvTZ1/rY1kpJQjVaiYeTrlj2fDgQh5fMwPqkxNaKIGdw==";
     };
     dependencies = [
-      sources."@actions/expressions-0.3.17"
+      sources."@actions/expressions-0.3.18"
       (
-        sources."@actions/languageserver-0.3.17"
+        sources."@actions/languageserver-0.3.18"
         // {
           dependencies = [
             sources."@octokit/rest-21.1.1"
           ];
         }
       )
-      sources."@actions/languageservice-0.3.17"
-      sources."@actions/workflow-parser-0.3.17"
+      sources."@actions/languageservice-0.3.18"
+      sources."@actions/workflow-parser-0.3.18"
       sources."@octokit/auth-token-5.1.2"
       (
         sources."@octokit/core-6.1.6"
