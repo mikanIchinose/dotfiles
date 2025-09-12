@@ -558,10 +558,10 @@ in
   "@github/copilot-language-server" = nodeEnv.buildNodePackage {
     name = "_at_github_slash_copilot-language-server";
     packageName = "@github/copilot-language-server";
-    version = "1.368.0";
+    version = "1.371.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.368.0.tgz";
-      sha512 = "az3ZFZzaynPGMXoXDVfN8S9CwRDXPJTr+gef0uyYmBGLoTCzuccn3tZkTxkopXqd4APpdC0K6pNnaHIwqw/dlA==";
+      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.371.0.tgz";
+      sha512 = "49CT02ElprSuG9zxM4y6TRQri0/a5doazxj3Qfz/whMtOTxiHhfHD/lmPUZXcEgOVVEovTUN7Znzx2ZLPtx3Fw==";
     };
     dependencies = [
       sources."vscode-jsonrpc-8.2.0"
@@ -599,10 +599,10 @@ in
   ccusage = nodeEnv.buildNodePackage {
     name = "ccusage";
     packageName = "ccusage";
-    version = "16.2.3";
+    version = "16.2.4";
     src = fetchurl {
-      url = "https://registry.npmjs.org/ccusage/-/ccusage-16.2.3.tgz";
-      sha512 = "/BvsGfNjZ45SwSyzZy6xhQpwm2w8x2dp1yRGZql8115DQS3PNFNF9QJ+1YLMF0OayY/BU5R/mUQdd12DLekySQ==";
+      url = "https://registry.npmjs.org/ccusage/-/ccusage-16.2.4.tgz";
+      sha512 = "B/sLmE4Aqz6Z27D6Oouq58Hk7MdiSLMooAb3IqpwSMrloX3NLCJ4Uf4wP/s7hjIRP07+iAyxgJ+3tw9w3a98Aw==";
     };
     buildInputs = globalBuildInputs;
     meta = {
