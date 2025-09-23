@@ -55,6 +55,7 @@ let
     gopls
   ];
   utility = with pkgs; [
+    fish
     neovim
     curl
     git

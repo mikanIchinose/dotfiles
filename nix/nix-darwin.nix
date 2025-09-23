@@ -37,9 +37,29 @@ in
     ];
   };
 
-  # Enable alternative shell support in nix-darwin.
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
+  homebrew = {
+    enable = true;
+    brews = [
+      "openssl" # need for cargo-update
+      "cocoapods" # need for flutter
+    ];
+    casks = [
+      "arc"
+      "google-chrome" # need for flutter
+      "ghostty"
+      "jetbrains-toolbox"
+      "slack"
+      "karabiner-elements"
+      "zoom"
+      "keepassxc"
+      "raycast"
+      "visual-studio-code@insiders"
+    ];
+    masApps = {
+      Kindle = 302584613;
+      Xcode = 497799835;
+    };
+  };
 
   system.primaryUser = username;
 
