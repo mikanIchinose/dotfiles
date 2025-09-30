@@ -578,42 +578,6 @@ in
     bypassCache = true;
     reconstructLock = true;
   };
-  "@anthropic-ai/claude-code" = nodeEnv.buildNodePackage {
-    name = "_at_anthropic-ai_slash_claude-code";
-    packageName = "@anthropic-ai/claude-code";
-    version = "2.0.0";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.0.tgz";
-      sha512 = "qUaM1d2NeOshOZfHyh54gaFRwTE4+peNhHARYxUz3QPG5vbm2jp70tFING79laoCEK/LEOxeE5zwJpxVep856w==";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.";
-      homepage = "https://github.com/anthropics/claude-code";
-      license = "SEE LICENSE IN README.md";
-    };
-    production = true;
-    bypassCache = true;
-    reconstructLock = true;
-  };
-  ccusage = nodeEnv.buildNodePackage {
-    name = "ccusage";
-    packageName = "ccusage";
-    version = "17.1.0";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/ccusage/-/ccusage-17.1.0.tgz";
-      sha512 = "Ti/1hcE5lEs6vgLKOEl/rBuvLGbPIZL9eiWLjU8o6MoAKBNUQtA+Aw4CtNtzfjC3RHcZpmeHnM6Q5xwJ/XSq4A==";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "Usage analysis tool for Claude Code";
-      homepage = "https://github.com/ryoppippi/ccusage#readme";
-      license = "MIT";
-    };
-    production = true;
-    bypassCache = true;
-    reconstructLock = true;
-  };
   gh-actions-language-server = nodeEnv.buildNodePackage {
     name = "gh-actions-language-server";
     packageName = "gh-actions-language-server";

@@ -73,8 +73,6 @@ let
     firebase-tools
     maestro
     tokei
-    nodePkgs."@anthropic-ai/claude-code"
-    nodePkgs.ccusage
     codex
     # scrcpy # unsupported arm64-apple
   ];
