@@ -54,6 +54,7 @@ in
       "keepassxc"
       "raycast"
       "visual-studio-code@insiders"
+      "rectangle"
     ];
     masApps = {
       Kindle = 302584613;
