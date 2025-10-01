@@ -12,40 +12,40 @@
 
 let
   sources = {
-    "@actions/expressions-0.3.18" = {
+    "@actions/expressions-0.3.19" = {
       name = "_at_actions_slash_expressions";
       packageName = "@actions/expressions";
-      version = "0.3.18";
+      version = "0.3.19";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.18.tgz";
-        sha512 = "LiZTqsWk5bwPUz2lkHpcf5sfbznBTlxxihPqjDndD+D+gJW6iOY0vxxztgqq6ft5rKY0WTXSOS+XJkJdqIqv/w==";
+        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.19.tgz";
+        sha512 = "qKz74vbscSo72+UYa79PgO88LEWAJ9JDGurYJL4vuDXox0tbZrMDYK9Jn96k5OFEkq5bpSmeNmhpOsCeO93r9A==";
       };
     };
-    "@actions/languageserver-0.3.18" = {
+    "@actions/languageserver-0.3.19" = {
       name = "_at_actions_slash_languageserver";
       packageName = "@actions/languageserver";
-      version = "0.3.18";
+      version = "0.3.19";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.18.tgz";
-        sha512 = "iq6e0hKeLy7CIZYFWLU8ZHLGC9mTjikXsmoUr57UquMJDFeCVPHihY32OGGyQLTAVvvQGGQEC6eTSKOaYItACQ==";
+        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.19.tgz";
+        sha512 = "xBCa4aLUxhXTi9PbV8HPXQOgOGKfd9y/1plM5X3Na6GOFE5rum5A1PnggRei9JJjJwzvCpzXZsY/3fzTpQ46iQ==";
       };
     };
-    "@actions/languageservice-0.3.18" = {
+    "@actions/languageservice-0.3.19" = {
       name = "_at_actions_slash_languageservice";
       packageName = "@actions/languageservice";
-      version = "0.3.18";
+      version = "0.3.19";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.18.tgz";
-        sha512 = "MvNpNlxiDsiif3/pVQG03MSbIqFNx+TXAKWooztiNoJfETxn/A1KH3w+6uMD5ckwKRBqcINOmsvzvLHnS0/BiA==";
+        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.19.tgz";
+        sha512 = "FeOLiY8CDbsNp/9OHG2lgHbZmJ7xtLhrIYmiK15ftpR0jD38uuQv2M/ecqnIFv+hXzRsnCg/ZlwGYARztM1mdw==";
       };
     };
-    "@actions/workflow-parser-0.3.18" = {
+    "@actions/workflow-parser-0.3.19" = {
       name = "_at_actions_slash_workflow-parser";
       packageName = "@actions/workflow-parser";
-      version = "0.3.18";
+      version = "0.3.19";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.18.tgz";
-        sha512 = "jRimPU7hib7yjotp+pQhOjDvPVQcqckCdjGKMNAiZI/Qqnsp7G5oDlEwOn3VBln/4/RiaLBFzJWTLRzALs3wdg==";
+        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.19.tgz";
+        sha512 = "7+Xjc/4rYPD4lSjOTZPL3Qye5IFsHMkfDzLi/0Vp+sg69IaaXWWspbwVZJQvGbksiEluwLfrEY2fHA7HDNPuMA==";
       };
     };
     "@octokit/auth-token-3.0.4" = {
@@ -408,13 +408,13 @@ let
         sha512 = "N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==";
       };
     };
-    "typescript-5.9.2" = {
+    "typescript-5.9.3" = {
       name = "typescript";
       packageName = "typescript";
-      version = "5.9.2";
+      version = "5.9.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typescript/-/typescript-5.9.2.tgz";
-        sha512 = "CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==";
+        url = "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz";
+        sha512 = "jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==";
       };
     };
     "universal-user-agent-6.0.1" = {
@@ -558,10 +558,10 @@ in
   "@github/copilot-language-server" = nodeEnv.buildNodePackage {
     name = "_at_github_slash_copilot-language-server";
     packageName = "@github/copilot-language-server";
-    version = "1.377.0";
+    version = "1.378.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.377.0.tgz";
-      sha512 = "uvLACipYTIFI+55FK9NeiQ9eVsxbjcewSm9ttCpalZkOi9t3aa/3peJi+XHh2BLV/r1rPzARC4aRb/escbvxcw==";
+      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.378.0.tgz";
+      sha512 = "Riwr3cginyREDjkPUcz4LrH6sikP+m3VQXbnrCGsFLSxSBAnlaK7Ut9EbITSuVq341SMbcCn5TMA5GkIO6qOQg==";
     };
     dependencies = [
       sources."vscode-jsonrpc-8.2.0"
@@ -587,17 +587,17 @@ in
       sha512 = "T2ph7OoS0tnpWsxpvdiC5k9rrv5t7BMwZRJANrk4gZzvTZ1/rY1kpJQjVaiYeTrlj2fDgQh5fMwPqkxNaKIGdw==";
     };
     dependencies = [
-      sources."@actions/expressions-0.3.18"
+      sources."@actions/expressions-0.3.19"
       (
-        sources."@actions/languageserver-0.3.18"
+        sources."@actions/languageserver-0.3.19"
         // {
           dependencies = [
             sources."@octokit/rest-21.1.1"
           ];
         }
       )
-      sources."@actions/languageservice-0.3.18"
-      sources."@actions/workflow-parser-0.3.18"
+      sources."@actions/languageservice-0.3.19"
+      sources."@actions/workflow-parser-0.3.19"
       sources."@octokit/auth-token-5.1.2"
       (
         sources."@octokit/core-6.1.6"
@@ -699,7 +699,7 @@ in
       sources."once-1.4.0"
       sources."safer-buffer-2.1.2"
       sources."tr46-0.0.3"
-      sources."typescript-5.9.2"
+      sources."typescript-5.9.3"
       sources."universal-user-agent-7.0.3"
       sources."vscode-jsonrpc-8.1.0"
       sources."vscode-languageserver-8.1.0"
