@@ -42,6 +42,7 @@ in
     brews = [
       "openssl" # need for cargo-update
       "cocoapods" # need for flutter
+      "swift-format"
     ];
     casks = [
       "arc"

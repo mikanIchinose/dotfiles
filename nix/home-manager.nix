@@ -25,7 +25,7 @@ let
   ];
   linter = with pkgs; [
     yamllint
-    actionlint
+    # actionlint
   ];
   devtools-nix = with pkgs; [
     nixd
@@ -74,6 +74,7 @@ let
     maestro
     tokei
     codex
+    pre-commit
     # scrcpy # unsupported arm64-apple
   ];
 in
@@ -97,6 +98,7 @@ in
     enable = true;
     extensions = with pkgs; [
       gh-poi
+      gh-markdown-preview
     ];
   };
   programs.zoxide.enable = true;
