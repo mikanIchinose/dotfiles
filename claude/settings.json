@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "includeCoAuthoredBy": false,
   "hooks": {
     "Stop": [
       {
@@ -14,8 +13,15 @@
       }
     ]
   },
-  "alwaysThinkingEnabled": false,
+  "statusLine": {
+    "type": "command",
+    "command": "bun x ccusage statusline",
+    "padding": 0
+  },
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
+  },
+  "enabledPlugins": {
+    "aimobiledev@oisix-plugins": true
   }
 }
