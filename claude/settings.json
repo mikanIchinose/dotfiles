@@ -18,10 +18,12 @@
     "command": "bun x ccusage statusline",
     "padding": 0
   },
+  "enabledPlugins": {
+    "aimobiledev@oisix-plugins": true,
+    "aithinking@oisix-plugins": true,
+    "aiutils@oisix-plugins": true
+  },
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
-  },
-  "enabledPlugins": {
-    "aimobiledev@oisix-plugins": true
   }
 }
