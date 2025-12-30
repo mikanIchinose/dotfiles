@@ -39,6 +39,10 @@ in
 
   homebrew = {
     enable = true;
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "uninstall";
+    };
     brews = [
       "openssl" # need for cargo-update
       "cocoapods" # need for flutter
