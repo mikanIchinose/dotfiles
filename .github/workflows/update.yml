@@ -9,7 +9,7 @@ jobs:
       contents: write
     steps:
       # Arrange
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: main
           token: ${{ secrets.WORKFLOW_PAT }}
