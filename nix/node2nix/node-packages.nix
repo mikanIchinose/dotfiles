@@ -12,40 +12,40 @@
 
 let
   sources = {
-    "@actions/expressions-0.3.19" = {
+    "@actions/expressions-0.3.34" = {
       name = "_at_actions_slash_expressions";
       packageName = "@actions/expressions";
-      version = "0.3.19";
+      version = "0.3.34";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.19.tgz";
-        sha512 = "qKz74vbscSo72+UYa79PgO88LEWAJ9JDGurYJL4vuDXox0tbZrMDYK9Jn96k5OFEkq5bpSmeNmhpOsCeO93r9A==";
+        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.34.tgz";
+        sha512 = "bJ5n/4b3aXRJ9ZtNR5jkbsoMjvnmFKf6zhuLAkjZm3mdTIOCSWf+2en6ZAz+HfuXzmdz2TK6bwTxhZjqx6pg7Q==";
       };
     };
-    "@actions/languageserver-0.3.19" = {
+    "@actions/languageserver-0.3.34" = {
       name = "_at_actions_slash_languageserver";
       packageName = "@actions/languageserver";
-      version = "0.3.19";
+      version = "0.3.34";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.19.tgz";
-        sha512 = "xBCa4aLUxhXTi9PbV8HPXQOgOGKfd9y/1plM5X3Na6GOFE5rum5A1PnggRei9JJjJwzvCpzXZsY/3fzTpQ46iQ==";
+        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.34.tgz";
+        sha512 = "JLqFWUdyKrvmdLu28H61dnM9hm+nW8NlDmuAg1tygfdHBQFhe8+IxMY/nFJbhaZq0lTE5xiuzkNKmHhipA8jLg==";
       };
     };
-    "@actions/languageservice-0.3.19" = {
+    "@actions/languageservice-0.3.34" = {
       name = "_at_actions_slash_languageservice";
       packageName = "@actions/languageservice";
-      version = "0.3.19";
+      version = "0.3.34";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.19.tgz";
-        sha512 = "FeOLiY8CDbsNp/9OHG2lgHbZmJ7xtLhrIYmiK15ftpR0jD38uuQv2M/ecqnIFv+hXzRsnCg/ZlwGYARztM1mdw==";
+        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.34.tgz";
+        sha512 = "BFtt0p33F40o57LyCV08AQOIKw8jE0R+4J4wnZ0TC1cqgJbsBsR2RmDC+hGFEubmKblcDV1/9li/PiswuwbBKg==";
       };
     };
-    "@actions/workflow-parser-0.3.19" = {
+    "@actions/workflow-parser-0.3.34" = {
       name = "_at_actions_slash_workflow-parser";
       packageName = "@actions/workflow-parser";
-      version = "0.3.19";
+      version = "0.3.34";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.19.tgz";
-        sha512 = "7+Xjc/4rYPD4lSjOTZPL3Qye5IFsHMkfDzLi/0Vp+sg69IaaXWWspbwVZJQvGbksiEluwLfrEY2fHA7HDNPuMA==";
+        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.34.tgz";
+        sha512 = "Yx6bPVfHYpDs3VF27pcQne31zBVLHgLe/ksOYFjpOjk4rr7BW2pG3Bawh6ojSCItgGbF38j9ibxOvPQPeFG4ew==";
       };
     };
     "@octokit/auth-token-3.0.4" = {
@@ -543,13 +543,13 @@ let
         sha512 = "l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==";
       };
     };
-    "yaml-2.8.1" = {
+    "yaml-2.8.2" = {
       name = "yaml";
       packageName = "yaml";
-      version = "2.8.1";
+      version = "2.8.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/yaml/-/yaml-2.8.1.tgz";
-        sha512 = "lcYcMxX2PO9XMGvAJkJ3OsNMw+/7FKes7/hgerGUYWIoWu5j/+YQqcZr5JnPZWzOsEBgMbSbiSTn/dv/69Mkpw==";
+        url = "https://registry.npmjs.org/yaml/-/yaml-2.8.2.tgz";
+        sha512 = "mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==";
       };
     };
   };
@@ -558,10 +558,10 @@ in
   "@github/copilot-language-server" = nodeEnv.buildNodePackage {
     name = "_at_github_slash_copilot-language-server";
     packageName = "@github/copilot-language-server";
-    version = "1.384.0";
+    version = "1.408.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.384.0.tgz";
-      sha512 = "jvj+pHkDZFYoa/JbX/qZQkacPDTXZw0m7/vMNlli9VmDzAUwCliDAhFDNdoU4ykbGj22x8vwOJf+zXUtr2+qTg==";
+      url = "https://registry.npmjs.org/@github/copilot-language-server/-/copilot-language-server-1.408.0.tgz";
+      sha512 = "VJMTy9lrnwR81TOhF75t/+sob0IRHUdTIfRY6XbBrGrRbBdsSV39pD/7rFcCSACOwchV8+QRh/tdKIU8FRhz8g==";
     };
     dependencies = [
       sources."vscode-jsonrpc-8.2.0"
@@ -587,17 +587,17 @@ in
       sha512 = "T2ph7OoS0tnpWsxpvdiC5k9rrv5t7BMwZRJANrk4gZzvTZ1/rY1kpJQjVaiYeTrlj2fDgQh5fMwPqkxNaKIGdw==";
     };
     dependencies = [
-      sources."@actions/expressions-0.3.19"
+      sources."@actions/expressions-0.3.34"
       (
-        sources."@actions/languageserver-0.3.19"
+        sources."@actions/languageserver-0.3.34"
         // {
           dependencies = [
             sources."@octokit/rest-21.1.1"
           ];
         }
       )
-      sources."@actions/languageservice-0.3.19"
-      sources."@actions/workflow-parser-0.3.19"
+      sources."@actions/languageservice-0.3.34"
+      sources."@actions/workflow-parser-0.3.34"
       sources."@octokit/auth-token-5.1.2"
       (
         sources."@octokit/core-6.1.6"
@@ -717,7 +717,7 @@ in
       sources."webidl-conversions-3.0.1"
       sources."whatwg-url-5.0.0"
       sources."wrappy-1.0.2"
-      sources."yaml-2.8.1"
+      sources."yaml-2.8.2"
     ];
     buildInputs = globalBuildInputs;
     meta = {
