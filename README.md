@@ -30,6 +30,11 @@ go install github.com/rhysd/dotfiles@latest && \
 ghq get skk-dev/dict
 ```
 
+- 外部モニター接続時でも Touch ID で sudo 認証を有効にする
+```
+sudo defaults write /Library/Preferences/com.apple.security.authorization ignoreArd -bool TRUE
+```
+
 ## update
 
 ```bash

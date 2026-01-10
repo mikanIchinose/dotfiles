@@ -70,11 +70,12 @@ let
     ffmpeg
     imagemagick
     hyperfine
-    firebase-tools
     maestro
     tokei
     codex
     pre-commit
+    manix
+    devenv
     # scrcpy # unsupported arm64-apple
   ];
 in
@@ -88,7 +89,7 @@ in
 
   nix.gc = {
     automatic = true;
-    dates = "monthly";
+    dates = "weekly";
     options = "--delete-older-than 3d";
   };
 

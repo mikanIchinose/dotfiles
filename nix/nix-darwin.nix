@@ -47,6 +47,7 @@ in
       "openssl" # need for cargo-update
       "cocoapods" # need for flutter
       "swift-format"
+      "firebase-cli" # nixpkgs版はNode.js 24との互換性問題でビルド失敗 (https://github.com/NixOS/nixpkgs/issues/369813)
     ];
     casks = [
       "arc"
@@ -60,6 +61,7 @@ in
       "raycast"
       "visual-studio-code@insiders"
       "rectangle"
+      "notion-calendar"
     ];
     masApps = {
       Kindle = 302584613;
@@ -113,4 +115,7 @@ in
 
   # 起動時にサウンドを再生しない
   system.startup.chime = false;
+
+  # Touch ID で sudo 認証
+  security.pam.services.sudo_local.touchIdAuth = true;
 }
