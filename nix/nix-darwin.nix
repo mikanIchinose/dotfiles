@@ -104,8 +104,8 @@ in
   # Finder
   system.defaults.finder = {
     _FXSortFoldersFirst = true;
-    # 隠しファイルは非表示
-    AppleShowAllFiles = false;
+    # 隠しファイルを表示
+    AppleShowAllFiles = true;
     # 検索のスコープ: 現在のフォルダ
     FXDefaultSearchScope = "SCcf";
     # デフォルトビュー: Column View
@@ -116,6 +116,29 @@ in
 
   # 起動時にサウンドを再生しない
   system.startup.chime = false;
+
+  # アプリ固有の設定
+  system.defaults.CustomUserPreferences = {
+    # テキスト自動補正を無効化
+    NSGlobalDomain = {
+      # 文頭を自動で大文字にしない
+      NSAutomaticCapitalizationEnabled = false;
+      # スペース2回でピリオドを挿入しない
+      NSAutomaticPeriodSubstitutionEnabled = false;
+      # スマート引用符（""→""）を使わない
+      NSAutomaticQuoteSubstitutionEnabled = false;
+      # スマートダッシュ（--→—）を使わない
+      NSAutomaticDashSubstitutionEnabled = false;
+      # スペルミスを自動修正しない
+      NSAutomaticSpellingCorrectionEnabled = false;
+    };
+    # Xcode ショートカット
+    "com.apple.dt.Xcode" = {
+      NSUserKeyEquivalents = {
+        "Editor->SwiftFormat->Format File" = "@s";
+      };
+    };
+  };
 
   # Touch ID で sudo 認証
   security.pam.services.sudo_local.touchIdAuth = true;
