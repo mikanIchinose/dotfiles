@@ -76,6 +76,7 @@ let
     pre-commit
     manix
     devenv
+    jujutsu
     # scrcpy # unsupported arm64-apple
   ];
 in
