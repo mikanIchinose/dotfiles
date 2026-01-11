@@ -62,6 +62,7 @@ in
       "visual-studio-code@insiders"
       "rectangle"
       "notion-calendar"
+      "swiftformat-for-xcode"
     ];
     masApps = {
       Kindle = 302584613;
