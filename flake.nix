@@ -49,6 +49,7 @@
             # local packages
             (final: prev: {
               gwq = final.callPackage ./nix/packages/gwq { };
+              slack-reminder = final.callPackage ./nix/packages/slack-reminder { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];

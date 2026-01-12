@@ -7,7 +7,10 @@
 let
   dotfilesDir = "${config.home.homeDirectory}/dotfiles";
   mkLink = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
-  selfPackages = with pkgs; [ gwq ];
+  selfPackages = with pkgs; [
+    gwq
+    slack-reminder
+  ];
   nodePkgs = pkgs.callPackage ./node2nix {
     inherit pkgs;
     nodejs = pkgs.nodejs_24;
@@ -82,6 +85,16 @@ let
     devenv
     jujutsu
     # scrcpy # unsupported arm64-apple
+
+    # Go tools (from gofile)
+    gogup
+    vim-startuptime
+
+    # Rust tools (from cargofile)
+    cargo-cache
+    cargo-make
+    cargo-update
+    # rogcat # aarch64-darwin not supported
   ];
 in
 {
