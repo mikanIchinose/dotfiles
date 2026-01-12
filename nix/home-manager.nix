@@ -1,9 +1,12 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }:
 let
+  dotfilesDir = "${config.home.homeDirectory}/dotfiles";
+  mkLink = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
   selfPackages = with pkgs; [ gwq ];
   nodePkgs = pkgs.callPackage ./node2nix {
     inherit pkgs;
@@ -137,6 +140,52 @@ in
 
   home.shell.enableFishIntegration = true;
   home.stateVersion = "25.05";
+
+  home.file = {
+    # Git
+    ".gitconfig".source = mkLink "home/gitconfig";
+    ".gitmessage".source = mkLink "home/gitmessage";
+
+    # Vim
+    ".ideavimrc".source = mkLink "home/ideavimrc";
+    ".vimrc".source = mkLink "home/vimrc";
+
+    # Zsh
+    ".zshrc".source = mkLink "home/zshrc";
+    ".zshenv".source = mkLink "home/zshenv";
+    ".zprofile".source = mkLink "home/zprofile";
+
+    # Claude Code
+    ".claude/settings.json".source = mkLink "claude/settings.json";
+    ".claude/CLAUDE.md".source = mkLink "claude/CLAUDE.md";
+    ".claude/agents".source = mkLink "claude/agents";
+    ".claude/commands".source = mkLink "claude/commands";
+    ".claude/hooks".source = mkLink "claude/hooks";
+    ".claude/skills".source = mkLink "claude/skills";
+  };
+
+  xdg.configFile = {
+    "efm-langserver".source = mkLink "home/config/efm-langserver";
+    "fish".source = mkLink "home/config/fish";
+    "lazygit".source = mkLink "home/config/lazygit";
+    "nvim".source = mkLink "home/config/nvim_next";
+    "navi".source = mkLink "home/config/navi";
+    "starship".source = mkLink "home/config/starship";
+    "wezterm".source = mkLink "home/config/wezterm";
+    "ghostty".source = mkLink "home/config/ghostty";
+    "aerospace".source = mkLink "aerospace";
+  }
+  // (
+    if pkgs.stdenv.isDarwin then
+      {
+        # Darwin専用
+        "karabiner".source = mkLink "home/config.darwin/karabiner";
+        "topgrade.toml".source = mkLink "home/config.darwin/topgrade.toml";
+      }
+    else
+      { }
+  );
+
   home.packages =
     selfPackages
     ++ programming
