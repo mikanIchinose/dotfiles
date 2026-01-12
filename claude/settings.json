@@ -1,13 +1,65 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh workflow list:*)",
+      "Bash(gh workflow view:*)",
+      "Skill(analyze-component-behaviors)",
+      "Skill(plan-improve-test)",
+      "Skill(test-guideline)",
+      "Skill(implement-test)",
+      "Bash(./gradlew:*)"
+    ],
+    "defaultMode": "default"
+  },
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/save-prompt.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "TodoWrite",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/save-todo.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
     "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/save-response.sh",
+            "timeout": 5
+          }
+        ]
+      },
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "curl -H \"Title: Claude Code\" -d \"タスク完了通知です\" ntfy.sh/mikan-claude-code"
+            "command": "~/.claude/hooks/ntfy-notify.sh"
           }
         ]
       }
@@ -19,10 +71,11 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "aimobiledev@oisix-plugins": true,
-    "aithinking@oisix-plugins": true,
-    "aiutils@oisix-plugins": true
+    "aimobiledev@oisix-plugins": false,
+    "aithinking@oisix-plugins": false,
+    "code-review@claude-code-plugins": true
   },
+  "language": "Japanese",
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
   }
