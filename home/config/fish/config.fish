@@ -68,59 +68,19 @@ if type -q brew &> /dev/null
   end
 end
 
-set -x PATH $HOME/.cache/dpp/repos/github.com/liquidz/vim-iced/bin $PATH
+# set -x PATH $HOME/.cache/dpp/repos/github.com/liquidz/vim-iced/bin $PATH
 
-#if type -q starship &> /dev/null
-#  starship init fish | source
-#end
-
-# if type -q asdf
-#   set -l ASDF_HOME "$HOMEBREW_PREFIX/opt/asdf"
-#   source $ASDF_HOME/libexec/asdf.fish
-# end
-
+# zoxide
 if type -q zoxide &> /dev/null
   zoxide init fish | source
 end
+
+# starship
 if type -q starship &> /dev/null
   starship init fish | source
 end
 
-# navi: An interactive cheatsheet tool for the command-line
-# homepage: https://github.com/denisidoro/navi
-if type -q navi &> /dev/null
-  # NOTE: バグがないかたまに確認しよう
-  # NOTE: https://github.com/denisidoro/navi/issues?q=is%3Aissue+is%3Aopen+shell+widget
-  function _navi_smart_replace
-    set -l current_process (commandline -p | string trim)
-
-    if test -z "$current_process"
-      commandline -i (navi --print)
-    else
-      set -l best_match (navi --print --best-match --query "$current_process")
-
-      if not test "$best_match" >/dev/null
-        return
-      end
-
-      if test -z "$best_match"
-        commandline -p (navi --print --query "$current_process")
-      else if test "$current_process" != "$best_match"
-        commandline -p $best_match
-      else
-        commandline -p (navi --print --query "$current_process")
-      end
-    end
-
-    commandline -f repaint
-  end
-
-  # C-n: start navi
-  if test $fish_key_bindings = fish_default_key_bindings
-    bind \cn _navi_smart_replace
-  else
-    bind -M insert \cn _navi_smart_replace
-  end
+# jujutsu
+if type -q jj &> /dev/null
+  jj util completion fish | source
 end
-
-# source ~/.config/fish/completions/cargo-make.fish
