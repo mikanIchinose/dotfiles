@@ -4,6 +4,7 @@
   ...
 }:
 let
+  selfPackages = with pkgs; [ gwq ];
   nodePkgs = pkgs.callPackage ./node2nix {
     inherit pkgs;
     nodejs = pkgs.nodejs_24;
@@ -81,17 +82,34 @@ let
   ];
 in
 {
-  nixpkgs.overlays = [
-    inputs.neovim-nightly-overlay.overlays.default
-  ];
   nixpkgs.config = {
     allowUnfree = true;
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 3d";
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than 3d";
+  # };
+  # ↑ログ出力がないため、実行結果を確認できない。launchd.agentsで直接定義する。
+  launchd.agents.nix-gc = {
+    enable = true;
+    config = {
+      ProgramArguments = [
+        "${pkgs.nix}/bin/nix-collect-garbage"
+        "--delete-older-than"
+        "3d"
+      ];
+      StartCalendarInterval = [
+        {
+          Hour = 0;
+          Minute = 0;
+          Weekday = 1; # 月曜日
+        }
+      ];
+      StandardOutPath = "/tmp/nix-gc.log";
+      StandardErrorPath = "/tmp/nix-gc.err";
+    };
   };
 
   programs.home-manager.enable = true;
@@ -120,7 +138,8 @@ in
   home.shell.enableFishIntegration = true;
   home.stateVersion = "25.05";
   home.packages =
-    programming
+    selfPackages
+    ++ programming
     ++ lsp
     ++ formatter
     ++ linter

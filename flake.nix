@@ -38,10 +38,19 @@
     let
       username = "mikan";
       system = "aarch64-darwin";
-      rust-configuration =
+      overlays-configuration =
         { pkgs, ... }:
         {
-          nixpkgs.overlays = [ rust-overlay.overlays.default ];
+          nixpkgs.overlays = [
+            # rust
+            rust-overlay.overlays.default
+            # neovim nightly
+            inputs.neovim-nightly-overlay.overlays.default
+            # local packages
+            (final: prev: {
+              gwq = final.callPackage ./nix/packages/gwq { };
+            })
+          ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
         };
     in
@@ -57,14 +66,15 @@
             modules = [
               ./nix/nix-darwin.nix
               home-manager.darwinModules.home-manager
-              rust-configuration
+              overlays-configuration
             ];
           };
         };
       };
       perSystem =
-        { ... }:
+        { pkgs, ... }:
         {
+          packages.gwq = pkgs.callPackage ./nix/packages/gwq { };
           treefmt = {
             projectRootFile = "flake.nix";
             programs = {
