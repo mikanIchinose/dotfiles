@@ -1,7 +1,7 @@
 // deno-lint-ignore-file require-await
-import { type DdcItem } from "jsr:@shougo/ddc-vim@~9.0.0/types";
-import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.0.0/config";
-import { Denops } from "jsr:@denops/std@~7.3.0";
+import { type DdcItem } from "@shougo/ddc-vim/types";
+import { BaseConfig, ConfigArguments } from "@shougo/ddc-vim/config";
+import { Denops } from "@denops/std";
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
@@ -64,7 +64,9 @@ export class Config extends BaseConfig {
           //dup: "keep",
           //keywordPattern: "\k+",
           matchers: ["matcher_head"],
-          sorters: ["sorter_lsp-kind"],
+          sorters: [
+            // "sorter_lsp-kind"
+          ],
           converters: [],
           // matchers: ["matcher_fuzzy"],
           // sorters: ["sorter_fuzzy"],

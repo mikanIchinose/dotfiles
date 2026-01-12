@@ -1,14 +1,14 @@
 import {
   type ActionArguments,
   ActionFlags,
-} from "jsr:@shougo/ddu-vim@~7.0.0/types";
+} from "@shougo/ddu-vim/types";
 import {
   BaseConfig,
   type ConfigArguments,
-} from "jsr:@shougo/ddu-vim@~7.0.0/config";
-import { type ActionData } from "jsr:@shougo/ddu-kind-file@~0.9.0";
-import { type Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.5.0";
-import { type Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.5.0";
+} from "@shougo/ddu-vim/config";
+import { type ActionData } from "@shougo/ddu-kind-file";
+import { type Params as FfParams } from "@shougo/ddu-ui-ff";
+import { type Params as FilerParams } from "@shougo/ddu-ui-filer";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
