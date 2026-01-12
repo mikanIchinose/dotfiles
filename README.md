@@ -40,3 +40,9 @@ sudo defaults write /Library/Preferences/com.apple.security.authorization ignore
 ```bash
 sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#mikan
 ```
+
+## garbage collection
+
+```bash
+nix-collect-garbage -d
+```
