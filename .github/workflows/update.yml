@@ -28,6 +28,8 @@ jobs:
           nix-shell -p nodePackages.node2nix --command "node2nix -i ./node-packages.json -o node-packages.nix"
       - name: Update flake
         run: nix flake update
+      - name: Update gwq
+        run: nix run nixpkgs#nix-update -- --flake --override-filename nix/packages/gwq/default.nix gwq || true
       - name: Format
         run: nix fmt
       - name: Commit changes
