@@ -10,6 +10,8 @@ let
   selfPackages = with pkgs; [
     gwq
     slack-reminder
+    mocword
+    rogcat
   ];
   nodePkgs = pkgs.callPackage ./node2nix {
     inherit pkgs;

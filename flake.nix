@@ -50,6 +50,8 @@
             (final: prev: {
               gwq = final.callPackage ./nix/packages/gwq { };
               slack-reminder = final.callPackage ./nix/packages/slack-reminder { };
+              mocword = final.callPackage ./nix/packages/mocword { };
+              rogcat = final.callPackage ./nix/packages/rogcat { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
