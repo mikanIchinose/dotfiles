@@ -63,6 +63,7 @@ in
       "rectangle"
       "notion-calendar"
       "swiftformat-for-xcode"
+      "google-japanese-ime"
     ];
     masApps = {
       Kindle = 302584613;
