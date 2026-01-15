@@ -12,40 +12,40 @@
 
 let
   sources = {
-    "@actions/expressions-0.3.34" = {
+    "@actions/expressions-0.3.36" = {
       name = "_at_actions_slash_expressions";
       packageName = "@actions/expressions";
-      version = "0.3.34";
+      version = "0.3.36";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.34.tgz";
-        sha512 = "bJ5n/4b3aXRJ9ZtNR5jkbsoMjvnmFKf6zhuLAkjZm3mdTIOCSWf+2en6ZAz+HfuXzmdz2TK6bwTxhZjqx6pg7Q==";
+        url = "https://registry.npmjs.org/@actions/expressions/-/expressions-0.3.36.tgz";
+        sha512 = "PoZKiRcT7Us2v6A0LJDBMHbFXBmBVDePp5zUG7ttMWGO0y7mtashUWQFDPRuDbIKm1JG0C+K0o9RIW3aapAKqA==";
       };
     };
-    "@actions/languageserver-0.3.34" = {
+    "@actions/languageserver-0.3.36" = {
       name = "_at_actions_slash_languageserver";
       packageName = "@actions/languageserver";
-      version = "0.3.34";
+      version = "0.3.36";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.34.tgz";
-        sha512 = "JLqFWUdyKrvmdLu28H61dnM9hm+nW8NlDmuAg1tygfdHBQFhe8+IxMY/nFJbhaZq0lTE5xiuzkNKmHhipA8jLg==";
+        url = "https://registry.npmjs.org/@actions/languageserver/-/languageserver-0.3.36.tgz";
+        sha512 = "uN17IHXLGbTa8sam2g+mUtfyQWk/bY9RF/gZAS99/433iDl6KfLM9udqRsw8yTuGMwnJgDWS5lfjfcomiUtPZA==";
       };
     };
-    "@actions/languageservice-0.3.34" = {
+    "@actions/languageservice-0.3.36" = {
       name = "_at_actions_slash_languageservice";
       packageName = "@actions/languageservice";
-      version = "0.3.34";
+      version = "0.3.36";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.34.tgz";
-        sha512 = "BFtt0p33F40o57LyCV08AQOIKw8jE0R+4J4wnZ0TC1cqgJbsBsR2RmDC+hGFEubmKblcDV1/9li/PiswuwbBKg==";
+        url = "https://registry.npmjs.org/@actions/languageservice/-/languageservice-0.3.36.tgz";
+        sha512 = "KYcRPPRL+EcHhMKDNTwPQODwPa426mGsRJEGDip0M5wRwwyGcKusWtMAoGfdLFYVm7eX9Hyd6zNphI2Tw2t1sQ==";
       };
     };
-    "@actions/workflow-parser-0.3.34" = {
+    "@actions/workflow-parser-0.3.36" = {
       name = "_at_actions_slash_workflow-parser";
       packageName = "@actions/workflow-parser";
-      version = "0.3.34";
+      version = "0.3.36";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.34.tgz";
-        sha512 = "Yx6bPVfHYpDs3VF27pcQne31zBVLHgLe/ksOYFjpOjk4rr7BW2pG3Bawh6ojSCItgGbF38j9ibxOvPQPeFG4ew==";
+        url = "https://registry.npmjs.org/@actions/workflow-parser/-/workflow-parser-0.3.36.tgz";
+        sha512 = "ArQWHElWCrgeeW4SBslal5pG6VTsBbX/5WPoUS8fIbqMxUWdVlXVZGXqSoJyki5mOdTgiAIR5jkdC4MyKG0r7g==";
       };
     };
     "@octokit/auth-token-3.0.4" = {
@@ -587,17 +587,17 @@ in
       sha512 = "T2ph7OoS0tnpWsxpvdiC5k9rrv5t7BMwZRJANrk4gZzvTZ1/rY1kpJQjVaiYeTrlj2fDgQh5fMwPqkxNaKIGdw==";
     };
     dependencies = [
-      sources."@actions/expressions-0.3.34"
+      sources."@actions/expressions-0.3.36"
       (
-        sources."@actions/languageserver-0.3.34"
+        sources."@actions/languageserver-0.3.36"
         // {
           dependencies = [
             sources."@octokit/rest-21.1.1"
           ];
         }
       )
-      sources."@actions/languageservice-0.3.34"
-      sources."@actions/workflow-parser-0.3.34"
+      sources."@actions/languageservice-0.3.36"
+      sources."@actions/workflow-parser-0.3.36"
       sources."@octokit/auth-token-5.1.2"
       (
         sources."@octokit/core-6.1.6"
