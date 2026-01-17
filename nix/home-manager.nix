@@ -115,8 +115,8 @@ in
       ];
       StartCalendarInterval = [
         {
-          Hour = 0;
-          Minute = 0;
+          Hour = 10;
+          Minute = 30;
           Weekday = 1; # 月曜日
         }
       ];
