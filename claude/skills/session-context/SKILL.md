@@ -1,5 +1,5 @@
 ---
-name: context
+name: session-context
 description: セッションコンテキストを表示。タブを離れて戻ってきた時に「何をやっていたか」「何を依頼したか」「次に何をすべきか」を思い出すために使用。
 ---
 
