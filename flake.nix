@@ -52,6 +52,7 @@
               slack-reminder = final.callPackage ./nix/packages/slack-reminder { };
               mocword = final.callPackage ./nix/packages/mocword { };
               rogcat = final.callPackage ./nix/packages/rogcat { };
+              covpeek = final.callPackage ./nix/packages/covpeek { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -78,6 +79,7 @@
         { pkgs, ... }:
         {
           packages.gwq = pkgs.callPackage ./nix/packages/gwq { };
+          packages.covpeek = pkgs.callPackage ./nix/packages/covpeek { };
           treefmt = {
             projectRootFile = "flake.nix";
             programs = {

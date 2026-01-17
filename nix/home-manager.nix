@@ -12,6 +12,7 @@ let
     slack-reminder
     mocword
     rogcat
+    covpeek
   ];
   nodePkgs = pkgs.callPackage ./node2nix {
     inherit pkgs;
