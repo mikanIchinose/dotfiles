@@ -33,7 +33,7 @@ let
   ];
   devtools-nix = with pkgs; [
     nixd
-    nixfmt-rfc-style
+    nixfmt
   ];
   devtools-vim = with pkgs; [
     vim-language-server
