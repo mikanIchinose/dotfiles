@@ -53,6 +53,8 @@
               mocword = final.callPackage ./nix/packages/mocword { };
               rogcat = final.callPackage ./nix/packages/rogcat { };
               covpeek = final.callPackage ./nix/packages/covpeek { };
+              copilot-language-server = final.callPackage ./nix/packages/copilot-language-server { };
+              gh-actions-language-server = final.callPackage ./nix/packages/gh-actions-language-server { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];

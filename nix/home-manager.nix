@@ -1,5 +1,5 @@
 {
-  inputs,
+  lib,
   pkgs,
   config,
   ...
@@ -14,13 +14,9 @@ let
     rogcat
     covpeek
   ];
-  nodePkgs = pkgs.callPackage ./node2nix {
-    inherit pkgs;
-    nodejs = pkgs.nodejs_24;
-  };
   programming = with pkgs; [
     deno
-    nodejs
+    nodejs_24 # LTS version for consistency with buildNpmPackage
     bun
     uv
   ];
@@ -28,10 +24,8 @@ let
     #rust-analyzer # https://github.com/NixOS/nixpkgs/issues/432960
     yaml-language-server
     efm-langserver
-    nodePkgs."@github/copilot-language-server"
-    nodePkgs.gh-actions-language-server
-  ];
-  formatter = with pkgs; [
+    copilot-language-server
+    gh-actions-language-server
   ];
   linter = with pkgs; [
     yamllint
@@ -202,16 +196,16 @@ in
       { }
   );
 
-  home.packages =
+  home.packages = lib.flatten [
     selfPackages
-    ++ programming
-    ++ lsp
-    ++ formatter
-    ++ linter
-    ++ devtools-nix
-    ++ devtools-vim
-    ++ devtools-web
-    ++ devtools-clojure
-    ++ devtools-go
-    ++ utility;
+    programming
+    lsp
+    linter
+    devtools-nix
+    devtools-vim
+    devtools-web
+    devtools-clojure
+    devtools-go
+    utility
+  ];
 }

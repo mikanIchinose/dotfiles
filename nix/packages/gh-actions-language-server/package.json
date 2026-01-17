@@ -1,0 +1,8 @@
+{
+  "name": "gh-actions-language-server-wrapper",
+  "version": "0.0.3",
+  "private": true,
+  "dependencies": {
+    "gh-actions-language-server": "0.0.3"
+  }
+}
