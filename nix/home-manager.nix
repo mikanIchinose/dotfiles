@@ -92,6 +92,8 @@ let
     cargo-make
     cargo-update
     # rogcat # aarch64-darwin not supported
+
+    glow
   ];
 in
 {
