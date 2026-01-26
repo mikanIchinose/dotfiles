@@ -40,7 +40,6 @@ abbr dps "docker container ls --format \"table {{.Names}}\t{{.Ports}}\""
 # docker-compose
 abbr dc "docker-compose"
 abbr dup "docker-compose up -d"
-abbr dd "docker-compose down"
 abbr dk "docker-compose down --rmi all --volumes --remove-orphans"
 alias dreload "ddown && dup"
 abbr dex "docker-compose exec"
@@ -77,6 +76,6 @@ if type -q eza &> /dev/null
   abbr ll "eza -al"
 end
 
-abbr junkfile 'touch junkfile_(date +"%Y%m%d_%H%M%S").md'
-
-alias dart "fvm dart"
+# difit (git diff viewer)
+abbr dd 'bun x difit (git branch --show-current) develop'
+abbr d. 'bun x difit .'
