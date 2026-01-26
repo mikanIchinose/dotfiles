@@ -48,6 +48,8 @@ in
       "cocoapods" # need for flutter
       "swift-format"
       "firebase-cli" # nixpkgs版はNode.js 24との互換性問題でビルド失敗 (https://github.com/NixOS/nixpkgs/issues/369813)
+      "pre-commit" # nixpkgs版はSwiftビルド失敗のため一時的にHomebrewで管理
+      "gradle-profiler" # nixpkgになかった
     ];
     casks = [
       "arc"
@@ -65,6 +67,7 @@ in
       "swiftformat-for-xcode"
       "google-japanese-ime"
       "claude"
+      "docker"
     ];
     masApps = {
       Kindle = 302584613;
@@ -144,4 +147,10 @@ in
 
   # Touch ID で sudo 認証
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  # darwin-rebuild 時に実行するスクリプト
+  system.activationScripts.cleanDppCache.text = ''
+    echo "Cleaning dpp cache..."
+    rm -rf ${homeDirectory}/.cache/dpp/nvim/
+  '';
 }

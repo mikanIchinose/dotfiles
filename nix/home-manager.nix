@@ -77,7 +77,7 @@ let
     maestro
     tokei
     codex
-    pre-commit
+    # pre-commit # Swift ビルド失敗のため一時的に無効化 (nixpkgs issue)
     manix
     devenv
     jujutsu
@@ -94,6 +94,10 @@ let
     # rogcat # aarch64-darwin not supported
 
     glow
+
+    # Disk usage tools (Rust alternatives to du)
+    diskus # minimal, fastest (du -sh alternative)
+    dust # intuitive tree view
   ];
 in
 {
