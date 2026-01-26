@@ -42,6 +42,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/post-edit-checks.sh",
+            "timeout": 300
+          }
+        ]
       }
     ],
     "Stop": [
@@ -53,21 +63,12 @@
             "timeout": 5
           }
         ]
-      },
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/ntfy-notify.sh"
-          }
-        ]
       }
     ]
   },
   "statusLine": {
     "type": "command",
-    "command": "bun x ccusage statusline",
+    "command": "~/.claude/statusline.sh",
     "padding": 0
   },
   "enabledPlugins": {
