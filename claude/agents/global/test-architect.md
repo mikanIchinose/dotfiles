@@ -27,7 +27,7 @@ description: |
     assistant: "I'll use the test-architect agent to design the test cases first before implementation."
     </example>
 model: opus
-skills: analyze-component-behaviors, plan-improve-test
+skills: analyze-component-behaviors, plan-improve-test, test-guideline
 ---
 
 <purpose>
