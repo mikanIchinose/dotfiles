@@ -7,7 +7,8 @@ unsetopt nomatch
 
 [[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
 
-export PATH="$HOME/local/scripts/git-extensions:$PATH"
+export PATH="$HOME/dotfiles/git/extensions:$PATH"
+export PATH="$HOME/dotfiles/scripts:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 # export PATH="$HOME/.cargo/bin:$PATH"
 # export PATH="$HOME/.deno/bin:$PATH"

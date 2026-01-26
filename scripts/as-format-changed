@@ -1,0 +1,56 @@
+#!/bin/bash
+set -euo pipefail
+
+# ベースブランチを探す
+find_base_branch() {
+    # 引数があればそれを最優先
+    if [ -n "$1" ]; then
+        echo "$1"
+        return
+    fi
+
+    # なければdevelop
+    echo "develop"
+}
+
+# format.shを探す
+find_formatter() {
+    local formatter
+    formatter=$(find /Applications -maxdepth 4 -name "format.sh" -path "*Android*" 2>/dev/null | head -1)
+    echo "$formatter"
+}
+
+BASE_BRANCH=$(find_base_branch "${1:-}")
+FORMAT_CMD=$(find_formatter)
+
+if [ -z "$FORMAT_CMD" ]; then
+    echo "エラー: format.sh が見つかりません"
+    exit 1
+fi
+
+echo "フォーマッタ: $FORMAT_CMD"
+echo "ベースブランチ: $BASE_BRANCH"
+echo ""
+
+# ベースブランチとHEAD間の差分ファイルを取得
+changed_files=$(git diff --name-only "$BASE_BRANCH"...HEAD -- '*.kt' '*.xml' 2>/dev/null | grep -v '^$')
+
+if [ -z "$changed_files" ]; then
+    echo "フォーマット対象のファイルがありません"
+    exit 0
+fi
+
+echo "フォーマット対象:"
+echo "$changed_files"
+echo ""
+
+echo "$changed_files" | while read -r file; do
+    if [ -f "$file" ]; then
+        echo "Formatting: $file"
+        "$FORMAT_CMD" "$file"
+    fi
+done
+
+echo ""
+echo "完了"
+

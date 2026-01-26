@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+WORKTREE_AND_HEAD_PATTERN="($(git worktree list --porcelain | grep branch | sed "s/.*refs\/heads\///" | tr '\n' '|')HEAD)"
+branch=$(git for-each-ref --format="%(refname:short)" refs/remotes refs/heads |
+  rg -v "$WORKTREE_AND_HEAD_PATTERN" |
+  sed "s/origin\///" |
+  sort | uniq | fzf)
+
+command git switch "$branch"
