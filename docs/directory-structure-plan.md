@@ -118,7 +118,7 @@ chore: remove unused config files
 
 ---
 
-## Phase 3: config/ の作成（リスク: 中）
+## Phase 3: config/ の作成 ✅ 完了
 
 home/config/ をトップレベルに移動。変更箇所が多いため慎重に。
 

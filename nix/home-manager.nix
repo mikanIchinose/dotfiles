@@ -200,22 +200,22 @@ in
   };
 
   xdg.configFile = {
-    "efm-langserver".source = mkLink "home/config/efm-langserver";
-    "fish".source = mkLink "home/config/fish";
-    "lazygit".source = mkLink "home/config/lazygit";
-    "nvim".source = mkLink "home/config/nvim";
-    "navi".source = mkLink "home/config/navi";
-    "starship".source = mkLink "home/config/starship";
-    "wezterm".source = mkLink "home/config/wezterm";
-    "ghostty".source = mkLink "home/config/ghostty";
-    "aerospace".source = mkLink "aerospace";
+    "efm-langserver".source = mkLink "config/efm-langserver";
+    "fish".source = mkLink "config/fish";
+    "lazygit".source = mkLink "config/lazygit";
+    "nvim".source = mkLink "config/nvim";
+    "navi".source = mkLink "config/navi";
+    "starship".source = mkLink "config/starship";
+    "wezterm".source = mkLink "config/wezterm";
+    "ghostty".source = mkLink "config/ghostty";
+    "aerospace".source = mkLink "config/aerospace";
   }
   // (
     if pkgs.stdenv.isDarwin then
       {
         # Darwin専用
-        "karabiner".source = mkLink "home/config.darwin/karabiner";
-        "topgrade.toml".source = mkLink "home/config.darwin/topgrade.toml";
+        "karabiner".source = mkLink "config.darwin/karabiner";
+        "topgrade.toml".source = mkLink "config.darwin/topgrade.toml";
       }
     else
       { }
