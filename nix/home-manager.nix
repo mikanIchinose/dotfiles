@@ -164,8 +164,7 @@ in
   };
 
   home.sessionPath = [
-    "$HOME/dotfiles/git/extensions"
-    "$HOME/dotfiles/scripts"
+    "$HOME/dotfiles/bin"
     "$HOME/go/bin"
     "$HOME/.pub-cache/bin"
     "$HOME/.npm-global/bin"

@@ -211,7 +211,7 @@ emacs: move emacs.d to top level
 
 ---
 
-## Phase 5: bin/ の作成（リスク: 中）
+## Phase 5: bin/ の作成 ✅ 完了
 
 スクリプトを統合し、PATH を更新。
 
@@ -343,7 +343,7 @@ git: consolidate git config into config/git/
 | `git/gh-extensions` | 1 | ghfile と重複 | ✅ 削除済み |
 | `git/ghq-list` | 1 | 未使用 | ✅ 削除済み |
 | `git/` | 6 | config/git/ と bin/ に分離 | |
-| `scripts/` | 5 | bin/ に統合 | |
+| `scripts/` | 5 | bin/ に統合 | ✅ 完了 |
 
 ---
 
