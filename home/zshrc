@@ -7,25 +7,8 @@ unsetopt nomatch
 
 [[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
 
-export PATH="$HOME/dotfiles/git/extensions:$PATH"
-export PATH="$HOME/dotfiles/scripts:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-# export PATH="$HOME/.cargo/bin:$PATH"
-# export PATH="$HOME/.deno/bin:$PATH"
-# export PATH="$HOME/.bun/bin:$PATH"
-export PATH="$PATH:$HOME/.pub-cache/bin"
-# export PATH="$PATH:$HOME/.maestro/bin"
-export PATH=$HOME/.npm-global/bin:$PATH
-export PATH=$HOME/.claude/local:$PATH
-export PATH=$HOME/.fvm_flutter/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-
-export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-
-# bun
+# bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall

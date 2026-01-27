@@ -158,6 +158,23 @@ in
   home.shell.enableFishIntegration = true;
   home.stateVersion = "25.05";
 
+  home.sessionVariables = {
+    JAVA_HOME = "/Applications/Android Studio.app/Contents/jbr/Contents/Home";
+    BUN_INSTALL = "$HOME/.bun";
+  };
+
+  home.sessionPath = [
+    "$HOME/dotfiles/git/extensions"
+    "$HOME/dotfiles/scripts"
+    "$HOME/go/bin"
+    "$HOME/.pub-cache/bin"
+    "$HOME/.npm-global/bin"
+    "$HOME/.claude/local"
+    "$HOME/.fvm_flutter/bin"
+    "$HOME/.local/bin"
+    "$HOME/.bun/bin"
+  ];
+
   home.file = {
     # Git
     ".gitconfig".source = mkLink "home/gitconfig";
