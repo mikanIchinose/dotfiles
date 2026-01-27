@@ -72,7 +72,7 @@ dotfiles/
 
 ---
 
-## Phase 1: 不要ファイルの削除（リスク: 低）
+## Phase 1: 不要ファイルの削除 ✅ 完了
 
 参照がないファイルを削除。darwin-rebuild は不要。
 
@@ -328,20 +328,20 @@ git: consolidate git config into config/git/
 | `home/config/kitty/` | - | 未使用 | ✅ 削除済み |
 | `home/config/wtf/` | - | 未使用 | ✅ 削除済み |
 | `home/config/nvim_next/` | 2 | nvim に統合・リネーム | ✅ 完了済み |
-| `home/config/commitizen/` | 1 | 未使用 | |
-| `home/config/gh-dash/` | 1 | 未使用 | |
-| `home/config/markdownlint/` | 1 | 未使用 | |
-| `home/config/stylua.toml` | 1 | 未使用 | |
-| `home/config/tigrc` | 1 | 未使用 | |
-| `home/Brewfile.darwin` | 1 | nix-darwin で管理 | |
-| `home/Brewfile.linux` | 1 | nix-darwin で管理 | |
-| `home/skhdrc` | 1 | aerospace に移行済み | |
-| `home/yabairc` | 1 | aerospace に移行済み | |
-| `__script/` | 1 | Nix管理に移行済み | |
-| `install.sh` | 1 | Nix管理に移行済み | |
-| `uninstall.sh` | 1 | Nix管理に移行済み | |
-| `git/gh-extensions` | 1 | ghfile と重複 | |
-| `git/ghq-list` | 1 | 未使用 | |
+| `home/config/commitizen/` | 1 | 未使用 | ✅ 削除済み |
+| `home/config/gh-dash/` | 1 | 未使用 | ✅ 削除済み |
+| `home/config/markdownlint/` | 1 | 未使用 | ✅ 削除済み |
+| `home/config/stylua.toml` | 1 | 未使用 | ✅ 削除済み |
+| `home/config/tigrc` | 1 | 未使用 | ✅ 削除済み |
+| `home/Brewfile.darwin` | 1 | nix-darwin で管理 | ✅ 削除済み |
+| `home/Brewfile.linux` | 1 | nix-darwin で管理 | ✅ 削除済み |
+| `home/skhdrc` | 1 | aerospace に移行済み | ✅ 削除済み |
+| `home/yabairc` | 1 | aerospace に移行済み | ✅ 削除済み |
+| `__script/` | 1 | Nix管理に移行済み | ✅ 削除済み |
+| `install.sh` | 1 | Nix管理に移行済み | ✅ 削除済み |
+| `uninstall.sh` | 1 | Nix管理に移行済み | ✅ 削除済み |
+| `git/gh-extensions` | 1 | ghfile と重複 | ✅ 削除済み |
+| `git/ghq-list` | 1 | 未使用 | ✅ 削除済み |
 | `git/` | 6 | config/git/ と bin/ に分離 | |
 | `scripts/` | 5 | bin/ に統合 | |
 

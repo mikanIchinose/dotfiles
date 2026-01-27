@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-wget https://github.com/high-moctane/mocword-data/releases/download/eng20200217/mocword.sqlite.gz
-gunzip mocword.sqlite.gz
