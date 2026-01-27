@@ -203,7 +203,7 @@ in
     "efm-langserver".source = mkLink "home/config/efm-langserver";
     "fish".source = mkLink "home/config/fish";
     "lazygit".source = mkLink "home/config/lazygit";
-    "nvim".source = mkLink "home/config/nvim_next";
+    "nvim".source = mkLink "home/config/nvim";
     "navi".source = mkLink "home/config/navi";
     "starship".source = mkLink "home/config/starship";
     "wezterm".source = mkLink "home/config/wezterm";
