@@ -180,7 +180,7 @@ nix: move config directories to top level
 
 ---
 
-## Phase 4: emacs.d の移動（リスク: 低）
+## Phase 4: emacs.d の移動 ✅ 完了
 
 ### 手順
 

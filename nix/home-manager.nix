@@ -176,6 +176,9 @@ in
   ];
 
   home.file = {
+    # Emacs
+    ".emacs.d".source = mkLink "emacs.d";
+
     # Git
     ".gitconfig".source = mkLink "home/gitconfig";
     ".gitmessage".source = mkLink "home/gitmessage";
