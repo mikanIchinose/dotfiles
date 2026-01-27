@@ -1,5 +1,8 @@
 unsetopt nomatch
 
+# home-manager session variables
+[ -f /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh ] && source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+
 [ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
 
 [[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true

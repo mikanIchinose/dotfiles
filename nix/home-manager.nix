@@ -204,7 +204,7 @@ in
     "lazygit".source = mkLink "config/lazygit";
     "nvim".source = mkLink "config/nvim";
     "navi".source = mkLink "config/navi";
-    "starship".source = mkLink "config/starship";
+    "starship.toml".source = mkLink "config/starship/config.toml";
     "wezterm".source = mkLink "config/wezterm";
     "ghostty".source = mkLink "config/ghostty";
     "aerospace".source = mkLink "config/aerospace";
