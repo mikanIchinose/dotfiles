@@ -178,10 +178,6 @@ in
     # Emacs
     ".emacs.d".source = mkLink "emacs.d";
 
-    # Git
-    ".gitconfig".source = mkLink "home/gitconfig";
-    ".gitmessage".source = mkLink "home/gitmessage";
-
     # Vim
     ".ideavimrc".source = mkLink "home/ideavimrc";
     ".vimrc".source = mkLink "home/vimrc";
@@ -202,6 +198,7 @@ in
   };
 
   xdg.configFile = {
+    "git".source = mkLink "config/git";
     "efm-langserver".source = mkLink "config/efm-langserver";
     "fish".source = mkLink "config/fish";
     "lazygit".source = mkLink "config/lazygit";

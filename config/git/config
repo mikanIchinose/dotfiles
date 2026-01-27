@@ -4,10 +4,10 @@
 	email = 29175998+mikanIchinose@users.noreply.github.com
 [includeIf "gitdir:~/ghq/"]
 	# 個人用
-	path = ~/dotfiles/git/gitconfig_personal
+	path = ~/dotfiles/config/git/config.personal
 [includeIf "gitdir:~/ghq-karabiner/"]
 	# 会社用
-	path = ~/dotfiles/git/gitconfig_karabiner
+	path = ~/dotfiles/config/git/config.karabiner
 [ghq]
 	root = ~/ghq
 [ghq "https://github.com/karabiner-inc"]
@@ -78,7 +78,7 @@
 [difftool "difftatic"]
 	cmd = difft "$LOCAL" "$REMOTE"
 [commit]
-	template = ~/.gitmessage
+	template = ~/.config/git/message
 [alias]
 	pushf = push --force-with-lease --force-if-includes
 	start = commit --allow-empty --no-verify --message "対応開始"

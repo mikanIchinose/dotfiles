@@ -248,7 +248,7 @@ chore: consolidate scripts into bin/
 
 ---
 
-## Phase 6: git 設定の統合（リスク: 高）
+## Phase 6: git 設定の統合 ✅ 完了
 
 gitconfig のパス参照を変更するため、慎重に。
 
@@ -342,7 +342,7 @@ git: consolidate git config into config/git/
 | `uninstall.sh` | 1 | Nix管理に移行済み | ✅ 削除済み |
 | `git/gh-extensions` | 1 | ghfile と重複 | ✅ 削除済み |
 | `git/ghq-list` | 1 | 未使用 | ✅ 削除済み |
-| `git/` | 6 | config/git/ と bin/ に分離 | |
+| `git/` | 6 | config/git/ と bin/ に分離 | ✅ 完了 |
 | `scripts/` | 5 | bin/ に統合 | ✅ 完了 |
 
 ---
