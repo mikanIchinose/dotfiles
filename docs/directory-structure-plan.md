@@ -16,7 +16,7 @@ dotfiles/
 │   ├── ghostty/
 │   ├── lazygit/
 │   ├── navi/
-│   ├── nvim/                   # 旧 nvim_next
+│   ├── nvim/
 │   ├── starship/
 │   └── wezterm/
 │
@@ -80,9 +80,6 @@ dotfiles/
 
 ```bash
 # 未使用の設定ディレクトリ
-rm -rf home/config/alacritty
-rm -rf home/config/kitty
-rm -rf home/config/wtf
 rm -rf home/config/commitizen
 rm -rf home/config/gh-dash
 rm -rf home/config/markdownlint
@@ -114,38 +111,10 @@ chore: remove unused config files
 
 ---
 
-## Phase 2: nvim のリネーム（リスク: 低）
+## Phase 2: nvim のリネーム ✅ 完了済み
 
-### 手順
-
-1. 旧 nvim を削除
-2. nvim_next を nvim にリネーム
-3. home-manager.nix のパスを更新
-
-```bash
-rm -rf home/config/nvim
-mv home/config/nvim_next home/config/nvim
-```
-
-```nix
-# home-manager.nix
-# 変更前: "nvim".source = mkLink "home/config/nvim_next";
-# 変更後:
-"nvim".source = mkLink "home/config/nvim";
-```
-
-### 検証
-
-```bash
-darwin-rebuild switch --flake .
-nvim --version  # 起動確認
-```
-
-### コミット
-
-```
-nvim: rename nvim_next to nvim
-```
+> **Note:** このフェーズは完了済み。`nvim_next` は `nvim` に統合され、`home/config/nvim` として存在。
+> コミット: `07da4c90 nvim: consolidate nvim_next into nvim`
 
 ---
 
@@ -353,28 +322,28 @@ git: consolidate git config into config/git/
 
 ## 削除対象まとめ
 
-| 対象 | Phase | 理由 |
-|------|-------|------|
-| `home/config/alacritty/` | 1 | ghostty使用 |
-| `home/config/kitty/` | 1 | 未使用 |
-| `home/config/nvim/` | 2 | nvim_next に置き換え |
-| `home/config/wtf/` | 1 | 未使用 |
-| `home/config/commitizen/` | 1 | 未使用 |
-| `home/config/gh-dash/` | 1 | 未使用 |
-| `home/config/markdownlint/` | 1 | 未使用 |
-| `home/config/stylua.toml` | 1 | 未使用 |
-| `home/config/tigrc` | 1 | 未使用 |
-| `home/Brewfile.darwin` | 1 | nix-darwin で管理 |
-| `home/Brewfile.linux` | 1 | nix-darwin で管理 |
-| `home/skhdrc` | 1 | aerospace に移行済み |
-| `home/yabairc` | 1 | aerospace に移行済み |
-| `__script/` | 1 | Nix管理に移行済み |
-| `install.sh` | 1 | Nix管理に移行済み |
-| `uninstall.sh` | 1 | Nix管理に移行済み |
-| `git/gh-extensions` | 1 | ghfile と重複 |
-| `git/ghq-list` | 1 | 未使用 |
-| `git/` | 6 | config/git/ と bin/ に分離 |
-| `scripts/` | 5 | bin/ に統合 |
+| 対象 | Phase | 理由 | 状態 |
+|------|-------|------|------|
+| `home/config/alacritty/` | - | ghostty使用 | ✅ 削除済み |
+| `home/config/kitty/` | - | 未使用 | ✅ 削除済み |
+| `home/config/wtf/` | - | 未使用 | ✅ 削除済み |
+| `home/config/nvim_next/` | 2 | nvim に統合・リネーム | ✅ 完了済み |
+| `home/config/commitizen/` | 1 | 未使用 | |
+| `home/config/gh-dash/` | 1 | 未使用 | |
+| `home/config/markdownlint/` | 1 | 未使用 | |
+| `home/config/stylua.toml` | 1 | 未使用 | |
+| `home/config/tigrc` | 1 | 未使用 | |
+| `home/Brewfile.darwin` | 1 | nix-darwin で管理 | |
+| `home/Brewfile.linux` | 1 | nix-darwin で管理 | |
+| `home/skhdrc` | 1 | aerospace に移行済み | |
+| `home/yabairc` | 1 | aerospace に移行済み | |
+| `__script/` | 1 | Nix管理に移行済み | |
+| `install.sh` | 1 | Nix管理に移行済み | |
+| `uninstall.sh` | 1 | Nix管理に移行済み | |
+| `git/gh-extensions` | 1 | ghfile と重複 | |
+| `git/ghq-list` | 1 | 未使用 | |
+| `git/` | 6 | config/git/ と bin/ に分離 | |
+| `scripts/` | 5 | bin/ に統合 | |
 
 ---
 
