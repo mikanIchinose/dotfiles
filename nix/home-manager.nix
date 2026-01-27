@@ -138,6 +138,7 @@ in
     extensions = with pkgs; [
       gh-poi
       gh-markdown-preview
+      gh-switch-issue
     ];
   };
   programs.zoxide.enable = true;

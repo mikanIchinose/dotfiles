@@ -55,6 +55,7 @@
               covpeek = final.callPackage ./nix/packages/covpeek { };
               copilot-language-server = final.callPackage ./nix/packages/copilot-language-server { };
               gh-actions-language-server = final.callPackage ./nix/packages/gh-actions-language-server { };
+              gh-switch-issue = final.callPackage ./nix/packages/gh-switch-issue { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
