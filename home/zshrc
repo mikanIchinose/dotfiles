@@ -2,9 +2,6 @@ unsetopt nomatch
 
 [ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
 
-# haskell
-[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
-
 [[ -f /Users/mikan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/mikan/.dart-cli-completion/zsh-config.zsh || true
 
 # bun completions
