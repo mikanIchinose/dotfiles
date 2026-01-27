@@ -51,7 +51,8 @@ get_size_bytes() {
     local target="$1"
     local size=""
     if [[ "$HAS_DISKUS" == "1" ]] && [[ -e "$target" ]]; then
-        size=$(diskus -b "$target" 2>/dev/null) || size=""
+        # -b (apparent-size) は使わない。スパースファイルで実際のディスク使用量と乖離するため
+        size=$(diskus "$target" 2>/dev/null) || size=""
     fi
     if [[ -z "$size" ]]; then
         size=$(du -sk "$target" 2>/dev/null | awk '{print $1 * 1024}')
@@ -109,7 +110,7 @@ list_directory_json() {
             [[ "$base" == "." || "$base" == ".." ]] && continue
             size=""
             if [[ "$HAS_DISKUS" == "1" ]]; then
-                size=$(diskus -b "$item" 2>/dev/null) || size=""
+                size=$(diskus "$item" 2>/dev/null) || size=""
             fi
             if [[ -z "$size" ]]; then
                 size=$(du -sk "$item" 2>/dev/null | awk '{print $1 * 1024}')
