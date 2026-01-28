@@ -25,7 +25,13 @@ stdenv.mkDerivation rec {
     runHook preInstall
     install -Dm755 gh-switch-issue $out/bin/gh-switch-issue
     wrapProgram $out/bin/gh-switch-issue \
-      --prefix PATH : ${lib.makeBinPath [ gum git gawk ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          gum
+          git
+          gawk
+        ]
+      }
     runHook postInstall
   '';
 
