@@ -67,7 +67,7 @@ in
       "swiftformat-for-xcode"
       "google-japanese-ime"
       "claude"
-      "docker"
+      "docker-desktop"
     ];
     masApps = {
       Kindle = 302584613;
