@@ -157,6 +157,9 @@ in
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    config = {
+      whitelist.prefix = [ "${config.home.homeDirectory}/ghq/github.com/mikanIchinose" ];
+    };
   };
 
   home.shell.enableFishIntegration = true;
@@ -212,7 +215,6 @@ in
     "wezterm".source = mkLink "config/wezterm";
     "ghostty".source = mkLink "config/ghostty";
     "aerospace".source = mkLink "config/aerospace";
-    "direnv".source = mkLink "config/direnv";
   }
   // (
     if pkgs.stdenv.isDarwin then
