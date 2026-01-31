@@ -84,3 +84,8 @@ end
 if type -q jj &> /dev/null
   jj util completion fish | source
 end
+
+# direnv
+if type -q direnv &> /dev/null
+  eval (direnv hook fish)
+end
