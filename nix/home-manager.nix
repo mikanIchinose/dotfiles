@@ -212,6 +212,7 @@ in
     "wezterm".source = mkLink "config/wezterm";
     "ghostty".source = mkLink "config/ghostty";
     "aerospace".source = mkLink "config/aerospace";
+    "direnv".source = mkLink "config/direnv";
   }
   // (
     if pkgs.stdenv.isDarwin then
