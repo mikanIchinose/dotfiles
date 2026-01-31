@@ -154,6 +154,10 @@ in
   programs.ripgrep.enable = true;
   programs.ripgrep-all.enable = true;
   programs.fzf.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   home.shell.enableFishIntegration = true;
   home.stateVersion = "25.05";
