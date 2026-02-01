@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: git review <branch-name>" >&2
+    echo "Example: git review feature/1234" >&2
+    exit 1
+fi
+
+exec git-worktree-create "review" "$1"

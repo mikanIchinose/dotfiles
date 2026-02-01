@@ -1,0 +1,46 @@
+#!/bin/bash
+# 共通のworktree作成ロジック
+# Usage: git-worktree-create <suffix> <branch-name>
+# suffix: "worktree" or "review"
+
+set -euo pipefail
+
+# 引数チェック
+if [[ $# -ne 2 ]]; then
+    echo "Usage: git-worktree-create <suffix> <branch-name>" >&2
+    exit 1
+fi
+
+readonly SUFFIX="$1"
+readonly BRANCH_NAME="$2"
+
+# gitリポジトリ内にいるかチェック
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Error: Not in a git repository" >&2
+    exit 1
+fi
+
+# メインworktreeのルートディレクトリを取得
+readonly GIT_COMMON_DIR="$(git rev-parse --path-format=absolute --git-common-dir)"
+readonly MAIN_WORKTREE_ROOT="$(dirname "$GIT_COMMON_DIR")"
+readonly REPO_NAME="$(basename "$MAIN_WORKTREE_ROOT")"
+
+# worktreeパスを構築
+readonly WORKTREE_BASE="${MAIN_WORKTREE_ROOT}/../${REPO_NAME}-${SUFFIX}"
+readonly WORKTREE_PATH="${WORKTREE_BASE}/${BRANCH_NAME}"
+
+echo "Creating worktree: ${WORKTREE_PATH}"
+echo "Branch: ${BRANCH_NAME}"
+
+# worktree作成（既存ブランチがあればそれを使用、なければ新規作成）
+if git show-ref --verify --quiet "refs/heads/${BRANCH_NAME}"; then
+    git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+elif git show-ref --verify --quiet "refs/remotes/origin/${BRANCH_NAME}"; then
+    git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+else
+    git worktree add "$WORKTREE_PATH" -b "$BRANCH_NAME"
+fi
+
+echo ""
+echo "Worktree created at: ${WORKTREE_PATH}"
+echo "To switch: cd \"${WORKTREE_PATH}\""

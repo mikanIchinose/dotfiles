@@ -1,23 +1,11 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-if [ $# -ne 1 ]; then
-    echo "Usage: git wa <branch-name>"
-    echo "Example: git wa feature/1234"
+if [[ $# -ne 1 ]]; then
+    echo "Usage: git wa <branch-name>" >&2
+    echo "Example: git wa feature/1234" >&2
     exit 1
 fi
 
-BRANCH_NAME="$1"
-CURRENT_DIR=$(pwd)
-REPO_NAME=$(basename "$CURRENT_DIR")
-SANITIZED_BRANCH=$(echo "$BRANCH_NAME" | sed 's/\//-/g')
-WORKTREE_PATH="../${REPO_NAME}-${SANITIZED_BRANCH}"
-
-echo "Creating worktree: ${WORKTREE_PATH}"
-echo "Using branch: ${BRANCH_NAME}"
-
-git worktree add "$WORKTREE_PATH" "$BRANCH_NAME" 2>/dev/null || git worktree add "$WORKTREE_PATH"
-
-echo "Worktree created at: ${WORKTREE_PATH}"
-echo "To switch: cd \"${WORKTREE_PATH}\""
+exec git-worktree-create "worktree" "$1"
