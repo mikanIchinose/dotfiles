@@ -13,10 +13,24 @@ find_base_branch() {
     echo "develop"
 }
 
-# format.shを探す
+# format.shを探す（実行中のAndroid Studioは除外）
 find_formatter() {
-    local formatter
-    formatter=$(find /Applications -maxdepth 4 -name "format.sh" -path "*Android*" 2>/dev/null | head -1)
+    local formatter=""
+
+    # mdfindでインストール済みAndroid Studioを検索
+    while IFS= read -r app; do
+        [ -z "$app" ] && continue
+        local candidate="$app/Contents/bin/format.sh"
+
+        if [ -x "$candidate" ]; then
+            # 実行中かチェック（アプリパスでプロセスを検索）
+            if ! pgrep -f "$app" &>/dev/null; then
+                formatter="$candidate"
+                break
+            fi
+        fi
+    done < <(mdfind "kMDItemCFBundleIdentifier == 'com.google.android.studio'" 2>/dev/null)
+
     echo "$formatter"
 }
 
@@ -47,7 +61,7 @@ echo ""
 echo "$changed_files" | while read -r file; do
     if [ -f "$file" ]; then
         echo "Formatting: $file"
-        "$FORMAT_CMD" "$file"
+        "$FORMAT_CMD" "$file" -s "$(git rev-parse --show-toplevel)/.idea/codeStyles/Project.xml"
     fi
 done
 
