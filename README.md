@@ -12,17 +12,17 @@
 - copy local directory from SD-card
 
 ```
-xcode-select --install && \
-softwareupdate --install-rosetta && \
-git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles && \
+xcode-select --install
+```
+
+install [nix](https://github.com/NixOS/nix-installer)
+
+```
+git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+cd ~/dotfiles
+nix flake update && git add . && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#mikan
 sudo xcodebuild -license accept
-```
-
-- install nix from https://docs.determinate.systems/
-
-```
-go install github.com/rhysd/dotfiles@latest && \
-~/go/bin/dotfiles link ~/dotfiles
 ```
 
 - install skk dictionary
