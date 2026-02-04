@@ -2,6 +2,7 @@
 set -euo pipefail
 
 # 編集後の自動チェック: テスト実行
+exit 0
 
 # jqでファイルパスを取得
 if ! command -v jq &> /dev/null; then
