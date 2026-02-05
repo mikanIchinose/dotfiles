@@ -53,7 +53,7 @@ in
     ];
     casks = [
       "arc"
-      "google-chrome" # need for flutter
+      "google-chrome"
       "ghostty"
       "jetbrains-toolbox"
       "slack"
@@ -65,9 +65,9 @@ in
       "rectangle"
       "notion-calendar"
       "swiftformat-for-xcode"
-      "google-japanese-ime"
-      "claude"
       "docker-desktop"
+      "spotify"
+      "pencil"
     ];
     masApps = {
       Kindle = 302584613;
@@ -91,9 +91,6 @@ in
     show-recents = false;
     # ドックの位置
     orientation = "bottom";
-    persistent-apps = [
-      "/System/Applications/Launchpad.app"
-    ];
     tilesize = 30;
   };
   # ライトモード/ダークモードを自動で切り替える
@@ -105,7 +102,7 @@ in
   # alert volume
   system.defaults.NSGlobalDomain."com.apple.sound.beep.volume" = 0.6065307;
   # メニューバーを自動で非表示にする
-  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = false;
   # Finder
   system.defaults.finder = {
     _FXSortFoldersFirst = true;
