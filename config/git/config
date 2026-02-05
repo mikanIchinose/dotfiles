@@ -38,6 +38,8 @@
   helper = osxkeychain
 	; helper = store --file ~/.secrets/git/credentials
 	; helper = cache --timeout 3000
+[credential "https://github.com"]
+  helper = "!gh auth git-credential"
 #[interactive]
 #	diffFilter = delta --color-only
 [delta]
