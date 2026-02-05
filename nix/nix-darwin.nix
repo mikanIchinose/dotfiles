@@ -67,7 +67,6 @@ in
       "swiftformat-for-xcode"
       "docker-desktop"
       "spotify"
-      "pencil"
     ];
     masApps = {
       Kindle = 302584613;

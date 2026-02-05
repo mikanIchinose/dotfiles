@@ -140,6 +140,9 @@ in
       gh-markdown-preview
       gh-switch-issue
     ];
+    gitCredentialHelper = {
+      enable = true;
+    };
   };
   programs.zoxide.enable = true;
   programs.bat.enable = true;
