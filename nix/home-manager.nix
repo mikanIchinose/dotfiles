@@ -167,6 +167,112 @@ in
       whitelist.prefix = [ "${config.home.homeDirectory}/ghq/github.com/mikanIchinose" ];
     };
   };
+  programs.git = {
+    enable = true;
+    ignores = [
+      "**/.claude/settings.local.json"
+    ];
+    includes = [
+      {
+        condition = "gitdir:~/ghq-karabiner/";
+        path = "${dotfilesDir}/config/git/config.karabiner";
+      }
+    ];
+    settings = {
+      # ユーザー情報
+      user = {
+        name = "mikan";
+        email = "29175998+mikanIchinose@users.noreply.github.com";
+      };
+
+      # コア設定
+      core = {
+        editor = "nvim";
+        autocrlf = "input";
+        whitespace = "trailing-space";
+        quotepath = false;
+      };
+      init.defaultBranch = "main";
+
+      # エイリアス
+      alias = {
+        pushf = "push --force-with-lease --force-if-includes";
+        start = "commit --allow-empty --no-verify --message \"対応開始\"";
+        aicommit = "!f() { COMMITMSG=$(claude -p 'Generate ONLY a one-line Git commit message in Japanese, using imperative mood, summarizing what was changed and why, based strictly on the contents of `git diff --cached`. Do not add explanation or a body. Output only the commit summary line.'); git commit -m \"$COMMITMSG\" -e; }; f";
+      };
+
+      # リモート操作
+      push = {
+        default = "current";
+        autoSetupRemote = true;
+        userForceIfIncludes = true;
+      };
+      pull = {
+        rebase = true;
+        ff = "only";
+      };
+      fetch.prune = true;
+      rebase = {
+        autosquash = true;
+        autostash = true;
+      };
+
+      # マージ
+      merge.tool = "vimdiff";
+      mergetool.keepBackup = false;
+
+      # コミット
+      commit.template = "~/.config/git/message";
+
+      # 表示設定
+      status.showUntrackedFiles = "all";
+      advice.addIgnoreFile = false;
+      color = {
+        ui = true;
+      };
+      "color \"status\"" = {
+        added = "green";
+        changed = "red";
+        untracked = "yellow";
+        unmerged = "magenta";
+      };
+
+      # 差分ツール
+      pager = {
+        diff = "delta";
+        log = "delta";
+        reflog = "delta";
+        show = "delta";
+      };
+      difftool.prompt = false;
+      "difftool \"nvimdiff\"".cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
+      "difftool \"difftatic\"".cmd = "difft \"$LOCAL\" \"$REMOTE\"";
+
+      # delta
+      delta = {
+        features = "line-numbers decorations";
+        whitespace-error-style = "22 reverse";
+      };
+      "delta \"decorations\"" = {
+        commit-decoration-style = "bold yellow box ul";
+        file-style = "bold yellow ul";
+        file-decoration-style = "none";
+      };
+      "delta \"no-line-number\"".line-numbers = false;
+
+      # 認証
+      credential.helper = "osxkeychain";
+
+      # ghq
+      ghq = {
+        root = "~/ghq";
+        "https://github.com/karabiner-inc".root = "~/ghq-karabiner";
+        "https://kara.git.backlog.jp".root = "~/ghq-karabiner";
+        "https://gitlab.digitalatelier.info".root = "~/ghq-karabiner";
+        "https://github.com/Oisix".root = "~/ghq-karabiner";
+      };
+    };
+  };
 
   home.shell.enableFishIntegration = true;
   home.stateVersion = "25.05";
@@ -211,7 +317,7 @@ in
   };
 
   xdg.configFile = {
-    "git".source = mkLink "config/git";
+    "git/message".source = mkLink "config/git/message";
     "efm-langserver".source = mkLink "config/efm-langserver";
     "fish".source = mkLink "config/fish";
     "lazygit".source = mkLink "config/lazygit";
