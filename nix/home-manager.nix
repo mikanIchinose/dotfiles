@@ -76,7 +76,10 @@ let
     hyperfine
     maestro
     tokei
-    codex
+
+    # ai-tools
+    llm-agents.codex
+    llm-agents.claude-code
     # pre-commit # Swift ビルド失敗のため一時的に無効化 (nixpkgs issue)
     manix
     devenv

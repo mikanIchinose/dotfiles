@@ -1,6 +1,11 @@
 {
   description = "mikan m1 mac-book-pro nix-darwin system flake";
 
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager = {
@@ -22,6 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -33,6 +39,7 @@
       treefmt-nix,
       flake-parts,
       systems,
+      llm-agents,
       ...
     }:
     let
@@ -46,6 +53,8 @@
             rust-overlay.overlays.default
             # neovim nightly
             inputs.neovim-nightly-overlay.overlays.default
+            # llm agents
+            llm-agents.overlays.default
             # local packages
             (final: prev: {
               gwq = final.callPackage ./nix/packages/gwq { };
