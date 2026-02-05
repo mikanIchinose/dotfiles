@@ -145,11 +145,6 @@
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
-  "enabledPlugins": {
-    "aimobiledev@oisix-plugins": false,
-    "aithinking@oisix-plugins": false,
-    "code-review@claude-code-plugins": true
-  },
   "language": "Japanese",
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
