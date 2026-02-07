@@ -23,8 +23,8 @@ find_formatter() {
         local candidate="$app/Contents/bin/format.sh"
 
         if [ -x "$candidate" ]; then
-            # 実行中かチェック（アプリパスでプロセスを検索）
-            if ! pgrep -f "$app" &>/dev/null; then
+            # 実行中かチェック（アプリパスでプロセスを検索、先頭一致で誤マッチ防止）
+            if ! pgrep -f "^$app" &>/dev/null; then
                 formatter="$candidate"
                 break
             fi
@@ -47,7 +47,7 @@ echo "ベースブランチ: $BASE_BRANCH"
 echo ""
 
 # ベースブランチとHEAD間の差分ファイルを取得
-changed_files=$(git diff --name-only "$BASE_BRANCH"...HEAD -- '*.kt' '*.xml' 2>/dev/null | grep -v '^$')
+changed_files=$(git diff --name-only "$BASE_BRANCH" -- '*.kt' '*.xml' 2>/dev/null | grep -v '^$')
 
 if [ -z "$changed_files" ]; then
     echo "フォーマット対象のファイルがありません"
