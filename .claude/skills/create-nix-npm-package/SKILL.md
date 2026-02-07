@@ -1,5 +1,5 @@
 ---
-name: create-npm-package
+name: create-nix-npm-package
 description: buildNpmPackage を使った Nix パッケージの作成手順。「npm パッケージを追加」「buildNpmPackage でパッケージ作成」と依頼された際に使用
 ---
 
