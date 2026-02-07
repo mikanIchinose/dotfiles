@@ -6,13 +6,14 @@
 set -euo pipefail
 
 # 引数チェック
-if [[ $# -ne 2 ]]; then
-    echo "Usage: git-worktree-create <suffix> <branch-name>" >&2
+if [[ $# -lt 2 ]] || [[ $# -gt 3 ]]; then
+    echo "Usage: git-worktree-create <suffix> <branch-name> [base-branch]" >&2
     exit 1
 fi
 
 readonly SUFFIX="$1"
 readonly BRANCH_NAME="$2"
+readonly BASE_BRANCH="${3:-}"
 
 # gitリポジトリ内にいるかチェック
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
@@ -37,6 +38,8 @@ if git show-ref --verify --quiet "refs/heads/${BRANCH_NAME}"; then
     git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
 elif git show-ref --verify --quiet "refs/remotes/origin/${BRANCH_NAME}"; then
     git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+elif [[ -n "$BASE_BRANCH" ]]; then
+    git worktree add "$WORKTREE_PATH" -b "$BRANCH_NAME" "$BASE_BRANCH"
 else
     git worktree add "$WORKTREE_PATH" -b "$BRANCH_NAME"
 fi
