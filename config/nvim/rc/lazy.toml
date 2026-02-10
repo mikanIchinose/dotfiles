@@ -1,15 +1,15 @@
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 on_lua = 'notify'
-on_event = ['BufRead','CursorHold']
-lua_source = '''
-require('notify').setup({
-  render = "minimal",
-  stages = "static",
-  timeout = 1000,
-})
-vim.notify = require('notify')
-'''
+# on_event = ['BufRead','CursorHold']
+# lua_source = '''
+# require('notify').setup({
+#   render = "minimal",
+#   stages = "static",
+#   timeout = 1000,
+# })
+# vim.notify = require('notify')
+# '''
 
 [[plugins]]
 repo = 'j-hui/fidget.nvim'
