@@ -103,6 +103,7 @@ let
     dust # intuitive tree view
 
     tmux
+    ghostscript
   ];
 in
 {
