@@ -27,6 +27,10 @@ dotfiles/
 - **config/** 配下のツール設定を `~/.config` へ symlink
 - カスタムパッケージは `nix/packages/` で管理
 
+## Rules
+
+- パターンを一括修正する際は、対象ファイルだけでなく Grep でリポジトリ全体（`.claude/skills/` 配下のスクリプト・テンプレート含む）を検索し、全出現箇所を特定してから修正する
+
 ## Version control
 ### message format
 
