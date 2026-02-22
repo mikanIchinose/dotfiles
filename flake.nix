@@ -92,6 +92,12 @@
         {
           packages.gwq = pkgs.callPackage ./nix/packages/gwq { };
           packages.covpeek = pkgs.callPackage ./nix/packages/covpeek { };
+          packages.slack-reminder = pkgs.callPackage ./nix/packages/slack-reminder { };
+          packages.gh-switch-issue = pkgs.callPackage ./nix/packages/gh-switch-issue { };
+          packages.mocword = pkgs.callPackage ./nix/packages/mocword { };
+          packages.rogcat = pkgs.callPackage ./nix/packages/rogcat { };
+          packages.copilot-language-server = pkgs.callPackage ./nix/packages/copilot-language-server { };
+          packages.gh-actions-language-server = pkgs.callPackage ./nix/packages/gh-actions-language-server { };
           treefmt = {
             projectRootFile = "flake.nix";
             programs = {
