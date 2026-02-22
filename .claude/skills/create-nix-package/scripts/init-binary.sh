@@ -106,8 +106,8 @@ CURRENT=\$(sed -n 's/.*version = "\(.*\)".*/\1/p' default.nix)
 
 echo "Updating $PNAME: \$CURRENT -> \$LATEST"
 HASH=\$(nix store prefetch-file --json "$URL_SH" | jq -r '.hash')
-sed -i '' "s/version = \".*\"/version = \"\$LATEST\"/" default.nix
-sed -i '' "s|hash = \".*\"|hash = \"\$HASH\"|" default.nix
+sed -i'' "s/version = \".*\"/version = \"\$LATEST\"/" default.nix
+sed -i'' "s|hash = \".*\"|hash = \"\$HASH\"|" default.nix
 EOF
 
 chmod +x "$PKG_DIR/update.sh"
