@@ -318,6 +318,7 @@ in
     ".claude/hooks".source = mkLink "claude/hooks";
     ".claude/skills".source = mkLink "claude/skills";
     ".claude/statusline.sh".source = mkLink "claude/statusline.sh";
+    ".claude/lessons-learned.md".source = mkLink "claude/lessons-learned.md";
   };
 
   xdg.configFile = {
