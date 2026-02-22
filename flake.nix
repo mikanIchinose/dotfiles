@@ -97,7 +97,20 @@
           packages.mocword = pkgs.callPackage ./nix/packages/mocword { };
           packages.rogcat = pkgs.callPackage ./nix/packages/rogcat { };
           packages.copilot-language-server = pkgs.callPackage ./nix/packages/copilot-language-server { };
-          packages.gh-actions-language-server = pkgs.callPackage ./nix/packages/gh-actions-language-server { };
+          packages.gh-actions-language-server =
+            pkgs.callPackage ./nix/packages/gh-actions-language-server
+              { };
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              git
+              gh
+              jq
+              shellcheck
+              nix-update
+              prefetch-npm-deps
+              nix-diff
+            ];
+          };
           treefmt = {
             projectRootFile = "flake.nix";
             programs = {

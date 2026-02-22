@@ -40,6 +40,7 @@ let
     lua-language-server
     stylua
     luajitPackages.luacheck
+    tree-sitter
   ];
   devtools-web = with pkgs; [
     emmet-language-server
