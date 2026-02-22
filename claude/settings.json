@@ -140,5 +140,6 @@
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
   },
-  "teammateMode": "tmux"
+  "teammateMode": "tmux",
+  "effortLevel": "medium"
 }
