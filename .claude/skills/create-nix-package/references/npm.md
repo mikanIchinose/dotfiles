@@ -1,14 +1,9 @@
----
-name: create-nix-npm-package-v2
-description: buildNpmPackage を使った npm パッケージの Nix パッケージを作成する。「npm パッケージを追加」「buildNpmPackage でパッケージ作成」と依頼された際に使用。
----
+## npm パッケージ向けワークフロー
 
-## ワークフロー
-
-### 1. テンプレートを一括生成
+### テンプレートを一括生成
 
 ```bash
-bash .claude/skills/create-nix-npm-package-v2/scripts/init-npm.sh <pname> <npm-package-name>
+bash .claude/skills/create-nix-package/scripts/init-npm.sh <pname> <npm-package-name>
 ```
 
 - `<pname>`: Nix パッケージ名（例: `copilot-language-server`）
@@ -20,27 +15,7 @@ bash .claude/skills/create-nix-npm-package-v2/scripts/init-npm.sh <pname> <npm-p
 - `nix/packages/<pname>/package-lock.json`
 - `nix/packages/<pname>/update.sh`
 
-### 2. flake.nix に登録
-
-`perSystem` と overlay の両方に追加する:
-
-```nix
-# perSystem
-packages.<pname> = pkgs.callPackage ./nix/packages/<pname> { };
-
-# overlays-configuration の local packages
-<pname> = final.callPackage ./nix/packages/<pname> { };
-```
-
-### 3. git add で Nix に認識させる
-
-`src = ./.;` を使用しているため、Nix がファイルを認識するには git add が必要。
-
-```bash
-git add nix/packages/<pname> flake.nix
-```
-
-### 4. npmDepsHash を取得
+### npmDepsHash を取得
 
 ```bash
 nix build .#<pname> 2>&1 | grep "got:"
@@ -54,7 +29,7 @@ nix build .#<pname> 2>&1 | grep "got:"
 nix shell nixpkgs#prefetch-npm-deps -c prefetch-npm-deps nix/packages/<pname>/package-lock.json
 ```
 
-### 5. installPhase を調整
+### installPhase を調整
 
 スクリプトが自動生成する `installPhase` は npm の `bin` フィールドに基づくが、パッケージによっては調整が必要。
 
@@ -87,25 +62,7 @@ installPhase = ''
 '';
 ```
 
-### 6. nix build でビルド確認
-
-```bash
-nix build .#<pname>
-```
-
-### 7. home-manager.nix に追加
-
-`nix/home-manager.nix` の適切なリストに追加する:
-
-| カテゴリ | 追加先 |
-|---------|--------|
-| LSP | `lsp` |
-| 自作・カスタムパッケージ | `selfPackages` |
-| CLIユーティリティ | `utility` |
-| 開発ツール全般 | `devtools` |
-| Linter/Formatter | `linter` |
-
-## 主なオプション一覧
+### 主なオプション一覧
 
 | オプション | 説明 | デフォルト |
 |-----------|------|-----------|
@@ -123,14 +80,9 @@ nix build .#<pname>
 | `npmWorkspace` | ビルド対象のワークスペースディレクトリ | - |
 | `forceGitDeps` | git 依存を強制的に許可 | `false` |
 
-## 完了チェックリスト
+### 完了チェックリスト
 
-- [ ] `nix eval nixpkgs#<pname>.version` で nixpkgs に既存パッケージがないか確認
 - [ ] `init-npm.sh` でテンプレートを生成
-- [ ] `flake.nix` の `perSystem` に追加
-- [ ] `flake.nix` の overlay に追加
-- [ ] `git add` で Nix に認識させる
 - [ ] `npmDepsHash` を取得して `default.nix` に設定
 - [ ] `installPhase` の bin パスを確認・調整
 - [ ] `nix build .#<pname>` が成功する
-- [ ] `nix/home-manager.nix` の適切なリストに追加

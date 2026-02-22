@@ -20,8 +20,8 @@ SCRIPTS_DIR="$(dirname "$0")"
 REPO_ROOT="$(git -C "$SCRIPTS_DIR" rev-parse --show-toplevel)"
 PKG_DIR="$REPO_ROOT/nix/packages/$PNAME"
 
-# shellcheck source=../../create-nix-package/scripts/lib.sh
-source "$REPO_ROOT/.claude/skills/create-nix-package/scripts/lib.sh"
+# shellcheck source=lib.sh
+source "$SCRIPTS_DIR/lib.sh"
 
 # ---- リリースタグの有無を判定 ----
 

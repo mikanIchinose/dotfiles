@@ -1,25 +1,23 @@
 ---
 name: create-nix-package
-description: nix/packages/ 配下にカスタムNixパッケージを作成する。「nixパッケージを作って」「パッケージを追加して」「バイナリパッケージを追加して」と依頼された際に使用。
+description: |
+  Nixパッケージを作成する。Go/Rust/npm/バイナリ/シェルスクリプトに対応。
+  「nixパッケージを作って」「パッケージを追加して」「Go パッケージを追加」「npm パッケージを追加」「スクリプトをパッケージ化」と依頼された際に使用。
 ---
 
 ## ビルド方式の選択
 
-| 言語/形式 | builder | 依存ハッシュ属性 |
-|-----------|---------|----------------|
-| Go | `buildGoModule` | `vendorHash` |
-| Rust | `rustPlatform.buildRustPackage` | `cargoHash`（→ `references/rust.md` を参照） |
-| Node.js (npm) | `buildNpmPackage` | `npmDepsHash` |
-| プリビルドバイナリ | `stdenv.mkDerivation` + `fetchurl` | なし（→ `references/binary.md` を参照） |
-| シェルスクリプト | `stdenv.mkDerivation` + `fetchFromGitHub` | なし |
+| 言語/形式 | builder | 依存ハッシュ属性 | 詳細 |
+|-----------|---------|----------------|------|
+| Go | `buildGoModule` | `vendorHash` | `references/go.md` |
+| Rust | `rustPlatform.buildRustPackage` | `cargoHash` | `references/rust.md` |
+| Node.js (npm) | `buildNpmPackage` | `npmDepsHash` | `references/npm.md` |
+| プリビルドバイナリ | `stdenv.mkDerivation` + `fetchurl` | なし | `references/binary.md` |
+| シェルスクリプト | `stdenv.mkDerivation` + `fetchFromGitHub` | なし | `references/script.md` |
 
-**プリビルドバイナリの場合は `references/binary.md` を読んでその手順に従うこと。**
-**Rust の場合は `references/rust.md` を読んでその手順に従うこと。**
-**Go の場合は `create-nix-go-package` スキルを使うこと。**
-**npm の場合は `create-nix-npm-package-v2` スキルを使うこと。**
-**シェルスクリプトの場合は `create-nix-script-package` スキルを使うこと。**
+**ビルド方式を特定したら、対応する `references/<type>.md` を読んでその手順に従うこと。**
 
-## Workflow
+## 共通ワークフロー
 
 ### 1. 最新バージョンを確認
 
@@ -42,80 +40,9 @@ nixpkgs 版で十分な場合は `home-manager.nix` に追加するだけでよ�
 カスタムパッケージが必要な場合のみステップ3以降に進む。
 nixpkgs 版を使う場合はステップ7（home-manager.nix に追加）のみ実施する。
 
-### 3. default.nix を作成
+### 3. init スクリプトでテンプレート生成
 
-`nix/packages/<pname>/default.nix` を作成する。
-
-#### 慣習（既存パッケージとの一貫性）
-
-- `src` の revision は `tag = "v${version}"` を使う
-- `meta` に `changelog` フィールドは不要
-- `meta.maintainers` は不要
-
-#### テンプレート (Rust)
-
-```nix
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
-
-rustPlatform.buildRustPackage rec {
-  pname = "<pname>";
-  version = "<version>";
-
-  src = fetchFromGitHub {
-    owner = "<owner>";
-    repo = "<repo>";
-    tag = "v${version}";
-    hash = lib.fakeHash;
-    fetchSubmodules = true;
-  };
-
-  cargoHash = lib.fakeHash;
-
-  doCheck = false;
-
-  meta = with lib; {
-    description = "<description>";
-    homepage = "https://github.com/<owner>/<repo>";
-    license = licenses.mit;
-    mainProgram = "<pname>";
-  };
-}
-```
-
-#### テンプレート (Go)
-
-```nix
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
-
-buildGoModule rec {
-  pname = "<pname>";
-  version = "<version>";
-
-  src = fetchFromGitHub {
-    owner = "<owner>";
-    repo = "<repo>";
-    tag = "v${version}";
-    hash = lib.fakeHash;
-  };
-
-  vendorHash = lib.fakeHash;
-
-  meta = with lib; {
-    description = "<description>";
-    homepage = "https://github.com/<owner>/<repo>";
-    license = licenses.mit;
-    mainProgram = "<pname>";
-  };
-}
-```
+各ビルド方式の `references/<type>.md` に記載された init スクリプトを実行する。
 
 ### 4. flake.nix に登録
 
@@ -129,16 +56,37 @@ packages.<pname> = pkgs.callPackage ./nix/packages/<pname> { };
 <pname> = final.callPackage ./nix/packages/<pname> { };
 ```
 
-### 5. fakeHash でビルドして正しいハッシュを取得
+### 5. git add で Nix に認識させる
+
+flake モードでは Git にトラッキングされていないファイルは参照できない。
+init スクリプトは自動で `git add` するが、flake.nix の変更も追加する:
+
+```bash
+git add nix/packages/<pname> flake.nix
+```
+
+### 6. fakeHash でビルドして正しいハッシュを取得
 
 ```bash
 nix build .#<pname> 2>&1 | grep "got:"
 ```
 
 エラー出力の `got: sha256-...` を `default.nix` の `lib.fakeHash` と置き換える。
-`src` の hash と 依存ハッシュ（`cargoHash` など）は別々に取得する（片方ずつ `lib.fakeHash` にしてビルドする）。
+`src` の hash と依存ハッシュ（`cargoHash` / `vendorHash` / `npmDepsHash`）は別々に取得する（片方ずつ `lib.fakeHash` にしてビルドする）。
 
-### 6. update.sh を作成
+詳細は各 `references/<type>.md` を参照。
+
+### 7. nix build でビルド確認
+
+```bash
+nix build .#<pname> 2>&1
+```
+
+失敗した場合はエラーメッセージに応じてオプション調整を行う（各 `references/<type>.md` 参照）。
+
+### 8. update.sh を作成
+
+init スクリプトが自動生成する。生成されなかった場合:
 
 ```bash
 #!/usr/bin/env bash
@@ -152,7 +100,7 @@ nix run nixpkgs#nix-update -- --flake --override-filename "nix/packages/$pkg/def
 chmod +x nix/packages/<pname>/update.sh
 ```
 
-### 7. home-manager.nix に追加
+### 9. home-manager.nix に追加
 
 `nix/home-manager.nix` の適切なリストに追加する:
 
@@ -167,9 +115,12 @@ chmod +x nix/packages/<pname>/update.sh
 
 ## 完了チェックリスト
 
-- [ ] `nix/packages/<pname>/default.nix` を作成
+- [ ] `nix eval nixpkgs#<pname>.version` で nixpkgs に既存パッケージがないか確認
+- [ ] init スクリプトでテンプレート生成
 - [ ] `flake.nix` の `perSystem` に追加
 - [ ] `flake.nix` の overlay に追加
+- [ ] `git add` で Nix に認識させる
+- [ ] ハッシュを取得・置換
 - [ ] `nix build .#<pname>` が成功する
 - [ ] `nix/packages/<pname>/update.sh` を作成・実行権限付与
 - [ ] `nix/home-manager.nix` の適切なリストに追加
