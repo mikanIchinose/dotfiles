@@ -43,6 +43,9 @@ in
       autoUpdate = true;
       cleanup = "uninstall";
     };
+    taps = [
+      "manaflow-ai/cmux"
+    ];
     brews = [
       "openssl" # need for cargo-update
       "cocoapods" # need for flutter
@@ -55,6 +58,7 @@ in
       "arc"
       "google-chrome"
       "ghostty"
+      "wezterm"
       "jetbrains-toolbox"
       "slack"
       "karabiner-elements"
@@ -67,6 +71,8 @@ in
       "swiftformat-for-xcode"
       "docker-desktop"
       "spotify"
+      "claude"
+      "cmux"
     ];
     masApps = {
       Kindle = 302584613;
