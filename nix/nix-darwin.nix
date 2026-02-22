@@ -151,8 +151,37 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
 
   # darwin-rebuild 時に実行するスクリプト
-  system.activationScripts.cleanDppCache.text = ''
+  # system.activationScripts はinternal = trueのため、extraActivation に統合して組み込む
+  system.activationScripts.extraActivation.text = ''
     echo "Cleaning dpp cache..."
     rm -rf ${homeDirectory}/.cache/dpp/nvim/
+
+    # ウィンドウタイリング キーボードショートカット
+    # parameters: (char_code, key_code, modifier_flags)
+    # modifier_flags: Ctrl=262144, Opt=524288, Fn=8388608, Ctrl+Opt+Fn=9175040, Ctrl+Opt=786432
+    echo >&2 "Setting up window tiling keyboard shortcuts..."
+    PLIST="${homeDirectory}/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+    set_hotkey() {
+      local id="$1" char="$2" keycode="$3" mod="$4"
+      local json="{\"enabled\":true,\"value\":{\"parameters\":[$char,$keycode,$mod],\"type\":\"standard\"}}"
+      launchctl asuser "$(id -u -- ${username})" sudo --user=${username} -- \
+        plutil -replace "AppleSymbolicHotKeys.$id" -json "$json" "$PLIST" 2>/dev/null || \
+      launchctl asuser "$(id -u -- ${username})" sudo --user=${username} -- \
+        plutil -insert "AppleSymbolicHotKeys.$id" -json "$json" "$PLIST"
+    }
+
+    # 半画面配置 (Ctrl+Opt+矢印)
+    set_hotkey 240 65535 123 9175040  # ← Left Half
+    set_hotkey 241 65535 124 9175040  # → Right Half
+    set_hotkey 242 65535 126 9175040  # ↑ Top Half
+    set_hotkey 243 65535 125 9175040  # ↓ Bottom Half
+    # 4分の1画面配置 (Ctrl+Opt+U/I/J/K)
+    set_hotkey 244 117 32 786432  # U: Top-Left
+    set_hotkey 245 105 34 786432  # I: Top-Right
+    set_hotkey 246 106 38 786432  # J: Bottom-Left
+    set_hotkey 247 107 40 786432  # K: Bottom-Right
+
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u || true
   '';
 }
