@@ -13,7 +13,7 @@ description: |
   Examples:
   - <example>
     Context: The user wants to improve test coverage for a repository class.
-    user: "ItemRepositoryImplのテストカバレッジを改善したい"
+    user: "UserRepositoryImplのテストカバレッジを改善したい"
     assistant: "I'll use the test-architect agent to analyze the behaviors and design comprehensive test cases."
     </example>
   - <example>

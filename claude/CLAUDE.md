@@ -41,16 +41,16 @@
 
 ```
 # 悪い例（直接変更に着手 → 影響範囲の見落としが発生）
-- [x] CartRepository にメソッドを追加
-- [ ] CartRepositoryImpl に実装を追加
-→ テストコードの FakeCartRepository を見落とす
+- [x] UserRepository にメソッドを追加
+- [ ] UserRepositoryImpl に実装を追加
+→ テストコードの FakeUserRepository を見落とす
 
 # 良い例（調査タスクを挟む）
-- [x] CartRepository の実装クラスを全て検索
-- [x] 検索結果: CartRepositoryImpl, FakeCartRepository x3, テスト内Fake x8
-- [x] CartRepository にメソッドを追加
-- [x] CartRepositoryImpl に実装を追加
-- [x] FakeCartRepository (commonTest) に実装を追加
-- [x] FakeCartRepository (favorite test) に実装を追加
+- [x] UserRepository の実装クラスを全て検索
+- [x] 検索結果: UserRepositoryImpl, FakeUserRepository x3, テスト内Fake x8
+- [x] UserRepository にメソッドを追加
+- [x] UserRepositoryImpl に実装を追加
+- [x] FakeUserRepository (commonTest) に実装を追加
+- [x] FakeUserRepository (feature test) に実装を追加
 - [x] ... (全ファイル分)
 ```
