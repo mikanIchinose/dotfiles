@@ -7,25 +7,24 @@ dotfiles/
 ├── nix/
 │   ├── home-manager.nix     # home-manager 設定
 │   ├── nix-darwin.nix       # macOS 用 nix-darwin 設定
-│   ├── node2nix/            # Node.js パッケージ
 │   └── packages/            # カスタム Nix パッケージ
-├── home/
-│   ├── config/              # ツール設定 (~/.config へ symlink)
-│   ├── config.darwin/       # macOS 固有設定
-│   ├── config.linux/        # Linux 固有設定
-│   └── emacs.d/
-├── git/                     # Git 設定
-├── aerospace/               # AeroSpace (macOS WM) 設定
-├── claude/                  # Claude Code 設定
-├── __script/                # ユーティリティスクリプト
+├── config/                  # ツール設定 (~/.config へ symlink)
+├── config.darwin/           # macOS 固有設定
+├── config.linux/            # Linux 固有設定
+├── home/                    # シェル設定ファイル (zshrc, bashrc 等)
+├── emacs.d/
+├── bin/                     # カスタムスクリプト (git サブコマンド等)
+├── .claude/                 # Claude Code プロジェクトスコープ設定
+├── claude/                  # Claude Code グローバル設定（~/.claude へ home-manager でデプロイ）
 ├── raycast-scripts/         # Raycast スクリプト
 ├── .github/workflows/       # CI 設定
+├── docs/                    # ドキュメント
 ├── fishfile                 # Fish プラグインリスト
 └── renovate.json            # Renovate 設定
 ```
 
 - **Nix** で環境管理（nix-darwin + home-manager）
-- **home/config/** 配下のツール設定を `~/.config` へ symlink
+- **config/** 配下のツール設定を `~/.config` へ symlink
 - カスタムパッケージは `nix/packages/` で管理
 
 ## Version control
