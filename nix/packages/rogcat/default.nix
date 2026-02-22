@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Android logcat viewer";
+    description = "A `adb logcat` wrapper";
     homepage = "https://github.com/flxo/rogcat";
-    license = licenses.asl20;
+    license = licenses.mit;
     platforms = [ "aarch64-darwin" ];
     mainProgram = "rogcat";
   };
