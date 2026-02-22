@@ -13,3 +13,5 @@ emacs/*
 !emacs/README.md
 !emacs/org-roam.db
 !emacs/history
+
+.direnv
