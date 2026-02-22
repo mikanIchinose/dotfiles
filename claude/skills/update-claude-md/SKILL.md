@@ -1,4 +1,5 @@
 ---
+name: update-claude-md
 description: Update CLAUDE.md based on current conversations
 ---
 

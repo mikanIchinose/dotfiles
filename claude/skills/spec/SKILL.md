@@ -1,5 +1,6 @@
 ---
-description: issue/PRから仕様整理→影響範囲調査→実装方針作成までを一括で行う
+name: spec
+description: issue/PRから仕様整理→影響範囲調査→実装方針作成までを一括で行う。「仕様整理」「spec」と依頼された際に使用。
 argument-hint: <issue-url または issue番号>
 ---
 

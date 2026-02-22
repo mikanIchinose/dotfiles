@@ -1,5 +1,6 @@
 ---
 name: test-coverage
+model: haiku
 description: Use when generate test coverage, or when asked "generate test coverage", "generate coverage", "find coverage". Provide how to get test coverage of specific component.
 ---
 

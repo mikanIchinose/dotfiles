@@ -1,5 +1,6 @@
 ---
 name: storage-report
+model: haiku
 description: ストレージ使用量を調査しレポートを生成。「ストレージ調査」「ディスク容量」「storage report」と依頼された際に使用。
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: fetch-medium
+model: haiku
 description: Medium.com の記事を取得する。WebFetch では 404 になるため Chrome DevTools MCP を利用する。trigger「medium」「medium.com」「https://medium.com/...」
 ---
 

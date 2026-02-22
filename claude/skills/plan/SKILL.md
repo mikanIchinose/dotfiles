@@ -1,5 +1,6 @@
 ---
-description: 計画を立てる
+name: plan
+description: 計画を立てる。「計画を立てて」「plan」と依頼された際に使用。
 argument-hint: <要件>
 ---
 

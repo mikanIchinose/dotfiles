@@ -1,4 +1,5 @@
 ---
+name: kpt
 description: 作業を振り返って改善する
 ---
 

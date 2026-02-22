@@ -1,5 +1,6 @@
 ---
 name: fetching-gh-comments
+model: haiku
 description: GitHub PR/Issue のコメントを取得する。URLやPR番号を指定してコメントを取得したいときに使用。trigger「コメント取得」「コメントを見せて」「fetch comment」「get comment」「https://github.com/.../pull/N#discussion_r...」「https://github.com/.../issues/N#issuecomment-...」
 ---
 

@@ -1,5 +1,6 @@
 ---
-description: 複数のエージェントを使って対象コンポーネントのテストカバレッジを改善する
+name: improve-test-coverage
+description: 複数のエージェントを使って対象コンポーネントのテストカバレッジを改善する。「テストカバレッジ改善」「improve test coverage」と依頼された際に使用。
 argument-hint: <target-component> ex. modules/box/src/main/kotlin/.../BoxRepositoryImpl.kt
 ---
 
