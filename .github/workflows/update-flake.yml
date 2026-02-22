@@ -2,14 +2,12 @@ name: update
 on:
   schedule:
     - cron: '0 0 * * *'
-  workflow_dispatch:
 jobs:
   nix-update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      # Arrange
       - uses: actions/checkout@v6
         with:
           ref: main
@@ -22,15 +20,13 @@ jobs:
         run: |
           git config --local user.name "GitHub Action"
           git config --local user.email "actions@github.com"
-      # Act
       - name: Update flake
         run: nix flake update
-      - name: Update gwq
-        run: nix run nixpkgs#nix-update -- --flake --override-filename nix/packages/gwq/default.nix gwq || true
       - name: Format
         run: nix fmt
       - name: Commit changes
         run: |
           git add .
+          git diff --cached --quiet && exit 0
           git commit -m "Update lockfile"
           git push origin HEAD
