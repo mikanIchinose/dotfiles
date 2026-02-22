@@ -12,5 +12,5 @@ jq --arg v "$LATEST" '.version = $v | .dependencies["gh-actions-language-server"
 mv package.json.tmp package.json
 npm install --package-lock-only
 NEW_HASH=$(nix run nixpkgs#prefetch-npm-deps -- package-lock.json 2>/dev/null)
-sed -i '' "s/version = \".*\"/version = \"$LATEST\"/" default.nix
-sed -i '' "s|npmDepsHash = \".*\"|npmDepsHash = \"$NEW_HASH\"|" default.nix
+sed -i'' "s/version = \".*\"/version = \"$LATEST\"/" default.nix
+sed -i'' "s|npmDepsHash = \".*\"|npmDepsHash = \"$NEW_HASH\"|" default.nix
