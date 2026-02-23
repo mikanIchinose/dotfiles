@@ -4,7 +4,7 @@ GitHubリリース等で配布されるプリビルドバイナリを `stdenv.mk
 
 > まず `nix eval nixpkgs#<pname>.version 2>/dev/null` で nixpkgs に既存パッケージがないか確認する。
 
-実例: [`nix/packages/rogcat/default.nix`](../nix/packages/rogcat/default.nix)
+実例: [`nix/packages/rogcat/default.nix`](../../nix/packages/rogcat/default.nix)（マルチアーキテクチャ・autoPatchelfHook）、[`nix/packages/mocword/default.nix`](../../nix/packages/mocword/default.nix)（マルチアーキテクチャ・dontUnpack）
 
 ---
 
@@ -59,11 +59,11 @@ let
   sources = {
     "aarch64-darwin" = {
       url = "https://github.com/<owner>/<repo>/releases/download/v${version}/<pname>-aarch64-apple-darwin.tar.gz";
-      hash = "<hash-aarch64-darwin>";
+      hash = "<hash-aarch64-darwin>"; # hash-darwin
     };
     "x86_64-linux" = {
       url = "https://github.com/<owner>/<repo>/releases/download/v${version}/<pname>-x86_64-unknown-linux-gnu.tar.gz";
-      hash = "<hash-x86_64-linux>";
+      hash = "<hash-x86_64-linux>"; # hash-linux
     };
   };
   version = "<version>";
@@ -262,6 +262,8 @@ sed -i '' "s|hash = \".*\"|hash = \"$HASH\"|" default.nix
 
 ハッシュが複数ある場合は、各アーキテクチャのURLを順番に処理する。`sed` での置換がユニークになるよう工夫が必要。
 
+ハッシュ行に `# hash-darwin` / `# hash-linux` マーカーコメントを付与し、`sed` で一意に置換する。
+
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -281,9 +283,9 @@ HASH_DARWIN=$(nix store prefetch-file --json "$URL_DARWIN" | jq -r '.hash')
 URL_LINUX="https://github.com/<owner>/<repo>/releases/download/v${LATEST}/<pname>-x86_64-unknown-linux-gnu.tar.gz"
 HASH_LINUX=$(nix store prefetch-file --json "$URL_LINUX" | jq -r '.hash')
 
-# default.nix を再生成するか、nix ファイル内のハッシュを個別に置換する
 sed -i '' "s/version = \".*\"/version = \"$LATEST\"/" default.nix
-# ハッシュの置換はファイル構造に依存するため、必要に応じて調整する
+sed -i '' "s|hash = \".*\"; # hash-darwin|hash = \"$HASH_DARWIN\"; # hash-darwin|" default.nix
+sed -i '' "s|hash = \".*\"; # hash-linux|hash = \"$HASH_LINUX\"; # hash-linux|" default.nix
 ```
 
 スクリプト作成後、実行権限を付与する:
