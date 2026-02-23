@@ -27,12 +27,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
+          tmpdir=$(mktemp -d)
+          pids=()
+          pkgs=()
           for script in nix/packages/*/update.sh; do
             pkg="$(basename "$(dirname "$script")")"
-            echo "::group::Updating $pkg"
-            bash "$script" || true
+            pkgs+=("$pkg")
+            bash "$script" > "$tmpdir/$pkg.log" 2>&1 &
+            pids+=($!)
+          done
+          for i in "${!pids[@]}"; do
+            wait "${pids[$i]}" || true
+            echo "::group::Updating ${pkgs[$i]}"
+            cat "$tmpdir/${pkgs[$i]}.log"
             echo "::endgroup::"
           done
+          rm -rf "$tmpdir"
       - name: Format
         run: nix fmt
       - name: Commit and push
@@ -46,7 +56,7 @@ jobs:
             exit 0
           fi
           git commit -m "nix: update packages"
-          git push -f origin "$branch"
+          git push origin "$branch"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
   build-and-pr:
@@ -78,7 +88,7 @@ jobs:
             echo "::group::Building $pkg"
             if ! nix build ".#$pkg" --no-link; then
               echo "::warning::$pkg failed to build, reverting"
-              git checkout -- "$dir"
+              git checkout origin/main -- "$dir"
               failed+=("$pkg")
             fi
             echo "::endgroup::"
@@ -118,21 +128,21 @@ jobs:
       - name: Create or update PR
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+          UPDATES: ${{ steps.summary.outputs.updates }}
+          REVERTED: ${{ steps.build-check.outputs.reverted }}
         run: |
           branch="nix/update-packages"
-          updates="${{ steps.summary.outputs.updates }}"
           body="Automated package update."
-          if [ -n "$updates" ]; then
+          if [ -n "$UPDATES" ]; then
             body="Automated package update.
 
           ### Updated packages
-          ${updates}"
+          ${UPDATES}"
           fi
-          reverted="${{ steps.build-check.outputs.reverted }}"
-          if [ -n "$reverted" ]; then
+          if [ -n "$REVERTED" ]; then
             body+="
           > [!WARNING]
-          > Build failed and reverted: $reverted"
+          > Build failed and reverted: $REVERTED"
           fi
           existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
           if [ -n "$existing" ]; then
