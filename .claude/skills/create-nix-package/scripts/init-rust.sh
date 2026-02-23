@@ -75,8 +75,8 @@ EOF
 cat > "$PKG_DIR/update.sh" << 'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
-cd "$(dirname "$0")"
-pkg="$(basename "$(pwd)")"
+pkg="$(basename "$(cd "$(dirname "$0")" && pwd)")"
+cd "$(git rev-parse --show-toplevel)"
 nix run nixpkgs#nix-update -- --flake --override-filename "nix/packages/$pkg/default.nix" "$pkg"
 EOF
 
