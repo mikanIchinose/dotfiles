@@ -15,3 +15,5 @@ emacs/*
 !emacs/history
 
 .direnv
+
+.claude/worktrees/
