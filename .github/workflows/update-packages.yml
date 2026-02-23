@@ -79,6 +79,8 @@ jobs:
         run: |
           git config --local user.name "GitHub Action"
           git config --local user.email "actions@github.com"
+      - name: Fetch main
+        run: git fetch origin main
       - name: Build check
         id: build-check
         run: |
