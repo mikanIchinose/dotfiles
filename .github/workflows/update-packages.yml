@@ -76,7 +76,7 @@ jobs:
           for dir in nix/packages/*/; do
             pkg="$(basename "$dir")"
             echo "::group::Building $pkg"
-            if ! nix build ".#$pkg"; then
+            if ! nix build ".#$pkg" --no-link; then
               echo "::warning::$pkg failed to build, reverting"
               git checkout -- "$dir"
               failed+=("$pkg")
