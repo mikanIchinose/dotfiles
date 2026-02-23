@@ -8,8 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    outputs:
-      changed: ${{ steps.commit.outputs.changed }}
+      pull-requests: write
     steps:
       - uses: actions/checkout@v6
         with:
@@ -45,6 +44,23 @@ jobs:
           rm -rf "$tmpdir"
       - name: Format
         run: nix fmt
+      - name: Build check
+        id: build-check
+        run: |
+          failed=()
+          for dir in nix/packages/*/; do
+            pkg="$(basename "$dir")"
+            echo "::group::Building $pkg"
+            if ! nix build ".#$pkg" --no-link; then
+              echo "::warning::$pkg failed to build, reverting"
+              git checkout -- "$dir"
+              failed+=("$pkg")
+            fi
+            echo "::endgroup::"
+          done
+          if [ ${#failed[@]} -gt 0 ]; then
+            echo "reverted=${failed[*]}" >> "$GITHUB_OUTPUT"
+          fi
       - name: Commit and push
         id: commit
         run: |
@@ -58,55 +74,8 @@ jobs:
           git commit -m "nix: update packages"
           git push origin "$branch"
           echo "changed=true" >> "$GITHUB_OUTPUT"
-
-  build-and-pr:
-    needs: update
-    if: needs.update.outputs.changed == 'true'
-    runs-on: macos-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: nix/update-packages
-          token: ${{ secrets.WORKFLOW_PAT }}
-      - name: Setup nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-      - name: Setup git
-        run: |
-          git config --local user.name "GitHub Action"
-          git config --local user.email "actions@github.com"
-      - name: Fetch main
-        run: git fetch origin main
-      - name: Build check
-        id: build-check
-        run: |
-          failed=()
-          for dir in nix/packages/*/; do
-            pkg="$(basename "$dir")"
-            echo "::group::Building $pkg"
-            if ! nix build ".#$pkg" --no-link; then
-              echo "::warning::$pkg failed to build, reverting"
-              git checkout origin/main -- "$dir"
-              failed+=("$pkg")
-            fi
-            echo "::endgroup::"
-          done
-          if [ ${#failed[@]} -gt 0 ]; then
-            echo "reverted=${failed[*]}" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Push reverts
-        run: |
-          git add .
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-          git commit -m "nix: revert failed builds"
-          git push origin nix/update-packages
       - name: Generate update summary
+        if: steps.commit.outputs.changed == 'true'
         id: summary
         run: |
           updates=""
@@ -128,6 +97,7 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
       - name: Create or update PR
+        if: steps.commit.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
           UPDATES: ${{ steps.summary.outputs.updates }}
