@@ -94,22 +94,45 @@ jobs:
           fi
           git commit -m "nix: revert failed builds"
           git push origin nix/update-packages
+      - name: Generate update summary
+        id: summary
+        run: |
+          updates=""
+          for dir in nix/packages/*/; do
+            pkg="$(basename "$dir")"
+            if ! git diff --quiet origin/main -- "$dir"; then
+              old_ver=$(git show origin/main:"${dir}default.nix" 2>/dev/null | sed -n 's/.*version = "\(.*\)".*/\1/p' | head -1)
+              new_ver=$(sed -n 's/.*version = "\(.*\)".*/\1/p' "${dir}default.nix" | head -1)
+              if [ -n "$old_ver" ] && [ -n "$new_ver" ] && [ "$old_ver" != "$new_ver" ]; then
+                updates+="- \`$pkg\`: $old_ver → $new_ver"$'\n'
+              else
+                updates+="- \`$pkg\`"$'\n'
+              fi
+            fi
+          done
+          {
+            echo "updates<<EOF"
+            echo -n "$updates"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
       - name: Create or update PR
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
           branch="nix/update-packages"
+          updates="${{ steps.summary.outputs.updates }}"
           body="Automated package update."
+          if [ -n "$updates" ]; then
+            body="Automated package update.
+
+          ### Updated packages
+          ${updates}"
+          fi
           reverted="${{ steps.build-check.outputs.reverted }}"
           if [ -n "$reverted" ]; then
-            body=$(cat <<'HEREDOC'
-          Automated package update.
-
+            body+="
           > [!WARNING]
-          > Build failed and reverted: REVERTED_PLACEHOLDER
-          HEREDOC
-            )
-            body="${body//REVERTED_PLACEHOLDER/$reverted}"
+          > Build failed and reverted: $reverted"
           fi
           existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
           if [ -n "$existing" ]; then
