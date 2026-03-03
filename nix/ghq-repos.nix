@@ -10,7 +10,12 @@ let
 in
 {
   activation.ghqGetRepos = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export PATH="${lib.makeBinPath [ pkgs.git pkgs.openssh ]}:$PATH"
+    export PATH="${
+      lib.makeBinPath [
+        pkgs.git
+        pkgs.openssh
+      ]
+    }:$PATH"
     ghq_ok=0
     ghq_fail=0
     ghq_skip=0
