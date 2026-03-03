@@ -3,6 +3,6 @@
   "version": "1.431.0",
   "private": true,
   "dependencies": {
-    "@github/copilot-language-server": "1.431.0"
+    "@github/copilot-language-server": "1.440.0"
   }
 }
