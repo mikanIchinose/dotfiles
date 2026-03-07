@@ -74,18 +74,35 @@
       systems = import systems;
       imports = [ treefmt-nix.flakeModule ];
       flake = {
-        darwinConfigurations = {
-          mikan = nix-darwin.lib.darwinSystem {
-            specialArgs = {
-              inherit self system username;
-            };
-            modules = [
-              ./nix/nix-darwin.nix
-              home-manager.darwinModules.home-manager
-              overlays-configuration
+        darwinConfigurations =
+          let
+            mkDarwinSystem =
+              hostModules:
+              nix-darwin.lib.darwinSystem {
+                specialArgs = {
+                  inherit self system username;
+                };
+                modules = [
+                  ./nix/hosts/common/darwin.nix
+                  home-manager.darwinModules.home-manager
+                  overlays-configuration
+                ] ++ hostModules;
+              };
+          in
+          {
+            personal = mkDarwinSystem [
+              ./nix/hosts/personal/darwin.nix
+              {
+                home-manager.users."${username}".imports = [ ./nix/hosts/personal/home.nix ];
+              }
+            ];
+            work = mkDarwinSystem [
+              ./nix/hosts/work/darwin.nix
+              {
+                home-manager.users."${username}".imports = [ ./nix/hosts/work/home.nix ];
+              }
             ];
           };
-        };
       };
       perSystem =
         { pkgs, ... }:
