@@ -55,10 +55,39 @@ nix build .#<pname> 2>&1
 
 `nix/home-manager.nix` の適切なリストに追加する
 
+## マルチアーキテクチャ対応
+
+`init-binary.sh` は x86_64-linux アセットを自動検出し、見つかった場合は `sources` map パターンでマルチアーキテクチャテンプレートを生成する。手動調整が必要な場合は以下を参照。
+
+### 自動生成される構造
+
+- `let` ブロックに `sources` map + `version` + `src` lookup
+- `stdenv.mkDerivation`（rec なし）+ `inherit version`
+- ハッシュ行に `# hash-darwin` / `# hash-linux` マーカーコメント
+- `platforms = builtins.attrNames sources`
+- update.sh は両アーキテクチャのハッシュを個別に取得・置換
+
+### 手動調整が必要なケース
+
+- Linux の gnu リンクバイナリには `autoPatchelfHook` + `glibc` を追加（musl 静的リンクの場合は不要）
+
+実例: [`nix/packages/mocword/default.nix`](../../nix/packages/mocword/default.nix)（musl・dontUnpack）、[`nix/packages/rogcat/default.nix`](../../nix/packages/rogcat/default.nix)（gnu・autoPatchelfHook）
+
+### update.sh の変更
+
+各アーキテクチャのハッシュを個別に取得し、マーカーコメント付きの `sed` で置換する。
+
+```bash
+sed -i'' "s|hash = \".*\"; # hash-darwin|hash = \"$HASH_DARWIN\"; # hash-darwin|" default.nix
+sed -i'' "s|hash = \".*\"; # hash-linux|hash = \"$HASH_LINUX\"; # hash-linux|" default.nix
+```
+
+実例: [`nix/packages/mocword/update.sh`](../../nix/packages/mocword/update.sh)
+
 ## 完了チェックリスト
 
 - [ ] `nix eval nixpkgs#<pname>.version` で nixpkgs に既存パッケージがないか確認
-- [ ] `init-binary.sh` でテンプレート生成
+- [ ] `init-binary.sh` でテンプレート生成（linux アセットがあれば自動でマルチアーキテクチャ化）
 - [ ] `installPhase` を確認・調整
 - [ ] `flake.nix` の `perSystem` に追加
 - [ ] `flake.nix` の overlay に追加
