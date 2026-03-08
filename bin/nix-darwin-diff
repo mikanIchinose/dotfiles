@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# nix-darwin-diff: darwinConfigurations のリファクタリング前後の差分をチェックする
+#
+# Usage:
+#   nix-darwin-diff save     # リファクタリング前のデリベーションパスを保存
+#   nix-darwin-diff check    # リファクタリング後に比較
+#   nix-darwin-diff clean    # 保存データを削除
+
+FLAKE_DIR="$(git rev-parse --show-toplevel 2>/dev/null || echo ".")"
+SNAPSHOT_DIR="/tmp/nix-darwin-diff"
+CONFIGS=("personal" "work")
+
+# flake 属性から .drv パスを取得
+eval_drv() {
+  local attr="$1"
+  nix path-info --derivation "$FLAKE_DIR#darwinConfigurations.$attr.system" 2>/dev/null
+}
+
+save() {
+  mkdir -p "$SNAPSHOT_DIR"
+  echo "Saving derivation paths..."
+  for config in "${CONFIGS[@]}"; do
+    drv=$(eval_drv "$config") || {
+      echo "  SKIP: $config (eval failed)"
+      continue
+    }
+    echo "$drv" > "$SNAPSHOT_DIR/$config.drv"
+    echo "  OK: $config -> $drv"
+  done
+  echo ""
+  echo "Saved to $SNAPSHOT_DIR"
+  echo "Run 'nix-darwin-diff check' after refactoring."
+}
+
+check() {
+  if [[ ! -d "$SNAPSHOT_DIR" ]]; then
+    echo "No snapshot found. Run 'nix-darwin-diff save' first."
+    exit 1
+  fi
+
+  has_diff=0
+  for config in "${CONFIGS[@]}"; do
+    before_file="$SNAPSHOT_DIR/$config.drv"
+    if [[ ! -f "$before_file" ]]; then
+      echo "SKIP: $config (no snapshot)"
+      continue
+    fi
+
+    before=$(cat "$before_file")
+    after=$(eval_drv "$config") || {
+      echo "FAIL: $config (eval failed)"
+      has_diff=1
+      continue
+    }
+
+    if [[ "$before" == "$after" ]]; then
+      echo "  OK: $config (identical)"
+    else
+      echo "DIFF: $config"
+      echo "  before: $before"
+      echo "  after:  $after"
+      if command -v nix-diff &>/dev/null; then
+        echo ""
+        nix-diff "$before" "$after" || true
+      fi
+      has_diff=1
+    fi
+  done
+
+  if [[ $has_diff -eq 0 ]]; then
+    echo ""
+    echo "All configurations are identical."
+  else
+    echo ""
+    echo "Some configurations differ."
+    exit 1
+  fi
+}
+
+clean() {
+  rm -rf "$SNAPSHOT_DIR"
+  echo "Cleaned up $SNAPSHOT_DIR"
+}
+
+case "${1:-}" in
+  save)  save  ;;
+  check) check ;;
+  clean) clean ;;
+  *)
+    cat <<'HELP'
+nix-darwin-diff - darwinConfigurations のリファクタリング前後の差分をチェック
+
+Usage: nix-darwin-diff <command>
+
+Commands:
+  save    リファクタリング前のデリベーションパスをスナップショットとして保存
+  check   現在の評価結果をスナップショットと比較し、差分があれば nix-diff で詳細表示
+  clean   保存したスナップショットを削除
+
+Workflow:
+  1. nix-darwin-diff save      # 変更前にスナップショットを取る
+  2. (flake.nix をリファクタリング)
+  3. nix-darwin-diff check     # 変更後に比較 → 差分なしなら安全
+  4. nix-darwin-diff clean     # 不要になったら掃除
+
+Exit codes:
+  0  すべての darwinConfigurations が一致 (check) / 正常終了
+  1  差分あり、または eval 失敗
+HELP
+    exit 1
+    ;;
+esac
