@@ -1,12 +1,23 @@
 {
+  lib,
   pkgs,
-  # config,
   ...
 }:
+let
+  ghqLib = import ../../ghq-repos.nix { inherit lib pkgs; };
+  workGhqRepos = [
+    "Oisix/oisixAndroid"
+    "Oisix/oisixiOS"
+    "Oisix/oisix-mobile-migrator"
+    "Oisix/oisix-app-playground"
+    "Oisix/claude-plugins"
+    "karabiner-inc/tokushimaru_diver_app"
+  ];
+in
 {
-  # 仕事Mac固有の home-manager 設定
-  # 例:
   home.packages = with pkgs; [
     git-filter-repo
   ];
+
+  home.activation = ghqLib.mkGhqActivation "work" workGhqRepos;
 }

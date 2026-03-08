@@ -1,10 +1,17 @@
 {
-  # pkgs,
-  # config,
+  lib,
+  pkgs,
   ...
 }:
+let
+  ghqLib = import ../../ghq-repos.nix { inherit lib pkgs; };
+  personalGhqRepos = [
+    "mikanIchinose/CurriculumVitae"
+    "mikanIchinose/google-play-staged-rollout-action"
+    "mikanIchinose/note"
+    "mikanIchinose/zenn-docs"
+  ];
+in
 {
-  # 個人Mac固有の home-manager 設定
-  # 例:
-  # home.packages = with pkgs; [ ];
+  home.activation = ghqLib.mkGhqActivation "personal" personalGhqRepos;
 }

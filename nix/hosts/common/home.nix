@@ -7,7 +7,10 @@
 let
   dotfilesDir = "${config.home.homeDirectory}/dotfiles";
   mkLink = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
-  ghqRepos = import ../../ghq-repos.nix { inherit lib pkgs; };
+  ghqLib = import ../../ghq-repos.nix { inherit lib pkgs; };
+  commonGhqRepos = [
+    "skk-dev/dict"
+  ];
   selfPackages = with pkgs; [
     gwq
     slack-reminder
@@ -133,7 +136,7 @@ in
     };
   };
 
-  home.activation = ghqRepos.activation;
+  home.activation = ghqLib.mkGhqActivation "common" commonGhqRepos;
 
   programs.home-manager.enable = true;
 
