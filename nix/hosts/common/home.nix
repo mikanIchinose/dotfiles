@@ -108,6 +108,7 @@ let
 
     tmux
     ghostscript
+    google-cloud-sdk
   ];
 in
 {
