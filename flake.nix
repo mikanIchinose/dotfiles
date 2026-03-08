@@ -86,7 +86,8 @@
                   ./nix/hosts/common/darwin.nix
                   home-manager.darwinModules.home-manager
                   overlays-configuration
-                ] ++ hostModules;
+                ]
+                ++ hostModules;
               };
           in
           {
