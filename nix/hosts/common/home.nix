@@ -44,7 +44,6 @@ let
     tree-sitter
   ];
   devtools-web = with pkgs; [
-    emmet-language-server
     vtsls
     vscode-langservers-extracted
     vue-language-server

@@ -108,6 +108,12 @@ vim.api.nvim_create_autocmd("FileType", {
 repo       = 'neovim/nvim-lspconfig'
 on_event = 'FileType'
 hooks_file = "$BASE_DIR/plugins/nvim-lspconfig.lua"
+hook_add = '''
+command! LspInfo checkhealth vim.lsp
+command! -nargs=? LspStart lua vim.lsp.enable(<f-args>)
+command! -nargs=? LspStop lua vim.lsp.disable(<f-args>)
+command! -nargs=? LspRestart lua vim.lsp.stop(); vim.defer_fn(function() vim.lsp.enable() end, 500)
+'''
 [[plugins]]
 repo      = 'b0o/SchemaStore.nvim'
 on_source = 'nvim-lspconfig'

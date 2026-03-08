@@ -1,27 +1,4 @@
 --- lua_source {{{
--- NOTE: Disable lsp watcher. Too slow on linux
--- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
-require('vim.lsp._watchfiles')._watchfunc = function()
-  return function() end
-end
-
--- vim.lsp.handlers['ttDocument/publishDiagnostics'] = vim.lsp.with(
---   vim.lsp.diagnostic.on_publish_diagnostics,
---   {
---     update_in_insert = false,
---     virtual_text = {
---       format = function(diagnostic)
---         return string.format(
---           '%s (%s: %s)',
---           diagnostic.message,
---           diagnostic.source,
---           diagnostic.code
---         )
---       end
---     },
---   }
--- )
-
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('LspKeymap', {}),
   callback = function(ev)
@@ -47,7 +24,7 @@ vim.lsp.enable('lua_ls')
 
 -- config files(json, yaml, toml...)
 vim.lsp.enable('jsonls')
--- vim.lsp.enable('yamlls')
+vim.lsp.enable('yamlls')
 vim.lsp.enable('gh_actions_ls')
 
 -- web develop
@@ -55,7 +32,6 @@ vim.lsp.enable({
   'vtsls',
   'denols',
   'vue_ls',
-  'emmet_language_server',
   'html',
   'cssls'
 })
