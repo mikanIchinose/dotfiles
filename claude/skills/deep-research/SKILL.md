@@ -19,81 +19,77 @@ $ARGUMENTS
 2. **検索キーワードの生成** - 英語の検索クエリを複数パターン用意
 3. **レポート構成の仮決定** - トピックに応じたセクション構成を決める
 
-TaskWrite で Phase 1〜5 のタスクリストを作成し、進捗を管理する。
+TaskCreate で Phase 1〜5 のタスクリストを作成し、進捗を管理する。
 
 ---
 
 ## Phase 2: ラウンド1 並列情報収集
 
-**Task tool で以下の2つの SubAgent を同時に起動する（1つのメッセージで2つの Tool Use）:**
+Agent tool で以下の2つのエージェントを同時に起動する（1つのメッセージで2つの Tool Use）。
+重要: subagent_type は必ず "general-purpose" を使用すること。"deep-research" というエージェントタイプは存在しない。
 
 ### SubAgent A: Web検索エージェント
-```
-subagent_type: general-purpose
-description: Web検索で情報収集
-prompt: |
-  以下のトピックについて Web 検索で情報を収集してください。
 
-  トピック: {$ARGUMENTS}
-  検索キーワード: {Phase 1 で生成したキーワード群}
+Agent tool のパラメータ:
+- **subagent_type**: `general-purpose`（必須・変更不可）
+- **description**: `Web検索で情報収集`
+- **prompt**: 以下の内容をプロンプトとして渡す
 
-  手順:
-  1. WebSearch で複数の検索クエリを実行（検索クエリは必ず英語）
-  2. 有用な結果について WebFetch で詳細を取得
-  3. 最低5つ以上の異なるソースから情報を収集
-
-  出力フォーマット:
-  収集した情報を以下の形式で構造化して報告してください。
-  要約ではなくファクトベースで報告すること。
-
-  ### ソース1: [タイトル]
-  - URL: [URL]
-  - 種別: 公式ドキュメント / ブログ / 比較記事 / チュートリアル / etc.
-  - 要点:
-    - ...
-    - ...
-
-  ### ソース2: [タイトル]
-  ...
-```
+> 以下のトピックについて Web 検索で情報を収集してください。
+>
+> トピック: {$ARGUMENTS}
+> 検索キーワード: {Phase 1 で生成したキーワード群}
+>
+> 手順:
+> 1. WebSearch で複数の検索クエリを実行（検索クエリは必ず英語）
+> 2. 有用な結果について WebFetch で詳細を取得
+> 3. 最低5つ以上の異なるソースから情報を収集
+>
+> 出力フォーマット:
+> 収集した情報を以下の形式で構造化して報告してください。
+> 要約ではなくファクトベースで報告すること。
+>
+> ### ソース1: [タイトル]
+> - URL: [URL]
+> - 種別: 公式ドキュメント / ブログ / 比較記事 / チュートリアル / etc.
+> - 要点:
+>   - ...
 
 ### SubAgent B: GitHub調査エージェント
-```
-subagent_type: general-purpose
-description: GitHub調査で情報収集
-prompt: |
-  以下のトピックについて GitHub 上の情報を収集してください。
 
-  トピック: {$ARGUMENTS}
-  検索キーワード: {Phase 1 で生成したキーワード群}
+Agent tool のパラメータ:
+- **subagent_type**: `general-purpose`（必須・変更不可）
+- **description**: `GitHub調査で情報収集`
+- **prompt**: 以下の内容をプロンプトとして渡す
 
-  手順:
-  1. gh search repos で関連リポジトリを検索
-  2. 主要リポジトリについて以下を調査:
-     - gh repo view でREADME・スター数・言語・最終更新日
-     - gh release list で最新リリース情報
-     - gh issue list --label bug で既知の問題
-     - gh api repos/{owner}/{repo}/topics でトピックタグ
-  3. WebSearch で "{トピック} site:github.com" も実行し、関連 Discussions や Issues を収集
-  4. トピックに関連するエコシステム（プラグイン、拡張、関連ツール）も調査
-
-  出力フォーマット:
-  収集した情報を以下の形式で構造化して報告してください。
-
-  ### リポジトリ1: [owner/repo]
-  - URL: [URL]
-  - スター数: [数]
-  - 最終更新: [日付]
-  - 言語: [言語]
-  - 概要: ...
-  - 最新リリース: [バージョン] ([日付])
-  - 注目 Issues/Discussions:
-    - [タイトル] ([URL]) - 要点
-  - エコシステム: ...
-
-  ### リポジトリ2: [owner/repo]
-  ...
-```
+> 以下のトピックについて GitHub 上の情報を収集してください。
+>
+> トピック: {$ARGUMENTS}
+> 検索キーワード: {Phase 1 で生成したキーワード群}
+>
+> 手順:
+> 1. gh search repos で関連リポジトリを検索
+> 2. 主要リポジトリについて以下を調査:
+>    - gh repo view でREADME・スター数・言語・最終更新日
+>    - gh release list で最新リリース情報
+>    - gh issue list --label bug で既知の問題
+>    - gh api repos/{owner}/{repo}/topics でトピックタグ
+> 3. WebSearch で "{トピック} site:github.com" も実行し、関連 Discussions や Issues を収集
+> 4. トピックに関連するエコシステム（プラグイン、拡張、関連ツール）も調査
+>
+> 出力フォーマット:
+> 収集した情報を以下の形式で構造化して報告してください。
+>
+> ### リポジトリ1: [owner/repo]
+> - URL: [URL]
+> - スター数: [数]
+> - 最終更新: [日付]
+> - 言語: [言語]
+> - 概要: ...
+> - 最新リリース: [バージョン] ([日付])
+> - 注目 Issues/Discussions:
+>   - [タイトル] ([URL]) - 要点
+> - エコシステム: ...
 
 ---
 
@@ -109,7 +105,8 @@ prompt: |
 
 ## Phase 4: ラウンド2 追加調査
 
-Phase 3 で特定した不足観点について、再度2つの SubAgent を**同時に起動**して深掘り調査する。
+Phase 3 で特定した不足観点について、再度2つのエージェントを**同時に起動**して深掘り調査する。
+**subagent_type は必ず "general-purpose" を使用すること。**
 
 SubAgent の構成は Phase 2 と同様だが、以下が異なる:
 - 検索キーワードは Phase 3 で生成した追加クエリを使用
@@ -185,5 +182,5 @@ SubAgent の構成は Phase 2 と同様だが、以下が異なる:
 
 1. Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 の順に実行
 2. Phase 2, Phase 4 では2つの SubAgent を**必ず同時に起動**する（並列実行）
-3. TaskWrite で各フェーズの進捗を管理する
+3. TaskCreate で各フェーズの進捗を管理する
 4. `docs/research/` ディレクトリが存在しない場合は Phase 5 で作成する
