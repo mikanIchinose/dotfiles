@@ -55,6 +55,7 @@ in
     ];
     casks = [
       "google-chrome"
+      "google-chrome@beta"
       "wezterm"
       "jetbrains-toolbox"
       "karabiner-elements"
