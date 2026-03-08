@@ -54,22 +54,14 @@ in
       "gradle-profiler" # nixpkgになかった
     ];
     casks = [
-      "arc"
       "google-chrome"
-      "ghostty"
       "wezterm"
       "jetbrains-toolbox"
-      "slack"
       "karabiner-elements"
-      "zoom"
       "keepassxc"
-      "raycast"
       "visual-studio-code@insiders"
-      "rectangle"
-      "notion-calendar"
       "swiftformat-for-xcode"
       "docker-desktop"
-      "spotify"
       "claude"
       "cmux"
     ];
