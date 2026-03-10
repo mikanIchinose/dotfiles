@@ -3,7 +3,11 @@ name: lint
 on:
   push:
     branches:
-      - master
+      - main
+  pull_request:
+    types:
+      - opened
+    
 
 jobs:
   lint-check:
