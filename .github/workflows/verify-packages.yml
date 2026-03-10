@@ -1,0 +1,40 @@
+name: verify-packages
+on:
+  push:
+    branches:
+      - nix/update-*
+    paths:
+      - 'nix/packages/**'
+  pull_request:
+    paths:
+      - 'nix/packages/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Setup nix
+        uses: cachix/install-nix-action@1ca7d21a94afc7c957383a2d217460d980de4934 # v31.10.1
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Build changed packages
+        run: |
+          changed=$(git diff --name-only origin/main -- nix/packages/ | cut -d/ -f3 | sort -u)
+          if [ -z "$changed" ]; then
+            echo "No package changes detected"
+            exit 0
+          fi
+          failed=()
+          for pkg in $changed; do
+            echo "::group::Building $pkg"
+            if ! nix build ".#$pkg" --no-link; then
+              failed+=("$pkg")
+            fi
+            echo "::endgroup::"
+          done
+          if [ ${#failed[@]} -gt 0 ]; then
+            echo "::error::Build failed for: ${failed[*]}"
+            exit 1
+          fi

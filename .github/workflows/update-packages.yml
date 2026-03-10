@@ -22,107 +22,62 @@ jobs:
         run: |
           git config --local user.name "GitHub Action"
           git config --local user.email "actions@github.com"
-      - name: Update packages
+      - name: Update packages individually
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
-          tmpdir=$(mktemp -d)
-          pids=()
-          pkgs=()
           for script in nix/packages/*/update.sh; do
             pkg="$(basename "$(dirname "$script")")"
-            pkgs+=("$pkg")
-            bash "$script" > "$tmpdir/$pkg.log" 2>&1 &
-            pids+=($!)
-          done
-          for i in "${!pids[@]}"; do
-            wait "${pids[$i]}" || true
-            echo "::group::Updating ${pkgs[$i]}"
-            cat "$tmpdir/${pkgs[$i]}.log"
-            echo "::endgroup::"
-          done
-          rm -rf "$tmpdir"
-      - name: Format
-        run: nix fmt
-      - name: Build check
-        id: build-check
-        run: |
-          failed=()
-          for dir in nix/packages/*/; do
-            pkg="$(basename "$dir")"
-            echo "::group::Building $pkg"
-            if ! nix build ".#$pkg" --no-link; then
-              echo "::warning::$pkg failed to build, reverting"
-              git checkout -- "$dir"
-              failed+=("$pkg")
-            fi
-            echo "::endgroup::"
-          done
-          if [ ${#failed[@]} -gt 0 ]; then
-            echo "reverted=${failed[*]}" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Commit and push
-        id: commit
-        run: |
-          branch="nix/update-packages"
-          git checkout -B "$branch"
-          git add .
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          git commit -m "nix: update packages"
-          git push origin "$branch"
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-      - name: Generate update summary
-        if: steps.commit.outputs.changed == 'true'
-        id: summary
-        run: |
-          updates=""
-          for dir in nix/packages/*/; do
-            pkg="$(basename "$dir")"
-            if ! git diff --quiet origin/main -- "$dir"; then
-              old_ver=$(git show origin/main:"${dir}default.nix" 2>/dev/null | sed -n 's/.*version = "\(.*\)".*/\1/p' | head -1)
-              new_ver=$(sed -n 's/.*version = "\(.*\)".*/\1/p' "${dir}default.nix" | head -1)
-              if [ -n "$old_ver" ] && [ -n "$new_ver" ] && [ "$old_ver" != "$new_ver" ]; then
-                updates+="- \`$pkg\`: $old_ver → $new_ver"$'\n'
-              else
-                updates+="- \`$pkg\`"$'\n'
-              fi
-            fi
-          done
-          {
-            echo "updates<<EOF"
-            echo -n "$updates"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-      - name: Create or update PR
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
-          UPDATES: ${{ steps.summary.outputs.updates }}
-          REVERTED: ${{ steps.build-check.outputs.reverted }}
-        run: |
-          branch="nix/update-packages"
-          body="Automated package update."
-          if [ -n "$UPDATES" ]; then
-            body="Automated package update.
+            echo "::group::Processing $pkg"
 
-          ### Updated packages
-          ${UPDATES}"
-          fi
-          if [ -n "$REVERTED" ]; then
-            body+="
-          > [!WARNING]
-          > Build failed and reverted: $REVERTED"
-          fi
-          existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
-          if [ -n "$existing" ]; then
-            gh pr edit "$existing" --body "$body"
-          else
-            gh pr create \
-              --title "nix: update packages" \
-              --body "$body" \
-              --base main \
-              --head "$branch"
-          fi
+            # Run update script
+            bash "$script" 2>&1 || true
+
+            # Format
+            nix fmt 2>&1 || true
+
+            # Check for changes
+            if git diff --quiet; then
+              echo "No changes for $pkg"
+              echo "::endgroup::"
+              continue
+            fi
+
+            # Get version diff
+            branch="nix/update-$pkg"
+            old_ver=$(sed -n 's/.*version = "\(.*\)".*/\1/p' <(git show HEAD:"nix/packages/$pkg/default.nix") 2>/dev/null | head -1)
+            new_ver=$(sed -n 's/.*version = "\(.*\)".*/\1/p' "nix/packages/$pkg/default.nix" | head -1)
+
+            # Build commit message and PR title
+            if [ -n "$old_ver" ] && [ -n "$new_ver" ] && [ "$old_ver" != "$new_ver" ]; then
+              commit_msg="nix: update $pkg $old_ver → $new_ver"
+              pr_title="nix: update $pkg $old_ver → $new_ver"
+            else
+              commit_msg="nix: update $pkg"
+              pr_title="nix: update $pkg"
+            fi
+
+            # Create branch, commit, and push
+            git checkout -B "$branch"
+            git add .
+            git commit -m "$commit_msg"
+            git push -f origin "$branch"
+
+            # Create or update PR
+            existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
+            if [ -n "$existing" ]; then
+              gh pr edit "$existing" --title "$pr_title"
+            else
+              gh pr create \
+                --title "$pr_title" \
+                --body "Automated package update." \
+                --base main \
+                --head "$branch"
+            fi
+
+            # Reset to main for next package
+            git checkout main
+            git checkout -- .
+
+            echo "::endgroup::"
+          done
