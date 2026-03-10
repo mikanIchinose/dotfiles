@@ -135,13 +135,14 @@
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
   "language": "Japanese",
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
   },
-  "teammateMode": "tmux",
-  "enabledPlugins": {
-    "skill-creator@claude-plugins-official": true
-  }
+  "teammateMode": "tmux"
 }
