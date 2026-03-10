@@ -162,14 +162,17 @@ in
     echo >&2 "Setting up window tiling keyboard shortcuts..."
     PLIST="${homeDirectory}/Library/Preferences/com.apple.symbolichotkeys.plist"
 
-    set_hotkey() {
-      local id="$1" char="$2" keycode="$3" mod="$4"
-      local json="{\"enabled\":true,\"value\":{\"parameters\":[$char,$keycode,$mod],\"type\":\"standard\"}}"
+    # usage: write_hotkey <id> <enabled> <char_code> <key_code> <modifier_flags>
+    write_hotkey() {
+      local id="$1" enabled="$2" char="$3" keycode="$4" mod="$5"
+      local json="{\"enabled\":$enabled,\"value\":{\"parameters\":[$char,$keycode,$mod],\"type\":\"standard\"}}"
       launchctl asuser "$(id -u -- ${username})" sudo --user=${username} -- \
         plutil -replace "AppleSymbolicHotKeys.$id" -json "$json" "$PLIST" 2>/dev/null || \
       launchctl asuser "$(id -u -- ${username})" sudo --user=${username} -- \
         plutil -insert "AppleSymbolicHotKeys.$id" -json "$json" "$PLIST"
     }
+    set_hotkey() { write_hotkey "$1" true "$2" "$3" "$4"; }
+    disable_hotkey() { write_hotkey "$1" false "$2" "$3" "$4"; }
 
     # 半画面配置 (Ctrl+Opt+矢印)
     set_hotkey 240 65535 123 9175040  # ← Left Half
@@ -181,6 +184,22 @@ in
     set_hotkey 245 105 34 786432  # I: Top-Right
     set_hotkey 246 106 38 786432  # J: Bottom-Left
     set_hotkey 247 107 40 786432  # K: Bottom-Right
+
+    # ウインドウ > 一般 のショートカットを無効化
+    disable_hotkey 233 109 46 1048576   # しまう (⌘M)
+    disable_hotkey 235 65535 65535 0     # 拡大/縮小
+    disable_hotkey 237 102 3 8650752    # 画面全体に表示 (^⌘F)
+    disable_hotkey 238 99 8 8650752     # 中央に配置 (^⌘C)
+    disable_hotkey 239 114 15 8650752   # 前のサイズに戻す (^⌘R)
+    # ウインドウ > 配置 を無効化
+    disable_hotkey 248 65535 123 8781824  # 左と右に配置 (^⌥⌘←)
+    disable_hotkey 249 65535 124 8781824  # 右と左に配置 (^⌥⌘→)
+    disable_hotkey 250 65535 126 8781824  # 上と下に配置 (^⌥⌘↑)
+    disable_hotkey 251 65535 125 8781824  # 下と上に配置 (^⌥⌘↓)
+    disable_hotkey 256 65535 65535 0      # 4分割に配置
+    # ウインドウ > 配置 > フルスクリーンのタイル表示を無効化
+    disable_hotkey 257 65535 65535 0      # 左側にフルスクリーンタイル表示
+    disable_hotkey 258 65535 65535 0      # 右側にフルスクリーンタイル表示
 
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u || true
   '';
