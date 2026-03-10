@@ -19,6 +19,8 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
     fi
 fi
 
+ccusage=$(echo "$input" | bun x ccusage statusline 2>/dev/null)
+
 # 結合して出力
 # echo "${ccusage_output} | ${git_info}"
-echo -e "\033[36m${git_info}\033[0m"
+echo -e "\033[36m${git_info}\033[0m | $ccusage"
