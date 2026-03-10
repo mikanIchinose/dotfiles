@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ -z "$1" ]; then
+  echo "Usage: git tmp-clone <repository-url>" >&2
+  exit 1
+fi
+
+repo_url="$1"
+dir_name="$(basename "$repo_url" .git)"
+
+git clone --depth 1 "$repo_url" "/tmp/$dir_name"
