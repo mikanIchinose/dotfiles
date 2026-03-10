@@ -1,10 +1,5 @@
 name: verify-packages
 on:
-  push:
-    branches:
-      - nix/update-*
-    paths:
-      - 'nix/packages/**'
   pull_request:
     paths:
       - 'nix/packages/**'
