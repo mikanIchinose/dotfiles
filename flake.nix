@@ -28,6 +28,10 @@
     };
     systems.url = "github:nix-systems/default";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -40,6 +44,7 @@
       flake-parts,
       systems,
       llm-agents,
+      nix-index-database,
       ...
     }:
     let
@@ -85,6 +90,11 @@
                 modules = [
                   ./nix/hosts/common/darwin.nix
                   home-manager.darwinModules.home-manager
+                  {
+                    home-manager.users."${username}".imports = [
+                      nix-index-database.homeModules.default
+                    ];
+                  }
                   overlays-configuration
                 ]
                 ++ hostModules;
