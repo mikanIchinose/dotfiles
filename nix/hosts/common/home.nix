@@ -319,6 +319,7 @@ in
     ".claude/commands".source = mkLink "claude/commands";
     ".claude/hooks".source = mkLink "claude/hooks";
     ".claude/skills".source = mkLink "claude/skills";
+    ".claude/rules".source = mkLink "claude/rules";
     ".claude/statusline.sh".source = mkLink "claude/statusline.sh";
     ".claude/lessons-learned.md".source = mkLink "claude/lessons-learned.md";
   };
