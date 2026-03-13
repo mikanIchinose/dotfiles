@@ -27,8 +27,8 @@ readonly MAIN_WORKTREE_ROOT="$(dirname "$GIT_COMMON_DIR")"
 readonly REPO_NAME="$(basename "$MAIN_WORKTREE_ROOT")"
 
 # worktreeパスを構築
-readonly WORKTREE_BASE="${MAIN_WORKTREE_ROOT}/../${REPO_NAME}-${SUFFIX}"
-readonly WORKTREE_PATH="${WORKTREE_BASE}/${BRANCH_NAME}"
+readonly SANITIZED_BRANCH="${BRANCH_NAME//\//-}"
+readonly WORKTREE_PATH="${MAIN_WORKTREE_ROOT}/../${REPO_NAME}-${SUFFIX}-${SANITIZED_BRANCH}"
 
 echo "Creating worktree: ${WORKTREE_PATH}"
 echo "Branch: ${BRANCH_NAME}"
