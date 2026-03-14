@@ -147,6 +147,7 @@
     "lua-lsp@claude-plugins-official": true
   },
   "language": "Japanese",
+  "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
