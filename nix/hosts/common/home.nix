@@ -68,7 +68,6 @@ let
     curl
     git
     ghq
-    delta
     difftastic
     serie
     gum
@@ -87,7 +86,7 @@ let
     # pre-commit # Swift ビルド失敗のため一時的に無効化 (nixpkgs issue)
     manix
     devenv
-    jujutsu
+    # jujutsu: managed by programs.jujutsu
     # scrcpy # unsupported arm64-apple
 
     # Go tools (from gofile)
@@ -173,6 +172,34 @@ in
       whitelist.prefix = [ "${config.home.homeDirectory}/ghq/github.com/mikanIchinose" ];
     };
   };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    enableJujutsuIntegration = true;
+    options = {
+      features = "line-numbers decorations";
+      whitespace-error-style = "22 reverse";
+      decorations = {
+        commit-decoration-style = "bold yellow box ul";
+        file-style = "bold yellow ul";
+        file-decoration-style = "none";
+      };
+      no-line-number.line-numbers = false;
+    };
+  };
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = config.programs.git.settings.user.name;
+        email = config.programs.git.settings.user.email;
+      };
+      ui = {
+        editor = config.programs.git.settings.core.editor;
+        default-command = "log";
+      };
+    };
+  };
   programs.git = {
     enable = true;
     ignores = [
@@ -187,7 +214,7 @@ in
     settings = {
       # ユーザー情報
       user = {
-        name = "mikan";
+        name = "mikanIchinose";
         email = "29175998+mikanIchinose@users.noreply.github.com";
       };
 
@@ -244,27 +271,9 @@ in
       };
 
       # 差分ツール
-      pager = {
-        diff = "delta";
-        log = "delta";
-        reflog = "delta";
-        show = "delta";
-      };
       difftool.prompt = false;
       "difftool \"nvimdiff\"".cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
       "difftool \"difftatic\"".cmd = "difft \"$LOCAL\" \"$REMOTE\"";
-
-      # delta
-      delta = {
-        features = "line-numbers decorations";
-        whitespace-error-style = "22 reverse";
-      };
-      "delta \"decorations\"" = {
-        commit-decoration-style = "bold yellow box ul";
-        file-style = "bold yellow ul";
-        file-decoration-style = "none";
-      };
-      "delta \"no-line-number\"".line-numbers = false;
 
       # 認証
       credential.helper = "osxkeychain";
