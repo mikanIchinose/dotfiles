@@ -46,25 +46,23 @@ in
       "manaflow-ai/cmux"
     ];
     brews = [
-      "openssl" # need for cargo-update
+      # "openssl" # need for cargo-update
       "cocoapods" # need for flutter
-      "swift-format"
-      "firebase-cli" # nixpkgs版はNode.js 24との互換性問題でビルド失敗 (https://github.com/NixOS/nixpkgs/issues/369813)
-      "pre-commit" # nixpkgs版はSwiftビルド失敗のため一時的にHomebrewで管理
+      # "swift-format"
+      # "firebase-cli" # nixpkgs版はNode.js 24との互換性問題でビルド失敗 (https://github.com/NixOS/nixpkgs/issues/369813)
+      # "pre-commit" # nixpkgs版はSwiftビルド失敗のため一時的にHomebrewで管理
       "gradle-profiler" # nixpkgになかった
     ];
     casks = [
-      "google-chrome"
-      "google-chrome@beta"
       "wezterm"
+      "cmux"
+      "google-chrome@beta"
       "jetbrains-toolbox"
       "karabiner-elements"
-      "keepassxc"
       "visual-studio-code@insiders"
       "swiftformat-for-xcode"
       "docker-desktop"
       "claude"
-      "cmux"
     ];
     masApps = {
       Kindle = 302584613;

@@ -8,11 +8,8 @@
   # 例:
   # homebrew.brews = [ "cocoapods" ];
   homebrew.casks = [
-    "arc"
     "slack"
     "zoom"
-    "raycast"
-    "rectangle"
     "notion-calendar"
   ];
 }

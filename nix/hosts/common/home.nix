@@ -83,21 +83,11 @@ let
     # ai-tools
     llm-agents.codex
     llm-agents.claude-code
-    # pre-commit # Swift ビルド失敗のため一時的に無効化 (nixpkgs issue)
     manix
-    devenv
-    # jujutsu: managed by programs.jujutsu
     # scrcpy # unsupported arm64-apple
 
     # Go tools (from gofile)
-    gogup
     vim-startuptime
-
-    # Rust tools (from cargofile)
-    cargo-cache
-    cargo-make
-    cargo-update
-    # rogcat # aarch64-darwin not supported
 
     glow
 
@@ -106,8 +96,12 @@ let
     dust # intuitive tree view
 
     tmux
-    ghostscript
-    google-cloud-sdk
+    ghostscript # pdf圧縮用
+    google-cloud-sdk # gcloud cli
+
+    swift-format
+    firebase-tools
+    pre-commit
   ];
 in
 {
