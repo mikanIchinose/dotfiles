@@ -1,8 +1,8 @@
 ---
 name: create-nix-package
 description: |
-  Nixパッケージを作成する。Go/Rust/npm/バイナリ/シェルスクリプトに対応。
-  「nixパッケージを作って」「パッケージを追加して」「Go パッケージを追加」「npm パッケージを追加」「スクリプトをパッケージ化」と依頼された際に使用。
+  Nixパッケージを作成する。Go/Rust/npm/Dart/バイナリ/シェルスクリプトに対応。
+  「nixパッケージを作って」「パッケージを追加して」「Go パッケージを追加」「npm パッケージを追加」「Dart パッケージを追加」「スクリプトをパッケージ化」と依頼された際に使用。
 ---
 
 ## ビルド方式の選択
@@ -12,6 +12,7 @@ description: |
 | Go | `buildGoModule` | `vendorHash` | `references/go.md` |
 | Rust | `rustPlatform.buildRustPackage` | `cargoHash` | `references/rust.md` |
 | Node.js (npm) | `buildNpmPackage` | `npmDepsHash` | `references/npm.md` |
+| Dart | `buildDartApplication` | `pubspecLock` (JSON) | `references/dart.md` |
 | プリビルドバイナリ | `stdenv.mkDerivation` + `fetchurl` | なし | `references/binary.md` |
 | シェルスクリプト | `stdenv.mkDerivation` + `fetchFromGitHub` | なし | `references/script.md` |
 
