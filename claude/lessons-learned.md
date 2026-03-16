@@ -4,6 +4,17 @@ self-improve スキルによって記録される学習ログ。
 
 <!-- 以下に self-improve Phase 5 で追記される -->
 
+## 2026-03-16 — dotfiles
+
+| シグナル | 分類 | 対応 | ステータス |
+|---------|------|------|-----------|
+| init-dart.sh が `gh release view` 失敗でプレフィックス付きタグを取得できなかった | 既存スキル改善 (init-dart.sh) | タグ一覧からのフォールバック取得を追加 | 適用済み |
+| flutterfire-cli を common/home.nix に追加しようとしてユーザーに修正された | lessons-learned | 記録のみ | 記録済み |
+
+### 詳細
+- Dart モノレポではリリースを作らずプレフィックス付きタグ（`flutterfire_cli-v1.3.1`）を使うパターンがある。init-dart.sh に `gh release view` → タグ一覧のフォールバックロジックを追加した。
+- 仕事用ツール（fvm と同カテゴリの Flutter 関連）は `work/home.nix` に追加すべき。`common/home.nix` の `selfPackages` は全環境共通のものに限定。
+
 ## 2026-02-23 — dotfiles (4)
 
 | シグナル | 分類 | 対応 | ステータス |
