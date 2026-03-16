@@ -98,6 +98,17 @@ in
   system.defaults.NSGlobalDomain."com.apple.sound.beep.volume" = 0.6065307;
   # メニューバーを自動で非表示にする
   system.defaults.NSGlobalDomain._HIHideMenuBar = false;
+  # テキスト自動補正を無効化
+  # 文頭を自動で大文字にしない
+  system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
+  # スペース2回でピリオドを挿入しない
+  system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
+  # スマート引用符（""→""）を使わない
+  system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
+  # スマートダッシュ（--→—）を使わない
+  system.defaults.NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
+  # スペルミスを自動修正しない
+  system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
   # Finder
   system.defaults.finder = {
     _FXSortFoldersFirst = true;
@@ -111,24 +122,18 @@ in
     ShowPathbar = true;
   };
 
+  # バッテリー残量をパーセント表示
+  system.defaults.controlcenter.BatteryShowPercentage = true;
+  # 壁紙クリックでデスクトップ表示を無効化（誤操作防止）
+  system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
+  # メニューバー時計を24時間表示
+  system.defaults.menuExtraClock.Show24Hour = true;
+
   # 起動時にサウンドを再生しない
   system.startup.chime = false;
 
   # アプリ固有の設定
   system.defaults.CustomUserPreferences = {
-    # テキスト自動補正を無効化
-    NSGlobalDomain = {
-      # 文頭を自動で大文字にしない
-      NSAutomaticCapitalizationEnabled = false;
-      # スペース2回でピリオドを挿入しない
-      NSAutomaticPeriodSubstitutionEnabled = false;
-      # スマート引用符（""→""）を使わない
-      NSAutomaticQuoteSubstitutionEnabled = false;
-      # スマートダッシュ（--→—）を使わない
-      NSAutomaticDashSubstitutionEnabled = false;
-      # スペルミスを自動修正しない
-      NSAutomaticSpellingCorrectionEnabled = false;
-    };
     # Xcode ショートカット
     "com.apple.dt.Xcode" = {
       NSUserKeyEquivalents = {
