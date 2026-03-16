@@ -70,6 +70,7 @@
               copilot-language-server = final.callPackage ./nix/packages/copilot-language-server { };
               gh-actions-language-server = final.callPackage ./nix/packages/gh-actions-language-server { };
               gh-switch-issue = final.callPackage ./nix/packages/gh-switch-issue { };
+              flutterfire-cli = final.callPackage ./nix/packages/flutterfire-cli { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -128,6 +129,7 @@
           packages.gh-actions-language-server =
             pkgs.callPackage ./nix/packages/gh-actions-language-server
               { };
+          packages.flutterfire-cli = pkgs.callPackage ./nix/packages/flutterfire-cli { };
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               git

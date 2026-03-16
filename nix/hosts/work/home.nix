@@ -18,6 +18,8 @@ in
 {
   home.packages = with pkgs; [
     git-filter-repo
+    fvm
+    flutterfire-cli
   ];
 
   home.activation = ghqLib.mkGhqActivation "work" workGhqRepos;
