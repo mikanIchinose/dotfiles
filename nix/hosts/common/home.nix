@@ -192,6 +192,9 @@ in
         editor = config.programs.git.settings.core.editor;
         default-command = "log";
       };
+      git = {
+        auto-local-bookmark = true;
+      };
     };
   };
   programs.git = {
