@@ -16,6 +16,7 @@ description: '変更内容を確認し、Conventional Commits 形式のコミッ
 	<script>scripts/detect-vcs.sh</script>
 	<rule>スクリプトが "jj" を返した場合 → jj ワークフロー (references/jj.md)</rule>
 	<rule>スクリプトが "git" を返した場合 → git ワークフロー (references/git.md)</rule>
+	<important>判定後、該当するリファレンスファイルを必ず Read で読み込み、記載された手順に従うこと。自己判断でコマンドを実行しない。</important>
 </vcs-detection>
 ```
 
