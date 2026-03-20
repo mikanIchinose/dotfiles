@@ -4,6 +4,15 @@ self-improve スキルによって記録される学習ログ。
 
 <!-- 以下に self-improve Phase 5 で追記される -->
 
+## 2026-03-17 — blog
+
+| シグナル | 分類 | 対応 | ステータス |
+|---------|------|------|-----------|
+| jj で `jj commit` を使おうとし、スキルの jj リファレンスを読まなかった | 既存スキル改善 (conventional-commit) | SKILL.md にリファレンス参照必須の指示を追加 | 適用済み |
+
+### 詳細
+- conventional-commit スキル実行時、VCS 判定で jj と判定された後、`references/jj.md` を読まずに `jj commit` コマンドを自己判断で実行した。正しくは `jj describe` → `jj new` のワークフロー。スキルにリファレンスがある場合は必ず先に読むこと。
+
 ## 2026-03-16 — dotfiles
 
 | シグナル | 分類 | 対応 | ステータス |
