@@ -11,6 +11,10 @@ let
   commonGhqRepos = [
     "skk-dev/dict"
   ];
+  karabinerUser = {
+    name = "一瀬喜弘";
+    email = "29175998+mikanIchinose@users.noreply.github.com";
+  };
   selfPackages = with pkgs; [
     gwq
     slack-reminder
@@ -190,11 +194,18 @@ in
       };
       ui = {
         editor = config.programs.git.settings.core.editor;
+        diff-editor = ":builtin";
         default-command = "log";
       };
       "remotes.origin" = {
         auto-track-bookmarks = "*";
       };
+      "--scope" = [
+        {
+          "--when".repositories = [ "~/ghq-karabiner" ];
+          user = karabinerUser;
+        }
+      ];
     };
   };
   programs.git = {
@@ -205,7 +216,9 @@ in
     includes = [
       {
         condition = "gitdir:~/ghq-karabiner/";
-        path = "${dotfilesDir}/config/git/config.karabiner";
+        contents = {
+          user = karabinerUser;
+        };
       }
     ];
     settings = {
