@@ -97,7 +97,8 @@
       "WebFetch(domain:www.swift.org)",
       "WebFetch(domain:haskell.org)",
       "WebFetch(domain:www.haskell.org)",
-      "WebFetch(domain:hackage.haskell.org)"
+      "WebFetch(domain:hackage.haskell.org)",
+      "mcp__pencil"
     ],
     "defaultMode": "default"
   },
