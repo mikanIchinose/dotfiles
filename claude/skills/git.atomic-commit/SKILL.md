@@ -1,5 +1,5 @@
 ---
-name: atomic-commit
+name: git.atomic-commit
 description: 未コミットの変更を論理単位に分割してアトミックにコミットする。「まとめてコミット」「atomic commit」「変更を整理してコミット」と依頼された際に使用。
 ---
 
