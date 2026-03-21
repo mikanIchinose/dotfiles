@@ -145,7 +145,8 @@
   },
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "language": "Japanese",
   "autoMemoryEnabled": true,
