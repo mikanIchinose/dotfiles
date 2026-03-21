@@ -15,11 +15,14 @@ function M.setup()
   wezterm.on('format-tab-title', function(tab)
     local pane = tab.active_pane
     local index = tab.tab_index + 1
-    local title = pane.title
+    local has_tab_title = tab.tab_title and #tab.tab_title > 0
+    local title = has_tab_title and tab.tab_title or pane.title
     local cwd = pane.current_working_dir
     local dir = cwd and basename(cwd.file_path) or ''
     local process = basename(pane.foreground_process_name or '')
-    local text = string.format(' %d: %s ~ %s ', index, dir, title)
+    local text = has_tab_title
+      and string.format(' %d: %s ', index, title)
+      or string.format(' %d: %s ~ %s ', index, dir, title)
 
     local colors = process_colors[process]
     if colors then

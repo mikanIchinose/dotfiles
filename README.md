@@ -46,3 +46,10 @@ nix flake update && git add . && sudo nix run nix-darwin/master#darwin-rebuild -
 ```bash
 nix-collect-garbage -d
 ```
+
+## Wezterm
+
+```bash
+# タブタイトルを変更
+wezterm cli set-tab-title "test"
+```

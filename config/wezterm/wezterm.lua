@@ -15,6 +15,7 @@ config.font = wezterm.font('PlemolJP Console NF', { weight = 'Regular' })
 config.font_size = 15.0
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
+config.tab_max_width = 32
 -- config.window_background_opacity = 0.8
 config.macos_window_background_blur = 30
 -- config.window_background_image = '/Users/mikan/.config/wezterm/background.jpg'
