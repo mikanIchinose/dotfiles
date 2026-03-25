@@ -1,13 +1,14 @@
 ---
 name: jj.atomic-commit
 description: jj管理下の変更を論理単位に分割してアトミックにコミットする。jjリポジトリで「まとめてコミット」「atomic commit」「変更を整理してコミット」と依頼された際に使用。
+allowed-tools: Bash("jj status*"), Bash("jj diff*"), Bash("jj log*")
 ---
 
 ## context
 
-- status: !`jj status`
-- diff stat: !`jj diff --stat`
-- log: !`jj log --limit 10`
+- status: `jj status`
+- diff stat: `jj diff --stat`
+- log: `jj log --limit 10`
 
 ## Task
 
