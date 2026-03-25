@@ -154,5 +154,13 @@
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
   },
-  "teammateMode": "tmux"
+  "teammateMode": "tmux",
+  "extraKnownMarketplaces": {
+    "data-cuisine-chatbot": {
+      "source": {
+        "source": "github",
+        "repo": "oisix/data-cuisine-chatbot"
+      }
+    }
+  }
 }
