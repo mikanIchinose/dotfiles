@@ -1,0 +1,11 @@
+name: hello-world
+on:
+  pull_request:
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep
+        run: sleep 180
+      - name: Hello
+        run: echo "Hello, world!"
