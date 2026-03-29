@@ -2,6 +2,8 @@ local wezterm = require 'wezterm'
 
 local M = {}
 
+-- パスからファイル名だけ取り出す
+-- /path/to/file -> file
 local function basename(s)
   return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end
@@ -20,9 +22,38 @@ function M.setup()
     local cwd = pane.current_working_dir
     local dir = cwd and basename(cwd.file_path) or ''
     local process = basename(pane.foreground_process_name or '')
-    local text = has_tab_title
-      and string.format(' %d: %s ', index, title)
-      or string.format(' %d: %s ~ %s ', index, dir, title)
+
+    -- Claude Code ステータスプレフィックス ([DONE], [WAIT])
+    -- Claude 終了後にプレフィックスが残る場合はクリアする
+    local claude_status = nil
+    if has_tab_title then
+      if process == '.claude-wrapped' then
+        claude_status = tab.tab_title
+      else
+        local t = tab.tab_title
+        if t == '🟢' or t == '💬' then
+          has_tab_title = false
+        end
+      end
+    end
+
+    -- アクティブタブのプレフィックスをクリア
+    if tab.is_active and claude_status then
+      local mux_tab = wezterm.mux.get_tab(tab.tab_id)
+      if mux_tab then
+        mux_tab:set_title('')
+      end
+      claude_status = nil
+    end
+
+    local text
+    if claude_status then
+      text = string.format('%d: %s %s ', index, claude_status, dir)
+    elseif has_tab_title then
+      text = string.format('%d: %s ', index, title)
+    else
+      text = string.format('%d: %s ~ %s ', index, dir, title)
+    end
 
     local colors = process_colors[process]
     if colors then
