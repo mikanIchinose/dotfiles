@@ -13,5 +13,8 @@ let
   ];
 in
 {
+  home.packages = with pkgs; [
+    gws
+  ];
   home.activation = ghqLib.mkGhqActivation "personal" personalGhqRepos;
 }
