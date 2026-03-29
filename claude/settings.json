@@ -146,15 +146,9 @@
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true
   },
-  "language": "Japanese",
-  "autoMemoryEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754035517161
-  },
-  "teammateMode": "tmux",
   "extraKnownMarketplaces": {
     "data-cuisine-chatbot": {
       "source": {
@@ -162,5 +156,12 @@
         "repo": "oisix/data-cuisine-chatbot"
       }
     }
-  }
+  },
+  "language": "Japanese",
+  "autoMemoryEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754035517161
+  },
+  "teammateMode": "tmux"
 }
