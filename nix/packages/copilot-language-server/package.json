@@ -1,8 +1,8 @@
 {
   "name": "copilot-language-server-wrapper",
-  "version": "1.459.0",
+  "version": "1.462.0",
   "private": true,
   "dependencies": {
-    "@github/copilot-language-server": "1.459.0"
+    "@github/copilot-language-server": "1.462.0"
   }
 }
