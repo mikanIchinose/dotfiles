@@ -2,9 +2,13 @@
   "lock": false,
   "tasks": {
     "cache": "deno install --reload",
-    "check": "deno check rc/**/*.ts",
+    "check": "deno check rc/**/*.ts denops/**/*.ts",
     "update": "deno outdated --recursive",
     "update:commit": "deno outdated --recursive --update --latest"
+  },
+  "imports": {
+    "@shougo/ddc-vim": "jsr:@shougo/ddc-vim@~10.1.0",
+    "@denops/std": "jsr:@denops/std@~8.2.0"
   },
   "workspace": [
     "./rc/plugins"

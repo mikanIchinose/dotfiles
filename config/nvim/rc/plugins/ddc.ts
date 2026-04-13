@@ -19,7 +19,9 @@ export class Config extends BaseConfig {
         "CmdlineChanged",
         "TextChangedT",
       ],
-      sources: ["around", "rg", "file"],
+      sources: [
+        "git-file",
+      ],
       cmdlineSources: {
         ":": ["cmdline", "cmdline_history", "around"],
         "/": ["around"],
@@ -58,6 +60,12 @@ export class Config extends BaseConfig {
           mark: "file",
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
+        },
+        "git-file": {
+          mark: "git-file",
+          matchers: ["matcher_fuzzy"],
+          sorters: ["sorter_fuzzy"],
+          converters: ["converter_fuzzy"],
         },
         lsp: {
           mark: "lsp",
@@ -120,7 +128,7 @@ export class Config extends BaseConfig {
             keywordPattern: "[0-9a-zA-Z_./#:-]*",
           },
         },
-        sources: ["shell_native", "around", "file"],
+        sources: ["shell_native", "around", "file", "git-file"],
       });
     }
     args.contextBuilder.patchFiletype("deol", {
@@ -169,7 +177,7 @@ export class Config extends BaseConfig {
       ]
     ) {
       args.contextBuilder.patchFiletype(filetype, {
-        sources: ["lsp", "around", "file", "vsnip"],
+        sources: ["lsp", "around", "file", "vsnip", "git-file"],
       });
     }
 
