@@ -1,7 +1,7 @@
 ---
 name: conventional-commit
 description: '変更内容を確認し、Conventional Commits 形式のコミットメッセージを生成してコミットする。「コミットして」「commit」「jj commit」と依頼された際に使用。'
-allowed-tools: Read, Bash(bash scripts/detect-vcs.sh), Bash(jj st), Bash(jj diff *), Bash(jj log *), Bash(jj describe *), Bash(jj new), Bash(git status), Bash(git diff *), Bash(git add *), Bash(git commit *)
+allowed-tools: Read, Bash(bash **/scripts/detect-vcs.sh), Bash(jj st), Bash(jj *), Bash(git status), Bash(git *)
 ---
 
 ### 説明
