@@ -16,6 +16,9 @@ in
   # M1 Mac のプラットフォーム
   nixpkgs.hostPlatform = system;
 
+  nixpkgs.config.allowUnfreePredicate =
+    pkg: builtins.elem (pkgs.lib.getName pkg) [ "android-cli" ];
+
   home-manager = {
     useUserPackages = true;
     users."${username}" = {

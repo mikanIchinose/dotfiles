@@ -73,6 +73,12 @@ let
     cocoapods # need for flutter
     flutterfire-cli # integrate firebase
   ];
+  devtools-android = with pkgs; [
+    android-cli
+  ];
+  devtools-swift = with pkgs; [
+    swift-format
+  ];
   utility = with pkgs; [
     fish
     neovim
@@ -90,6 +96,12 @@ let
     hyperfine
     maestro
     tokei
+    tmux
+    glow
+    ghostscript # pdf圧縮用
+    google-cloud-sdk # gcloud cli
+    firebase-tools
+    pre-commit
 
     # ai-tools
     llm-agents.codex
@@ -97,19 +109,9 @@ let
     manix
     # scrcpy # unsupported arm64-apple
 
-    glow
-
     # Disk usage tools (Rust alternatives to du)
     diskus # minimal, fastest (du -sh alternative)
     dust # intuitive tree view
-
-    tmux
-    ghostscript # pdf圧縮用
-    google-cloud-sdk # gcloud cli
-
-    swift-format
-    firebase-tools
-    pre-commit
   ];
 in
 {
@@ -381,6 +383,8 @@ in
     devtools-clojure
     devtools-go
     devtools-flutter
+    devtools-android
+    devtools-swift
     utility
   ];
 }
