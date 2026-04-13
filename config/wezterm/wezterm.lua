@@ -6,15 +6,14 @@ local config = wezterm.config_builder()
 tab_title.setup()
 status_bar.setup()
 
--- macskkと干渉しないようにする
--- https://zenn.dev/vim_jp/articles/wezterm-karabiner
--- config.use_ime = false
+-- タイトルバーを非表示
+config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
+config.use_fancy_tab_bar = true
+
 config.color_scheme = 'iceberg-dark'
 config.font = wezterm.font('PlemolJP Console NF', { weight = 'Regular' })
--- config.font = wezterm.font('UDEV Gothic 35NFLG', { weight = 'Regular' })
 config.font_size = 15.0
 config.enable_tab_bar = true
-config.use_fancy_tab_bar = false
 config.tab_max_width = 32
 -- config.window_background_opacity = 0.8
 config.macos_window_background_blur = 30

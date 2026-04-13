@@ -63,7 +63,7 @@ function M.setup()
       local text = table.concat(parts, ' ' .. SEPARATOR .. ' ')
       table.insert(cells, { text = text, bg = '#ffaa00', fg = '#000000' })
     end
-    table.insert(cells, { text = wezterm.strftime '%m/%d %a %H:%M', bg = '#44bbff', fg = '#000000' })
+    -- table.insert(cells, { text = wezterm.strftime '%m/%d %a %H:%M', bg = '#44bbff', fg = '#000000' })
 
     window:set_right_status(wezterm.format(render_pills(cells)))
   end)
