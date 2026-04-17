@@ -8,6 +8,7 @@
   # 例:
   homebrew.casks = [
     "spotify"
+    "google-drive"
   ];
   # homebrew.masApps = { Kindle = 302584613; };
 }
