@@ -101,7 +101,7 @@
       "WebFetch(domain:hackage.haskell.org)",
       "mcp__pencil"
     ],
-    "defaultMode": "default"
+    "defaultMode": "auto"
   },
   "hooks": {
     "UserPromptSubmit": [
@@ -180,11 +180,12 @@
     }
   },
   "language": "Japanese",
+  "effortLevel": "xhigh",
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
   },
-  "teammateMode": "tmux",
-  "effortLevel": "high"
+  "teammateMode": "tmux"
 }
