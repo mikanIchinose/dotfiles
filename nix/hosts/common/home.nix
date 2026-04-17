@@ -21,6 +21,7 @@ let
     mocword
     rogcat
     covpeek
+    gradle-profiler
   ];
   programming = with pkgs; [
     deno
@@ -44,6 +45,7 @@ let
     nixfmt
   ];
   devtools-vim = with pkgs; [
+    vim-startuptime
     vim-language-server
     lua-language-server
     stylua
@@ -65,6 +67,11 @@ let
   devtools-go = with pkgs; [
     go
     gopls
+  ];
+  devtools-flutter = with pkgs; [
+    fvm # version manager
+    cocoapods # need for flutter
+    flutterfire-cli # integrate firebase
   ];
   utility = with pkgs; [
     fish
@@ -89,9 +96,6 @@ let
     llm-agents.claude-code
     manix
     # scrcpy # unsupported arm64-apple
-
-    # Go tools (from gofile)
-    vim-startuptime
 
     glow
 
@@ -376,6 +380,7 @@ in
     devtools-web
     devtools-clojure
     devtools-go
+    devtools-flutter
     utility
   ];
 }
