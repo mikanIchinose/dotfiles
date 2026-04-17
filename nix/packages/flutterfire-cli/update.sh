@@ -26,7 +26,12 @@ fi
 
 nix run nixpkgs#yq-go -- eval --output-format=json --prettyPrint "$PUBSPEC_DIR/pubspec.lock" > pubspec.lock.json
 
-# default.nix のバージョンを更新
-sed -i'' "s/version = \".*\"/version = \"$LATEST\"/" default.nix
+# src hash を取得
+URL="https://github.com/$OWNER/$REPO/archive/refs/tags/$TAG.tar.gz"
+HASH=$(nix store prefetch-file --json --unpack "$URL" | jq -r '.hash')
 
-echo "Updated to $LATEST. Run 'nix build' to get new src hash."
+# default.nix のバージョンと hash を更新
+sed -i'' "s/version = \".*\"/version = \"$LATEST\"/" default.nix
+sed -i'' "s|hash = \"sha256-[^\"]*\"|hash = \"$HASH\"|" default.nix
+
+echo "Updated to $LATEST"
