@@ -6,13 +6,13 @@
 
 buildDartApplication rec {
   pname = "flutterfire-cli";
-  version = "1.3.1";
+  version = "1.3.2";
 
   src = fetchFromGitHub {
     owner = "invertase";
     repo = "flutterfire_cli";
     tag = "flutterfire_cli-v${version}";
-    hash = "sha256-wQAfjsiLRIH5SOz4tWHFJejYsJtJKfa2hltzeTnVx84=";
+    hash = "sha256-6ifQG4C3LbCiJhYyseJUqutRuWX8xsfAosSkhsF1fQM=";
   };
 
   sourceRoot = "${src.name}/packages/flutterfire_cli";
