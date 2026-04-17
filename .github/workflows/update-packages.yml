@@ -73,6 +73,7 @@ jobs:
                 --body "Automated package update." \
                 --base main \
                 --head "$branch"
+              gh pr merge "$branch" --auto --merge
             fi
 
             # Reset to main for next package
