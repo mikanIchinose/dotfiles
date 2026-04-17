@@ -71,6 +71,7 @@
               gh-actions-language-server = final.callPackage ./nix/packages/gh-actions-language-server { };
               gh-switch-issue = final.callPackage ./nix/packages/gh-switch-issue { };
               flutterfire-cli = final.callPackage ./nix/packages/flutterfire-cli { };
+              gradle-profiler = final.callPackage ./nix/packages/gradle-profiler { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -130,6 +131,7 @@
             pkgs.callPackage ./nix/packages/gh-actions-language-server
               { };
           packages.flutterfire-cli = pkgs.callPackage ./nix/packages/flutterfire-cli { };
+          packages.gradle-profiler = pkgs.callPackage ./nix/packages/gradle-profiler { };
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               git
