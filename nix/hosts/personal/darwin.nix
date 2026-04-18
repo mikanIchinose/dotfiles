@@ -9,6 +9,8 @@
   homebrew.casks = [
     "spotify"
     "google-drive"
+    "zed"
+    "zen"
   ];
   # homebrew.masApps = { Kindle = 302584613; };
 }
