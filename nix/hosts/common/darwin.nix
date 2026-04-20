@@ -58,6 +58,7 @@ in
       "swiftformat-for-xcode"
       "docker-desktop"
       "claude"
+      "codex-app"
     ];
     masApps = {
       Kindle = 302584613;
