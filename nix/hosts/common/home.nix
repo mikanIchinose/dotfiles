@@ -171,6 +171,15 @@ in
   programs.fzf.enable = true;
   programs.direnv = {
     enable = true;
+    # workaround
+    # https://github.com/NixOS/nixpkgs/issues/513019
+    package = pkgs.direnv.overrideAttrs {
+      checkPhase = ''
+        runHook preCheck
+        make test-go test-bash test-fish
+        runHook postCheck
+      '';
+    };
     nix-direnv.enable = true;
     config = {
       whitelist.prefix = [ "${config.home.homeDirectory}/ghq/github.com/mikanIchinose" ];
