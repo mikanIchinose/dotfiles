@@ -183,9 +183,11 @@
   "effortLevel": "xhigh",
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
+  "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
   },
-  "teammateMode": "tmux"
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
 }
