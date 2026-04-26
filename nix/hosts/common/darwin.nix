@@ -60,6 +60,9 @@ in
       "claude"
       "codex-app"
       "rectangle"
+      "slack"
+      "zoom"
+      "notion-calendar"
     ];
     masApps = {
       Kindle = 302584613;
