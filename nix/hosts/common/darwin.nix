@@ -47,7 +47,6 @@ in
     taps = [
     ];
     brews = [
-      "gradle-profiler" # nixpkgになかった
     ];
     casks = [
       "wezterm"
