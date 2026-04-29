@@ -45,6 +45,7 @@ in
       cleanup = "uninstall";
     };
     taps = [
+      "arto-app/tap"
     ];
     brews = [
     ];
@@ -62,6 +63,7 @@ in
       "slack"
       "zoom"
       "notion-calendar"
+      "arto"
     ];
     masApps = {
       Kindle = 302584613;
