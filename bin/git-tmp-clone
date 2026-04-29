@@ -10,4 +10,4 @@ fi
 repo_url="$1"
 dir_name="$(basename "$repo_url" .git)"
 
-git clone --depth 1 "$repo_url" "/tmp/$dir_name"
+git clone --filter=blob:none --depth=1 --single-branch "$repo_url" "/tmp/$dir_name"
