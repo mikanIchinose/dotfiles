@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "gwq";
-  version = "0.0.19";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "d-kuro";
     repo = "gwq";
     rev = "v${version}";
-    hash = "sha256-2uE04frxfvQBlrOg5d0hPzGE9sbpzxHEiCeJX1ilG2M=";
+    hash = "sha256-zViaUOlbvf/PFuJpGyklKN9yMhoMz/Rv5vP2qWi3MG0=";
   };
 
   vendorHash = "sha256-4K01Xf1EXl/NVX1loQ76l1bW8QglBAQdvlZSo7J4NPI=";
