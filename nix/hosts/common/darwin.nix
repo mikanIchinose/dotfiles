@@ -42,15 +42,18 @@ in
     enable = true;
     onActivation = {
       autoUpdate = true;
+      upgrade = true;
       cleanup = "uninstall";
     };
     taps = [
       "arto-app/tap"
     ];
     brews = [
+      "JetBrains/utils/kotlin-lsp"
     ];
     casks = [
       "wezterm"
+      "google-chrome"
       "google-chrome@beta"
       "jetbrains-toolbox"
       "karabiner-elements"
