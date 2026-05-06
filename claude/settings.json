@@ -169,7 +169,9 @@
     "skill-creator@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true
+    "code-review@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "data-cuisine-chatbot": {
@@ -184,10 +186,10 @@
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "teammateMode": "tmux",
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
-  },
-  "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
+  }
 }
