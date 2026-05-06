@@ -12,5 +12,5 @@
     "zed"
     "zen"
   ];
-  # homebrew.masApps = { Kindle = 302584613; };
+  homebrew.masApps = { Keynote = 361285480; };
 }
