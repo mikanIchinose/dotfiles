@@ -7,15 +7,15 @@
 }:
 
 let
-  version = "0.7.15232955";
+  version = "0.7.15378687";
   sources = {
     "aarch64-darwin" = {
       url = "https://edgedl.me.gvt1.com/edgedl/android/cli/latest/darwin_arm64/android";
-      hash = "sha256-N70ts4oIEp2vYzxPqnqi30lW/+UUGT/bucO6nHs8jUY="; # hash-darwin
+      hash = "sha256-UrJZ5zP6K5/HkCcGwm7r8lBW1uHJqHMY3lpMOSKv01k="; # hash-darwin
     };
     "x86_64-linux" = {
       url = "https://edgedl.me.gvt1.com/edgedl/android/cli/latest/linux_x86_64/android";
-      hash = "sha256-y4woDP/5fqc6C6U50jXaOqiDBZzzENZSbHUCTt2zKic="; # hash-linux
+      hash = "sha256-k119FKk+V4dfpknbqdx7AZUA4u1tw+MJuq+4qOPh83Q="; # hash-linux
     };
   };
   src =
