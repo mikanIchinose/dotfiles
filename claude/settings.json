@@ -173,14 +173,6 @@
     "gopls-lsp@claude-plugins-official": true,
     "kotlin-lsp@claude-plugins-official": true
   },
-  "extraKnownMarketplaces": {
-    "data-cuisine-chatbot": {
-      "source": {
-        "source": "github",
-        "repo": "oisix/data-cuisine-chatbot"
-      }
-    }
-  },
   "language": "Japanese",
   "effortLevel": "xhigh",
   "autoMemoryEnabled": true,

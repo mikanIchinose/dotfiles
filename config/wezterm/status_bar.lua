@@ -14,7 +14,7 @@ local review_prs_last_fetched = 0
 local function fetch_review_prs()
   local success, stdout = wezterm.run_child_process {
     '/bin/zsh', '-lc',
-    'gh search prs --review-requested=mikanIchinose --state=open --json repository,number --jq \'[.[] | select(.repository.name == "oisixAndroid" or .repository.name == "oisixiOS") | .repository.name] | group_by(.) | map({ name: .[0], count: length })\'',
+    'gh search prs --review-requested=mikanIchinose --state=open --json repository,number --jq \'[.[] | select(.repository.name == "hoge") | .repository.name] | group_by(.) | map({ name: .[0], count: length })\'',
   }
   if success then
     review_prs_last_fetched = os.time()
