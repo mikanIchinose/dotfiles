@@ -11,6 +11,7 @@
     "google-drive"
     "zed"
     "zen"
+    "tailscale-app"
   ];
   homebrew.masApps = {
     Keynote = 361285480;
