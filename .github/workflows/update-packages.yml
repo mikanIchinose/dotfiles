@@ -2,7 +2,6 @@ name: update-packages
 on:
   schedule:
     - cron: '0 1 * * *'
-  workflow_dispatch:
 jobs:
   update:
     timeout-minutes: 10
