@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   nix-update:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -19,6 +20,7 @@ jobs:
         with:
           ref: main
           token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
       - name: Setup nix
         uses: cachix/install-nix-action@1ca7d21a94afc7c957383a2d217460d980de4934 # v31.10.1
         with:
@@ -33,7 +35,8 @@ jobs:
         run: nix fmt
       - name: Commit changes
         run: |
+          APP_TOKEN="${{ steps.app-token.outputs.token }}"
           git add .
           git diff --cached --quiet && exit 0
           git commit -m "Update lockfile"
-          git push origin HEAD
+          git -c "http.https://github.com/.extraheader=Authorization: Bearer $APP_TOKEN" push origin HEAD

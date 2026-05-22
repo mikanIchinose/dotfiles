@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   update:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,6 +21,7 @@ jobs:
         with:
           ref: main
           token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
       - name: Setup nix
         uses: cachix/install-nix-action@1ca7d21a94afc7c957383a2d217460d980de4934 # v31.10.1
         with:
@@ -29,14 +31,17 @@ jobs:
           git config --local user.name "GitHub Action"
           git config --local user.email "actions@github.com"
       - name: Update packages individually
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
+          # Keep the App token in a shell variable (NOT exported), so child
+          # processes like update.sh do not inherit it. Only the gh commands
+          # below receive it via an inline assignment.
+          APP_TOKEN="${{ steps.app-token.outputs.token }}"
+
           for script in nix/packages/*/update.sh; do
             pkg="$(basename "$(dirname "$script")")"
             echo "::group::Processing $pkg"
 
-            # Run update script
+            # Run update script without the App token in env
             bash "$script" 2>&1 || true
 
             # Format
@@ -63,23 +68,23 @@ jobs:
               pr_title="nix: update $pkg"
             fi
 
-            # Create branch, commit, and push
+            # Create branch, commit, and push (inline auth, not persisted in .git/config)
             git checkout -B "$branch"
             git add .
             git commit -m "$commit_msg"
-            git push -f origin "$branch"
+            git -c "http.https://github.com/.extraheader=Authorization: Bearer $APP_TOKEN" push -f origin "$branch"
 
-            # Create or update PR
-            existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
+            # Create or update PR (GH_TOKEN scoped to each gh invocation)
+            existing=$(GH_TOKEN="$APP_TOKEN" gh pr list --head "$branch" --state open --json number --jq '.[0].number')
             if [ -n "$existing" ]; then
-              gh pr edit "$existing" --title "$pr_title"
+              GH_TOKEN="$APP_TOKEN" gh pr edit "$existing" --title "$pr_title"
             else
-              gh pr create \
+              GH_TOKEN="$APP_TOKEN" gh pr create \
                 --title "$pr_title" \
                 --body "Automated package update." \
                 --base main \
                 --head "$branch"
-              gh pr merge "$branch" --auto --merge
+              GH_TOKEN="$APP_TOKEN" gh pr merge "$branch" --auto --merge
             fi
 
             # Reset to main for next package
