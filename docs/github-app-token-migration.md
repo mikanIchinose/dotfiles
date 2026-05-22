@@ -26,7 +26,7 @@
   id: app-token
   uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
   with:
-    app-id: ${{ secrets.WORKFLOW_APP_ID }}
+    client-id: ${{ secrets.WORKFLOW_APP_CLIENT_ID }}
     private-key: ${{ secrets.WORKFLOW_APP_PRIVATE_KEY }}
 
 - uses: actions/checkout@...
@@ -54,9 +54,11 @@
    - **Where can this GitHub App be installed?**: `Only on this account`
 3. `Create GitHub App` をクリック
 
-### 2. App ID をメモ
+### 2. Client ID をメモ
 
-作成後の App 管理ページ上部に `App ID: 123456` のように表示されるので控える。
+作成後の App 管理ページ上部 `About` セクションに `Client ID: Iv23li...` と表示されるのでコピーする。
+
+（同セクションに `App ID: 123456` も表示されるが、`actions/create-github-app-token` v3 以降では `app-id` が deprecated になっており `client-id` 推奨）
 
 ### 3. 秘密鍵を生成
 
@@ -77,7 +79,7 @@
 
 | Secret 名 | 値 |
 |-----------|-----|
-| `WORKFLOW_APP_ID` | 手順 2 でメモした App ID（数値） |
+| `WORKFLOW_APP_CLIENT_ID` | 手順 2 でメモした Client ID（`Iv23li...` 形式の文字列） |
 | `WORKFLOW_APP_PRIVATE_KEY` | 手順 3 でダウンロードした `.pem` の **全文**（`-----BEGIN RSA PRIVATE KEY-----` から `-----END RSA PRIVATE KEY-----` まで含む） |
 
 登録後、**ダウンロードした `.pem` ファイルはローカルから削除**する。
@@ -85,7 +87,7 @@
 CLI で登録する場合（要 `gh auth refresh -s repo` 等で権限付与済み）:
 
 ```bash
-gh secret set WORKFLOW_APP_ID --repo mikanIchinose/dotfiles --body '123456'
+gh secret set WORKFLOW_APP_CLIENT_ID --repo mikanIchinose/dotfiles --body 'Iv23li...'
 gh secret set WORKFLOW_APP_PRIVATE_KEY --repo mikanIchinose/dotfiles < /path/to/private-key.pem
 ```
 
