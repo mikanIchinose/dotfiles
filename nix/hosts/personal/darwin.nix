@@ -12,5 +12,7 @@
     "zed"
     "zen"
   ];
-  homebrew.masApps = { Keynote = 361285480; };
+  homebrew.masApps = {
+    Keynote = 361285480;
+  };
 }
