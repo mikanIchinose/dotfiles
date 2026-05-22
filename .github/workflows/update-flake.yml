@@ -2,12 +2,14 @@ name: update
 on:
   schedule:
     - cron: '0 0 * * *'
+  workflow_dispatch:
 jobs:
   nix-update:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -32,10 +34,27 @@ jobs:
         run: nix flake update
       - name: Format
         run: nix fmt
-      - name: Commit changes
+      - name: Create PR for lockfile update
         run: |
           APP_TOKEN="${{ steps.app-token.outputs.token }}"
+
+          if git diff --quiet; then
+            echo "No flake.lock changes"
+            exit 0
+          fi
+
+          branch="nix/update-flake-lock"
+          git checkout -B "$branch"
           git add .
-          git diff --cached --quiet && exit 0
           git commit -m "Update lockfile"
-          git -c "http.https://github.com/.extraheader=Authorization: Bearer $APP_TOKEN" push origin HEAD
+          git -c "http.https://github.com/.extraheader=Authorization: Bearer $APP_TOKEN" push -f origin "$branch"
+
+          existing=$(GH_TOKEN="$APP_TOKEN" gh pr list --head "$branch" --state open --json number --jq '.[0].number')
+          if [ -z "$existing" ]; then
+            GH_TOKEN="$APP_TOKEN" gh pr create \
+              --title "Update lockfile" \
+              --body "Automated flake.lock update." \
+              --base main \
+              --head "$branch"
+            GH_TOKEN="$APP_TOKEN" gh pr merge "$branch" --auto --merge
+          fi
