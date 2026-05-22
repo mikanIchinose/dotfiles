@@ -10,10 +10,16 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.WORKFLOW_APP_ID }}
+          private-key: ${{ secrets.WORKFLOW_APP_PRIVATE_KEY }}
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: main
-          token: ${{ secrets.WORKFLOW_PAT }}
+          token: ${{ steps.app-token.outputs.token }}
       - name: Setup nix
         uses: cachix/install-nix-action@1ca7d21a94afc7c957383a2d217460d980de4934 # v31.10.1
         with:
@@ -24,7 +30,7 @@ jobs:
           git config --local user.email "actions@github.com"
       - name: Update packages individually
         env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           for script in nix/packages/*/update.sh; do
             pkg="$(basename "$(dirname "$script")")"
