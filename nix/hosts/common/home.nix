@@ -306,10 +306,6 @@ in
       # ghq
       ghq = {
         root = "~/ghq";
-        "https://github.com/karabiner-inc".root = "~/ghq-karabiner";
-        "https://kara.git.backlog.jp".root = "~/ghq-karabiner";
-        "https://gitlab.digitalatelier.info".root = "~/ghq-karabiner";
-        "https://github.com/Oisix".root = "~/ghq-karabiner";
       };
     };
   };
@@ -334,9 +330,6 @@ in
   ];
 
   home.file = {
-    # Emacs
-    ".emacs.d".source = mkLink "emacs.d";
-
     # Vim
     ".ideavimrc".source = mkLink "home/ideavimrc";
     ".vimrc".source = mkLink "home/vimrc";
