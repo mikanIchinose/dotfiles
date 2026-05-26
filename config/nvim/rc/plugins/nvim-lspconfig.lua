@@ -25,7 +25,6 @@ vim.lsp.enable('lua_ls')
 -- config files(json, yaml, toml...)
 vim.lsp.enable('jsonls')
 vim.lsp.enable('yamlls')
-vim.lsp.enable('gh_actions_ls')
 
 -- web develop
 vim.lsp.enable({
