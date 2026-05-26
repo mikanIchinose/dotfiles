@@ -34,7 +34,6 @@ let
     yaml-language-server
     efm-langserver
     copilot-language-server
-    gh-actions-language-server
   ];
   linter = with pkgs; [
     yamllint

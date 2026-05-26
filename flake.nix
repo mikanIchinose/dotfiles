@@ -68,7 +68,6 @@
               rogcat = final.callPackage ./nix/packages/rogcat { };
               covpeek = final.callPackage ./nix/packages/covpeek { };
               copilot-language-server = final.callPackage ./nix/packages/copilot-language-server { };
-              gh-actions-language-server = final.callPackage ./nix/packages/gh-actions-language-server { };
               gh-switch-issue = final.callPackage ./nix/packages/gh-switch-issue { };
               flutterfire-cli = final.callPackage ./nix/packages/flutterfire-cli { };
               gradle-profiler = final.callPackage ./nix/packages/gradle-profiler { };
@@ -128,9 +127,6 @@
           packages.mocword = pkgs.callPackage ./nix/packages/mocword { };
           packages.rogcat = pkgs.callPackage ./nix/packages/rogcat { };
           packages.copilot-language-server = pkgs.callPackage ./nix/packages/copilot-language-server { };
-          packages.gh-actions-language-server =
-            pkgs.callPackage ./nix/packages/gh-actions-language-server
-              { };
           packages.flutterfire-cli = pkgs.callPackage ./nix/packages/flutterfire-cli { };
           packages.gradle-profiler = pkgs.callPackage ./nix/packages/gradle-profiler { };
           packages.android-cli = pkgs.callPackage ./nix/packages/android-cli { };
