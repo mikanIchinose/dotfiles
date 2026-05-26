@@ -20,7 +20,6 @@ jobs:
         with:
           ref: main
           token: ${{ steps.app-token.outputs.token }}
-          persist-credentials: false
       - name: Setup nix
         uses: cachix/install-nix-action@1ca7d21a94afc7c957383a2d217460d980de4934 # v31.10.1
         with:
@@ -46,7 +45,7 @@ jobs:
           git checkout -B "$branch"
           git add .
           git commit -m "Update lockfile"
-          git -c "http.https://github.com/.extraheader=Authorization: Bearer $APP_TOKEN" push -f origin "$branch"
+          git push -f origin "$branch"
 
           existing=$(GH_TOKEN="$APP_TOKEN" gh pr list --head "$branch" --state open --json number --jq '.[0].number')
           if [ -z "$existing" ]; then
