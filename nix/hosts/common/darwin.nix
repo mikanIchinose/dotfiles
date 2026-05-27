@@ -71,6 +71,7 @@ in
     masApps = {
       Kindle = 302584613;
       Xcode = 497799835;
+      Bitwarden = 1352778147;
     };
   };
 
