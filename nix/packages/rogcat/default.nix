@@ -37,6 +37,7 @@ stdenv.mkDerivation {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     glibc
+    stdenv.cc.cc.lib
   ];
 
   installPhase = ''
