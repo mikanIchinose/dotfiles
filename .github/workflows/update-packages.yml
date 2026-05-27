@@ -52,6 +52,9 @@ jobs:
               continue
             fi
 
+            # Do not publish an update PR that cannot build.
+            NIXPKGS_ALLOW_UNFREE=1 nix build ".#$pkg" --no-link --impure
+
             # Get version diff
             branch="nix/update-$pkg"
             old_ver=$(sed -n 's/.*version = "\(.*\)".*/\1/p' <(git show HEAD:"nix/packages/$pkg/default.nix") 2>/dev/null | head -1)
