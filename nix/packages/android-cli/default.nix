@@ -7,15 +7,16 @@
 }:
 
 let
-  version = "1.0.15433482";
   sources = {
     "aarch64-darwin" = {
-      url = "https://edgedl.me.gvt1.com/edgedl/android/cli/latest/darwin_arm64/android";
-      hash = "sha256-TURp8m8eCQK5Ptql2WmTTqbmnx1hngkqT4kyFgQqhI8="; # hash-darwin
+      version = "1.0.15433482"; # version-darwin
+      url = "https://dl.google.com/android/cli/latest/darwin_arm64/android";
+      hash = "sha256-KIwoqDAj+ywjhdyfftRJfT7305ERITvNtMswqT0CQ/w="; # hash-darwin
     };
     "x86_64-linux" = {
-      url = "https://edgedl.me.gvt1.com/edgedl/android/cli/latest/linux_x86_64/android";
-      hash = "sha256-RwnFbpm+IkZSmfEDMUCsDFQIKL6gdRqg4CSZc40Mok4="; # hash-linux
+      version = "1.0.15498356"; # version-linux
+      url = "https://dl.google.com/android/cli/latest/linux_x86_64/android";
+      hash = "sha256-JP87rF2xblvMX9KlTcWAQf0G2zczic1kQt7bAE/gkr4="; # hash-linux
     };
   };
   src =
@@ -25,7 +26,7 @@ in
 
 stdenv.mkDerivation {
   pname = "android-cli";
-  inherit version;
+  inherit (src) version;
 
   src = fetchurl {
     inherit (src) url hash;
