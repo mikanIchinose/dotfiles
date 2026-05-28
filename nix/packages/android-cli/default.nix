@@ -7,7 +7,7 @@
 }:
 
 let
-  version = "1.0.15433482";
+  version = "1.0.15498356";
   sources = {
     "aarch64-darwin" = {
       url = "https://edgedl.me.gvt1.com/edgedl/android/cli/latest/darwin_arm64/android";
