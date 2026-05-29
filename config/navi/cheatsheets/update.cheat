@@ -1,0 +1,7 @@
+% update
+
+# update everything
+brew updadate && brew upgrade
+asdf plugin-update --all
+fisher update
+gh extension upgrade --all

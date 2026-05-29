@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# macOS システム設定の変更を検出するスクリプト
+# Usage: diff-system-default
+#
+# 1. 全 defaults をダンプ (before)
+# 2. ユーザーがシステム設定で変更するのを待機
+# 3. 変更後の defaults をダンプ (after)
+# 4. diff を表示し、after ファイルのパスを出力
+
+set -euo pipefail
+
+BEFORE=$(mktemp /tmp/defaults.before.XXXXXX)
+AFTER=$(mktemp /tmp/defaults.after.XXXXXX)
+trap 'rm -f "$BEFORE"' EXIT
+
+defaults read > "$BEFORE"
+
+echo "before をキャプチャしました"
+echo "システム設定で変更してから Enter を押してください..."
+read -r
+
+defaults read > "$AFTER"
+
+echo ""
+diff "$BEFORE" "$AFTER" || true
+echo ""
+echo "after: $AFTER"

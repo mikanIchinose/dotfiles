@@ -1,0 +1,74 @@
+" ------------------------------------------------------------------------------
+" plugin
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
+" ------------------------------------------------------------------------------
+
+" ------------------------------------------------------------------------------
+" setting
+set notimeout timeoutlen=300
+set clipboard=unnamed
+set which-key
+set easymotion
+set ideajoin
+let g:WhichKey_DefaultDelay = 0
+let g:mapleader = "\<Space>"
+" let g:maplocalleader = ","
+set keep-english-in-normal-and-restore-in-insert
+set noerrorbells
+set visualbell
+" ------------------------------------------------------------------------------
+
+" ------------------------------------------------------------------------------
+" keymap
+nnoremap ; :
+inoremap jj <ESC>
+nnoremap <Leader><Leader> :write<CR>
+" goto action
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gs :action GotoSuperMethod<CR>
+nnoremap gb :action Back<CR>
+nnoremap gf :action Forward<CR>
+" nnoremap <C-Left> :action Back<CR>
+" nnoremap <C-Right> :action Forward<CR>
+nnoremap <Leader>r :action RenameElement<CR>
+" split window
+nnoremap <Leader>- :split<CR>
+nnoremap <Leader>\ :vsplit<CR>
+" nnoremap <Leader>n <Cmd>nohlsearch<CR>
+" move buffer
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" better indent
+nnoremap < <<
+nnoremap > >>
+" select mode
+xnoremap r <C-v>
+xnoremap v V
+" nnoremap <LocalLeader> <Plug>(eazymotion-prefix)
+" nnoremap <Leader>1 1gt
+" nnoremap <Leader>2 2gt
+" nnoremap <Leader>3 3gt
+" nnoremap <Leader>4 4gt
+" nnoremap <Leader>5 5gt
+" nnoremap <Leader>6 6gt
+" nnoremap <Leader>7 7gt
+" switch buffer
+nnoremap <A-l> :bn<CR>
+nnoremap <A-h> :bp<CR>
+nnoremap <Leader><C-r> :action RestartIde<CR>
+nnoremap <Leader><C-c> :action InvalidateCaches<CR>
+nnoremap <Leader>ar :action Run<CR>
+nnoremap <Leader>ad :action Debug<CR>
+nnoremap <Leader>sp :action Android.SyncProject<CR>
+nnoremap <Leader>cc :action Clean<CR>
+nnoremap <Leader>cp :action CleanGradleProject<CR>
+nnoremap <Leader>cr :action RearrangeCode<CR>
+nnoremap <Leader>ff :action SearchEverywhere<CR>
+nnoremap <Leader>fr :action FindInPath<CR>
+" ------------------------------------------------------------------------------

@@ -1,0 +1,127 @@
+[[plugins]]
+repo       = 'Shougo/ddc.vim'
+depends    = 'denops.vim'
+on_event   = ['InsertEnter', 'CmdlineEnter']
+hooks_file = '$BASE_DIR/plugins/ddc.vim'
+
+[[plugins]]
+repo       = 'Shougo/pum.vim'
+hooks_file = '$BASE_DIR/plugins/pum.vim'
+
+[[plugins]]
+repo      = 'Shougo/ddc-ui-pum'
+depends   = 'pum.vim'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-ui-inline'
+depends   = 'pum.vim'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-ui-none'
+depends   = 'pum.vim'
+on_source = 'ddc.vim'
+
+# source
+[[plugins]]
+repo      = 'Shougo/ddc-source-around'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-rg'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-shell_native'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-lsp'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'hrsh7th/vim-vsnip'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'uga-rosa/ddc-source-vsnip'
+depends   = 'vim-vsnip'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-cmdline_history'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-source-copilot'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'LumaKernel/ddc-source-file'
+on_source = 'ddc.vim'
+
+# filter
+[[plugins]]
+repo      = 'tani/ddc-fuzzy'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-matcher_head'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-matcher_length'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-matcher_prefix'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-matcher_vimregexp'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-sorter_head'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-sorter_rank'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-converter_remove_overlap'
+on_source = 'ddc.vim'
+[[plugins]]
+repo      = 'Shougo/ddc-filter-converter_truncate_abbr'
+on_source = 'ddc.vim'
+
+[[multiple_hooks]]
+plugins = ['ddc.vim', 'skkeleton']
+hook_source = '''
+autocmd MikanAutoCmd User skkeleton-enable-pre call s:skkeleton_pre()
+function! s:skkeleton_pre() abort
+  " 再入ガード: 既に skkeleton 用に上書き済みなら元設定を上書きしない
+  if 'b:prev_buffer_skkeleton_config'->exists()
+    return
+  endif
+
+  " override ddc sources
+  let b:prev_buffer_skkeleton_config = ddc#custom#get_buffer()
+  call ddc#custom#patch_buffer(#{
+          \   sources: ['around', 'skkeleton'],
+          \   sourceOptions: #{
+          \     _: #{
+          \       keywordPattern: '[ァ-ヮア-ンー]+',
+          \     },
+          \   },
+          \ })
+
+  let b:includes = ['markdown']
+  if index(b:includes, &filetype) >= 0
+    call skkeleton#config(#{
+      \ keepState: v:true,
+      \ })
+  else
+    call skkeleton#config(#{
+      \ keepState: v:false,
+      \ })
+  endif
+endfunction
+
+autocmd MikanAutoCmd User skkeleton-disable-post call s:skkeleton_post_ddc()
+function! s:skkeleton_post_ddc() abort
+  if 'b:prev_buffer_skkeleton_config'->exists()
+    " Restore sources
+    call ddc#custom#set_buffer(b:prev_buffer_skkeleton_config)
+    unlet b:prev_buffer_skkeleton_config
+  endif
+endfunction
+'''

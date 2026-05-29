@@ -1,0 +1,6 @@
+#git:
+#  paging:
+#    pager: delta
+#git:
+#  paging:
+#    externalDiffCommand: difft --color=always

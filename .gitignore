@@ -1,0 +1,19 @@
+.DS_Store
+
+*log
+vim/bundle
+secret.d/
+
+# fish
+
+# emacs
+emacs/*
+!emacs/init.el
+!emacs/conf/*
+!emacs/README.md
+!emacs/org-roam.db
+!emacs/history
+
+.direnv
+
+.claude/worktrees/

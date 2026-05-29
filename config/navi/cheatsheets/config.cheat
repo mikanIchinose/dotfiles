@@ -1,0 +1,13 @@
+% config
+
+# zsh
+nvim ~/.zshrc
+
+# fish
+nvim ~/.config/fish/config.fish
+
+# starship
+nvim ~/.config/starship/config.toml
+
+# navi
+cd ~/dotfiles/navi && nvim $(fd --type file | fzf)

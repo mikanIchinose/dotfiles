@@ -1,0 +1,9 @@
+% silicon, code
+
+# generate code image
+silicon <code> \
+  -o "~/Pictures/silicon/<output>.png" \
+  --background '#fff0' \
+  --font 'FiraCode Nerd Font;Hiragino Maru Gothic ProN'
+
+$ code: fd . --type f

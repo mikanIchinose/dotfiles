@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# git-desc - Set or remove description for the current branch
+#
+# Usage:
+#   git desc <description>  Set description
+#   git desc                Remove description
+#
+# Examples:
+#   git desc "カート機能のリファクタリング"
+#   git desc
+#
+# The description is stored in .git/config and displayed in starship prompt.
+
+set -euo pipefail
+
+readonly branch="$(git branch --show-current)"
+
+if [[ -z "${branch}" ]]; then
+  echo "Error: Not on any branch (detached HEAD?)" >&2
+  exit 1
+fi
+
+readonly config_key="branch.${branch}.description"
+
+if [[ $# -eq 0 ]]; then
+  git config --unset "${config_key}" 2>/dev/null || true
+  echo "Removed description from ${branch}"
+else
+  git config "${config_key}" "$*"
+  echo "${branch}: $*"
+fi

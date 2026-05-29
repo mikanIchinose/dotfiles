@@ -1,0 +1,70 @@
+#!/bin/bash
+set -euo pipefail
+
+# ベースブランチを探す
+find_base_branch() {
+    # 引数があればそれを最優先
+    if [ -n "$1" ]; then
+        echo "$1"
+        return
+    fi
+
+    # なければdevelop
+    echo "develop"
+}
+
+# format.shを探す（実行中のAndroid Studioは除外）
+find_formatter() {
+    local formatter=""
+
+    # mdfindでインストール済みAndroid Studioを検索
+    while IFS= read -r app; do
+        [ -z "$app" ] && continue
+        local candidate="$app/Contents/bin/format.sh"
+
+        if [ -x "$candidate" ]; then
+            # 実行中かチェック（アプリパスでプロセスを検索、先頭一致で誤マッチ防止）
+            if ! pgrep -f "^$app" &>/dev/null; then
+                formatter="$candidate"
+                break
+            fi
+        fi
+    done < <(mdfind "kMDItemCFBundleIdentifier == 'com.google.android.studio'" 2>/dev/null)
+
+    echo "$formatter"
+}
+
+BASE_BRANCH=$(find_base_branch "${1:-}")
+FORMAT_CMD=$(find_formatter)
+
+if [ -z "$FORMAT_CMD" ]; then
+    echo "エラー: format.sh が見つかりません"
+    exit 1
+fi
+
+echo "フォーマッタ: $FORMAT_CMD"
+echo "ベースブランチ: $BASE_BRANCH"
+echo ""
+
+# ベースブランチとHEAD間の差分ファイルを取得
+changed_files=$(git diff --name-only "$BASE_BRANCH" -- '*.kt' '*.xml' 2>/dev/null | grep -v '^$')
+
+if [ -z "$changed_files" ]; then
+    echo "フォーマット対象のファイルがありません"
+    exit 0
+fi
+
+echo "フォーマット対象:"
+echo "$changed_files"
+echo ""
+
+echo "$changed_files" | while read -r file; do
+    if [ -f "$file" ]; then
+        echo "Formatting: $file"
+        "$FORMAT_CMD" "$file" -s "$(git rev-parse --show-toplevel)/.idea/codeStyles/Project.xml"
+    fi
+done
+
+echo ""
+echo "完了"
+

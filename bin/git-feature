@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+# featureブランチをインタラクティブに作る
+
+issue_number=$(gum input --prompt="Issue number?: ")
+
+test "$issue_number" = "" && gum style --foreground "#ff0000" "issue is empty" && exit 0
+
+root_branch=$(gum choose develop main master)
+
+git switch -c "feature/$issue_number" "$root_branch"

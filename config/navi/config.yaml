@@ -1,0 +1,31 @@
+style:
+  tag:
+    #color: cyan
+    width_percentage: 10
+    min_width: 20
+  comment:
+    #color: magenta
+    width_percentage: 42
+    min_width: 45
+  snippet:
+    color: white
+
+finder:
+  command: fzf
+  overrides:
+    --no-exact
+    --extended
+    --color fg:-1,bg:-1,hl:230,fg+:3,bg+:233,hl+:229
+    --color info:150,prompt:110,spinner:150,pointer:167,marker:174
+  overrides_var:
+    --no-exact
+    --extended
+    --color fg:-1,bg:-1,hl:230,fg+:3,bg+:233,hl+:229
+    --color info:150,prompt:110,spinner:150,pointer:167,marker:174
+
+cheats:
+  paths: 
+    - ~/.config/navi/cheatsheets
+
+shell:
+  command: zsh

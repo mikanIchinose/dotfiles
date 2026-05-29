@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_NO_FLICKER": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(gh pr list*)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr status*)",
+      "Bash(gh pr checks*)",
+      "Bash(gh pr diff*)",
+      "Bash(gh issue list*)",
+      "Bash(gh issue view*)",
+      "Bash(gh issue status*)",
+      "Bash(gh repo list*)",
+      "Bash(gh repo view*)",
+      "Bash(gh run list*)",
+      "Bash(gh run view*)",
+      "Bash(gh release list*)",
+      "Bash(gh release view*)",
+      "Bash(gh workflow list*)",
+      "Bash(gh workflow view*)",
+      "Bash(gh search *)",
+      "Skill(analyze-component-behaviors)",
+      "Skill(plan-improve-test)",
+      "Skill(test-guideline)",
+      "Skill(implement-test)",
+      "Bash(./gradlew:*)",
+      "WebFetch(domain:api.anthropic.com)",
+      "WebFetch(domain:statsig.anthropic.com)",
+      "WebFetch(domain:claude.ai)",
+      "WebFetch(domain:code.claude.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.github.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:objects.githubusercontent.com)",
+      "WebFetch(domain:codeload.github.com)",
+      "WebFetch(domain:avatars.githubusercontent.com)",
+      "WebFetch(domain:camo.githubusercontent.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:www.npmjs.org)",
+      "WebFetch(domain:npmjs.com)",
+      "WebFetch(domain:npmjs.org)",
+      "WebFetch(domain:yarnpkg.com)",
+      "WebFetch(domain:registry.yarnpkg.com)",
+      "WebFetch(domain:crates.io)",
+      "WebFetch(domain:www.crates.io)",
+      "WebFetch(domain:static.crates.io)",
+      "WebFetch(domain:rustup.rs)",
+      "WebFetch(domain:static.rust-lang.org)",
+      "WebFetch(domain:www.rust-lang.org)",
+      "WebFetch(domain:proxy.golang.org)",
+      "WebFetch(domain:sum.golang.org)",
+      "WebFetch(domain:index.golang.org)",
+      "WebFetch(domain:golang.org)",
+      "WebFetch(domain:www.golang.org)",
+      "WebFetch(domain:goproxy.io)",
+      "WebFetch(domain:pkg.go.dev)",
+      "WebFetch(domain:maven.org)",
+      "WebFetch(domain:repo.maven.org)",
+      "WebFetch(domain:central.maven.org)",
+      "WebFetch(domain:repo1.maven.org)",
+      "WebFetch(domain:jcenter.bintray.com)",
+      "WebFetch(domain:gradle.org)",
+      "WebFetch(domain:www.gradle.org)",
+      "WebFetch(domain:services.gradle.org)",
+      "WebFetch(domain:spring.io)",
+      "WebFetch(domain:repo.spring.io)",
+      "WebFetch(domain:registry-1.docker.io)",
+      "WebFetch(domain:auth.docker.io)",
+      "WebFetch(domain:index.docker.io)",
+      "WebFetch(domain:hub.docker.com)",
+      "WebFetch(domain:www.docker.com)",
+      "WebFetch(domain:production.cloudflare.docker.com)",
+      "WebFetch(domain:download.docker.com)",
+      "WebFetch(domain:ghcr.io)",
+      "WebFetch(domain:mcr.microsoft.com)",
+      "WebFetch(domain:cloud.google.com)",
+      "WebFetch(domain:accounts.google.com)",
+      "WebFetch(domain:gcloud.google.com)",
+      "WebFetch(domain:storage.googleapis.com)",
+      "WebFetch(domain:compute.googleapis.com)",
+      "WebFetch(domain:container.googleapis.com)",
+      "WebFetch(domain:json-schema.org)",
+      "WebFetch(domain:www.json-schema.org)",
+      "WebFetch(domain:json.schemastore.org)",
+      "WebFetch(domain:www.schemastore.org)",
+      "WebFetch(domain:nodejs.org)",
+      "WebFetch(domain:www.nodejs.org)",
+      "WebFetch(domain:pub.dev)",
+      "WebFetch(domain:api.pub.dev)",
+      "WebFetch(domain:swift.org)",
+      "WebFetch(domain:www.swift.org)",
+      "WebFetch(domain:haskell.org)",
+      "WebFetch(domain:www.haskell.org)",
+      "WebFetch(domain:hackage.haskell.org)",
+      "mcp__pencil"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/save-prompt.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/wezterm-tab-status.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "TodoWrite",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/save-todo.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/save-response.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/wezterm-tab-status.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/wezterm-tab-status.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true
+  },
+  "language": "Japanese",
+  "effortLevel": "xhigh",
+  "autoMemoryEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "teammateMode": "tmux",
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754035517161
+  },
+  "inputNeededNotifEnabled": true
+}

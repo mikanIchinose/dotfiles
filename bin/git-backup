@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+git add .
+git commit -m "tmp: 一旦コミットするけどあとで戻してね"
+git pull --rebase origin develop
+git push
+

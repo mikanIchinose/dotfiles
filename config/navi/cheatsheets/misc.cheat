@@ -1,0 +1,64 @@
+% shell
+
+# fuzzy remove file(s)
+rm <files>
+
+# fuzzy remove director(y|ies)
+rm -r <dirs>
+
+$ files: fd . --type f --hidden --- --multi --expand
+$ dirs: fd . --type d --hidden --- --multi --expand
+
+% curl
+
+# simple get call
+curl <url>
+
+# send a http request
+curl <option> <url>
+
+# send a http request and download
+curl <url> -o <filename>
+
+# make qr code
+echo "<content>" | curl -F-=\<- qrenco.de
+
+$ option: echo -e "\n-H '<header>'\n-X '<method>'\n-d <data>" --- --multi --expand
+$ method: echo -e '\nGET\nPOST\nPUT\nDELETE\nPATCH'
+$ header: echo -e '\nContent-Type: application/json'
+
+% ffmpeg, gif, video
+
+# convert mov to gif
+ffmpeg -i "<video-file>" -r 24 "ffmpeg/<git_file>.gif"
+
+# compress 20
+for video (<videos>) ffmpeg -i "$video" -crf 20 "ffmpeg/$video"
+# compress 40
+for video (<videos>) ffmpeg -i "$video" -crf 40 "ffmpeg/$video"
+
+$ video-file: fd -e mp4 -e mov -E ffmpeg
+$ videos: fd -e mp4 -e mov -E ffmpeg --- --multi --expand
+$ mp4s: fd -e mp4 -E ffmpeg --- --multi --expand
+
+% vim, note
+
+# open note
+cd ~/Documents/notes; nvim <note>; cd -
+
+$ note: fd --type file --extension md --extension norg --absolute-path --base-directory ~/Documents/notes --- --expand --preview 'bat --color=always {}'
+
+% npm
+
+# show global installed npm pakcages
+npm list -g --depth 0
+
+% app
+
+# create slack reminder
+slack-reminder; open -a "Slack"
+
+% util
+
+# url shortner
+curl -d <url> https://minurl.deno.dev

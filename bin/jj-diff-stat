@@ -1,0 +1,10 @@
+#!/bin/sh
+summary=$(jj diff --summary -r @ --ignore-working-copy 2>/dev/null) || exit 0
+added=$(echo "$summary" | grep -c '^A ')
+modified=$(echo "$summary" | grep -c '^M ')
+deleted=$(echo "$summary" | grep -c '^D ')
+result=""
+[ "$added" -gt 0 ] && result=" ${added}"
+[ "$modified" -gt 0 ] && result="${result}  ${modified}"
+[ "$deleted" -gt 0 ] && result="${result} 﫧${deleted} "
+printf '%s' "$result"

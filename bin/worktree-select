@@ -1,0 +1,16 @@
+#!/bin/bash
+# Select a worktree/workspace using fzf
+# Outputs the selected path to stdout
+
+set -euo pipefail
+
+SCRIPT_DIR="$(dirname "$0")"
+
+json="$("$SCRIPT_DIR/worktree-list")"
+
+# Format each entry as: [type] description → path
+lines="$(echo "$json" | jq -r '.[] | "[\(.type)] \(.description)\t\(.path)"')"
+
+selected="$(echo "$lines" | fzf --height=40% --reverse)" || exit 0
+
+echo "$selected" | awk -F'\t' '{print $NF}'

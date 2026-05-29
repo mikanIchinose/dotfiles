@@ -1,0 +1,11 @@
+% npm, fzf
+
+# fuzzy search and install npm-packages
+echo npm install <packages>
+
+# fuzzy search and uninstall installed-npm-packages
+echo npm uninstall <installed-packages>
+
+$ packages: all-the-package-names --- --multi --expand
+
+$ installed-packages: echo -e "$(dasel select -f package.json -r json -w plain -m '.dependencies.-')\n$(dasel select -f package.json -r json -w plain -m '.devDependencies.-')"  --- --multi --expand

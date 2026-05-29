@@ -1,0 +1,110 @@
+format = """
+$hostname\
+$username\
+$directory\
+$git_branch\
+$git_state\
+$git_metrics\
+$git_status\
+${custom.git_branch_desc}\
+${custom.jj}\
+${custom.jj_change}\
+${custom.jj_status}
+$character
+"""
+add_newline = false
+
+scan_timeout    = 30
+command_timeout = 500
+
+[cmd_duration]
+disabled = true
+
+[hostname]
+ssh_only = false
+disabled = true
+style    = "bold fg:17"
+format   = "[💻 $hostname ]($style)"
+trim_at  = ".local"
+
+[username]
+# style_user  = "bold fg:17"
+# format      = "[👤 $user ]($style)"
+show_always = true
+
+[directory]
+# style             = "bold fg:17"
+# format            = "[📂 $path ]($style)[$read_only]($read_only_style)"
+# truncation_length = 2
+# truncation_symbol = "…/"
+# truncate_to_repo  = false
+
+[character]
+success_symbol = "[ ](green)"
+error_symbol   = "[ ](#ff0000)"
+
+[fill]
+symbol = " "
+
+[time]
+disabled    = true
+format      = "[$time]($style) "
+style       = "dimmed gray"
+time_format = "%R"
+
+[memory_usage]
+disabled  = true
+format    = "use [$symbol$ram]($style) "
+symbol    = " "
+style     = "dimmed"
+threshold = 50
+
+[status]
+disabled = true
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch(->origin/$remote_branch) ]($style)"
+
+[git_status]
+format    = "([$all_status$ahead_behind ]($style))"
+ahead     = "⇡${count}"
+diverged  = "⇕⇡${ahead_count}⇣${behind_count}"
+behind    = "⇣$count"
+untracked = ' $count '
+modified  = ' $count '
+staged    = ' $count '
+renamed   = 'A$count '
+deleted   = '﫧$count '
+stashed   = ' $count '
+# style     = 'bold fg:16 bg:183'
+
+[custom.git_branch_desc]
+description = "Git branch description"
+command     = "git config branch.$(git branch --show-current).description 2>/dev/null | head -1"
+when        = "git rev-parse --is-inside-work-tree 2>/dev/null && ! jj root 2>/dev/null"
+format      = "[($output)]($style)"
+style       = "italic dimmed yellow"
+
+[custom.jj]
+description = "Jujutsu change id and bookmarks"
+command     = "jj log --no-graph -r @ -T 'concat(change_id.shortest(4), if(bookmarks, \" \" ++ bookmarks.join(\", \")))' --ignore-working-copy 2>/dev/null"
+when        = "jj root 2>/dev/null"
+symbol      = "󰘬 "
+format      = "[$symbol($output )]($style)"
+style       = "bold blue"
+
+[custom.jj_change]
+description = "Jujutsu working copy file changes"
+command     = "jj-diff-stat"
+when        = "jj root 2>/dev/null"
+format      = "[($output)]($style)"
+style       = "blue"
+
+[custom.jj_status]
+description = "Jujutsu working copy status"
+command     = "jj log --no-graph -r @ -T 'concat(if(conflict, \"conflict \"), if(empty, \"empty \"), if(divergent, \"divergent \"))' --ignore-working-copy 2>/dev/null"
+when        = "jj root 2>/dev/null"
+format      = "[$output]($style)"
+style       = "blue"
+
