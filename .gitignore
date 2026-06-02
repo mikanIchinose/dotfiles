@@ -17,3 +17,6 @@ emacs/*
 .direnv
 
 .claude/worktrees/
+
+# nix build artifact
+result
