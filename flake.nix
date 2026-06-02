@@ -72,6 +72,7 @@
               flutterfire-cli = final.callPackage ./nix/packages/flutterfire-cli { };
               gradle-profiler = final.callPackage ./nix/packages/gradle-profiler { };
               android-cli = final.callPackage ./nix/packages/android-cli { };
+              darwin-switch = final.callPackage ./nix/packages/darwin-switch { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -130,6 +131,7 @@
           packages.flutterfire-cli = pkgs.callPackage ./nix/packages/flutterfire-cli { };
           packages.gradle-profiler = pkgs.callPackage ./nix/packages/gradle-profiler { };
           packages.android-cli = pkgs.callPackage ./nix/packages/android-cli { };
+          packages.darwin-switch = pkgs.callPackage ./nix/packages/darwin-switch { };
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               git

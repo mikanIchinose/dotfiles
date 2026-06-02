@@ -118,27 +118,6 @@ in
     allowUnfree = true;
   };
 
-  # ↑ログ出力がないため、実行結果を確認できない。launchd.agentsで直接定義する。
-  launchd.agents.nix-gc = {
-    enable = true;
-    config = {
-      ProgramArguments = [
-        "${pkgs.nix}/bin/nix-collect-garbage"
-        "--delete-older-than"
-        "3d"
-      ];
-      StartCalendarInterval = [
-        {
-          Hour = 10;
-          Minute = 30;
-          Weekday = 1; # 月曜日
-        }
-      ];
-      StandardOutPath = "/tmp/nix-gc.log";
-      StandardErrorPath = "/tmp/nix-gc.err";
-    };
-  };
-
   home.activation = ghqLib.mkGhqActivation "common" commonGhqRepos;
 
   programs.home-manager.enable = true;
