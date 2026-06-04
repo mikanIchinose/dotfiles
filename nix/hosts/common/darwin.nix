@@ -53,6 +53,7 @@ in
     ];
     brews = [
       "JetBrains/utils/kotlin-lsp"
+      "poppler"
     ];
     casks = [
       "wezterm"

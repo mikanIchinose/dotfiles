@@ -15,7 +15,6 @@ in
 {
   home.packages = with pkgs; [
     gws
-    poppler
   ];
   home.activation = ghqLib.mkGhqActivation "personal" personalGhqRepos;
 }
