@@ -44,6 +44,9 @@ in
       autoUpdate = true;
       upgrade = true;
       cleanup = "uninstall";
+      # Homebrew 5.1+ で `brew bundle --cleanup` に確認プロンプトが追加され、
+      # 非対話実行には --force-cleanup 等が必須になったため付与する
+      extraFlags = [ "--force-cleanup" ];
     };
     taps = [
       "arto-app/tap"
