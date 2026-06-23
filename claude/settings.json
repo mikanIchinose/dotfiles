@@ -177,12 +177,13 @@
   "effortLevel": "xhigh",
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
+  "theme": "auto",
   "teammateMode": "tmux",
-  "remoteControlAtStartup": true,
+  "remoteControlAtStartup": false,
+  "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
-  },
-  "inputNeededNotifEnabled": true
+  }
 }
