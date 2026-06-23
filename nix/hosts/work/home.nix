@@ -1,17 +1,7 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
-let
-  ghqLib = import ../../ghq-repos.nix { inherit lib pkgs; };
-  workGhqRepos = [
-  ];
-in
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
-    git-filter-repo
+    git-lfs
+    gitleaks
   ];
-
-  home.activation = ghqLib.mkGhqActivation "work" workGhqRepos;
 }

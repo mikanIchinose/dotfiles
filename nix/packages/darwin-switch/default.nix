@@ -14,7 +14,7 @@
 #
 # Usage:
 #   nix run .#darwin-switch -- personal              # personal 構成を適用
-#   nix run .#darwin-switch -- work                  # work 構成を適用
+#   nix run .#darwin-switch -- work                # 社用構成を適用
 #   nix run .#darwin-switch -- --update-flake <host> # flake.lock を更新してから適用
 writeShellApplication {
   name = "darwin-switch";

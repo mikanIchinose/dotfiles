@@ -50,15 +50,14 @@ in
     };
     taps = [
       "arto-app/tap"
+      "jetbrains/utils"
     ];
     brews = [
-      "JetBrains/utils/kotlin-lsp"
+      "kotlin-lsp"
       "poppler"
     ];
     casks = [
       "wezterm"
-      "google-chrome"
-      "google-chrome@beta"
       "jetbrains-toolbox"
       "karabiner-elements"
       "visual-studio-code@insiders"
@@ -67,16 +66,14 @@ in
       "claude"
       "codex-app"
       "rectangle"
-      "slack"
-      "zoom"
       "notion-calendar"
       "arto"
     ];
-    masApps = {
-      Kindle = 302584613;
-      Xcode = 497799835;
-      Bitwarden = 1352778147;
-    };
+    # masApps = {
+    #   Kindle = 302584613;
+    #   Xcode = 497799835;
+    #   Bitwarden = 1352778147;
+    # };
   };
 
   system.primaryUser = username;
