@@ -16,6 +16,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,6 +39,7 @@
     inputs@{
       self,
       nix-darwin,
+      nix-homebrew,
       rust-overlay,
       home-manager,
       treefmt-nix,
@@ -48,7 +50,6 @@
       ...
     }:
     let
-      username = "mikan";
       system = "aarch64-darwin";
       overlays-configuration =
         { pkgs, ... }:
@@ -85,7 +86,10 @@
         darwinConfigurations =
           let
             mkDarwinSystem =
-              hostModules:
+              {
+                username,
+                hostModules,
+              }:
               nix-darwin.lib.darwinSystem {
                 specialArgs = {
                   inherit self system username;
@@ -98,24 +102,45 @@
                       nix-index-database.homeModules.default
                     ];
                   }
+                  nix-homebrew.darwinModules.nix-homebrew
+                  {
+                    nix-homebrew = {
+                      enable = true;
+                      user = username;
+                      trust = {
+                        taps = [
+                          "arto-app/tap"
+                          "jetbrains/utils"
+                        ];
+                      };
+                    };
+                  }
                   overlays-configuration
                 ]
                 ++ hostModules;
               };
+            personalSystem = mkDarwinSystem {
+              username = "mikan";
+              hostModules = [
+                ./nix/hosts/personal/darwin.nix
+                {
+                  home-manager.users."mikan".imports = [ ./nix/hosts/personal/home.nix ];
+                }
+              ];
+            };
+            s34580System = mkDarwinSystem {
+              username = "s34580";
+              hostModules = [
+                ./nix/hosts/s34580/darwin.nix
+                {
+                  home-manager.users."s34580".imports = [ ./nix/hosts/s34580/home.nix ];
+                }
+              ];
+            };
           in
           {
-            personal = mkDarwinSystem [
-              ./nix/hosts/personal/darwin.nix
-              {
-                home-manager.users."${username}".imports = [ ./nix/hosts/personal/home.nix ];
-              }
-            ];
-            work = mkDarwinSystem [
-              ./nix/hosts/work/darwin.nix
-              {
-                home-manager.users."${username}".imports = [ ./nix/hosts/work/home.nix ];
-              }
-            ];
+            personal = personalSystem;
+            s34580 = s34580System;
           };
       };
       perSystem =

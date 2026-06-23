@@ -7,6 +7,9 @@
   # 個人Mac固有の nix-darwin 設定
   homebrew.casks = [
     "brave-browser"
+    "google-chrome"
+    "slack"
+    "zoom"
     "spotify"
     "google-drive"
     "zed"

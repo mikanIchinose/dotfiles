@@ -10,7 +10,7 @@ set -euo pipefail
 
 FLAKE_DIR="$(git rev-parse --show-toplevel 2>/dev/null || echo ".")"
 SNAPSHOT_DIR="/tmp/nix-darwin-diff"
-CONFIGS=("personal" "work")
+CONFIGS=("personal" "s34580")
 
 # flake 属性から .drv パスを取得
 eval_drv() {

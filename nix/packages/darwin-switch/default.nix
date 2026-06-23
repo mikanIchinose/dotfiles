@@ -14,7 +14,7 @@
 #
 # Usage:
 #   nix run .#darwin-switch -- personal              # personal 構成を適用
-#   nix run .#darwin-switch -- work                  # work 構成を適用
+#   nix run .#darwin-switch -- s34580                # 社用構成を適用
 #   nix run .#darwin-switch -- --update-flake <host> # flake.lock を更新してから適用
 writeShellApplication {
   name = "darwin-switch";
@@ -35,7 +35,7 @@ writeShellApplication {
     fi
 
     if [[ "$#" -ne 1 ]]; then
-      echo "error: host を指定してください (例: personal, work)" >&2
+      echo "error: host を指定してください (例: personal, s34580)" >&2
       echo "usage: darwin-switch [--update-flake] <host>" >&2
       exit 1
     fi

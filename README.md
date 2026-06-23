@@ -21,7 +21,7 @@ install [nix](https://github.com/NixOS/nix-installer)
 git clone https://github.com/mikanIchinose/dotfiles.git ~/dotfiles
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 cd ~/dotfiles
-nix flake update && git add . && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#personal  # or .#work
+nix flake update && git add . && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#personal  # or .#s34580
 sudo xcodebuild -license accept
 ```
 
@@ -38,7 +38,7 @@ sudo defaults write /Library/Preferences/com.apple.security.authorization ignore
 ## update
 
 ```bash
-nix flake update && git add . && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#personal  # or .#work
+nix flake update && git add . && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#personal  # or .#s34580
 ```
 
 ## garbage collection
