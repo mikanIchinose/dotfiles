@@ -93,6 +93,12 @@ in
     # ドックの位置
     orientation = "bottom";
     tilesize = 30;
+    # 固定アプリを表示しない
+    persistent-apps = [ ];
+    # 起動中のアプリのみ表示する（固定・最近使ったアプリを出さない）
+    static-only = true;
+    # Dock の出し入れアニメーションを高速化
+    autohide-time-modifier = 0.2;
   };
   # ライトモード/ダークモードを自動で切り替える
   system.defaults.NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = true;
@@ -103,7 +109,7 @@ in
   # alert volume
   system.defaults.NSGlobalDomain."com.apple.sound.beep.volume" = 0.6065307;
   # メニューバーを自動で非表示にする
-  system.defaults.NSGlobalDomain._HIHideMenuBar = false;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
   # テキスト自動補正を無効化
   # 文頭を自動で大文字にしない
   system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
@@ -126,7 +132,12 @@ in
     FXPreferredViewStyle = "clmv";
     # ファイルパスのぱんくずリストを表示
     ShowPathbar = true;
+    # ゴミ箱の30日経過アイテムを自動削除
+    FXRemoveOldTrashItems = true;
   };
+
+  # スクリーンショット撮影後の右下サムネイルを表示せず即保存する
+  system.defaults.screencapture.show-thumbnail = false;
 
   # バッテリー残量をパーセント表示
   system.defaults.controlcenter.BatteryShowPercentage = true;
