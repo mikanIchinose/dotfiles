@@ -16,7 +16,7 @@
     "zen"
     "tailscale-app"
   ];
-  homebrew.masApps = {
-    Keynote = 361285480;
-  };
+  # homebrew.masApps = {
+  #   Keynote = 361285480;
+  # };
 }
