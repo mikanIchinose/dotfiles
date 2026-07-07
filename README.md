@@ -53,3 +53,9 @@ nix-collect-garbage -d
 # タブタイトルを変更
 wezterm cli set-tab-title "test"
 ```
+
+kotlin-lspのアプデ後にこれを実行
+
+```
+sudo xattr -dr com.apple.quarantine /opt/homebrew/Cellar/kotlin-lsp/262.8190.0
+```
