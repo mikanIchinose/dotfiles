@@ -1,0 +1,128 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+# Codex global configuration deployed to ~/.codex/config.toml.
+
+# コマンド実行やファイル編集など、承認が必要な操作を都度確認する。
+approval_policy = "on-request"
+
+# ワークスペース配下のみ書き込み可能なサンドボックスで実行する。
+sandbox_mode = "workspace-write"
+
+# Web 検索の利用モード。cached はキャッシュ済み検索を優先する。
+web_search = "cached"
+
+# モデルの推論量を高めにして、調査やコード変更の精度を優先する。
+model_reasoning_effort = "high"
+
+# Codex の応答スタイル。
+personality = "pragmatic"
+
+# Keep Claude Code project instructions usable from Codex when AGENTS.md is absent.
+# AGENTS.md がないリポジトリでは CLAUDE.md をプロジェクト指示として読む。
+project_doc_fallback_filenames = ["CLAUDE.md"]
+
+# プロジェクト指示ファイルとして読み込む最大バイト数。
+project_doc_max_bytes = 65536
+
+# ターン終了時に Codex Computer Use 側へ通知するコマンド。
+notify = ["/Users/s34580/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
+[features]
+# Codex の hook 機能を有効にする。
+hooks = true
+
+# 複数エージェント機能を有効にする。
+multi_agent = true
+
+# シェル状態のスナップショット機能を有効にする。
+shell_snapshot = true
+
+# Codex のメモリ機能を有効にする。
+memories = true
+
+# 組み込み JavaScript REPL 機能は無効化する。
+js_repl = false
+
+[sandbox_workspace_write]
+# workspace-write サンドボックス内からのネットワークアクセスを許可する。
+network_access = true
+
+[desktop]
+# Codex Desktop の follow-up 入力をキューに積んで順番に処理する。
+followUpQueueMode = "queue"
+
+[projects."/Users/s34580/ghq/github.com/abema/abema-android"]
+# このプロジェクトを信頼済みとして扱い、追加確認を減らす。
+trust_level = "trusted"
+
+[projects."/Users/s34580/dotfiles"]
+# dotfiles リポジトリを信頼済みとして扱い、追加確認を減らす。
+trust_level = "trusted"
+
+[marketplaces.openai-bundled]
+# openai-bundled marketplace を最後に更新した時刻。
+last_updated = "2026-07-07T14:46:04Z"
+
+# marketplace の取得元種別。local はローカルディレクトリを参照する。
+source_type = "local"
+
+# openai-bundled marketplace のローカル展開先。
+source = "/Users/s34580/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[plugins."sites@openai-bundled"]
+# Sites プラグインを有効にする。
+enabled = true
+
+[plugins."browser@openai-bundled"]
+# Browser プラグインを有効にする。
+enabled = true
+
+[mcp_servers.node_repl]
+# node_repl MCP サーバーに渡す追加引数。ここでは未指定。
+args = []
+
+# Codex App に同梱されている node_repl MCP サーバーの実行ファイル。
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+
+# node_repl MCP サーバーの起動完了を待つ最大秒数。
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+# ネイティブパイプ接続のタイムアウト時間をミリ秒で指定する。
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+
+# node_repl が利用する Node.js モジュールの探索ディレクトリ。
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+
+# node_repl が実行に使う Node.js バイナリ。
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+
+# node_repl が信頼済みコードとして扱うパス。
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/s34580/.codex"
+
+# Codex のホームディレクトリ。
+CODEX_HOME = "/Users/s34580/.codex"
+
+# Browser/Chrome 連携クライアントを検証するための信頼済み SHA-256。
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "97669f77b3ca7114a2df05d55646416ea34b28100c07213ef9f643803449ef2f"
+
+# node_repl から利用できるブラウザ制御バックエンド。
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+
+# Browser プラグイン連携時の node_repl 用説明文。
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+
+# Chrome プラグイン連携時の node_repl 用説明文。
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+
+# Codex App のビルド種別。
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+
+# Codex App のバージョン。
+BROWSER_USE_CODEX_APP_VERSION = "26.623.141536"
+
+# node_repl から参照する Codex CLI のパス。
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+
+[tui.model_availability_nux]
+# TUI のモデル提供状況案内で gpt-5.5 を表示済みとして扱う内部状態。
+"gpt-5.5" = 1
