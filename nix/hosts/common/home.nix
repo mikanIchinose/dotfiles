@@ -34,6 +34,7 @@ let
     yaml-language-server
     efm-langserver
     copilot-language-server
+    tombi
   ];
   linter = with pkgs; [
     yamllint
