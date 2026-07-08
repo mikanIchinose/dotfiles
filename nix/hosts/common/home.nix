@@ -318,6 +318,9 @@ in
     ".zshenv".source = mkLink "home/zshenv";
     ".zprofile".source = mkLink "home/zprofile";
 
+    # Codex
+    ".codex/config.toml".source = mkLink "codex/config.toml";
+
     # Claude Code
     ".claude/settings.json".source = mkLink "claude/settings.json";
     ".claude/CLAUDE.md".source = mkLink "claude/CLAUDE.md";
