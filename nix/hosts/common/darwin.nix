@@ -38,6 +38,10 @@ in
     ];
   };
 
+  environment.systemPackages = with pkgs; [
+    xcodes
+  ];
+
   homebrew = {
     enable = true;
     onActivation = {
