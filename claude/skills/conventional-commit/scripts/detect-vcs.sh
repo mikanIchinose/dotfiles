@@ -13,7 +13,8 @@ find_repo_root() {
   local d
   d="$(cd "$dir" && pwd)"
   while [ "$d" != "/" ]; do
-    if [ -d "$d/.jj" ] || [ -d "$d/.git" ]; then
+    # .git は git worktree ではファイルになるため -e で判定する
+    if [ -d "$d/.jj" ] || [ -e "$d/.git" ]; then
       echo "$d"
       return 0
     fi
