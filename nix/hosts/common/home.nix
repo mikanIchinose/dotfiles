@@ -96,7 +96,6 @@ let
     hyperfine
     maestro
     tokei
-    tmux
     glow
     ghostscript # pdf圧縮用
     google-cloud-sdk # gcloud cli
