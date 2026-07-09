@@ -22,6 +22,7 @@ let
     rogcat
     covpeek
     gradle-profiler
+    pencil-cli
   ];
   programming = with pkgs; [
     deno
