@@ -9,11 +9,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gradle-profiler";
-  version = "0.24.0";
+  version = "0.25.0";
 
   src = fetchurl {
     url = "https://repo1.maven.org/maven2/org/gradle/profiler/gradle-profiler/${version}/gradle-profiler-${version}.zip";
-    hash = "sha256-dPOYgqRE1tVhbTWz6Rl/dCPNJS9j8zm9PgH2Ylc7MZw=";
+    hash = "sha256-kRu1l+lvHkNlUygg/DUnJoWei27thWlPmNYFqPorSIg=";
   };
 
   nativeBuildInputs = [
