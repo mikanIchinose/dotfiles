@@ -72,7 +72,6 @@
               gh-switch-issue = final.callPackage ./nix/packages/gh-switch-issue { };
               flutterfire-cli = final.callPackage ./nix/packages/flutterfire-cli { };
               gradle-profiler = final.callPackage ./nix/packages/gradle-profiler { };
-              android-cli = final.callPackage ./nix/packages/android-cli { };
               darwin-switch = final.callPackage ./nix/packages/darwin-switch { };
             })
           ];
@@ -109,6 +108,7 @@
                       user = username;
                       trust = {
                         taps = [
+                          "android/tap"
                           "arto-app/tap"
                           "jetbrains/utils"
                         ];
@@ -155,7 +155,6 @@
           packages.copilot-language-server = pkgs.callPackage ./nix/packages/copilot-language-server { };
           packages.flutterfire-cli = pkgs.callPackage ./nix/packages/flutterfire-cli { };
           packages.gradle-profiler = pkgs.callPackage ./nix/packages/gradle-profiler { };
-          packages.android-cli = pkgs.callPackage ./nix/packages/android-cli { };
           packages.darwin-switch = pkgs.callPackage ./nix/packages/darwin-switch { };
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
