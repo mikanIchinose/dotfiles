@@ -16,8 +16,6 @@ in
   # M1 Mac のプラットフォーム
   nixpkgs.hostPlatform = system;
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "android-cli" ];
-
   home-manager = {
     useUserPackages = true;
     users."${username}" = {
@@ -53,6 +51,7 @@ in
       extraFlags = [ "--force-cleanup" ];
     };
     taps = [
+      "android/tap"
       "arto-app/tap"
       "jetbrains/utils"
     ];
@@ -61,6 +60,7 @@ in
       "poppler"
     ];
     casks = [
+      "android-cli"
       "wezterm"
       "jetbrains-toolbox"
       "karabiner-elements"

@@ -73,9 +73,6 @@ let
     cocoapods # need for flutter
     flutterfire-cli # integrate firebase
   ];
-  devtools-android = with pkgs; [
-    android-cli
-  ];
   devtools-swift = with pkgs; [
     swift-format
   ];
@@ -366,7 +363,6 @@ in
     devtools-clojure
     devtools-go
     devtools-flutter
-    devtools-android
     devtools-swift
     utility
   ];
