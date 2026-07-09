@@ -18,6 +18,7 @@
 #   nix run .#darwin-switch -- s34580                # 社用構成を適用
 #   nix run .#darwin-switch -- --update-flake <host> # flake.lock を更新してから適用
 #   nix run .#darwin-switch -- --gc <host>           # 適用後に古い世代を GC
+#   nix run .#darwin-switch -- --force <host>        # 適用済みでも再度 activate
 writeShellApplication {
   name = "darwin-switch";
 
@@ -32,6 +33,7 @@ writeShellApplication {
 
     UPDATE=0
     RUN_GC=0
+    FORCE=0
     while [[ "''${1:-}" == --* ]]; do
       case "$1" in
         --update-flake)
@@ -40,9 +42,12 @@ writeShellApplication {
         --gc)
           RUN_GC=1
           ;;
+        --force)
+          FORCE=1
+          ;;
         *)
           echo "error: 不明なオプションです: $1" >&2
-          echo "usage: darwin-switch [--update-flake] [--gc] <host>" >&2
+          echo "usage: darwin-switch [--update-flake] [--gc] [--force] <host>" >&2
           exit 1
           ;;
       esac
@@ -51,7 +56,7 @@ writeShellApplication {
 
     if [[ "$#" -ne 1 ]]; then
       echo "error: host を指定してください (例: personal, s34580)" >&2
-      echo "usage: darwin-switch [--update-flake] [--gc] <host>" >&2
+      echo "usage: darwin-switch [--update-flake] [--gc] [--force] <host>" >&2
       exit 1
     fi
     HOST="$1"
@@ -67,11 +72,22 @@ writeShellApplication {
     # flake は git 管理下のファイルのみ参照するため、新規ファイルを stage しておく
     git add -A
 
-    echo "==> darwin-rebuild switch --flake .#''${HOST}"
-    if command -v darwin-rebuild >/dev/null 2>&1; then
-      sudo darwin-rebuild switch --flake ".#''${HOST}"
+    echo "==> nix build .#darwinConfigurations.''${HOST}.system"
+    SYSTEM_CONFIG="$(
+      nix build \
+        --extra-experimental-features "nix-command flakes" \
+        --no-link \
+        --print-out-paths \
+        ".#darwinConfigurations.''${HOST}.system"
+    )"
+    CURRENT_SYSTEM="$(readlink /run/current-system 2>/dev/null || true)"
+
+    if [[ "$FORCE" -eq 0 && "$SYSTEM_CONFIG" == "$CURRENT_SYSTEM" ]]; then
+      echo "==> already active: $SYSTEM_CONFIG"
     else
-      sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#''${HOST}"
+      echo "==> activating: $SYSTEM_CONFIG"
+      sudo nix-env -p /nix/var/nix/profiles/system --set "$SYSTEM_CONFIG"
+      sudo "$SYSTEM_CONFIG/sw/bin/darwin-rebuild" activate
     fi
 
     if [[ "$RUN_GC" -eq 1 ]]; then
