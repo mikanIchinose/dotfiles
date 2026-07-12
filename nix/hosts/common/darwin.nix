@@ -48,7 +48,7 @@ in
       cleanup = "uninstall";
       # Homebrew 5.1+ で `brew bundle --cleanup` に確認プロンプトが追加され、
       # 非対話実行には --force-cleanup 等が必須になったため付与する
-      extraFlags = [ "--force-cleanup" ];
+      # extraFlags = [ "--force-cleanup" ];
     };
     taps = [
       "android/tap"
@@ -67,8 +67,7 @@ in
       "visual-studio-code@insiders"
       "swiftformat-for-xcode"
       "docker-desktop"
-      "claude"
-      "codex-app"
+      # "claude"
       "rectangle"
       "notion-calendar"
       "arto"
@@ -113,7 +112,7 @@ in
   # alert volume
   system.defaults.NSGlobalDomain."com.apple.sound.beep.volume" = 0.6065307;
   # メニューバーを自動で非表示にする
-  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = false;
   # テキスト自動補正を無効化
   # 文頭を自動で大文字にしない
   system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
