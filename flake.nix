@@ -33,6 +33,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hunk.url = "github:modem-dev/hunk";
   };
 
   outputs =
@@ -54,6 +55,7 @@
       overlays-configuration =
         { pkgs, ... }:
         {
+          nixpkgs.config.allowUnfree = true;
           nixpkgs.overlays = [
             # rust
             rust-overlay.overlays.default
@@ -61,6 +63,10 @@
             inputs.neovim-nightly-overlay.overlays.default
             # llm agents
             llm-agents.overlays.default
+            # hunk (diff tool)
+            (final: prev: {
+              hunk = inputs.hunk.packages.${prev.stdenv.hostPlatform.system}.hunk;
+            })
             # local packages
             (final: prev: {
               gwq = final.callPackage ./nix/packages/gwq { };
