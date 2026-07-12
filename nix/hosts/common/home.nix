@@ -84,6 +84,7 @@ let
     git
     ghq
     difftastic
+    hunk
     serie
     gum
     desktop-file-utils
@@ -100,9 +101,6 @@ let
     firebase-tools
     pre-commit
 
-    # ai-tools
-    llm-agents.codex
-    llm-agents.claude-code
     manix
     # scrcpy # unsupported arm64-apple
 
