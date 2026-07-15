@@ -28,7 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
-    llm-agents.url = "github:numtide/llm-agents.nix";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +45,6 @@
       treefmt-nix,
       flake-parts,
       systems,
-      llm-agents,
       nix-index-database,
       ...
     }:
@@ -61,8 +59,6 @@
             rust-overlay.overlays.default
             # neovim nightly
             inputs.neovim-nightly-overlay.overlays.default
-            # llm agents
-            llm-agents.overlays.default
             # hunk (diff tool)
             (final: prev: {
               hunk = inputs.hunk.packages.${prev.stdenv.hostPlatform.system}.hunk;
