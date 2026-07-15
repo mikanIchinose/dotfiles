@@ -320,12 +320,9 @@ in
     ".claude/settings.json".source = mkLink "claude/settings.json";
     ".claude/CLAUDE.md".source = mkLink "claude/CLAUDE.md";
     ".claude/agents".source = mkLink "claude/agents";
-    ".claude/commands".source = mkLink "claude/commands";
-    ".claude/hooks".source = mkLink "claude/hooks";
     ".claude/skills".source = mkLink "claude/skills";
     ".claude/rules".source = mkLink "claude/rules";
     ".claude/statusline.sh".source = mkLink "claude/statusline.sh";
-    ".claude/lessons-learned.md".source = mkLink "claude/lessons-learned.md";
   };
 
   xdg.configFile = {
