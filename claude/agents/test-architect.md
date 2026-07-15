@@ -26,7 +26,7 @@ description: |
     user: "TDDでこの機能を実装したい"
     assistant: "I'll use the test-architect agent to design the test cases first before implementation."
     </example>
-model: opus
+model: fable
 skills: analyze-component-behaviors, plan-improve-test, test-guideline
 ---
 
