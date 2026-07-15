@@ -103,24 +103,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5[1m]",
-  "skillOverrides": {
-    "create-adr": "off",
-    "create-issue": "off",
-    "document-writing": "off",
-    "efm-langserver": "off",
-    "fetch-medium": "off",
-    "fetching-gh-comments": "off",
-    "gh-advanced": "off",
-    "git.atomic-commit": "off",
-    "impact-analysis": "off",
-    "jj.atomic-commit": "off",
-    "jj.create-revset": "off",
-    "jj.sync-after-merge": "off",
-    "jujutsu": "off",
-    "storage-report": "off",
-    "translate": "off"
-  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
@@ -133,8 +115,8 @@
     "gopls-lsp@claude-plugins-official": false,
     "kotlin-lsp@claude-plugins-official": true
   },
-  "language": "Japanese",
-  "effortLevel": "xhigh",
+  "language": "日本語",
+  "effortLevel": "high",
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
