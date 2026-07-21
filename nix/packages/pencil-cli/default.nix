@@ -7,11 +7,11 @@
 
 buildNpmPackage {
   pname = "pencil-cli";
-  version = "0.2.8";
+  version = "0.2.9";
 
   src = ./.;
 
-  npmDepsHash = "sha256-O1uZvWmvn9MVTlUd5haN7CACQQPyG+jT5XVvwgLQeA0=";
+  npmDepsHash = "sha256-g2i0Ijj1pWGFEiO1HC0Xb9Fg7kY7IAgHie3RI0y45WQ=";
 
   nodejs = nodejs_24;
 
