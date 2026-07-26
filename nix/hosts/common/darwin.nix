@@ -50,10 +50,23 @@ in
       # 非対話実行には --force-cleanup 等が必須になったため付与する
       # extraFlags = [ "--force-cleanup" ];
     };
+    # Homebrew 6.0 で HOMEBREW_REQUIRE_TAP_TRUST が既定有効になり、非公式 tap の
+    # formula/cask は信頼登録しないとロードが拒否される。さらに `brew bundle --force-cleanup`
+    # は Brewfile 由来のエントリで trust store を全置換するため、trusted を付けないと
+    # nix-homebrew が張った信頼登録ごと消され、直後の `brew cleanup` が失敗する
     taps = [
-      "android/tap"
-      "arto-app/tap"
-      "jetbrains/utils"
+      {
+        name = "android/tap";
+        trusted = true;
+      }
+      {
+        name = "arto-app/tap";
+        trusted = true;
+      }
+      {
+        name = "jetbrains/utils";
+        trusted = true;
+      }
     ];
     brews = [
       "kotlin-lsp"
