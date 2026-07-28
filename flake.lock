@@ -125,11 +125,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1785174761,
-        "narHash": "sha256-RxmVD3HD6crCTX5S4S1qz/9LIMqfep1zo3yNKDbE0PY=",
+        "lastModified": 1785206698,
+        "narHash": "sha256-6Z18CgwAvmAyHupro86dI3BR1WDhYofZnimLH0RQcc8=",
         "owner": "modem-dev",
         "repo": "hunk",
-        "rev": "46ef38acfcd733cdb706a7bd41458b2c96c3d136",
+        "rev": "449b328b0c32415ba2fbd7586fbd73989b0ac054",
         "type": "github"
       },
       "original": {
