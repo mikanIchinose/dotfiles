@@ -103,22 +103,32 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "claude-fable-5[1m]",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
   "enabledPlugins": {
-    "skill-creator@claude-plugins-official": false,
-    "lua-lsp@claude-plugins-official": false,
     "swift-lsp@claude-plugins-official": false,
-    "gopls-lsp@claude-plugins-official": false,
-    "kotlin-lsp@claude-plugins-official": true
+    "kotlin-lsp@claude-plugins-official": true,
+    "mutation-test-claude@abema-native": true,
+    "abema-native-claude@abema-native": true,
+    "mattpocock-skills@claude-plugins-official": true
   },
-  "language": "日本語",
+  "extraKnownMarketplaces": {
+    "abema-native": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/s34580/ghq/github.com/abema/abema-native-worktrees/mutation-test-skill"
+      }
+    }
+  },
+  "language": "Japanese",
   "effortLevel": "high",
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
   "theme": "auto",
   "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
