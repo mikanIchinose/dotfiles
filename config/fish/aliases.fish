@@ -26,6 +26,10 @@ abbr gs "git switch -c"
 abbr gsd "git switch develop"
 abbr gcd 'set dir (git worktree list | awk \'{$1=$1; print $3,$1}\' | fzf | awk \'{print $2}\') && test -n "$dir" && cd $dir || echo "exit"'
 
+# jj (jujutsu)
+# 自分のローカルスタックを最新 trunk に積み直す
+abbr jjsync "jj git fetch && jj rebase -s 'roots(trunk().. & mine() & mutable())' -d 'trunk()'"
+
 # edit config file
 alias setzsh "vim ~/.zshrc"
 alias setbash "vim ~/.bashrc"
