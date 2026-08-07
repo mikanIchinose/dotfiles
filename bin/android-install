@@ -1,0 +1,354 @@
+#!/usr/bin/env bash
+# Android アプリのビルド〜端末インストールを一気通貫で行う
+# アプリモジュール・ビルドバリアント・インストール先端末を gum で選択する
+
+set -euo pipefail
+
+DRY_RUN=0
+
+usage() {
+  cat <<'EOF'
+Usage: android-install [options]
+
+Gradle プロジェクト内で実行すると、アプリモジュール・ビルドバリアント・
+インストール先端末を対話的に選択し、ビルドからインストールまで実行する。
+
+Options:
+  -n, --dry-run  実行予定のコマンドを表示するだけで、ビルドもインストールもしない
+  -h, --help     このヘルプを表示する
+EOF
+}
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -n | --dry-run) DRY_RUN=1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "android-install: unknown option: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+for cmd in gum adb jq; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "android-install: $cmd が見つかりません" >&2
+    exit 1
+  fi
+done
+
+die() {
+  gum style --foreground 196 "✗ $*" >&2
+  exit 1
+}
+
+step() {
+  gum style --foreground 212 --bold "▸ $*"
+}
+
+note() {
+  gum style --foreground 244 "  $*"
+}
+
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
+
+# 先頭1文字を大文字にする（bash 3.2 でも動くように tr を使う）
+capitalize() {
+  printf '%s%s' "$(printf '%s' "${1:0:1}" | tr '[:lower:]' '[:upper:]')" "${1:1}"
+}
+
+# 先頭1文字を小文字にする
+decapitalize() {
+  printf '%s%s' "$(printf '%s' "${1:0:1}" | tr '[:upper:]' '[:lower:]')" "${1:1}"
+}
+
+# gradlew を持つディレクトリを親方向に探す
+find_project_root() {
+  local dir=$PWD
+  while [ "$dir" != / ]; do
+    if [ -f "$dir/gradlew" ]; then
+      printf '%s' "$dir"
+      return 0
+    fi
+    dir="$(dirname "$dir")"
+  done
+  return 1
+}
+
+# ディレクトリパスを Gradle のプロジェクトパス（:foo:bar）に変換する
+gradle_path_of() {
+  local rel=${1#"$project_root"}
+  rel=${rel#/}
+  if [ -z "$rel" ]; then
+    printf ':'
+  else
+    printf ':%s' "$(printf '%s' "$rel" | tr '/' ':')"
+  fi
+}
+
+# ビルドスクリプトから指定ブロックの直下の行だけを取り出す
+extract_block() {
+  local file=$1 key=$2
+  awk -v key="$key" '
+    !started {
+      if ($0 ~ "(^|[^A-Za-z0-9_])" key "[[:space:]]*\\{") { started = 1; depth = 1 }
+      next
+    }
+    {
+      line = $0
+      opens = gsub(/\{/, "{", line)
+      closes = gsub(/\}/, "}", line)
+      if (depth == 1) print
+      depth += opens - closes
+      if (depth <= 0) exit
+    }
+  ' "$file"
+}
+
+# ブロック直下の行から buildType / productFlavor 名を抽出する
+names_in_block() {
+  local lines=$1
+  {
+    printf '%s\n' "$lines" |
+      grep -oE '(create|register|maybeCreate|getByName|named)\([[:space:]]*"[A-Za-z0-9_]+"' |
+      grep -oE '"[A-Za-z0-9_]+"' | tr -d '"'
+    printf '%s\n' "$lines" |
+      sed -nE 's/^[[:space:]]*([a-z][A-Za-z0-9_]*)[[:space:]]*\{.*/\1/p'
+  } |
+    grep -vE '^(all|configureEach|forEach|each|withType|matching|apply|run|let|also|with)$' |
+    sort -u || true
+}
+
+# flavorDimensions の数を数える（2 以上ならパースを諦めて Gradle に問い合わせる）
+count_dimensions() {
+  local file=$1 n
+  n=$(grep -oE '(^|[^A-Za-z0-9_])dimension[[:space:]]*=[[:space:]]*"[A-Za-z0-9_]+"' "$file" 2>/dev/null |
+    grep -oE '"[A-Za-z0-9_]+"' | sort -u | wc -l | tr -d ' ' || true)
+  if [ "${n:-0}" -eq 0 ]; then
+    n=$(sed -nE 's/.*flavorDimensions(.*)/\1/p' "$file" 2>/dev/null |
+      grep -oE '"[A-Za-z0-9_]+"' | sort -u | wc -l | tr -d ' ' || true)
+  fi
+  printf '%s' "${n:-0}"
+}
+
+# ビルドスクリプトのパースからバリアント名の一覧を組み立てる
+variants_from_build_file() {
+  local file=$1
+  [ "$(count_dimensions "$file")" -le 1 ] || return 1
+
+  local build_types flavors
+  build_types=$(printf 'debug\nrelease\n%s\n' "$(names_in_block "$(extract_block "$file" buildTypes)")" |
+    grep -vE '^$' | sort -u || true)
+  flavors=$(names_in_block "$(extract_block "$file" productFlavors)")
+
+  local bt flavor
+  if [ -z "$flavors" ]; then
+    printf '%s\n' "$build_types"
+    return 0
+  fi
+  while IFS= read -r flavor; do
+    [ -n "$flavor" ] || continue
+    while IFS= read -r bt; do
+      [ -n "$bt" ] || continue
+      printf '%s%s\n' "$flavor" "$(capitalize "$bt")"
+    done <<<"$build_types"
+  done <<<"$flavors"
+}
+
+# Gradle に assemble タスクを問い合わせてバリアント名の一覧を得る
+variants_from_gradle() {
+  local module=$1 out="$tmpdir/tasks.txt"
+
+  if ! ANDROID_INSTALL_ROOT="$project_root" \
+    gum spin --title "Gradle からバリアント一覧を取得中（初回は時間がかかります）..." -- \
+    bash -c 'cd "$ANDROID_INSTALL_ROOT" && if [ -x ./gradlew ]; then exec ./gradlew "$@"; else exec sh ./gradlew "$@"; fi' \
+    _ "${module}:tasks" --group=build --console=plain --quiet \
+    >"$out" 2>"$tmpdir/tasks.err"; then
+    return 1
+  fi
+
+  local task
+  grep -oE '^assemble[A-Za-z0-9]+' "$out" |
+    grep -vE '(AndroidTest|UnitTest)$' |
+    sort -u |
+    while IFS= read -r task; do
+      decapitalize "${task#assemble}"
+      printf '\n'
+    done
+}
+
+# variantName が一致する output-metadata.json を探す
+find_metadata() {
+  local module_dir=$1 variant=$2 meta
+  [ -d "$module_dir/build/outputs/apk" ] || return 1
+  while IFS= read -r meta; do
+    if [ "$(jq -r '.variantName // ""' "$meta" 2>/dev/null)" = "$variant" ]; then
+      printf '%s' "$meta"
+      return 0
+    fi
+  done < <(find "$module_dir/build/outputs/apk" -name output-metadata.json 2>/dev/null)
+  return 1
+}
+
+# 接続中の端末を "serial<TAB>model" 形式で列挙する
+list_devices() {
+  adb devices -l | awk '
+    NR > 1 && NF > 0 && $2 == "device" {
+      model = ""
+      for (i = 3; i <= NF; i++) {
+        if ($i ~ /^model:/) model = substr($i, 7)
+      }
+      if (model == "") model = "unknown"
+      printf "%s\t%s\n", $1, model
+    }
+  '
+}
+
+project_root=$(find_project_root) ||
+  die "gradlew が見つかりません（Gradle プロジェクト内で実行してください）"
+
+# --- アプリモジュールを選ぶ -------------------------------------------------
+# applicationId 系の記述を持つモジュールを最優先で候補にし、
+# 見つからなければ flavor / buildType を定義しているモジュールまで広げる
+# --exclude-dir='.*' で .git や worktree（.claude/worktrees など）配下の別チェックアウトを除外する
+build_files=$(grep -rlE 'com\.android\.application|applicationIdSuffix|applicationId[[:space:]]*=' \
+  --include=build.gradle --include=build.gradle.kts \
+  --exclude-dir='.*' --exclude-dir=build --exclude-dir=node_modules \
+  "$project_root" 2>/dev/null | sort || true)
+
+if [ -z "$build_files" ]; then
+  build_files=$(grep -rlE '^[[:space:]]*(productFlavors|buildTypes)[[:space:]]*\{' \
+    --include=build.gradle --include=build.gradle.kts \
+    --exclude-dir='.*' --exclude-dir=build --exclude-dir=node_modules \
+    "$project_root" 2>/dev/null | sort || true)
+fi
+
+[ -n "$build_files" ] || die "アプリモジュールが見つかりません"
+
+module_paths=""
+while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  module_paths+="$(gradle_path_of "$(dirname "$f")")"$'\n'
+done <<<"$build_files"
+module_paths=$(printf '%s' "$module_paths" | grep -vE '^$|^:$' | sort -u || true)
+
+[ -n "$module_paths" ] || die "アプリモジュールが見つかりません"
+
+if [ "$(printf '%s\n' "$module_paths" | wc -l | tr -d ' ')" -eq 1 ]; then
+  module=$module_paths
+  note "モジュール: $module"
+else
+  step "モジュールを選択"
+  module=$(printf '%s\n' "$module_paths" | gum choose --header="アプリモジュール") ||
+    exit 0
+fi
+[ -n "$module" ] || exit 0
+
+module_dir="$project_root/$(printf '%s' "${module#:}" | tr ':' '/')"
+build_file="$module_dir/build.gradle.kts"
+[ -f "$build_file" ] || build_file="$module_dir/build.gradle"
+[ -f "$build_file" ] || die "$module のビルドスクリプトが見つかりません"
+
+# --- ビルドバリアントを選ぶ -------------------------------------------------
+variants=$(variants_from_build_file "$build_file" 2>/dev/null || true)
+if [ -z "$variants" ]; then
+  variants=$(variants_from_gradle "$module" || true)
+fi
+if [ -z "$variants" ]; then
+  if [ -s "$tmpdir/tasks.err" ]; then
+    tail -n 20 "$tmpdir/tasks.err" >&2
+  fi
+  die "$module のビルドバリアントを特定できませんでした"
+fi
+
+step "ビルドバリアントを選択"
+variant=$(printf '%s\n' "$variants" | gum choose --header="ビルドバリアント") || exit 0
+[ -n "$variant" ] || exit 0
+
+# --- インストール先端末を選ぶ -----------------------------------------------
+unusable=$(adb devices | awk 'NR > 1 && NF > 0 && $2 != "device" { printf "%s (%s)\n", $1, $2 }' || true)
+[ -z "$unusable" ] || gum style --foreground 214 "! 使用できない端末: $(printf '%s' "$unusable" | tr '\n' ' ')"
+
+devices=$(list_devices || true)
+[ -n "$devices" ] || die "接続中の端末がありません（adb devices を確認してください）"
+
+if [ "$(printf '%s\n' "$devices" | wc -l | tr -d ' ')" -eq 1 ]; then
+  serial=$(printf '%s' "$devices" | cut -f1)
+  note "端末: $serial ($(printf '%s' "$devices" | cut -f2))"
+else
+  step "インストール先端末を選択"
+  selected=$(printf '%s\n' "$devices" |
+    awk -F'\t' '{ printf "%s (%s)\n", $1, $2 }' |
+    gum choose --header="インストール先端末") || exit 0
+  serial=${selected%% *}
+fi
+[ -n "$serial" ] || exit 0
+
+# --- ビルド ------------------------------------------------------------------
+task="${module}:assemble$(capitalize "$variant")"
+gradlew=("$project_root/gradlew")
+[ -x "$project_root/gradlew" ] || gradlew=(sh "$project_root/gradlew")
+
+if [ "$DRY_RUN" -eq 1 ]; then
+  step "dry-run"
+  note "cd $project_root && ./gradlew $task"
+else
+  step "ビルド: ./gradlew $task"
+  (cd "$project_root" && "${gradlew[@]}" "$task") || die "ビルドに失敗しました"
+fi
+
+# --- APK を特定する ---------------------------------------------------------
+apk=""
+if metadata=$(find_metadata "$module_dir" "$variant"); then
+  apk_dir=$(dirname "$metadata")
+  outputs=$(jq -r '.elements[].outputFile' "$metadata") || die "$metadata の解析に失敗しました"
+  if [ "$(printf '%s\n' "$outputs" | wc -l | tr -d ' ')" -eq 1 ]; then
+    apk="$apk_dir/$outputs"
+  else
+    step "インストールする APK を選択"
+    selected_apk=$(printf '%s\n' "$outputs" | gum choose --header="APK") || exit 0
+    [ -n "$selected_apk" ] || exit 0
+    apk="$apk_dir/$selected_apk"
+  fi
+elif [ -d "$module_dir/build/outputs/apk" ]; then
+  # output-metadata.json が無い場合は最後に更新された APK を候補にする
+  apk=$(find "$module_dir/build/outputs/apk" -name '*.apk' -print0 2>/dev/null |
+    xargs -0 ls -t 2>/dev/null | head -n 1 || true)
+  [ -z "$apk" ] ||
+    gum confirm "$variant の APK を特定できませんでした。${apk#"$project_root"/} をインストールしますか？" ||
+    exit 0
+fi
+
+if [ -z "$apk" ] || [ ! -f "$apk" ]; then
+  if [ "$DRY_RUN" -eq 1 ]; then
+    note "adb -s $serial install -r <ビルド後に生成される APK>"
+    exit 0
+  fi
+  die "インストールする APK が見つかりません（$module_dir/build/outputs/apk）"
+fi
+
+# --- インストール -----------------------------------------------------------
+if [ "$DRY_RUN" -eq 1 ]; then
+  note "adb -s $serial install -r $apk"
+  exit 0
+fi
+
+step "インストール: adb -s $serial install -r $(basename "$apk")"
+adb -s "$serial" install -r "$apk" || die "インストールに失敗しました"
+
+application_id=""
+if [ -n "${metadata:-}" ]; then
+  application_id=$(jq -r '.applicationId // ""' "$metadata" || true)
+fi
+gum style --foreground 46 "✓ $variant を $serial にインストールしました${application_id:+ ($application_id)}"
+
+echo
+note "次回コピペで実行:"
+printf 'cd %q && ./gradlew %q && adb -s %q install -r %q\n' \
+  "$project_root" "$task" "$serial" "${apk#"$project_root"/}"
