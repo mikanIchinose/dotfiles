@@ -290,7 +290,7 @@ in
   home.stateVersion = "25.05";
 
   home.sessionVariables = {
-    JAVA_HOME = "/Applications/Android Studio.app/Contents/jbr/Contents/Home";
+    JAVA_HOME = "$HOME/.sdkman/candidates/java/current";
     BUN_INSTALL = "$HOME/.bun";
   };
 
