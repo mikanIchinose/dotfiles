@@ -23,6 +23,7 @@ let
     covpeek
     gradle-profiler
     pencil-cli
+    cochange
   ];
   programming = with pkgs; [
     deno
