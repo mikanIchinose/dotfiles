@@ -126,6 +126,7 @@ in
       gh-poi
       gh-markdown-preview
       gh-switch-issue
+      gh-stack
     ];
     gitCredentialHelper = {
       enable = true;
