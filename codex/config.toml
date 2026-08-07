@@ -1,5 +1,5 @@
 approval_policy = "on-request"
-sandbox_mode = "workspace-write"
+sandbox_mode = "danger-full-access"
 web_search = "cached"
 model_reasoning_effort = "medium"
 personality = "pragmatic"
@@ -39,13 +39,19 @@ trust_level = "trusted"
 [projects."/Users/s34580/ghq/github.com/abema/abema-native"]
 trust_level = "trusted"
 
+[projects."/Users/s34580/Documents/Codex/2026-07-30/chatgpt-conversation-6a6acc4f-6404-8324-9544"]
+trust_level = "trusted"
+
+[projects."/Users/s34580/Documents/Codex/2026-07-30/je"]
+trust_level = "trusted"
+
 [marketplaces.openai-bundled]
-last_updated = "2026-07-13T03:07:32Z"
+last_updated = "2026-07-30T03:59:23Z"
 source_type = "local"
 source = "/Users/s34580/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-10T03:03:12Z"
+last_updated = "2026-08-02T20:09:37Z"
 source_type = "local"
 source = "/Users/s34580/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -84,13 +90,13 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_nod
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/s34580/.codex"
 CODEX_HOME = "/Users/s34580/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,f8b28403a0497b2e0bed024969fa474bb1f564509a59993449924c4ecab9db0d"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,cf732b4a285497bfd7e75a2ac14879bce9ae644eb4e1babeb17bb6a840dfc9bd"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.707.61608"
+BROWSER_USE_CODEX_APP_VERSION = "26.707.72221"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -106,3 +112,4 @@ args = [ "--app", "desktop", "--agent", "codexCLI" ]
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 4
+
