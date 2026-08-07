@@ -76,6 +76,7 @@
               gradle-profiler = final.callPackage ./nix/packages/gradle-profiler { };
               darwin-switch = final.callPackage ./nix/packages/darwin-switch { };
               pencil-cli = final.callPackage ./nix/packages/pencil-cli { };
+              cochange = final.callPackage ./nix/packages/cochange { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -160,6 +161,7 @@
           packages.gradle-profiler = pkgs.callPackage ./nix/packages/gradle-profiler { };
           packages.darwin-switch = pkgs.callPackage ./nix/packages/darwin-switch { };
           packages.pencil-cli = pkgs.callPackage ./nix/packages/pencil-cli { };
+          packages.cochange = pkgs.callPackage ./nix/packages/cochange { };
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               git
