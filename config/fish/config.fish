@@ -43,7 +43,7 @@ switch (uname)
     # set -x PATH "$JAVA_HOME/bin" "$PATH"
   case Darwin
     source $HOME/.config/fish/aliases_mac.fish
-    set -x JAVA_HOME "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+    set -x JAVA_HOME "$HOME/.sdkman/candidates/java/current"
     # set -x PATH "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin" $PATH
     set -x ANDROID_HOME "$HOME/Library/Android/sdk"
     set -x PATH \
