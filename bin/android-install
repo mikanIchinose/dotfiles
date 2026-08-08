@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Android アプリのビルド〜端末インストールを一気通貫で行う
+# Android アプリのビルド〜端末インストール〜起動を一気通貫で行う
 # アプリモジュール・ビルドバリアント・インストール先端末を gum で選択する
 
 set -euo pipefail
@@ -11,7 +11,7 @@ usage() {
 Usage: android-install [options]
 
 Gradle プロジェクト内で実行すると、アプリモジュール・ビルドバリアント・
-インストール先端末を対話的に選択し、ビルドからインストールまで実行する。
+インストール先端末を対話的に選択し、ビルド・インストール・起動まで実行する。
 
 Options:
   -n, --dry-run  実行予定のコマンドを表示するだけで、ビルドもインストールもしない
@@ -210,6 +210,31 @@ list_devices() {
   '
 }
 
+# ランチャーアクティビティを列挙して起動する
+# LeakCanary などデバッグツールが追加するランチャーは除外し、それでも複数残る場合は選択する
+# 起動した Activity（package/class）。コピペ用コマンドの表示に使う
+launch_activity=""
+
+launch_app() {
+  local serial=$1 app_id=$2 activities filtered activity
+  activities=$(adb -s "$serial" shell cmd package query-activities --brief \
+    -a android.intent.action.MAIN -c android.intent.category.LAUNCHER "$app_id" 2>/dev/null |
+    tr -d '\r' | grep -oE "$app_id/[A-Za-z0-9_.\$]+" | sort -u || true)
+  [ -n "$activities" ] || return 1
+
+  filtered=$(printf '%s\n' "$activities" | grep -viE 'leakcanary|flipper|hyperion' || true)
+  [ -z "$filtered" ] || activities=$filtered
+
+  if [ "$(printf '%s\n' "$activities" | wc -l | tr -d ' ')" -eq 1 ]; then
+    activity=$activities
+  else
+    activity=$(printf '%s\n' "$activities" | gum choose --header="起動するアクティビティ") ||
+      return 0
+  fi
+  launch_activity=$activity
+  adb -s "$serial" shell am start -n "$activity" >/dev/null
+}
+
 project_root=$(find_project_root) ||
   die "gradlew が見つかりません（Gradle プロジェクト内で実行してください）"
 
@@ -325,30 +350,41 @@ elif [ -d "$module_dir/build/outputs/apk" ]; then
     exit 0
 fi
 
+application_id=""
+if [ -n "${metadata:-}" ]; then
+  application_id=$(jq -r '.applicationId // ""' "$metadata" || true)
+fi
+
 if [ -z "$apk" ] || [ ! -f "$apk" ]; then
   if [ "$DRY_RUN" -eq 1 ]; then
     note "adb -s $serial install -r <ビルド後に生成される APK>"
+    note "adb -s $serial shell am start -n <ランチャーアクティビティ>"
     exit 0
   fi
   die "インストールする APK が見つかりません（$module_dir/build/outputs/apk）"
 fi
 
-# --- インストール -----------------------------------------------------------
+# --- インストール・起動 -------------------------------------------------------
 if [ "$DRY_RUN" -eq 1 ]; then
   note "adb -s $serial install -r $apk"
+  note "adb -s $serial shell am start -n <ランチャーアクティビティ>"
   exit 0
 fi
 
 step "インストール: adb -s $serial install -r $(basename "$apk")"
 adb -s "$serial" install -r "$apk" || die "インストールに失敗しました"
 
-application_id=""
-if [ -n "${metadata:-}" ]; then
-  application_id=$(jq -r '.applicationId // ""' "$metadata" || true)
-fi
 gum style --foreground 46 "✓ $variant を $serial にインストールしました${application_id:+ ($application_id)}"
+
+if [ -n "$application_id" ]; then
+  step "起動: $application_id"
+  launch_app "$serial" "$application_id" || die "起動に失敗しました"
+else
+  note "applicationId を特定できなかったため起動をスキップしました"
+fi
 
 echo
 note "次回コピペで実行:"
-printf 'cd %q && ./gradlew %q && adb -s %q install -r %q\n' \
-  "$project_root" "$task" "$serial" "${apk#"$project_root"/}"
+printf 'cd %q && ./gradlew %q && adb -s %q install -r %q%s\n' \
+  "$project_root" "$task" "$serial" "${apk#"$project_root"/}" \
+  "${launch_activity:+ && adb -s $serial shell am start -n $launch_activity}"
