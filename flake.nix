@@ -33,6 +33,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hunk.url = "github:modem-dev/hunk";
+    herdr.url = "github:herdrdev/herdr/v0.8.0";
   };
 
   outputs =
@@ -62,6 +63,10 @@
             # hunk (diff tool)
             (final: prev: {
               hunk = inputs.hunk.packages.${prev.stdenv.hostPlatform.system}.hunk;
+            })
+            # herdr (latest release, nixpkgs is behind)
+            (final: prev: {
+              herdr = inputs.herdr.packages.${prev.stdenv.hostPlatform.system}.herdr;
             })
             # local packages
             (final: prev: {

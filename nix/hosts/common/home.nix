@@ -108,6 +108,8 @@ let
     # Disk usage tools (Rust alternatives to du)
     diskus # minimal, fastest (du -sh alternative)
     dust # intuitive tree view
+
+    herdr
   ];
 in
 {
