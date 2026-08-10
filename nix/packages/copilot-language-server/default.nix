@@ -6,11 +6,11 @@
 
 buildNpmPackage {
   pname = "copilot-language-server";
-  version = "1.527.5";
+  version = "1.528.0";
 
   src = ./.;
 
-  npmDepsHash = "sha256-znZm69MXlP6mdb4+PkLX5Dw1l/BVpRYJPCwc8oXqOX8=";
+  npmDepsHash = "sha256-KqgibMe9bhb79OswtnnxVjNiFAYbxTo0r8AvTh6A6KY=";
 
   nodejs = nodejs_24;
 
