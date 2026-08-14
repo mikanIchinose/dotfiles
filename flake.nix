@@ -82,6 +82,7 @@
               darwin-switch = final.callPackage ./nix/packages/darwin-switch { };
               pencil-cli = final.callPackage ./nix/packages/pencil-cli { };
               cochange = final.callPackage ./nix/packages/cochange { };
+              esa-cli = final.callPackage ./nix/packages/esa-cli { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -167,6 +168,7 @@
           packages.darwin-switch = pkgs.callPackage ./nix/packages/darwin-switch { };
           packages.pencil-cli = pkgs.callPackage ./nix/packages/pencil-cli { };
           packages.cochange = pkgs.callPackage ./nix/packages/cochange { };
+          packages.esa-cli = pkgs.callPackage ./nix/packages/esa-cli { };
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               git
