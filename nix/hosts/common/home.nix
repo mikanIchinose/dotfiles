@@ -24,6 +24,7 @@ let
     gradle-profiler
     pencil-cli
     cochange
+    esa-cli
   ];
   programming = with pkgs; [
     deno
