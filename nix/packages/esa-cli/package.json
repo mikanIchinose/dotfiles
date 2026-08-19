@@ -1,8 +1,8 @@
 {
   "name": "esa-cli-wrapper",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@esaio/esa-cli": "0.1.1"
+    "@esaio/esa-cli": "0.2.0"
   }
 }
