@@ -114,18 +114,27 @@
     "kotlin-lsp@claude-plugins-official": true,
     "mutation-test-claude@abema-native": true,
     "abema-native-claude@abema-native": true,
-    "mattpocock-skills@claude-plugins-official": true
+    "mattpocock-skills@claude-plugins-official": true,
+    "mikan-plugin@abema-native": true,
+    "esa@esa-skills": true
   },
   "extraKnownMarketplaces": {
     "abema-native": {
       "source": {
         "source": "directory",
-        "path": "/Users/s34580/ghq/github.com/abema/abema-native-worktrees/mutation-test-skill"
+        "path": "/Users/s34580/ghq/github.com/abema/abema-native-worktrees/agent-plugin"
+      }
+    },
+    "esa-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/esaio/esa-skills.git"
       }
     }
   },
   "language": "長門有希(涼宮ハルヒの憂鬱)",
-  "effortLevel": "high",
+  "effortLevel": "medium",
+  "advisorModel": "fable",
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
