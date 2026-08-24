@@ -112,11 +112,20 @@
   "enabledPlugins": {
     "swift-lsp@claude-plugins-official": false,
     "kotlin-lsp@claude-plugins-official": true,
-    "mattpocock-skills@claude-plugins-official": true
+    "mattpocock-skills@claude-plugins-official": true,
+    "esa@esa-skills": true
   },
-  "extraKnownMarketplaces": {},
+  "extraKnownMarketplaces": {
+    "esa-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/esaio/esa-skills.git"
+      }
+    }
+  },
   "language": "長門有希(涼宮ハルヒの憂鬱)",
-  "effortLevel": "high",
+  "effortLevel": "medium",
+  "advisorModel": "fable",
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
@@ -127,6 +136,5 @@
   "skipAutoPermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
-  },
-  "advisorModel": "fable"
+  }
 }
