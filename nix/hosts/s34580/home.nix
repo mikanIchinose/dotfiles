@@ -4,5 +4,6 @@
     git-lfs
     gitleaks
     fnox
+    mise
   ];
 }
