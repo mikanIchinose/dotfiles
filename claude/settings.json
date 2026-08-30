@@ -116,7 +116,8 @@
     "abema-native-claude@abema-native": true,
     "mattpocock-skills@claude-plugins-official": true,
     "mikan-plugin@abema-native": true,
-    "esa@esa-skills": true
+    "esa@esa-skills": true,
+    "codex@openai-codex": true
   },
   "extraKnownMarketplaces": {
     "abema-native": {
@@ -129,6 +130,12 @@
       "source": {
         "source": "git",
         "url": "https://github.com/esaio/esa-skills.git"
+      }
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
       }
     }
   },
@@ -145,6 +152,5 @@
   "skipAutoPermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
-  },
-  "advisorModel": "fable"
+  }
 }
