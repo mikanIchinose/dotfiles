@@ -6,11 +6,11 @@
 
 buildNpmPackage {
   pname = "esa-cli";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = ./.;
 
-  npmDepsHash = "sha256-E2aN3BZSg3iKTYDnbPn9/hcU0A89wFCngTa7X37QlQU=";
+  npmDepsHash = "sha256-Z+z+Y8OUa3wBjbQndgBpfjqvkU+IxMsKWtdLx7BItUs=";
 
   nodejs = nodejs_24;
 
