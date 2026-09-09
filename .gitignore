@@ -20,3 +20,6 @@ emacs/*
 
 # nix build artifact
 result
+
+# codex writes trust state / hook hashes into config.toml (openai/codex#15433)
+codex/
