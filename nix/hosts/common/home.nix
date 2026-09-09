@@ -111,6 +111,10 @@ let
     dust # intuitive tree view
 
     herdr
+    quint
+    quint-language-server
+
+    tgrep
   ];
 in
 {

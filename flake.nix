@@ -83,6 +83,7 @@
               pencil-cli = final.callPackage ./nix/packages/pencil-cli { };
               cochange = final.callPackage ./nix/packages/cochange { };
               esa-cli = final.callPackage ./nix/packages/esa-cli { };
+              quint-language-server = final.callPackage ./nix/packages/quint-language-server { };
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -169,6 +170,7 @@
           packages.pencil-cli = pkgs.callPackage ./nix/packages/pencil-cli { };
           packages.cochange = pkgs.callPackage ./nix/packages/cochange { };
           packages.esa-cli = pkgs.callPackage ./nix/packages/esa-cli { };
+          packages.quint-language-server = pkgs.callPackage ./nix/packages/quint-language-server { };
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               git
