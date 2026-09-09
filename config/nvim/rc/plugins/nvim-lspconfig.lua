@@ -59,4 +59,5 @@ vim.lsp.enable('nixd')
 -- vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('clojure_lsp')
 vim.lsp.enable('gopls')
+vim.lsp.enable('quint_ls')
 -- --- }}}
