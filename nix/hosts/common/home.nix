@@ -298,7 +298,7 @@ in
   home.stateVersion = "25.05";
 
   home.sessionVariables = {
-    JAVA_HOME = "$HOME/.sdkman/candidates/java/current";
+    JAVA_HOME = "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home";
     BUN_INSTALL = "$HOME/.bun";
   };
 
@@ -310,6 +310,7 @@ in
     "$HOME/.claude/local"
     "$HOME/.fvm_flutter/bin"
     "$HOME/.local/bin"
+    "$HOME/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin"
     "$HOME/.bun/bin"
   ];
 
