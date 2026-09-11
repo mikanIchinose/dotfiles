@@ -15,6 +15,8 @@ in
 {
   home.packages = with pkgs; [
     gws
+    typst
+    pandoc
   ];
   home.activation = ghqLib.mkGhqActivation "personal" personalGhqRepos;
 }
