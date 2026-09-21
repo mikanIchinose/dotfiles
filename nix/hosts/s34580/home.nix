@@ -5,5 +5,6 @@
     gitleaks
     fnox
     mise
+    takt
   ];
 }
