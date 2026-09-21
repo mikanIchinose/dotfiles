@@ -34,6 +34,7 @@
     };
     hunk.url = "github:modem-dev/hunk";
     herdr.url = "github:herdrdev/herdr/v0.8.0";
+    takt.url = "github:nrslib/takt";
   };
 
   outputs =
@@ -84,6 +85,7 @@
               cochange = final.callPackage ./nix/packages/cochange { };
               esa-cli = final.callPackage ./nix/packages/esa-cli { };
               quint-language-server = final.callPackage ./nix/packages/quint-language-server { };
+              takt = inputs.takt.packages.${prev.stdenv.hostPlatform.system}.default;
             })
           ];
           environment.systemPackages = [ pkgs.rust-bin.stable.latest.default ];
@@ -171,6 +173,7 @@
           packages.cochange = pkgs.callPackage ./nix/packages/cochange { };
           packages.esa-cli = pkgs.callPackage ./nix/packages/esa-cli { };
           packages.quint-language-server = pkgs.callPackage ./nix/packages/quint-language-server { };
+          packages.takt = inputs.takt.packages.${pkgs.stdenv.hostPlatform.system}.default;
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               git
