@@ -123,7 +123,6 @@
                         taps = [
                           "android/tap"
                           "arto-app/tap"
-                          "jetbrains/utils"
                         ];
                       };
                     };

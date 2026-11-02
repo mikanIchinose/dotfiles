@@ -103,6 +103,7 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "opus",
   "hooks": {
     "SessionStart": [
       {
@@ -258,33 +259,24 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "swift-lsp@claude-plugins-official": false,
+    "swift-lsp@claude-plugins-official": true,
     "kotlin-lsp@claude-plugins-official": true,
-    "mutation-test-claude@abema-native": true,
-    "abema-native-claude@abema-native": true,
     "mattpocock-skills@claude-plugins-official": true,
-    "mikan-plugin@abema-native": true,
-    "esa@esa-skills": true,
     "codex@openai-codex": true,
     "quint-llm-kit@quint-llm-kit": true,
     "show-me@skills": true,
     "ponytail@ponytail": true,
+    "yomiyasu@yomiyasu": true,
+    "abema-android@abema-native": true,
+    "mutation-test-claude@abema-native": true,
     "commander-claude@abema-native": true,
-    "yomiyasu@yomiyasu": true
+    "review-updated-dependencies@abema-native": true,
+    "gradle-skills@gradle-skills": true,
+    "android-skills@android-skills": true,
+    "figma@claude-plugins-official": true,
+    "pstack@cursor-plugins": true
   },
   "extraKnownMarketplaces": {
-    "abema-native": {
-      "source": {
-        "source": "directory",
-        "path": "/Users/s34580/ghq/github.com/abema/abema-native-worktree-mikan-commander-plugin"
-      }
-    },
-    "esa-skills": {
-      "source": {
-        "source": "git",
-        "url": "https://github.com/esaio/esa-skills.git"
-      }
-    },
     "openai-codex": {
       "source": {
         "source": "github",
@@ -314,6 +306,30 @@
         "source": "github",
         "repo": "nanaism/yomiyasu"
       }
+    },
+    "abema-native": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/s34580/ghq/github.com/abema/abema-native-worktree-agent-plugin"
+      }
+    },
+    "gradle-skills": {
+      "source": {
+        "source": "github",
+        "repo": "gradle/gradle-skills"
+      }
+    },
+    "android-skills": {
+      "source": {
+        "source": "github",
+        "repo": "android/skills"
+      }
+    },
+    "cursor-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "cursor/plugins"
+      }
     }
   },
   "language": "長門有希(涼宮ハルヒの憂鬱)",
@@ -325,14 +341,50 @@
   },
   "autoCompactWindow": 200000,
   "advisorModel": "fable",
+  "promptSuggestionEnabled": false,
   "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "theme": "auto",
+  "autoCompactEnabled": true,
   "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(gcloud app-distribution:*) in abema/abema-native — writes/uploads to app distribution should stay reviewable, not auto-approved",
+      "Bash(make clean-all) in abema/abema-native — broad destructive clean target beyond routine build cleanup"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: abema/abema-native (GitHub org: abema)",
+      "**Cloud provider(s)**: Google Cloud (gcloud CLI used for app-distribution and remote build cache access checks; no other provider evidence found)",
+      "**Repository visibility**: private (confirmed via gh) — includes protected release branches",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: CI secrets referenced by name only (no values seen): ABEMA_MOBILE_GITHUB_APP_PRIVATE_KEY, ACTION_SLACK_TOKEN, AMAZON_API_CLIENT_ID, AMAZON_API_CLIENT_SECRET, AMAZON_APP_ID, APP_STORE_CONNECT_API_ISSUER_ID, APP_STORE_CONNECT_API_KEY_ID, COVERALLS_REPO_TOKEN, GH_APP_ABEMA_ANDROID_APP_ID, GH_APP_ABEMA_ANDROID_PRIVATE_KEY, GITHUB_TOKEN, GIT_EMAIL, GIT_USERNAME, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD, MATCH_PASSWORD, NATIVE_JITPACK_TOKEN, NATIVE_NEWRELIC_MOBILE_BUILD_METRICS, P12_PASS",
+      "**Default / protected branches**: main (default); protected: main, release-abema-ios-19.168.0, release-abema-ios-19.169.0, release-abema-ios-19.174.0, release-abema-ios-19.174.1, release-abema-ios-19.192.0; rulesets active: Wiz Code, octo-sts, Default Branch, iOS Release Branch (Copilot Review disabled)",
+      "**CI/CD deploy targets**: gcloud app distribution / remote build cache (per Makefile targets check-gcloud-app-distribution-access, check-gcloud-remote-build-cache-access); GitHub Actions workflows in .github/workflows",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Source control**: The abema/abema-native repo and its origin remote (github.com/abema/abema-native) only",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: abema-native-app-distribution (config-derived — not a confirmed upload destination; uploads of local data still require confirmation)",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: docs/.env.local, docs/.env.development.local, docs/.env.test.local, docs/.env.production.local, fastlane/.env, fastlane/.env.example, scenario_test_oauth_credentials.json, scenario_test_oauth_token.json, scenario_test_oauth_token.pickle — share only with audiences cleared at the named+specifics bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment (e.g. release-abema-ios branches and .env.production.local are name-adjacent but not themselves prod namespaces)",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (Android/iOS native app build tooling for abema-native)",
+      "**Trusted repo**: /Users/s34580/orca/workspaces/abema-native/mikan-gradle-11-agp9-dsl-variant-api (github.com/abema/abema-native, private) and its origin remote",
+      "**Org-specific CLIs**: gcloud (app-distribution/remote-build-cache access checks), gh, adb, xcodes, fastlane (via Makefile), fnox, arto, hunk, quint",
+      "**routine under this repo's Makefile/justfile targets prefix**: bootstrap, build, build-base, build-for-testing, build-release, build-sdk, clean, clean-all, archive, apksigner_verify, adb-bridge, adb-bridge-stop, check-gcloud-access, check-gcloud-app-distribution-access, check-gcloud-remote-build-cache-access, check-gh-ready, check-github-access, check-if-gcloud-logged-in"
+    ]
+  },
   "feedbackSurveyState": {
     "lastShownTime": 1754035517161
   }

@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/s34580/.docker/bin"
+# End of Docker Desktop section.
+
 set fish_greeting
 
 # source ~/.secret/.secrets.fish
@@ -87,5 +91,5 @@ end
 
 # direnv
 if type -q direnv &> /dev/null
-  eval (direnv hook fish)
+  direnv hook fish | source
 end

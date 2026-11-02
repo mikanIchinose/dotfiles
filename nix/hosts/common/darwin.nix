@@ -63,17 +63,13 @@ in
         name = "arto-app/tap";
         trusted = true;
       }
-      {
-        name = "jetbrains/utils";
-        trusted = true;
-      }
     ];
     brews = [
-      "kotlin-lsp"
       "poppler"
     ];
     casks = [
       "android-cli"
+      "kotlin-lsp"
       "wezterm"
       "jetbrains-toolbox"
       "karabiner-elements"
@@ -177,6 +173,12 @@ in
 
   # Touch ID で sudo 認証
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  # eMudhra 中間 CA の秘密鍵漏洩への対策 https://emudhra.we-have-a-problem.com/
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ];
 
   # darwin-rebuild 時に実行するスクリプト
   # system.activationScripts はinternal = trueのため、extraActivation に統合して組み込む
