@@ -33,13 +33,13 @@ nix eval nixpkgs#<pname>.version 2>/dev/null
 ```
 
 **存在する場合は、カスタムパッケージを作成する前にユーザーに確認する。**
-nixpkgs 版で十分な場合は `home-manager.nix` に追加するだけでよく、カスタムパッケージは不要。
+nixpkgs 版で十分な場合は `nix/hosts/common/home.nix` に追加するだけでよく、カスタムパッケージは不要。
 
 - nixpkgs のバージョンと最新バージョンの差分をユーザーに提示する
 - 「nixpkgs 版で十分か？最新版が必要か？」を確認してから次のステップに進む
 
 カスタムパッケージが必要な場合のみステップ3以降に進む。
-nixpkgs 版を使う場合はステップ7（home-manager.nix に追加）のみ実施する。
+nixpkgs 版を使う場合はステップ9（`nix/hosts/common/home.nix` に追加）のみ実施する。
 
 ### 3. init スクリプトでテンプレート生成
 
@@ -101,9 +101,9 @@ nix run nixpkgs#nix-update -- --flake --override-filename "nix/packages/$pkg/def
 chmod +x nix/packages/<pname>/update.sh
 ```
 
-### 9. home-manager.nix に追加
+### 9. nix/hosts/common/home.nix に追加
 
-`nix/home-manager.nix` の適切なリストに追加する:
+`nix/hosts/common/home.nix` の適切なリストに追加する:
 
 | カテゴリ | 追加先リスト |
 |---------|------------|
@@ -124,4 +124,4 @@ chmod +x nix/packages/<pname>/update.sh
 - [ ] ハッシュを取得・置換
 - [ ] `nix build .#<pname>` が成功する
 - [ ] `nix/packages/<pname>/update.sh` を作成・実行権限付与
-- [ ] `nix/home-manager.nix` の適切なリストに追加
+- [ ] `nix/hosts/common/home.nix` の適切なリストに追加
