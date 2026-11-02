@@ -51,9 +51,9 @@ nix build .#<pname> 2>&1
 
 失敗した場合は `installPhase` パターンを調整する（ステップ 3 参照）。
 
-### home-manager.nix に追加
+### nix/hosts/common/home.nix に追加
 
-`nix/home-manager.nix` の適切なリストに追加する
+`nix/hosts/common/home.nix` の適切なリストに追加する
 
 ## マルチアーキテクチャ対応
 
@@ -92,4 +92,4 @@ sed -i'' "s|hash = \".*\"; # hash-linux|hash = \"$HASH_LINUX\"; # hash-linux|" d
 - [ ] `flake.nix` の `perSystem` に追加
 - [ ] `flake.nix` の overlay に追加
 - [ ] `nix build .#<pname>` が成功する
-- [ ] `nix/home-manager.nix` の適切なリストに追加
+- [ ] `nix/hosts/common/home.nix` の適切なリストに追加

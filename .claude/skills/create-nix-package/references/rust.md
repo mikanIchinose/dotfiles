@@ -107,14 +107,14 @@ nix build .#<pname> 2>&1
 
 失敗した場合はエラーメッセージに応じてオプション調整を行う。
 
-### home-manager.nix に追加
+### nix/hosts/common/home.nix に追加
 
-`nix/home-manager.nix` の適切なリストに追加する。
+`nix/hosts/common/home.nix` の適切なリストに追加する。
 
 ## 完了チェックリスト
 
 - [ ] `nix eval nixpkgs#<pname>.version` で nixpkgs に既存パッケージがないか確認
-- [ ] 既存パッケージがある場合、ユーザーにカスタムパッケージが必要か確認（不要なら home-manager.nix への追加のみ）
+- [ ] 既存パッケージがある場合、ユーザーにカスタムパッケージが必要か確認（不要なら nix/hosts/common/home.nix への追加のみ）
 - [ ] `init-rust.sh` でテンプレート生成
 - [ ] `flake.nix` の `perSystem` に追加
 - [ ] `flake.nix` の overlay に追加
@@ -122,4 +122,4 @@ nix build .#<pname> 2>&1
 - [ ] `cargoHash` を取得・置換
 - [ ] オプション調整（fetchSubmodules, nativeBuildInputs 等）
 - [ ] `nix build .#<pname>` が成功する
-- [ ] `nix/home-manager.nix` の適切なリストに追加
+- [ ] `nix/hosts/common/home.nix` の適切なリストに追加

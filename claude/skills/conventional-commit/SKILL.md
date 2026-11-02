@@ -21,6 +21,10 @@ allowed-tools: Read, Bash(bash **/scripts/detect-vcs.sh), Bash(jj st), Bash(jj *
 </vcs-detection>
 ```
 
+### リポジトリ固有の規約
+
+リポジトリの CLAUDE.md などにコミットメッセージの形式が書かれている場合は、以下の形式よりそちらを優先する。
+
 ### コミットメッセージ構造
 
 ```xml
@@ -31,24 +35,6 @@ allowed-tools: Read, Bash(bash **/scripts/detect-vcs.sh), Bash(jj st), Bash(jj *
 	<body>詳細な説明（任意）</body>
 	<footer>破壊的変更や issue 参照（任意）</footer>
 </commit-message>
-```
-
-### type 一覧
-
-```xml
-<types>
-	<type name="feat">新機能</type>
-	<type name="fix">バグ修正</type>
-	<type name="docs">ドキュメントのみの変更</type>
-	<type name="style">コードの意味に影響しない変更（空白、フォーマット等）</type>
-	<type name="refactor">バグ修正でも機能追加でもないコード変更</type>
-	<type name="perf">パフォーマンス改善</type>
-	<type name="test">テストの追加・修正</type>
-	<type name="build">ビルドシステムや外部依存関係の変更</type>
-	<type name="ci">CI 設定の変更</type>
-	<type name="chore">その他の変更</type>
-	<type name="revert">コミットの取り消し</type>
-</types>
 ```
 
 ### 例
@@ -69,7 +55,7 @@ allowed-tools: Read, Bash(bash **/scripts/detect-vcs.sh), Bash(jj st), Bash(jj *
 	</example>
 	<example>
 		<description>データ処理のパフォーマンス改善</description>
-		<message>refactor: データ処理のパフォーマンスを改善</message>
+		<message>perf: データ処理のパフォーマンスを改善</message>
 	</example>
 	<example>
 		<description>依存関係の更新</description>
