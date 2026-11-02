@@ -35,9 +35,9 @@
 
 ```xml
 <final-step>
-	<cmd>jj describe -m "type(scope): description" -m "Co-Authored-By: Claude Opus 4.6 &lt;noreply@anthropic.com&gt;"</cmd>
+	<cmd>jj describe -m "type(scope): description"</cmd>
 	<note>構築したメッセージで置き換える。body や footer が必要な場合は複数の -m フラグを使用する。</note>
 	<note>メッセージ設定後、必要に応じて jj new で次の変更を開始する。</note>
-	<note>Co-Authored-By トレーラーを必ず付与する（git commit と同様）。</note>
+	<note>Co-Authored-By などの帰属表記は、Claude Code が指定する内容（git commit と同じもの）をフッターとして付ける。</note>
 </final-step>
 ```
