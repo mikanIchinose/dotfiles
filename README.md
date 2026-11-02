@@ -57,5 +57,5 @@ wezterm cli set-tab-title "test"
 kotlin-lspのアプデ後にこれを実行
 
 ```
-sudo xattr -dr com.apple.quarantine /opt/homebrew/Cellar/kotlin-lsp/262.8190.0
+sudo xattr -dr com.apple.quarantine /opt/homebrew/Caskroom/kotlin-lsp
 ```
