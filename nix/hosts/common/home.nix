@@ -334,23 +334,23 @@ in
   };
 
   xdg.configFile = {
-    "git/message".source = mkLink "config/git/message";
-    "efm-langserver".source = mkLink "config/efm-langserver";
-    "fish".source = mkLink "config/fish";
-    "lazygit".source = mkLink "config/lazygit";
-    "nvim".source = mkLink "config/nvim";
-    "navi".source = mkLink "config/navi";
-    "starship.toml".source = mkLink "config/starship/config.toml";
-    "wezterm".source = mkLink "config/wezterm";
-    "ghostty".source = mkLink "config/ghostty";
-    "aerospace".source = mkLink "config/aerospace";
+    "git/message".source = mkLink "git/message";
+    "efm-langserver".source = mkLink "efm-langserver";
+    "fish".source = mkLink "fish";
+    "lazygit".source = mkLink "lazygit";
+    "nvim".source = mkLink "nvim";
+    "navi".source = mkLink "navi";
+    "starship.toml".source = mkLink "starship/config.toml";
+    "wezterm".source = mkLink "wezterm";
+    "ghostty".source = mkLink "ghostty";
+    "aerospace".source = mkLink "aerospace";
   }
   // (
     if pkgs.stdenv.isDarwin then
       {
         # Darwin専用
-        "karabiner".source = mkLink "config.darwin/karabiner";
-        "topgrade.toml".source = mkLink "config.darwin/topgrade.toml";
+        "karabiner".source = mkLink "karabiner";
+        "topgrade.toml".source = mkLink "topgrade.toml";
       }
     else
       { }
