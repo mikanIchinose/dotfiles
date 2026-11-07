@@ -8,6 +8,12 @@ repo = 'Shougo/goda-pm.vim'
 repo = 'Shougo/goda-cmp.vim'
 hook_add = '''
   autocmd VimEnter * call goda_cmp#enable()
+  " 補完の候補の移動と確定。ポップアップが出ていないときは元のキーとして動く
+  inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+  inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  " 候補を選んでいないときは、ポップアップを閉じずに改行する
+  inoremap <expr> <CR>  pumvisible() && complete_info(['selected']).selected != -1 ? "\<C-y>" : "\<CR>"
 '''
 hook_post_update = '''
   call goda_cmp#build()
