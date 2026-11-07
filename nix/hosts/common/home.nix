@@ -339,18 +339,15 @@ in
     "fish".source = mkLink "fish";
     "lazygit".source = mkLink "lazygit";
     "nvim".source = mkLink "nvim";
-    "navi".source = mkLink "navi";
     "starship.toml".source = mkLink "starship/config.toml";
     "wezterm".source = mkLink "wezterm";
     "ghostty".source = mkLink "ghostty";
-    "aerospace".source = mkLink "aerospace";
   }
   // (
     if pkgs.stdenv.isDarwin then
       {
         # Darwin専用
         "karabiner".source = mkLink "karabiner";
-        "topgrade.toml".source = mkLink "topgrade.toml";
       }
     else
       { }
