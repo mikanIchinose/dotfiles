@@ -122,7 +122,14 @@ in
     allowUnfree = true;
   };
 
-  home.activation = ghqLib.mkGhqActivation "common" commonGhqRepos;
+  home.activation = ghqLib.mkGhqActivation "common" commonGhqRepos // {
+    # settings.json は初回セットアップ時の雛形としてのみ使う。Claude Code が書き換えるので管理しない
+    claudeSettingsSeed = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      if [ ! -e "$HOME/.claude/settings.json" ] && [ ! -L "$HOME/.claude/settings.json" ]; then
+        run install -Dm644 "${dotfilesDir}/claude/settings.json" "$HOME/.claude/settings.json"
+      fi
+    '';
+  };
 
   programs.home-manager.enable = true;
 
@@ -325,7 +332,6 @@ in
     ".zprofile".source = mkLink "home/zprofile";
 
     # Claude Code
-    ".claude/settings.json".source = mkLink "claude/settings.json";
     ".claude/CLAUDE.md".source = mkLink "claude/CLAUDE.md";
     ".claude/agents".source = mkLink "claude/agents";
     ".claude/skills".source = mkLink "claude/skills";
