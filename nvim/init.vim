@@ -58,6 +58,15 @@ if s:goda_pm_base->goda_pm#min#load_state()
   call s:goda_rtp('Shougo/goda.vim')
   autocmd VimEnter * ++once call goda_pm#make_state(s:goda_pm_base)
 endif
+" goda.toml に足したプラグインを入れる。状態ファイル作成 → 読み直し → インストール → 状態ファイル作成（hook を入れるため）
+function s:goda_install() abort
+  call goda_pm#make_state_sync(s:goda_pm_base)
+  call goda_pm#min#load_state(s:goda_pm_base) " installer はメモリ上の一覧を見るので読み直す
+  filetype plugin indent on
+  autocmd User GodaPm:extActionPost:installer:install ++once call goda_pm#make_state(s:goda_pm_base)
+  call goda_pm#async_ext_action('installer', 'install')
+endfunction
+command! GodaInstall call s:goda_install()
 filetype plugin indent on " goda-pm の状態ファイルが切るので、有効に戻す
 syntax on
 
