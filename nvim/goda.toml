@@ -1,0 +1,23 @@
+[[plugins]]
+repo = 'Shougo/goda.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-pm.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-cmp.vim'
+hook_add = '''
+  autocmd VimEnter * call goda_cmp#enable()
+'''
+hook_post_update = '''
+  call goda_cmp#build()
+'''
+
+[[plugins]]
+repo = 'Shougo/goda-fi.vim'
+hook_add = '''
+  nnoremap <Leader>f <Cmd>call goda_fi#start({'sources': ['filerec']})<CR>
+'''
+hook_post_update = '''
+  call goda_fi#build()
+'''
