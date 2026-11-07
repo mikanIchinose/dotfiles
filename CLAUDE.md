@@ -1,7 +1,7 @@
 ## dotfiles Structure
 
 - **Nix** で環境管理（nix-darwin + home-manager）
-- **config/** 配下のツール設定を `~/.config` へ symlink
+- ルート直下のツール別ディレクトリ（`nvim/`, `fish/` など）を `~/.config` へ symlink
 - **claude/** 配下は `~/.claude` へ home-manager でデプロイ（Claude Code グローバル設定の実体）
 - カスタムパッケージは `nix/packages/` で管理
 
