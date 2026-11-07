@@ -287,7 +287,6 @@
     "kotlin-lsp@claude-plugins-official": true,
     "mattpocock-skills@claude-plugins-official": true,
     "codex@openai-codex": true,
-    "quint-llm-kit@quint-llm-kit": true,
     "show-me@skills": true,
     "ponytail@ponytail": true,
     "yomiyasu@yomiyasu": true,
@@ -298,19 +297,14 @@
     "gradle-skills@gradle-skills": true,
     "android-skills@android-skills": true,
     "figma@claude-plugins-official": true,
-    "pstack@cursor-plugins": true
+    "pstack@cursor-plugins": true,
+    "japanese-reply@japanese-reply-hooks": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
-      }
-    },
-    "quint-llm-kit": {
-      "source": {
-        "source": "github",
-        "repo": "quint-co/quint-llm-kit"
       }
     },
     "skills": {
@@ -353,6 +347,12 @@
       "source": {
         "source": "github",
         "repo": "cursor/plugins"
+      }
+    },
+    "japanese-reply-hooks": {
+      "source": {
+        "source": "github",
+        "repo": "takagakiryuheiCM/claude-code-japanese-reply"
       }
     }
   },
