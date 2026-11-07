@@ -5,6 +5,7 @@ set laststatus=0 " ステータスラインを非表示
 set noruler noshowcmd noshowmode " カーソル位置・入力中のコマンド・モード名を非表示
 set signcolumn=yes " サイン列を常に表示して、診断の表示で横にずれるのを防ぐ
 set cmdheight=0
+set winborder=rounded " フローティングウィンドウ（LSP のホバーなど）に角丸の枠を付ける
 
 lua << EOF
 require('vim._core.ui2').enable({ msg = { targets = {
