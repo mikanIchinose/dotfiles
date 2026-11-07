@@ -140,15 +140,23 @@
                 }
               ];
             };
-            workSystem = mkDarwinSystem {
-              username = "work";
-              hostModules = [
-                ./nix/hosts/work/darwin.nix
-                {
-                  home-manager.users."work".imports = [ ./nix/hosts/work/home.nix ];
-                }
-              ];
-            };
+            # 社用 PC のユーザー名は公開しないため、評価時の $USER から取る（--impure が必要）
+            workSystem =
+              let
+                username = builtins.getEnv "USER";
+              in
+              if username == "" then
+                throw "darwinConfigurations.work は --impure 付きで評価してください（$USER からユーザー名を取ります）"
+              else
+                mkDarwinSystem {
+                  inherit username;
+                  hostModules = [
+                    ./nix/hosts/work/darwin.nix
+                    {
+                      home-manager.users.${username}.imports = [ ./nix/hosts/work/home.nix ];
+                    }
+                  ];
+                };
           in
           {
             personal = personalSystem;
