@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, username, ... }:
 {
   # Slack and Chrome are managed by the company, so do not let `brew bundle`
   # cleanup uninstall casks that are installed outside this configuration.
@@ -18,7 +18,7 @@
   # installed via Nix (gh, etc.) are invisible to them. Orca spawns `gh` without
   # an absolute path from its main process, which fails for this reason.
   launchd.user.envVariables.PATH = lib.concatStringsSep ":" [
-    "/etc/profiles/per-user/s34580/bin"
+    "/etc/profiles/per-user/${username}/bin"
     "/run/current-system/sw/bin"
     "/nix/var/nix/profiles/default/bin"
     "/opt/homebrew/bin"
