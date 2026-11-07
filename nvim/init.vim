@@ -70,6 +70,9 @@ command! GodaInstall call s:goda_install()
 filetype plugin indent on " goda-pm の状態ファイルが切るので、有効に戻す
 syntax on
 
+" treesitter で色を付ける。パーサとハイライトのルールは Nix で入れる（nix/hosts/common/home.nix の treesitterLangs）
+autocmd FileType go,gomod,gosum,gowork lua vim.treesitter.start()
+
 " LSP（サーバの起動設定は nvim-lspconfig の lsp/*.lua を使う）
 lua << EOF
 vim.lsp.config("gopls", { settings = { gopls = {
