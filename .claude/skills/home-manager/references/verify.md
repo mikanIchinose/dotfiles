@@ -2,7 +2,7 @@
 
 目的: 実機に switch する **前** に、ビルドが通り、値が意図通りかを確かめる。
 
-この dotfiles では home-manager が nix-darwin モジュールとして統合されているため、確認は **darwinConfiguration 経由** で行う。`<name>` は設定名（`personal` または `s34580`）、`<user>` は対応ユーザー（`mikan` / `s34580`）。
+この dotfiles では home-manager が nix-darwin モジュールとして統合されているため、確認は **darwinConfiguration 経由** で行う。`<name>` は設定名（`personal` または `work`）、`<user>` は対応ユーザー（`mikan` / 社用 PC の `$USER`）。`work` の評価には `--impure` が必要。
 
 ## 1. switch せずビルドする（最も安全）
 

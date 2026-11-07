@@ -20,7 +20,7 @@ home-manager のユーザー層の設定を、ドキュメント・実装の両�
 - ユーザー設定は `home-manager.users.<username>` 配下に入る。
 - 適用は **`darwin-rebuild switch`**（独立した `home-manager switch` は使わない）。
 - eval / config 参照のパスは `darwinConfigurations.<name>.config.home-manager.users.<username>.<option>`。
-- 設定名とユーザー: `personal`（user `mikan`）, `s34580`（user `s34580`）。
+- 設定名とユーザー: `personal`（user `mikan`）, `work`（user は評価時の `$USER`。`--impure` が必要）。
 - 各ホストのユーザー設定エントリポイント: `nix/hosts/<host>/home.nix`、共通は `nix/hosts/common/home.nix`。
 
 ## セットアップ

@@ -1,6 +1,6 @@
 # デバッグする
 
-`<name>` は設定名（`personal` / `s34580`）、`<user>` は対応ユーザー（`mikan` / `s34580`）。症状から入る。
+`<name>` は設定名（`personal` / `work`）、`<user>` は対応ユーザー（`mikan` / 社用 PC の `$USER`）。`work` の評価には `--impure` が必要。症状から入る。
 
 ## 評価（eval）エラー
 
