@@ -343,7 +343,6 @@ in
     "starship.toml".source = mkLink "starship/config.toml";
     "wezterm".source = mkLink "wezterm";
     "ghostty".source = mkLink "ghostty";
-    "aerospace".source = mkLink "aerospace";
   }
   // (
     if pkgs.stdenv.isDarwin then
