@@ -339,7 +339,6 @@ in
     "fish".source = mkLink "fish";
     "lazygit".source = mkLink "lazygit";
     "nvim".source = mkLink "nvim";
-    "navi".source = mkLink "navi";
     "starship.toml".source = mkLink "starship/config.toml";
     "wezterm".source = mkLink "wezterm";
     "ghostty".source = mkLink "ghostty";
