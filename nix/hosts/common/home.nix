@@ -348,7 +348,6 @@ in
       {
         # Darwin専用
         "karabiner".source = mkLink "karabiner";
-        "topgrade.toml".source = mkLink "topgrade.toml";
       }
     else
       { }
