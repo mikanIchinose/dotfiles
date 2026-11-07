@@ -31,10 +31,6 @@ function import_ghq -d "import ghq repositories from ghqfile"
   cat ~/local/.ghqfile | ghq get --parallel --update
 end
 
-function backup_fisher
-  fisher list > ~/dotfiles/fishfile
-end
-
 function backup_gh_extension
   gh extension list | awk '{print $3}' > ~/dotfiles/ghfile
 end
