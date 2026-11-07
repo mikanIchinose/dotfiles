@@ -70,6 +70,15 @@ command! GodaInstall call s:goda_install()
 filetype plugin indent on " goda-pm の状態ファイルが切るので、有効に戻す
 syntax on
 
+" LSP（サーバの起動設定は nvim-lspconfig の lsp/*.lua を使う）
+lua << EOF
+vim.lsp.config("gopls", { settings = { gopls = {
+  gofumpt = true, -- gofmt より厳しい gofumpt で整形する
+  staticcheck = true, -- staticcheck の解析も診断に出す
+} } })
+vim.lsp.enable("gopls")
+EOF
+
 " コマンドライン補完
 " 入力するたびに補完候補のポップアップを出す（: と / と ?）
 autocmd CmdlineChanged [:\/\?] call wildtrigger()

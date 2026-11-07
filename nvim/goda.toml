@@ -21,3 +21,6 @@ hook_add = '''
 hook_post_update = '''
   call goda_fi#build()
 '''
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
