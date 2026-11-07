@@ -177,7 +177,6 @@ in
   # eMudhra 中間 CA の秘密鍵漏洩への対策 https://emudhra.we-have-a-problem.com/
   security.pki.caCertificateBlacklist = [
     "Comodo AAA Services root"
-    "emSign ECC Root CA - G3"
   ];
 
   # darwin-rebuild 時に実行するスクリプト
