@@ -22,7 +22,7 @@ let
     rogcat
     covpeek
     gradle-profiler
-    pencil-cli
+    pen-cli
     cochange
     esa-cli
   ];

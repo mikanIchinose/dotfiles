@@ -81,7 +81,7 @@
               flutterfire-cli = final.callPackage ./nix/packages/flutterfire-cli { };
               gradle-profiler = final.callPackage ./nix/packages/gradle-profiler { };
               darwin-switch = final.callPackage ./nix/packages/darwin-switch { };
-              pencil-cli = final.callPackage ./nix/packages/pencil-cli { };
+              pen-cli = final.callPackage ./nix/packages/pen-cli { };
               cochange = final.callPackage ./nix/packages/cochange { };
               esa-cli = final.callPackage ./nix/packages/esa-cli { };
               quint-language-server = final.callPackage ./nix/packages/quint-language-server { };
@@ -176,7 +176,7 @@
           packages.flutterfire-cli = pkgs.callPackage ./nix/packages/flutterfire-cli { };
           packages.gradle-profiler = pkgs.callPackage ./nix/packages/gradle-profiler { };
           packages.darwin-switch = pkgs.callPackage ./nix/packages/darwin-switch { };
-          packages.pencil-cli = pkgs.callPackage ./nix/packages/pencil-cli { };
+          packages.pen-cli = pkgs.callPackage ./nix/packages/pen-cli { };
           packages.cochange = pkgs.callPackage ./nix/packages/cochange { };
           packages.esa-cli = pkgs.callPackage ./nix/packages/esa-cli { };
           packages.quint-language-server = pkgs.callPackage ./nix/packages/quint-language-server { };

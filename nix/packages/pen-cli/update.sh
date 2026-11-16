@@ -2,13 +2,13 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-PKG="@pencil.dev/cli"
+PKG="@pen.dev/cli"
 LATEST=$(npm view "$PKG" version)
 CURRENT=$(jq -r '.version' package.json)
 [ "$LATEST" = "$CURRENT" ] && echo "$PKG is up to date ($CURRENT)" && exit 0
 
 echo "Updating $PKG: $CURRENT -> $LATEST"
-jq --arg v "$LATEST" '.version = $v | .dependencies["@pencil.dev/cli"] = $v' package.json > package.json.tmp
+jq --arg v "$LATEST" '.version = $v | .dependencies["@pen.dev/cli"] = $v' package.json > package.json.tmp
 mv package.json.tmp package.json
 npm install --package-lock-only
 NEW_HASH=$(nix run nixpkgs#prefetch-npm-deps -- package-lock.json 2>/dev/null)

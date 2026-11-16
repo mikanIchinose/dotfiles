@@ -1,8 +1,0 @@
-{
-  "name": "pencil-cli-wrapper",
-  "version": "0.2.9",
-  "private": true,
-  "dependencies": {
-    "@pencil.dev/cli": "0.2.9"
-  }
-}
