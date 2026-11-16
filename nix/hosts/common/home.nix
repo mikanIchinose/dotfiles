@@ -115,6 +115,12 @@ let
     quint-language-server
 
     tgrep
+
+    git-lfs
+    gitleaks
+    fnox
+    mise
+    takt
   ];
 in
 {
