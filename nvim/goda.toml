@@ -32,12 +32,17 @@ hook_post_update = '''
 repo = 'neovim/nvim-lspconfig'
 # LSP。対象のファイルを開いたときに読み込む。サーバの起動設定は lspconfig の lsp/*.lua を使う
 lazy = true # goda-pm/main.go が既定値を lazy=false にしているので明示する
-on_ft = ['go', 'gomod', 'gowork', 'gotmpl']
+on_ft = ['go', 'gomod', 'gowork', 'gotmpl', 'lua']
 lua_source = '''
   vim.lsp.config("gopls", { settings = { gopls = {
     gofumpt = true, -- gofmt より厳しい gofumpt で整形する
     staticcheck = true, -- staticcheck の解析も診断に出す
   } } })
+  -- Lua は Neovim 用だけ書く前提。LuaJIT として解析し、vim.* の型は $VIMRUNTIME から読む
+  vim.lsp.config("lua_ls", { settings = { Lua = {
+    runtime = { version = "LuaJIT" },
+    workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } },
+  } } })
   -- 読み込みは FileType の途中になるが、enable が開いているバッファにも FileType を送り直す
-  vim.lsp.enable("gopls")
+  vim.lsp.enable({ "gopls", "lua_ls" })
 '''
