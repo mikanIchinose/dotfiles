@@ -1,13 +1,13 @@
 package main
 
 import (
+	"github.com/Shougo/goda-cmp-ext/ext/filter/matcherhead"
+	"github.com/Shougo/goda-cmp-ext/ext/filter/sorterlength"
+	"github.com/Shougo/goda-cmp-ext/ext/filter/sortertext"
+	"github.com/Shougo/goda-cmp-ext/ext/source/around"
+	"github.com/Shougo/goda-cmp-ext/ext/source/lsp"
+	"github.com/Shougo/goda-cmp-ui-native.vim/ext/ui/native"
 	"github.com/Shougo/goda-cmp.vim/cmp"
-	"github.com/Shougo/goda-cmp.vim/ext/filter/matcherhead"
-	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterlength"
-	"github.com/Shougo/goda-cmp.vim/ext/filter/sortertext"
-	"github.com/Shougo/goda-cmp.vim/ext/source/around"
-	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
-	"github.com/Shougo/goda-cmp.vim/ext/ui/native"
 )
 
 func main() {

@@ -5,6 +5,9 @@ repo = 'Shougo/goda.vim'
 repo = 'Shougo/goda-pm.vim'
 
 [[plugins]]
+repo = 'Shougo/goda-pm-ext-lazy.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-cmp.vim'
 hook_add = '''
   autocmd VimEnter * call goda_cmp#enable()
@@ -20,6 +23,9 @@ hook_post_update = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/goda-cmp-ui-native.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-fi.vim'
 hook_add = '''
   nnoremap <Leader>f <Cmd>call goda_fi#start({'sources': ['filerec']})<CR>
@@ -27,6 +33,9 @@ hook_add = '''
 hook_post_update = '''
   call goda_fi#build()
 '''
+
+[[plugins]]
+repo = 'Shougo/goda-fi-ui-ff.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'

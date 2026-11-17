@@ -55,8 +55,9 @@ function s:goda_rtp(repo) abort
 endfunction
 call s:goda_rtp('Shougo/goda-pm.vim')
 if s:goda_pm_base->goda_pm#min#load_state()
-  " 状態ファイルがないときは作る（作るのに goda.vim が要る）
+  " 状態ファイルがないときは作る（作るのに goda.vim と、状態ファイルが呼ぶ goda-pm-ext-lazy.vim が要る）
   call s:goda_rtp('Shougo/goda.vim')
+  call s:goda_rtp('Shougo/goda-pm-ext-lazy.vim')
   autocmd VimEnter * ++once call goda_pm#make_state(s:goda_pm_base)
 endif
 " goda.toml に足したプラグインを入れる。状態ファイル作成 → 読み直し → インストール → 状態ファイル作成（hook を入れるため）

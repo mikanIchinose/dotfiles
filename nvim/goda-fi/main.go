@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/Shougo/goda-fi.vim/ext/filter/matchersubstring"
-	kindfile "github.com/Shougo/goda-fi.vim/ext/kind/file"
-	"github.com/Shougo/goda-fi.vim/ext/source/filerec"
+	"github.com/Shougo/goda-fi-ext/ext/filter/matchersubstring"
+	kindfile "github.com/Shougo/goda-fi-ext/ext/kind/file"
+	"github.com/Shougo/goda-fi-ext/ext/source/filerec"
+	"github.com/Shougo/goda-fi-ui-ff.vim/ui/ff"
 	"github.com/Shougo/goda-fi.vim/fi"
-	"github.com/Shougo/goda-fi.vim/ui/ff"
 )
 
 func main() {
