@@ -81,46 +81,46 @@ autocmd CmdlineChanged [:\/\?] call wildtrigger()
 set wildmode=noselect:lastused,full " 最初は何も選ばない。直前に使った候補を先頭に置く
 set wildoptions=pum " 候補をポップアップメニューで出す
 
-" 補完の表示中でも <Up>/<Down> で履歴をたどれるようにする
-cnoremap <expr> <Up>   wildmenumode() ? "\<C-E>\<Up>"   : "\<Up>"
-cnoremap <expr> <Down> wildmenumode() ? "\<C-E>\<Down>" : "\<Down>"
+lua << EOF
+-- 補完の表示中でも <Up>/<Down> で履歴をたどれるようにする
+vim.keymap.set("c", "<Up>", function() return vim.fn.wildmenumode() == 1 and "<C-E><Up>" or "<Up>" end, { expr = true })
+vim.keymap.set("c", "<Down>", function() return vim.fn.wildmenumode() == 1 and "<C-E><Down>" or "<Down>" end, { expr = true })
+EOF
 
-"" keymap
-" move window
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-" nnoremap <C-l> <C-w>l <C-l>は規定値があるらしい
+lua << EOF
+local map = vim.keymap.set
 
-" split
-nnoremap <Leader>- <Cmd>split<CR>
-nnoremap <Leader>\ <Cmd>vsplit<CR>
+-- ウィンドウ移動（<C-l> は画面の再描画なので上書きしない）
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
+map("n", "<C-h>", "<C-w>h")
 
-nnoremap <Leader>n <Cmd>nohlsearch<CR>
+-- 分割
+map("n", "<Leader>-", "<Cmd>split<CR>", { desc = "split horizontal" })
+map("n", "<Leader>\\", "<Cmd>vsplit<CR>", { desc = "split vertical" })
 
-" visual mode util
-xnoremap r <C-v>
-xnoremap v V
+map("n", "<Leader>n", "<Cmd>nohlsearch<CR>", { desc = "検索のハイライトを消す" })
 
-nnoremap ; :
+-- ビジュアルモード
+map("x", "r", "<C-v>", { desc = "矩形選択に切り替え" })
+map("x", "v", "V", { desc = "行選択に切り替え" })
 
-" navigation at insert-mode
-inoremap <M-h> <Left>
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-l> <Right>
-" navigation at command-mode
-cnoremap <M-h> <Left>
-cnoremap <M-j> <Down>
-cnoremap <M-k> <Up>
-cnoremap <M-l> <Right>
-" navigation at terminal-mode
-tnoremap jj <C-\><C-n>
+map("n", ";", ":", { desc = "コマンドラインを開く" })
 
-" easy save
-nnoremap <Leader><Leader> <Cmd>silent update<CR>
+-- 挿入モードとコマンドラインでのカーソル移動
+map({ "i", "c" }, "<M-h>", "<Left>")
+map({ "i", "c" }, "<M-j>", "<Down>")
+map({ "i", "c" }, "<M-k>", "<Up>")
+map({ "i", "c" }, "<M-l>", "<Right>")
 
-" easy escape
-inoremap jj <ESC>
-inoremap j<Space> j
+map("t", "jj", "<C-\\><C-n>")
 
+map("n", "<Leader><Leader>", "<Cmd>silent update<CR>", { desc = "保存" })
+
+map("i", "jj", "<Esc>")
+map("i", "j<Space>", "j")
+EOF
+
+" micro-which-key.nvim
+set rtp^=~/ghq/github.com/mikanIchinose/micro-which-key.nvim
+lua require('micro-which-key').setup()
