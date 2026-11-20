@@ -9,14 +9,19 @@ repo = 'Shougo/goda-pm-ext-lazy.vim'
 
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'
-hook_add = '''
-  autocmd VimEnter * call goda_cmp#enable()
-  " 補完の候補の移動と確定。ポップアップが出ていないときは元のキーとして動く
-  inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-  inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  " 候補を選んでいないときは、ポップアップを閉じずに改行する
-  inoremap <expr> <CR>  pumvisible() && complete_info(['selected']).selected != -1 ? "\<C-y>" : "\<CR>"
+lua_add = '''
+  vim.api.nvim_create_autocmd("VimEnter", { callback = function() vim.fn["goda_cmp#enable"]() end })
+  -- 補完の候補の移動と確定。ポップアップが出ていないときは元のキーとして動く
+  local function pum(key, fallback)
+    return function() return vim.fn.pumvisible() == 1 and key or fallback end
+  end
+  vim.keymap.set("i", "<C-j>", pum("<C-n>", "<C-j>"), { expr = true, desc = "next" })
+  vim.keymap.set("i", "<C-k>", pum("<C-p>", "<C-k>"), { expr = true, desc = "previous" })
+  vim.keymap.set("i", "<Tab>", pum("<C-n>", "<Tab>"), { expr = true, desc = "next" })
+  -- 候補を選んでいないときは、ポップアップを閉じずに改行する
+  vim.keymap.set("i", "<CR>", function()
+    return vim.fn.pumvisible() == 1 and vim.fn.complete_info({ "selected" }).selected ~= -1 and "<C-y>" or "<CR>"
+  end, { expr = true, desc = "confirm" })
 '''
 hook_post_update = '''
   call goda_cmp#build()
@@ -28,8 +33,8 @@ repo = 'Shougo/goda-cmp-ui-native.vim'
 [[plugins]]
 repo = 'Shougo/goda-fi.vim'
 lua_add = '''
-  vim.keymap.set("n", "<Leader>f", function() vim.fn["goda_fi#start"]({ sources = { "filerec" } }) end, { desc = "ファイルを探す" })
-  vim.keymap.set("n", "<Leader>b", function() vim.fn["goda_fi#start"]({ sources = { "buffer" } }) end, { desc = "バッファを探す" })
+  vim.keymap.set("n", "<Leader>f", function() vim.fn["goda_fi#start"]({ sources = { "filerec" } }) end, { desc = "find file" })
+  vim.keymap.set("n", "<Leader>b", function() vim.fn["goda_fi#start"]({ sources = { "buffer" } }) end, { desc = "find buf" })
 '''
 hook_post_update = '''
   call goda_fi#build()
