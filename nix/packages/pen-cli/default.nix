@@ -7,11 +7,11 @@
 
 buildNpmPackage {
   pname = "pen-cli";
-  version = "0.3.16";
+  version = "0.3.17";
 
   src = ./.;
 
-  npmDepsHash = "sha256-v6biXlU/t0pyyMUjlkupA3IkYaC/QFn+Ptw9fSqhYsk=";
+  npmDepsHash = "sha256-PCVpkhcx4jSCKEDctWC1eM4wlqp2HpNH/VYK/ORrMIA=";
 
   nodejs = nodejs_24;
 
