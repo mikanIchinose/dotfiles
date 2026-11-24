@@ -6,11 +6,11 @@
 
 buildNpmPackage {
   pname = "quint-language-server";
-  version = "0.19.0";
+  version = "0.21.0";
 
   src = ./.;
 
-  npmDepsHash = "sha256-mzfQeSvwDS/GCSAS4FJfq+K97SRlp1BBSfuPvKHSWnc=";
+  npmDepsHash = "sha256-W464L9q6+1hMYdfYqsKR1kS07JntoYk2eDbxUxf8jPA=";
 
   nodejs = nodejs_24;
 
