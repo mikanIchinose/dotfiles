@@ -1,8 +1,8 @@
 {
   "name": "pen-cli-wrapper",
-  "version": "0.3.17",
+  "version": "0.3.18",
   "private": true,
   "dependencies": {
-    "@pen.dev/cli": "0.3.17"
+    "@pen.dev/cli": "0.3.18"
   }
 }
