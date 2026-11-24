@@ -1,0 +1,79 @@
+[[plugins]]
+repo = 'Shougo/goda.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-pm.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-pm-ext-lazy.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-cmp.vim'
+lua_add = '''
+  vim.api.nvim_create_autocmd("VimEnter", { callback = function() vim.fn["goda_cmp#enable"]() end })
+  -- 補完の候補の移動と確定。ポップアップが出ていないときは元のキーとして動く
+  local function pum(key, fallback)
+    return function() return vim.fn.pumvisible() == 1 and key or fallback end
+  end
+  vim.keymap.set("i", "<C-j>", pum("<C-n>", "<C-j>"), { expr = true, desc = "next" })
+  vim.keymap.set("i", "<C-k>", pum("<C-p>", "<C-k>"), { expr = true, desc = "previous" })
+  vim.keymap.set("i", "<Tab>", pum("<C-n>", "<Tab>"), { expr = true, desc = "next" })
+  -- 候補を選んでいないときは、ポップアップを閉じずに改行する
+  vim.keymap.set("i", "<CR>", function()
+    return vim.fn.pumvisible() == 1 and vim.fn.complete_info({ "selected" }).selected ~= -1 and "<C-y>" or "<CR>"
+  end, { expr = true, desc = "confirm" })
+'''
+hook_post_update = '''
+  call goda_cmp#build()
+'''
+
+[[plugins]]
+repo = 'Shougo/goda-cmp-ui-native.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-fi.vim'
+lua_add = '''
+  vim.keymap.set("n", "<Leader>f", function() vim.fn["goda_fi#start"]({ sources = { "filerec" } }) end, { desc = "find file" })
+  vim.keymap.set("n", "<Leader>b", function() vim.fn["goda_fi#start"]({ sources = { "buffer" } }) end, { desc = "find buf" })
+'''
+hook_post_update = '''
+  call goda_fi#build()
+'''
+
+[[plugins]]
+repo = 'Shougo/goda-fi-ui-ff.vim'
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+# LSP。対象のファイルを開いたときに読み込む。サーバの起動設定は lspconfig の lsp/*.lua を使う
+lazy = true # goda-pm/main.go が既定値を lazy=false にしているので明示する
+on_ft = ['go', 'gomod', 'gowork', 'gotmpl', 'lua', 'json5']
+lua_source = '''
+  vim.lsp.config("gopls", { settings = { gopls = {
+    gofumpt = true, -- gofmt より厳しい gofumpt で整形する
+    staticcheck = true, -- staticcheck の解析も診断に出す
+  } } })
+  -- Lua は Neovim 用だけ書く前提。LuaJIT として解析し、vim.* の型は $VIMRUNTIME から読む
+  vim.lsp.config("lua_ls", { settings = { Lua = {
+    runtime = { version = "LuaJIT" },
+    workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } },
+  } } })
+  -- renovate.json5 用。jsonls は json5 を知らないので jsonc として渡し、Renovate のスキーマを当てる
+  vim.lsp.config("jsonls", {
+    filetypes = { "json5" },
+    get_language_id = function() return "jsonc" end,
+    -- goda-cmp の LSP ソースはスニペット非対応と宣言するため、jsonls が補完を出さない。本体の補完を使う
+    on_attach = function(client, buf)
+      -- goda-cmp が割り込むとポップアップが閉じるので、このバッファでは止める
+      vim.api.nvim_buf_call(buf, function() vim.fn["goda_cmp#patch_buffer"]({ sources = {} }) end)
+      vim.bo[buf].completeopt = "menuone,noselect,popup" -- 候補を勝手に挿入しない
+      vim.lsp.completion.enable(true, client.id, buf, { autotrigger = true })
+    end,
+    settings = { json = { schemas = { {
+      fileMatch = { "renovate.json5" },
+      url = "https://docs.renovatebot.com/renovate-schema.json",
+    } } } },
+  })
+  -- 読み込みは FileType の途中になるが、enable が開いているバッファにも FileType を送り直す
+  vim.lsp.enable({ "gopls", "lua_ls", "jsonls" })
+'''

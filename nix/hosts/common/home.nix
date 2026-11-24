@@ -71,6 +71,21 @@ let
     go
     gopls
   ];
+  # nvim の treesitter で色を付ける言語。パーサとハイライトのルールを ~/.local/share/nvim/site に置く
+  # 色付けを始めるのは nvim 側の FileType autocmd（vim.treesitter.start()）
+  treesitterLangs = [
+    "go"
+    "gomod"
+    "gosum"
+    "gowork"
+  ];
+  treesitterFiles = lib.mergeAttrsList (
+    map (lang: {
+      "nvim/site/parser/${lang}.so".source =
+        "${pkgs.vimPlugins.nvim-treesitter-parsers.${lang}}/parser/${lang}.so";
+      "nvim/site/queries/${lang}".source = "${pkgs.vimPlugins.nvim-treesitter}/runtime/queries/${lang}";
+    }) treesitterLangs
+  );
   devtools-flutter = with pkgs; [
     fvm # version manager
     cocoapods # need for flutter
@@ -364,6 +379,8 @@ in
     else
       { }
   );
+
+  xdg.dataFile = treesitterFiles;
 
   home.packages = lib.flatten [
     selfPackages
