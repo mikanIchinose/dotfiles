@@ -81,8 +81,9 @@ let
   ];
   treesitterFiles = lib.mergeAttrsList (
     map (lang: {
-      "nvim/site/parser/${lang}.so".source =
-        "${pkgs.vimPlugins.nvim-treesitter-parsers.${lang}}/parser/${lang}.so";
+      "nvim/site/parser/${lang}.so".source = "${
+        pkgs.vimPlugins.nvim-treesitter-parsers.${lang}
+      }/parser/${lang}.so";
       "nvim/site/queries/${lang}".source = "${pkgs.vimPlugins.nvim-treesitter}/runtime/queries/${lang}";
     }) treesitterLangs
   );
